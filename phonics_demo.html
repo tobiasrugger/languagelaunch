@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Phonics Demo · book</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@700;900&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root {
+  --cream: #fdf8f0;
+  --ink: #1c2333;
+  --muted: #7a849a;
+  --line: #e4ddd0;
+  --blue: #2b6be8;
+  --green: #18a862;
+  --orange: #f07820;
+  --red: #e84040;
+  --purple: #7c3af0;
+  --blue-bg: #f0f5ff;
+  --green-bg: #edfbf4;
+  --orange-bg: #fff5eb;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Nunito', sans-serif;
+  background: var(--cream);
+  color: var(--ink);
+  min-height: 100vh;
+  padding: 20px 16px 60px;
+  background-image: repeating-linear-gradient(transparent, transparent 27px, rgba(180,170,155,0.15) 28px);
+}
+.container { max-width: 520px; margin: 0 auto; }
+
+h1 {
+  font-family: 'Fraunces', serif; font-size: 1.05rem; font-weight: 700;
+  color: var(--muted); text-align: center; margin-bottom: 20px;
+  text-transform: uppercase; letter-spacing: 2px;
+}
+
+/* ── VOICE SELECTOR ── */
+.voice-bar {
+  background: white; border: 2px solid var(--line); border-radius: 14px;
+  padding: 12px 16px; margin-bottom: 20px;
+  display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
+}
+.voice-bar label { font-size: 0.75rem; font-weight: 800; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; white-space: nowrap; }
+.voice-bar select {
+  font-family: 'Nunito', sans-serif; font-size: 0.85rem; font-weight: 700;
+  padding: 6px 10px; border-radius: 10px; border: 2px solid var(--line);
+  background: var(--cream); color: var(--ink); cursor: pointer; outline: none; flex: 1; min-width: 0;
+}
+.voice-note { font-size: 0.73rem; color: var(--muted); width: 100%; margin-top: 2px; }
+
+/* ── WORD DISPLAY ── */
+.word-card {
+  background: white; border: 2.5px solid var(--line); border-radius: 18px;
+  overflow: hidden; box-shadow: 0 3px 18px rgba(28,35,51,0.08);
+  margin-bottom: 16px;
+}
+.word-card-top {
+  background: linear-gradient(125deg, #1a56cc, #2b6be8);
+  padding: 20px; display: flex; align-items: center; gap: 14px;
+}
+.word-big { font-family: 'Fraunces', serif; font-size: 3.5rem; font-weight: 900; color: white; line-height: 1; }
+.word-meta { color: rgba(255,255,255,0.85); }
+.word-meta .ipa  { font-size: 1.1rem; font-weight: 700; margin-bottom: 2px; }
+.word-meta .pos  { font-size: 0.72rem; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; opacity: 0.75; }
+.word-def { padding: 14px 16px; font-size: 0.9rem; color: var(--ink); line-height: 1.5; border-bottom: 1px solid var(--line); }
+
+/* hear full word */
+.hear-full {
+  padding: 12px 16px;
+  display: flex; align-items: center; gap: 10px;
+}
+.btn-hear {
+  display: flex; align-items: center; gap: 6px;
+  padding: 8px 18px; border-radius: 20px; border: none;
+  font-family: 'Nunito', sans-serif; font-weight: 800; font-size: 0.9rem;
+  cursor: pointer; transition: all 0.15s;
+}
+.btn-hear-word { background: var(--blue); color: white; }
+.btn-hear-word:hover { background: #1a4fbe; transform: translateY(-1px); }
+.btn-hear-slow { background: var(--orange-bg); color: var(--orange); border: 2px solid var(--orange); }
+.btn-hear-slow:hover { background: var(--orange); color: white; }
+.btn-hear.playing { opacity: 0.6; pointer-events: none; }
+
+/* ── PHONEME BREAKDOWN ── */
+.breakdown-label {
+  padding: 14px 16px 8px;
+  font-size: 0.7rem; font-weight: 900; text-transform: uppercase; letter-spacing: 2px;
+  color: var(--muted); border-top: 2px dashed var(--line);
+}
+
+.phoneme-steps { padding: 0 12px 16px; display: flex; flex-direction: column; gap: 10px; }
+
+.ph-row {
+  background: var(--cream); border: 2px solid var(--line); border-radius: 14px;
+  padding: 14px; transition: border-color 0.2s, background 0.2s;
+}
+.ph-row.active { border-color: var(--blue); background: var(--blue-bg); }
+.ph-row.done   { border-color: var(--green); background: var(--green-bg); }
+
+.ph-top { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+.ph-letter {
+  font-family: 'Fraunces', serif; font-size: 2rem; font-weight: 900;
+  width: 52px; height: 52px; border-radius: 12px;
+  display: flex; align-items: center; justify-content: center;
+  background: white; border: 2.5px solid var(--line); flex-shrink: 0;
+  transition: all 0.2s;
+}
+.ph-row.active .ph-letter { border-color: var(--blue); color: var(--blue); box-shadow: 0 0 0 3px rgba(43,107,232,0.15); }
+.ph-row.done   .ph-letter { border-color: var(--green); color: var(--green); }
+
+.ph-info { flex: 1; }
+.ph-name-row { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; margin-bottom: 3px; }
+.ph-label { font-size: 0.65rem; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; color: var(--muted); }
+.ph-name { font-family: 'Fraunces', serif; font-size: 1rem; font-weight: 900; color: var(--ink); }
+.ph-badge {
+  font-size: 0.62rem; font-weight: 800; text-transform: uppercase; letter-spacing: 1px;
+  padding: 2px 7px; border-radius: 20px;
+}
+.badge-name  { background: #dbeafe; color: #1e40af; }
+.badge-sound { background: #d1fae5; color: #065f46; }
+
+.ph-rule {
+  font-size: 0.8rem; color: var(--ink); line-height: 1.4;
+  background: white; border-radius: 8px; padding: 8px 10px;
+  border-left: 3px solid var(--blue); margin-bottom: 8px;
+}
+.ph-row.done .ph-rule { border-left-color: var(--green); }
+
+/* hear buttons row */
+.ph-btns { display: flex; gap: 6px; flex-wrap: wrap; }
+.btn-ph {
+  display: flex; align-items: center; gap: 5px;
+  padding: 6px 14px; border-radius: 20px; border: 2px solid;
+  font-family: 'Nunito', sans-serif; font-size: 0.78rem; font-weight: 800;
+  cursor: pointer; transition: all 0.15s; background: white;
+}
+.btn-ph-name  { border-color: var(--blue);  color: var(--blue); }
+.btn-ph-name:hover  { background: var(--blue);  color: white; }
+.btn-ph-sound { border-color: var(--green); color: var(--green); }
+.btn-ph-sound:hover { background: var(--green); color: white; }
+.btn-ph.playing { opacity: 0.5; pointer-events: none; }
+
+/* check mark */
+.ph-done-mark { color: var(--green); font-size: 1.1rem; margin-left: auto; display: none; }
+.ph-row.done .ph-done-mark { display: block; }
+
+/* ── SELF CHECK / RECORD ── */
+.practice-zone {
+  padding: 14px 16px; border-top: 2px dashed var(--line);
+  background: var(--orange-bg);
+}
+.practice-label { font-size: 0.7rem; font-weight: 900; text-transform: uppercase; letter-spacing: 2px; color: var(--orange); margin-bottom: 10px; }
+.practice-steps { display: flex; flex-direction: column; gap: 8px; }
+.practice-step { font-size: 0.85rem; color: var(--ink); font-weight: 600; display: flex; align-items: flex-start; gap: 8px; }
+.step-num { width: 22px; height: 22px; border-radius: 50%; background: var(--orange); color: white; font-size: 0.7rem; font-weight: 900; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px; }
+
+.btn-record {
+  display: flex; align-items: center; gap: 7px;
+  padding: 10px 20px; border-radius: 20px; border: 2px solid var(--red);
+  background: white; color: var(--red);
+  font-family: 'Nunito', sans-serif; font-size: 0.9rem; font-weight: 800;
+  cursor: pointer; transition: all 0.15s; margin-top: 10px;
+}
+.btn-record:hover { background: var(--red); color: white; }
+.btn-record.recording { background: var(--red); color: white; animation: pulse 1s ease-in-out infinite; }
+@keyframes pulse { 0%,100% { transform: scale(1); } 50% { transform: scale(1.03); } }
+
+.playback-row { margin-top: 10px; display: none; align-items: center; gap: 8px; }
+.playback-row.show { display: flex; }
+.self-check { font-size: 0.82rem; font-weight: 700; color: var(--ink); }
+.selfcheck-btns { display: flex; gap: 6px; margin-top: 8px; }
+.btn-sc {
+  padding: 7px 16px; border-radius: 20px; border: 2px solid var(--line);
+  background: white; font-family: 'Nunito', sans-serif; font-size: 0.82rem; font-weight: 800;
+  cursor: pointer; transition: all 0.15s; color: var(--ink);
+}
+.btn-sc:hover { border-color: var(--blue); color: var(--blue); }
+.btn-sc.chosen-yes { border-color: var(--green); background: var(--green-bg); color: var(--green); }
+.btn-sc.chosen-retry { border-color: var(--orange); background: var(--orange-bg); color: var(--orange); }
+
+.record-note { font-size: 0.72rem; color: var(--muted); margin-top: 6px; font-style: italic; }
+
+/* ── PROGRESS DOTS ── */
+.ph-progress {
+  display: flex; gap: 6px; padding: 10px 16px; justify-content: center;
+  border-top: 1px solid var(--line);
+}
+.ph-dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: var(--line); transition: background 0.3s;
+}
+.ph-dot.done { background: var(--green); }
+.ph-dot.active { background: var(--blue); }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <h1>🧪 Phonics Demo · Option B</h1>
+
+  <!-- Voice selector -->
+  <div class="voice-bar">
+    <label for="voicesel">🔊 Voice:</label>
+    <select id="voicesel"></select>
+    <div class="voice-note">Try a few voices — quality varies a lot by device and browser.</div>
+  </div>
+
+  <!-- Word card -->
+  <div class="word-card">
+
+    <!-- Top: word + IPA -->
+    <div class="word-card-top">
+      <div class="word-big">book</div>
+      <div class="word-meta">
+        <div class="ipa">/bʊk/</div>
+        <div class="pos">noun</div>
+      </div>
+    </div>
+
+    <!-- Definition -->
+    <div class="word-def">
+      A <strong>book</strong> has pages with words and pictures. You read a book at school.
+    </div>
+
+    <!-- Hear full word -->
+    <div class="hear-full">
+      <button class="btn-hear btn-hear-word" onclick="hearWord('book', 0.85, this)">🔊 Hear "book"</button>
+      <button class="btn-hear btn-hear-slow" onclick="hearWord('book', 0.45, this)">🐢 Hear slowly</button>
+    </div>
+
+    <!-- Phoneme breakdown header -->
+    <div class="breakdown-label">🔍 Let's look inside the word</div>
+
+    <!-- Progress dots -->
+    <div class="ph-progress">
+      <div class="ph-dot active" id="dot-0"></div>
+      <div class="ph-dot" id="dot-1"></div>
+      <div class="ph-dot" id="dot-2"></div>
+    </div>
+
+    <!-- Phoneme steps -->
+    <div class="phoneme-steps">
+
+      <!-- B -->
+      <div class="ph-row active" id="ph-0">
+        <div class="ph-top">
+          <div class="ph-letter">b</div>
+          <div class="ph-info">
+            <div class="ph-name-row">
+              <span class="ph-label">Letter</span>
+              <span class="ph-name">B</span>
+              <span class="ph-badge badge-name">Name: "bee"</span>
+              <span class="ph-badge badge-sound">Sound: "buh"</span>
+            </div>
+          </div>
+          <div class="ph-done-mark">✅</div>
+        </div>
+        <div class="ph-rule">
+          The letter <strong>b</strong> almost always makes the "buh" sound — like in <em>bat, bed, big, book, bus</em>. Its name is "bee" but its sound is "buh."
+        </div>
+        <div class="ph-btns">
+          <button class="btn-ph btn-ph-name"  onclick="hearPhoneme('name',  'bee',  this, 0)">🔤 Name: "bee"</button>
+          <button class="btn-ph btn-ph-sound" onclick="hearPhoneme('sound', 'buh buh buh bat bed book', this, 0)">🔊 Sound: "buh"</button>
+        </div>
+      </div>
+
+      <!-- OO -->
+      <div class="ph-row" id="ph-1">
+        <div class="ph-top">
+          <div class="ph-letter">oo</div>
+          <div class="ph-info">
+            <div class="ph-name-row">
+              <span class="ph-label">Letters</span>
+              <span class="ph-name">OO</span>
+              <span class="ph-badge badge-name">Name: "oh-oh"</span>
+              <span class="ph-badge badge-sound">Sound: "uh" (short)</span>
+            </div>
+          </div>
+          <div class="ph-done-mark">✅</div>
+        </div>
+        <div class="ph-rule">
+          <strong>Tricky rule!</strong> "oo" has two sounds: <em>long "oo"</em> like in <em>moon, food, cool</em> — and <em>short "uh"</em> like in <em>book, look, cook, good</em>. In "book," it's the short "uh" sound (like putting your foot down).
+        </div>
+        <div class="ph-btns">
+          <button class="btn-ph btn-ph-name"  onclick="hearPhoneme('name',  'oh oh', this, 1)">🔤 Name: "oh-oh"</button>
+          <button class="btn-ph btn-ph-sound" onclick="hearPhoneme('sound', 'uh... book, look, cook, good', this, 1)">🔊 Short sound: "uh"</button>
+          <button class="btn-ph btn-ph-sound" onclick="hearPhoneme('sound', 'oo... moon, food, cool', this, 1)" style="border-color:var(--purple);color:var(--purple)">🌕 Long sound: "oo"</button>
+        </div>
+      </div>
+
+      <!-- K -->
+      <div class="ph-row" id="ph-2">
+        <div class="ph-top">
+          <div class="ph-letter">k</div>
+          <div class="ph-info">
+            <div class="ph-name-row">
+              <span class="ph-label">Letter</span>
+              <span class="ph-name">K</span>
+              <span class="ph-badge badge-name">Name: "kay"</span>
+              <span class="ph-badge badge-sound">Sound: "kuh"</span>
+            </div>
+          </div>
+          <div class="ph-done-mark">✅</div>
+        </div>
+        <div class="ph-rule">
+          The letter <strong>k</strong> makes the "kuh" sound. In the word "book," the letter <strong>c</strong> also makes this sound (like in <em>cat, cup, car</em>). Its name is "kay" but its sound is "kuh."
+        </div>
+        <div class="ph-btns">
+          <button class="btn-ph btn-ph-name"  onclick="hearPhoneme('name',  'kay', this, 2)">🔤 Name: "kay"</button>
+          <button class="btn-ph btn-ph-sound" onclick="hearPhoneme('sound', 'kuh kuh kuh king keep book', this, 2)">🔊 Sound: "kuh"</button>
+        </div>
+      </div>
+
+    </div><!-- /phoneme-steps -->
+
+    <!-- Practice / record zone -->
+    <div class="practice-zone">
+      <div class="practice-label">🎙️ Your turn — practice saying it</div>
+      <div class="practice-steps">
+        <div class="practice-step"><div class="step-num">1</div><span>Listen to the full word one more time ↑</span></div>
+        <div class="practice-step"><div class="step-num">2</div><span>Tap record and say: <strong>"book"</strong></span></div>
+        <div class="practice-step"><div class="step-num">3</div><span>Listen back — does it sound right to you?</span></div>
+      </div>
+
+      <button class="btn-record" id="recordBtn" onclick="toggleRecord()">🎙️ Tap to Record</button>
+      <div class="record-note" id="recordNote">Recording uses your microphone. Nothing is saved — this is just for you to hear yourself.</div>
+
+      <div class="playback-row" id="playbackRow">
+        <audio id="playbackAudio" controls style="flex:1;height:36px;"></audio>
+      </div>
+
+      <div id="selfCheckZone" style="display:none;margin-top:12px;">
+        <div class="self-check">How did it sound?</div>
+        <div class="selfcheck-btns">
+          <button class="btn-sc" id="sc-yes"   onclick="selfCheck('yes')">👍 Good — I said it!</button>
+          <button class="btn-sc" id="sc-retry" onclick="selfCheck('retry')">🔁 Let me try again</button>
+        </div>
+        <div id="sc-feedback" style="font-size:0.82rem;margin-top:8px;font-weight:700;min-height:18px;"></div>
+      </div>
+    </div>
+
+  </div><!-- /word-card -->
+
+  <div style="background:white;border:2px solid var(--line);border-radius:14px;padding:16px;font-size:0.82rem;color:var(--muted);line-height:1.6;">
+    <strong style="color:var(--ink);">⚠️ This is a TTS (Option B) demo.</strong> The phoneme sounds are produced by feeding short phrases
+    to the browser's speech engine at slow rate — not isolated phonemes. Quality depends heavily on which voice your device uses.
+    Try the voice selector above to compare. In the full build, your recorded audio (Option C) would replace the TTS buttons.
+  </div>
+
+</div><!-- /container -->
+
+<script>
+/* ── VOICE SETUP ── */
+let voices = [];
+let selectedVoice = null;
+
+function loadVoices() {
+  voices = window.speechSynthesis.getVoices().filter(v => v.lang.startsWith('en'));
+  const sel = document.getElementById('voicesel');
+  sel.innerHTML = voices.map((v, i) =>
+    `<option value="${i}">${v.name} (${v.lang})${v.default ? ' ★' : ''}</option>`
+  ).join('');
+  // Default to first en-US voice
+  const usIdx = voices.findIndex(v => v.lang === 'en-US');
+  sel.value = usIdx >= 0 ? usIdx : 0;
+  selectedVoice = voices[sel.value];
+  sel.onchange = () => { selectedVoice = voices[sel.value]; };
+}
+
+window.speechSynthesis.onvoiceschanged = loadVoices;
+loadVoices();
+
+/* ── SPEECH ── */
+function speak(text, rate, btn) {
+  window.speechSynthesis.cancel();
+  const u = new SpeechSynthesisUtterance(text);
+  u.lang = 'en-US';
+  u.rate = rate || 0.85;
+  if (selectedVoice) u.voice = selectedVoice;
+  if (btn) {
+    btn.classList.add('playing');
+    u.onend = () => btn.classList.remove('playing');
+    u.onerror = () => btn.classList.remove('playing');
+  }
+  window.speechSynthesis.speak(u);
+}
+
+function hearWord(word, rate, btn) {
+  speak(word, rate, btn);
+}
+
+function hearPhoneme(type, text, btn, phIdx) {
+  // Mark the row as active
+  document.querySelectorAll('.ph-row').forEach((r,i) => {
+    r.classList.toggle('active', i === phIdx);
+  });
+  document.querySelectorAll('.ph-dot').forEach((d,i) => {
+    d.classList.toggle('active', i === phIdx);
+  });
+
+  const rate = type === 'name' ? 0.7 : 0.6;
+  speak(text, rate, btn);
+
+  // Mark done after listening
+  setTimeout(() => {
+    document.getElementById('ph-' + phIdx).classList.add('done');
+    document.getElementById('dot-' + phIdx).classList.add('done');
+  }, 1200);
+}
+
+/* ── RECORDING ── */
+let mediaRecorder = null;
+let audioChunks   = [];
+let isRecording   = false;
+
+async function toggleRecord() {
+  const btn  = document.getElementById('recordBtn');
+  const note = document.getElementById('recordNote');
+
+  if (!isRecording) {
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+      audioChunks  = [];
+      mediaRecorder = new MediaRecorder(stream);
+      mediaRecorder.ondataavailable = e => audioChunks.push(e.data);
+      mediaRecorder.onstop = () => {
+        const blob = new Blob(audioChunks, { type: 'audio/webm' });
+        const url  = URL.createObjectURL(blob);
+        const audio = document.getElementById('playbackAudio');
+        audio.src = url;
+        document.getElementById('playbackRow').classList.add('show');
+        document.getElementById('selfCheckZone').style.display = 'block';
+        // reset self-check state
+        document.getElementById('sc-yes').className   = 'btn-sc';
+        document.getElementById('sc-retry').className = 'btn-sc';
+        document.getElementById('sc-feedback').textContent = '';
+        stream.getTracks().forEach(t => t.stop());
+      };
+      mediaRecorder.start();
+      isRecording = true;
+      btn.textContent = '⏹️ Stop Recording';
+      btn.classList.add('recording');
+      note.textContent = 'Recording… say "book" clearly, then tap Stop.';
+    } catch(err) {
+      note.textContent = '⚠️ Microphone not available — check browser permissions.';
+    }
+  } else {
+    mediaRecorder.stop();
+    isRecording = false;
+    btn.textContent = '🎙️ Record Again';
+    btn.classList.remove('recording');
+    note.textContent = 'Listen back below ↓';
+  }
+}
+
+function selfCheck(choice) {
+  const yesBtn   = document.getElementById('sc-yes');
+  const retryBtn = document.getElementById('sc-retry');
+  const fb       = document.getElementById('sc-feedback');
+  yesBtn.className   = 'btn-sc' + (choice==='yes'   ? ' chosen-yes'   : '');
+  retryBtn.className = 'btn-sc' + (choice==='retry' ? ' chosen-retry' : '');
+  if (choice === 'yes') {
+    fb.style.color = '#18a862';
+    fb.textContent = '✅ Nice work! Keep practicing and it gets easier.';
+  } else {
+    fb.style.color = '#f07820';
+    fb.textContent = '🔁 No problem — listen to the word again, then try recording once more.';
+  }
+}
+</script>
+</body>
+</html>
