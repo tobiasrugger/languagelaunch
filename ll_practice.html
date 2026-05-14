@@ -1,0 +1,1145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Language Launch · Practice</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@700;900&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #f0f4fa;
+  --card: #ffffff;
+  --ink: #1a2332;
+  --muted: #6b7a90;
+  --border: #dde5f0;
+  --blue: #2563eb;
+  --blue-dk: #1d4ed8;
+  --blue-lt: #dbeafe;
+  --green: #16a34a;
+  --green-lt: #dcfce7;
+  --red: #dc2626;
+  --red-lt: #fee2e2;
+  --amber: #d97706;
+  --amber-lt: #fef3c7;
+  --purple: #7c3aed;
+  --purple-lt: #ede9fe;
+  --r: 16px;
+  --r-sm: 10px;
+  --sh: 0 2px 16px rgba(37,99,235,.09);
+  --sh-lg: 0 6px 32px rgba(37,99,235,.14);
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--ink);min-height:100vh;}
+
+/* ── SCREENS ── */
+.screen{display:none;min-height:100vh;}
+.screen.active{display:block;}
+
+/* ── LOGIN ── */
+#screen-login{
+  display:flex;align-items:center;justify-content:center;
+  min-height:100vh;
+  background:linear-gradient(135deg,#1e3a8a 0%,#2563eb 50%,#7c3aed 100%);
+  padding:20px;
+}
+.login-card{
+  background:var(--card);border-radius:24px;padding:36px 32px;
+  width:100%;max-width:420px;box-shadow:0 20px 60px rgba(0,0,0,.25);
+}
+.login-logo{font-family:'Fraunces',serif;font-size:1.8rem;font-weight:900;color:var(--blue);text-align:center;margin-bottom:4px;}
+.login-logo em{color:var(--purple);font-style:normal;}
+.login-sub{text-align:center;font-size:.82rem;color:var(--muted);margin-bottom:28px;font-weight:600;text-transform:uppercase;letter-spacing:1px;}
+.form-group{margin-bottom:16px;}
+.form-label{display:block;font-size:.75rem;font-weight:800;text-transform:uppercase;letter-spacing:1px;color:var(--muted);margin-bottom:6px;}
+.form-input,.form-select{
+  width:100%;padding:11px 14px;border:2px solid var(--border);border-radius:var(--r-sm);
+  font-family:'Nunito',sans-serif;font-size:.95rem;font-weight:700;color:var(--ink);
+  background:var(--bg);outline:none;transition:border-color .15s;
+}
+.form-input:focus,.form-select:focus{border-color:var(--blue);}
+.form-select option{background:#fff;}
+.btn-login{
+  width:100%;padding:13px;border-radius:var(--r-sm);border:none;
+  background:linear-gradient(135deg,var(--blue),var(--purple));
+  color:#fff;font-family:'Nunito',sans-serif;font-size:1rem;font-weight:900;
+  cursor:pointer;transition:all .18s;margin-top:8px;
+  box-shadow:0 4px 16px rgba(37,99,235,.35);
+}
+.btn-login:hover{transform:translateY(-2px);box-shadow:0 6px 24px rgba(37,99,235,.45);}
+.login-err{color:var(--red);font-size:.82rem;font-weight:700;text-align:center;margin-top:8px;min-height:18px;}
+.login-hint{text-align:center;font-size:.75rem;color:var(--muted);margin-top:16px;}
+
+/* ── HEADER (student) ── */
+.student-header{
+  background:linear-gradient(135deg,#1e3a8a,#2563eb);
+  padding:12px 18px;display:flex;align-items:center;justify-content:space-between;
+  position:sticky;top:0;z-index:100;box-shadow:0 2px 12px rgba(0,0,0,.2);
+  flex-wrap:wrap;gap:8px;
+}
+.hdr-left{display:flex;align-items:center;gap:10px;}
+.hdr-logo{font-family:'Fraunces',serif;font-size:1.1rem;font-weight:900;color:#fff;}
+.hdr-logo em{color:#fbbf24;font-style:normal;}
+.hdr-user{font-size:.75rem;font-weight:700;color:#bfdbfe;text-transform:uppercase;letter-spacing:.5px;}
+.score-badge{
+  background:rgba(255,255,255,.15);border:2px solid rgba(255,255,255,.25);
+  border-radius:20px;padding:4px 14px;
+  font-size:.85rem;font-weight:900;color:#fff;
+  display:flex;align-items:center;gap:6px;
+}
+.score-badge .score-num{font-size:1.1rem;color:#fbbf24;}
+
+/* ── MAIN CONTENT ── */
+.content-wrap{max-width:660px;margin:0 auto;padding:20px 16px 60px;}
+
+/* ── ASSIGNMENT LIST ── */
+.section-title{
+  font-family:'Fraunces',serif;font-size:1.3rem;font-weight:900;color:var(--ink);
+  margin-bottom:4px;
+}
+.section-sub{font-size:.82rem;color:var(--muted);font-weight:600;margin-bottom:18px;}
+
+.assignment-card{
+  background:var(--card);border:2px solid var(--border);border-radius:var(--r);
+  padding:18px;margin-bottom:12px;cursor:pointer;
+  box-shadow:var(--sh);transition:all .18s;
+  display:flex;align-items:center;gap:14px;
+}
+.assignment-card:hover{transform:translateY(-2px);box-shadow:var(--sh-lg);border-color:var(--blue);}
+.assignment-card.completed{border-color:var(--green);background:linear-gradient(135deg,#f0fdf4,#fff);}
+.assignment-card.locked{opacity:.5;cursor:default;pointer-events:none;}
+.asgn-icon{
+  width:48px;height:48px;border-radius:12px;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;font-size:1.4rem;
+}
+.asgn-icon.blue{background:var(--blue-lt);}
+.asgn-icon.green{background:var(--green-lt);}
+.asgn-icon.amber{background:var(--amber-lt);}
+.asgn-icon.purple{background:var(--purple-lt);}
+.asgn-body{flex:1;min-width:0;}
+.asgn-title{font-weight:800;font-size:1rem;color:var(--ink);margin-bottom:2px;}
+.asgn-meta{font-size:.75rem;color:var(--muted);font-weight:600;}
+.asgn-right{text-align:right;flex-shrink:0;}
+.asgn-pct{
+  font-size:1.3rem;font-weight:900;
+  color:var(--green);
+}
+.asgn-pct.zero{color:var(--muted);}
+.asgn-status{font-size:.7rem;font-weight:800;text-transform:uppercase;letter-spacing:.5px;color:var(--muted);}
+.asgn-status.done{color:var(--green);}
+
+/* progress mini bar */
+.mini-bar{height:4px;background:var(--border);border-radius:2px;margin-top:6px;overflow:hidden;}
+.mini-fill{height:100%;background:var(--green);border-radius:2px;transition:width .4s;}
+
+/* ── QUESTION SCREEN ── */
+.q-header{
+  background:var(--card);border-bottom:2px solid var(--border);
+  padding:14px 18px;display:flex;align-items:center;justify-content:space-between;
+  position:sticky;top:0;z-index:50;
+}
+.q-assignment-name{font-weight:800;font-size:.9rem;color:var(--ink);}
+.q-progress-text{font-size:.78rem;font-weight:700;color:var(--muted);}
+.q-progress-bar{height:4px;background:var(--border);margin:0 18px;}
+.q-progress-fill{height:100%;background:var(--blue);transition:width .3s;}
+
+.question-wrap{max-width:600px;margin:0 auto;padding:20px 16px 60px;}
+
+.q-card{
+  background:var(--card);border:2px solid var(--border);border-radius:var(--r);
+  padding:22px;margin-bottom:16px;box-shadow:var(--sh);
+}
+.q-type-label{
+  font-size:.65rem;font-weight:900;text-transform:uppercase;letter-spacing:2px;
+  color:var(--blue);margin-bottom:10px;display:flex;align-items:center;gap:5px;
+}
+.q-prompt{font-size:1.05rem;font-weight:700;color:var(--ink);line-height:1.5;margin-bottom:16px;}
+.q-prompt strong{color:var(--blue);font-family:'Fraunces',serif;font-size:1.2rem;}
+
+/* MC options */
+.mc-opts{display:flex;flex-direction:column;gap:8px;}
+.mc-opt{
+  padding:11px 14px;border-radius:var(--r-sm);border:2px solid var(--border);
+  background:var(--card);font-family:'Nunito',sans-serif;font-size:.92rem;
+  font-weight:700;color:var(--ink);cursor:pointer;text-align:left;
+  transition:all .15s;
+}
+.mc-opt:hover:not(:disabled){border-color:var(--blue);background:var(--blue-lt);}
+.mc-opt.correct{border-color:var(--green);background:var(--green-lt);color:#166534;}
+.mc-opt.wrong{border-color:var(--red);background:var(--red-lt);color:#991b1b;}
+.mc-opt.reveal{border-color:var(--green);background:var(--green-lt);color:#166534;}
+.mc-opt:disabled{cursor:default;}
+
+/* TF */
+.tf-opts{display:flex;gap:10px;}
+.tf-opt{
+  flex:1;padding:13px;border-radius:var(--r-sm);border:2px solid var(--border);
+  background:var(--card);font-family:'Nunito',sans-serif;font-size:1rem;
+  font-weight:800;cursor:pointer;transition:all .15s;
+  display:flex;align-items:center;justify-content:center;gap:6px;
+}
+.tf-opt:hover:not(:disabled){border-color:var(--blue);background:var(--blue-lt);}
+.tf-opt.correct{border-color:var(--green);background:var(--green-lt);color:#166534;}
+.tf-opt.wrong{border-color:var(--red);background:var(--red-lt);color:#991b1b;}
+.tf-opt:disabled{cursor:default;}
+
+/* FIB */
+.fib-sentence{font-size:1.05rem;font-weight:700;line-height:2.2;color:var(--ink);margin-bottom:6px;}
+.fib-blank{
+  display:inline-block;border:none;border-bottom:3px solid var(--blue);
+  width:120px;font-family:'Nunito',sans-serif;font-size:1rem;font-weight:800;
+  color:var(--blue);background:transparent;text-align:center;outline:none;
+  transition:border-color .15s;padding:0 4px;
+}
+.fib-blank:focus{border-bottom-color:var(--purple);}
+.fib-blank.correct{border-bottom-color:var(--green);color:var(--green);}
+.fib-blank.wrong{border-bottom-color:var(--red);color:var(--red);}
+.word-bank-row{display:flex;flex-wrap:wrap;gap:7px;margin-top:10px;
+  padding:10px;background:var(--blue-lt);border-radius:var(--r-sm);}
+.wb-chip{
+  padding:5px 12px;border-radius:20px;background:var(--card);
+  border:1.5px solid var(--blue);color:var(--blue);
+  font-size:.82rem;font-weight:800;cursor:pointer;
+  font-family:'Nunito',sans-serif;transition:all .15s;
+}
+.wb-chip:hover{background:var(--blue);color:#fff;}
+.wb-chip.used{opacity:.3;pointer-events:none;}
+
+/* feedback row */
+.q-feedback{
+  margin-top:12px;font-size:.88rem;font-weight:700;min-height:22px;
+  display:flex;align-items:flex-start;gap:7px;flex-wrap:wrap;
+}
+.q-feedback.ok{color:var(--green);}
+.q-feedback.err{color:var(--red);}
+
+/* AI feedback panel */
+.ai-panel{
+  margin-top:12px;background:linear-gradient(135deg,#f5f3ff,#ede9fe);
+  border:2px solid #c4b5fd;border-radius:var(--r-sm);padding:14px;
+  display:none;animation:fadeIn .3s ease;
+}
+.ai-panel.show{display:block;}
+@keyframes fadeIn{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}
+.ai-label{font-size:.65rem;font-weight:900;text-transform:uppercase;letter-spacing:1.5px;color:var(--purple);margin-bottom:6px;}
+.ai-text{font-size:.88rem;color:var(--ink);line-height:1.6;font-weight:600;}
+.ai-text-native{font-size:.88rem;color:var(--purple);line-height:1.6;font-weight:700;margin-top:6px;}
+.ai-loading{color:var(--purple);font-style:italic;font-size:.85rem;}
+
+/* teacher feedback row (read-only for student) */
+.teacher-fb-row{
+  margin-top:12px;padding:10px 12px;background:#fffbeb;
+  border:1.5px solid #fde68a;border-radius:var(--r-sm);
+  display:none;
+}
+.teacher-fb-row.show{display:flex;gap:10px;align-items:flex-start;flex-wrap:wrap;}
+.t-score-pill{
+  background:#fef3c7;border:1.5px solid #fbbf24;border-radius:20px;
+  padding:3px 11px;font-size:.8rem;font-weight:900;color:#92400e;white-space:nowrap;
+}
+.t-comment{font-size:.82rem;font-weight:600;color:var(--ink);line-height:1.5;}
+
+/* next button */
+.btn-next{
+  display:flex;align-items:center;justify-content:center;gap:7px;
+  padding:12px 28px;border-radius:var(--r-sm);border:none;
+  background:var(--blue);color:#fff;font-family:'Nunito',sans-serif;
+  font-size:.95rem;font-weight:900;cursor:pointer;
+  transition:all .18s;margin-top:16px;
+  box-shadow:0 4px 14px rgba(37,99,235,.3);
+}
+.btn-next:hover{background:var(--blue-dk);transform:translateY(-1px);}
+.btn-next:disabled{opacity:.4;pointer-events:none;}
+
+/* ── SCORE SCREEN ── */
+#screen-score{background:var(--bg);}
+.score-screen-wrap{max-width:560px;margin:0 auto;padding:30px 16px 60px;}
+.score-hero{
+  background:linear-gradient(135deg,#16a34a,#0d9488);
+  border-radius:var(--r);padding:32px 28px;text-align:center;
+  box-shadow:var(--sh-lg);margin-bottom:20px;color:#fff;
+}
+.score-hero.partial{background:linear-gradient(135deg,var(--amber),#f59e0b);}
+.score-hero.low{background:linear-gradient(135deg,var(--blue),var(--purple));}
+.score-emoji{font-size:3rem;margin-bottom:8px;}
+.score-main{font-family:'Fraunces',serif;font-size:3.5rem;font-weight:900;line-height:1;}
+.score-label{font-size:.85rem;opacity:.85;margin-top:4px;}
+.score-assignment{font-size:1rem;font-weight:700;opacity:.9;margin-bottom:16px;}
+
+.score-breakdown{background:var(--card);border-radius:var(--r);padding:20px;box-shadow:var(--sh);margin-bottom:16px;}
+.breakdown-title{font-weight:800;font-size:.88rem;text-transform:uppercase;letter-spacing:1px;color:var(--muted);margin-bottom:12px;}
+.breakdown-item{
+  display:flex;align-items:center;gap:10px;padding:8px 0;
+  border-bottom:1px solid var(--border);font-size:.88rem;
+}
+.breakdown-item:last-child{border-bottom:none;}
+.bi-icon{width:22px;text-align:center;flex-shrink:0;}
+.bi-text{flex:1;font-weight:600;color:var(--ink);}
+.bi-result{font-weight:800;font-size:.82rem;}
+.bi-result.ok{color:var(--green);}
+.bi-result.err{color:var(--red);}
+
+.btn-retry,.btn-home{
+  width:100%;padding:13px;border-radius:var(--r-sm);border:none;
+  font-family:'Nunito',sans-serif;font-size:.95rem;font-weight:900;
+  cursor:pointer;transition:all .18s;margin-bottom:10px;
+}
+.btn-retry{background:var(--blue);color:#fff;box-shadow:0 4px 14px rgba(37,99,235,.3);}
+.btn-retry:hover{background:var(--blue-dk);}
+.btn-home{background:var(--card);color:var(--ink);border:2px solid var(--border);}
+.btn-home:hover{border-color:var(--blue);color:var(--blue);}
+
+/* ── RESPONSIVE ── */
+@media(max-width:420px){
+  .login-card{padding:28px 20px;}
+  .login-logo{font-size:1.5rem;}
+  .tf-opt{padding:10px 8px;font-size:.9rem;}
+}
+</style>
+</head>
+<body>
+
+<!-- LOGIN SCREEN -->
+<div id="screen-login" class="screen active">
+  <div class="login-card">
+    <div class="login-logo">Language <em>Launch</em></div>
+    <div class="login-sub">Galileo Academy · Practice</div>
+    <div class="form-group">
+      <label class="form-label" for="inp-period">Your Period</label>
+      <select class="form-select" id="inp-period">
+        <option value="">— select your period —</option>
+        <option value="P1">Period 1</option>
+        <option value="P2">Period 2</option>
+        <option value="P3">Period 3</option>
+        <option value="P5">Period 5</option>
+        <option value="P6">Period 6</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label class="form-label" for="inp-name">First Name</label>
+      <input class="form-input" id="inp-name" type="text" placeholder="e.g. Maria" autocomplete="off" autocorrect="off">
+    </div>
+    <div class="form-group">
+      <label class="form-label" for="inp-username">Username</label>
+      <input class="form-input" id="inp-username" type="text" placeholder="your school username" autocomplete="off" autocorrect="off" autocapitalize="off">
+    </div>
+    <div class="form-group">
+      <label class="form-label" for="inp-lang">Your Language</label>
+      <select class="form-select" id="inp-lang">
+        <option value="">— select language —</option>
+        <option value="Spanish">Spanish</option>
+        <option value="Cantonese">Cantonese</option>
+        <option value="Mandarin">Mandarin</option>
+        <option value="Arabic">Arabic</option>
+        <option value="Vietnamese">Vietnamese</option>
+        <option value="Russian">Russian</option>
+        <option value="Darija">Darija (Moroccan Arabic)</option>
+        <option value="Urdu">Urdu</option>
+        <option value="Tagalog">Tagalog</option>
+        <option value="French">French</option>
+        <option value="Korean">Korean</option>
+        <option value="Hindi">Hindi</option>
+        <option value="Somali">Somali</option>
+        <option value="Nepali">Nepali</option>
+      </select>
+    </div>
+    <button class="btn-login" onclick="attemptLogin()">Enter →</button>
+    <div class="login-err" id="login-err"></div>
+    <div class="login-hint">Type "teacher" as your username to access the dashboard.</div>
+  </div>
+</div>
+
+<!-- STUDENT HOME SCREEN -->
+<div id="screen-home" class="screen">
+  <header class="student-header">
+    <div class="hdr-left">
+      <div>
+        <div class="hdr-logo">Language <em>Launch</em></div>
+        <div class="hdr-user" id="hdr-user-label">— —</div>
+      </div>
+    </div>
+    <div class="score-badge">
+      <span>⭐</span>
+      <span class="score-num" id="hdr-total-score">0</span>
+      <span style="font-size:.7rem;opacity:.8">pts</span>
+    </div>
+  </header>
+  <div class="content-wrap">
+    <div class="section-title" id="home-greeting">Welcome!</div>
+    <div class="section-sub">Choose an assignment to practice.</div>
+    <div id="assignment-list">
+      <!-- populated by JS -->
+    </div>
+  </div>
+</div>
+
+<!-- QUESTION SCREEN -->
+<div id="screen-question" class="screen">
+  <header class="student-header">
+    <div class="hdr-left">
+      <div>
+        <div class="hdr-logo">Language <em>Launch</em></div>
+        <div class="hdr-user" id="q-user-label">— —</div>
+      </div>
+    </div>
+    <div class="score-badge">
+      <span>⭐</span>
+      <span class="score-num" id="q-total-score">0</span>
+      <span style="font-size:.7rem;opacity:.8">pts</span>
+    </div>
+  </header>
+  <div class="q-header">
+    <div class="q-assignment-name" id="q-asgn-name">—</div>
+    <div class="q-progress-text" id="q-prog-text">1 / 20</div>
+  </div>
+  <div class="q-progress-bar"><div class="q-progress-fill" id="q-prog-fill" style="width:0%"></div></div>
+  <div class="question-wrap" id="question-wrap">
+    <!-- populated by JS -->
+  </div>
+</div>
+
+<!-- SCORE SCREEN -->
+<div id="screen-score" class="screen">
+  <header class="student-header">
+    <div class="hdr-left">
+      <div>
+        <div class="hdr-logo">Language <em>Launch</em></div>
+        <div class="hdr-user" id="sc-user-label">— —</div>
+      </div>
+    </div>
+    <div class="score-badge">
+      <span>⭐</span>
+      <span class="score-num" id="sc-total-score">0</span>
+      <span style="font-size:.7rem;opacity:.8">pts</span>
+    </div>
+  </header>
+  <div class="score-screen-wrap" id="score-screen-wrap">
+    <!-- populated by JS -->
+  </div>
+</div>
+
+<script>
+/* ════════════════════════════════════════════
+   CONFIG
+════════════════════════════════════════════ */
+const SUPA_URL = 'https://lhmwtfyceilgndpygivj.supabase.co';
+const SUPA_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImxobXd0ZnljZWlsZ25kcHlnaXZqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzYxMzk5MDIsImV4cCI6MjA5MTcxNTkwMn0.0uIXyctHMfTN4doWYn2JJ260swD5b-t0T-oDMSIPtBU';
+const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwbFr3oopIITlxKDhI5wGhEZdomWc3tmB5ZSK6NpBVisPAz-CMA4uKiruXDkCEU3T0Q/exec';
+const DASHBOARD_URL = 'll_dashboard.html';
+
+/* ── PLACEHOLDER ROSTER (replace with real data later) ─────────
+   Format: { username: { name: 'First', period: 'P1' } }
+   Special: 'teacher' → redirect to dashboard
+            'other'   → guest access                        */
+const ROSTER = {
+  'teacher': { name: 'Teacher', period: null, special: 'teacher' },
+  'other':   { name: 'Guest',   period: null, special: 'other' },
+  // ── REAL STUDENTS GO HERE ── replace these placeholders
+  'student1': { name: 'placeholder', period: 'P1' },
+  'student2': { name: 'placeholder', period: 'P1' },
+  'student3': { name: 'placeholder', period: 'P2' },
+  // ADD ALL 60 STUDENTS HERE WHEN TOBY UPLOADS THE PDF
+};
+
+/* ════════════════════════════════════════════
+   ASSIGNMENTS — configured by teacher in dashboard
+   Stored in Supabase; seeded here as defaults
+   Each assignment: {
+     id, title, emoji, color,
+     units: ['U1','U2',...],
+     questionCount: 20,
+     aiEnabled: false,
+     active: true
+   }
+════════════════════════════════════════════ */
+const DEFAULT_ASSIGNMENTS = [
+  { id:'asgn-u1',   title:'Unit 1: Welcome to School', emoji:'🏫', color:'blue',   units:['U1'], questionCount:20, aiEnabled:false, active:true },
+  { id:'asgn-u2',   title:'Unit 2: Getting to Know You', emoji:'👋', color:'green',  units:['U2'], questionCount:20, aiEnabled:false, active:true },
+  { id:'asgn-u3',   title:'Unit 3: Community Voices',  emoji:'🏘️', color:'amber',  units:['U3'], questionCount:20, aiEnabled:false, active:true },
+  { id:'asgn-u4',   title:'Unit 4: On the Map',        emoji:'🗺️', color:'purple', units:['U4'], questionCount:20, aiEnabled:false, active:true },
+  { id:'asgn-u5',   title:'Unit 5: What in the World?',emoji:'🌍', color:'blue',   units:['U5'], questionCount:20, aiEnabled:false, active:true },
+  { id:'asgn-u6',   title:'Unit 6: Our Cultures',      emoji:'🎎', color:'green',  units:['U6'], questionCount:20, aiEnabled:false, active:true },
+  { id:'asgn-mix',  title:'Mixed Review: Units 1–4',   emoji:'🎯', color:'amber',  units:['U1','U2','U3','U4'], questionCount:25, aiEnabled:false, active:true },
+  { id:'asgn-mix56',title:'Mixed Review: Units 5–6',   emoji:'🌐', color:'purple', units:['U5','U6'], questionCount:20, aiEnabled:false, active:true },
+  { id:'asgn-final',title:'Final Review: All Units',   emoji:'⭐', color:'blue',   units:['U1','U2','U3','U4','U5','U6'], questionCount:30, aiEnabled:false, active:false },
+];
+
+/* ════════════════════════════════════════════
+   VOCAB DATA (from index.html — same source)
+════════════════════════════════════════════ */
+const VOCAB = {
+  U1:[
+    {word:"school",def:"A place where you can learn and grow.",defA:"A place to learn.",emoji:"🏫",lesson:"L1",tr:{es:"escuela",ar:"مدرسة",zh:"学校",ru:"школа",ur:"اسکول",vi:"trường học"}},
+    {word:"students",def:"People who learn at a school.",defA:"People who learn.",emoji:"🧑‍🎓",lesson:"L1",tr:{es:"estudiantes",ar:"طالب",zh:"学生们",vi:"học sinh",ru:"ученики",ur:"طلبہ"}},
+    {word:"teacher",def:"A person who helps you learn.",defA:"A person who teaches.",emoji:"👩‍🏫",lesson:"L1",tr:{es:"maestro/a",ar:"المعلم",zh:"老师",vi:"giáo viên",ru:"учитель",ur:"استاد"}},
+    {word:"friends",def:"People you like to spend time with.",defA:"People you like.",emoji:"🤝",lesson:"L1",tr:{es:"amigos/as",ar:"أصدقاء",zh:"朋友",vi:"bạn/bạn bè",ru:"друзья",ur:"دوست"}},
+    {word:"principal",def:"The leader of a school.",defA:"The leader of the school.",emoji:"👔",lesson:"L1",tr:{es:"director/a",ar:"ناظر",zh:"校长",vi:"hiệu trưởng",ru:"директор",ur:"پرنسپل"}},
+    {word:"name",def:"The word people use to identify you.",defA:"What people call you.",emoji:"🪪",lesson:"L2",tr:{es:"nombre",ar:"اسم",zh:"名字",vi:"tên",ru:"имя",ur:"نام"}},
+    {word:"hello",def:"A word you say to greet someone.",defA:"A greeting word.",emoji:"👋",lesson:"L2",tr:{es:"hola",ar:"مرحبا",zh:"你好",vi:"xin chào",ru:"привет",ur:"سلام"}},
+    {word:"goodbye",def:"A word you say when you leave.",defA:"A word for leaving.",emoji:"👋",lesson:"L2",tr:{es:"adiós",ar:"مع السلامة",zh:"再见",vi:"tạm biệt",ru:"до свидания",ur:"خدا حافظ"}},
+    {word:"thank you",def:"Words you say to show you are grateful.",defA:"Words to show thanks.",emoji:"🙏",lesson:"L2",tr:{es:"gracias",ar:"أشكرك",zh:"谢谢",vi:"cảm ơn",ru:"спасибо",ur:"شکریہ"}},
+    {word:"classroom",def:"The room where students learn.",defA:"The room where you learn.",emoji:"🏛️",lesson:"L3",tr:{es:"aula",ar:"فصل",zh:"教室",vi:"phòng học",ru:"классная комната",ur:"جماعت"}},
+    {word:"library",def:"A place with many books to read or borrow.",defA:"A place with books.",emoji:"📚",lesson:"L3",tr:{es:"biblioteca",ar:"مكتبة",zh:"图书馆",vi:"thư viện",ru:"библиотека",ur:"کتب خانہ"}},
+    {word:"cafeteria",def:"The place at school where students eat.",defA:"Where students eat.",emoji:"🍽️",lesson:"L3",tr:{es:"cafetería",ar:"كافيتريا",zh:"食堂",vi:"căng-tin",ru:"столовая",ur:"کینٹین"}},
+    {word:"gym",def:"A large room for sports and exercise.",defA:"A room for sports.",emoji:"🏃",lesson:"L3",tr:{es:"gimnasio",ar:"صالة ألعاب",zh:"体育馆",vi:"phòng tập thể dục",ru:"спортивный зал",ur:"جم"}},
+    {word:"backpack",def:"A bag you carry on your back to hold school supplies.",defA:"A bag for school things.",emoji:"🎒",lesson:"L4",tr:{es:"mochila",ar:"حقيبة ظهر",zh:"双肩背包",vi:"ba lô",ru:"рюкзак",ur:"بستہ"}},
+    {word:"notebook",def:"A book with blank pages for writing notes.",defA:"A book for writing.",emoji:"📓",lesson:"L4",tr:{es:"cuaderno",ar:"كراسة",zh:"笔记本",vi:"vở",ru:"блокнот",ur:"کاپی"}},
+    {word:"pencil",def:"A tool for writing that can be erased.",defA:"A tool for writing.",emoji:"✏️",lesson:"L4",tr:{es:"lápiz",ar:"قلم رصاص",zh:"铅笔",vi:"bút chì",ru:"карандаш",ur:"پنسل"}},
+    {word:"computer",def:"A machine used to write, learn, and find information.",defA:"A machine for learning.",emoji:"💻",lesson:"L4",tr:{es:"computadora",ar:"كمبيوتر",zh:"电脑",vi:"máy tính",ru:"компьютер",ur:"کمپیوٹر"}},
+    {word:"math",def:"The study of numbers, shapes, and patterns.",defA:"The study of numbers.",emoji:"➕",lesson:"L5",tr:{es:"matemáticas",ar:"رياضيات",zh:"数学",vi:"toán",ru:"математика",ur:"ریاضی"}},
+    {word:"science",def:"The study of the natural world.",defA:"The study of nature.",emoji:"🔬",lesson:"L5",tr:{es:"ciencias",ar:"علوم",zh:"科学",vi:"khoa học",ru:"естествознание",ur:"سائنس"}},
+    {word:"read",def:"To understand written words.",defA:"To understand words.",emoji:"📖",lesson:"L8",tr:{es:"leer",ar:"يقرأ",zh:"阅读",vi:"đọc",ru:"читать",ur:"پڑھنا"}},
+    {word:"write",def:"To put words or letters on paper.",defA:"To put words on paper.",emoji:"✍️",lesson:"L8",tr:{es:"escribir",ar:"يكتب",zh:"书写",vi:"viết",ru:"писать",ur:"لکھنا"}},
+    {word:"listen",def:"To pay attention to sounds or words.",defA:"To hear carefully.",emoji:"👂",lesson:"L8",tr:{es:"escuchar",ar:"يسمع",zh:"听",vi:"nghe",ru:"слушать",ur:"سننا"}},
+    {word:"left",def:"The direction opposite to right.",defA:"The opposite of right.",emoji:"⬅️",lesson:"L7",tr:{es:"izquierda",ar:"يسار",zh:"向左",vi:"trái",ru:"лево",ur:"بائیں"}},
+    {word:"right",def:"The direction opposite to left.",defA:"The opposite of left.",emoji:"➡️",lesson:"L7",tr:{es:"derecha",ar:"يمين",zh:"向右",vi:"phải",ru:"право",ur:"دائیں"}},
+  ],
+  U2:[
+    {word:"talent",def:"A natural ability to do something well.",defA:"Something you do well.",emoji:"⭐",lesson:"L1",tr:{es:"talento",ar:"موهبة",zh:"才能",vi:"tài năng",ru:"талант",ur:"ہنر"}},
+    {word:"interest",def:"Something you enjoy learning about or doing.",defA:"Something you like.",emoji:"❤️",lesson:"L1",tr:{es:"interés",ar:"اهتمام",zh:"兴趣",vi:"sở thích",ru:"интерес",ur:"دلچسپی"}},
+    {word:"brave",def:"Not afraid to do hard or scary things.",defA:"Not afraid.",emoji:"🦁",lesson:"L3",tr:{es:"valiente",ar:"شجاع",zh:"勇敢",vi:"dũng cảm",ru:"храбрый",ur:"بہادر"}},
+    {word:"curious",def:"Having a strong desire to learn or know things.",defA:"Wanting to learn.",emoji:"🔍",lesson:"L3",tr:{es:"curioso/a",ar:"فضولي",zh:"好奇的",vi:"hiếu kỳ",ru:"любопытный",ur:"متجسس"}},
+    {word:"kind",def:"Caring and gentle toward others.",defA:"Nice to other people.",emoji:"💛",lesson:"L3",tr:{es:"amable",ar:"عطوف",zh:"善良",vi:"tốt bụng",ru:"добрый",ur:"مہربان"}},
+    {word:"birthday",def:"The day each year that you celebrate being born.",defA:"Your special day each year.",emoji:"🎂",lesson:"L4",tr:{es:"cumpleaños",ar:"عيد الميلاد",zh:"生日",vi:"sinh nhật",ru:"день рождения",ur:"سالگرہ"}},
+    {word:"today",def:"This current day.",defA:"Right now — this day.",emoji:"📍",lesson:"L4",tr:{es:"hoy",ar:"اليوم",zh:"今天",vi:"hôm nay",ru:"сегодня",ur:"آج"}},
+    {word:"weather",def:"The conditions outside, like rain, sun, or wind.",defA:"What it is like outside.",emoji:"🌤️",lesson:"L5",tr:{es:"clima",ar:"الطقس",zh:"天气",vi:"thời tiết",ru:"погода",ur:"موسم"}},
+    {word:"sunny",def:"When the sky is clear and the sun is shining.",defA:"The sun is shining.",emoji:"☀️",lesson:"L5",tr:{es:"soleado/a",ar:"مشمس",zh:"晴朗的",vi:"có nắng",ru:"солнечный",ur:"دھوپ والا"}},
+    {word:"rainy",def:"When water falls from clouds.",defA:"It is raining.",emoji:"🌧️",lesson:"L5",tr:{es:"lluvioso/a",ar:"ممطر",zh:"下雨的",vi:"có mưa",ru:"дождливый",ur:"بارش والا"}},
+    {word:"cold",def:"Having a low temperature.",defA:"Not warm.",emoji:"❄️",lesson:"L5",tr:{es:"frío/a",ar:"بارد",zh:"寒冷",vi:"lạnh",ru:"холодный"}},
+    {word:"cook",def:"To prepare food by heating it.",defA:"To make food with heat.",emoji:"🍳",lesson:"L6",tr:{es:"cocinar",ar:"يطبخ",zh:"烹饪",vi:"nấu ăn",ru:"готовить",ur:"پکانا"}},
+    {word:"dance",def:"To move your body to music.",defA:"To move to music.",emoji:"💃",lesson:"L6",tr:{es:"bailar",ar:"يرقص",zh:"跳舞",vi:"nhảy",ru:"танцевать",ur:"ناچنا"}},
+    {word:"spring",def:"The season after winter when things get warmer.",defA:"The warm season after winter.",emoji:"🌸",lesson:"L9",tr:{es:"primavera",ar:"الربيع",zh:"春季",vi:"mùa xuân",ru:"весна",ur:"بہار"}},
+    {word:"summer",def:"The hottest season of the year.",defA:"The hottest season.",emoji:"☀️",lesson:"L9",tr:{es:"verano",ar:"الصيف",zh:"夏季",vi:"mùa hè",ru:"лето",ur:"گرمی"}},
+    {word:"fall",def:"The season after summer when leaves change color.",defA:"The season with falling leaves.",emoji:"🍂",lesson:"L9",tr:{es:"otoño",ar:"الخريف",zh:"秋季",vi:"mùa thu",ru:"осень",ur:"خزاں"}},
+    {word:"winter",def:"The coldest season of the year.",defA:"The coldest season.",emoji:"❄️",lesson:"L9",tr:{es:"invierno",ar:"الشتاء",zh:"冬季",vi:"mùa đông",ru:"зима",ur:"سردی"}},
+    {word:"happy",def:"Feeling pleased and glad.",defA:"Feeling good.",emoji:"😊",lesson:"L8",tr:{es:"feliz",ar:"سعيد",zh:"开心",vi:"hạnh phúc",ru:"счастливый",ur:"خوش"}},
+    {word:"angry",def:"Feeling very upset or mad.",defA:"Feeling very mad.",emoji:"😠",lesson:"L8",tr:{es:"enojado/a",ar:"غاضب",zh:"生气",vi:"giận",ru:"злиться",ur:"غصہ"}},
+    {word:"remember",def:"To keep something in your memory.",defA:"To keep in your mind.",emoji:"🧠",lesson:"L2",tr:{es:"recordar",ar:"يتذكر",zh:"记住",vi:"nhớ",ru:"вспоминать",ur:"یاد رکھنا"}},
+  ],
+  U3:[
+    {word:"neighborhood",def:"The area around where you live.",defA:"The area near your home.",emoji:"🏘️",lesson:"L1",tr:{es:"vecindario",ar:"حي",zh:"附近",vi:"khu dân cư",ru:"район",ur:"محلہ"}},
+    {word:"community",def:"A group of people who live and work in the same area.",defA:"People who live together.",emoji:"👥",lesson:"L1",tr:{es:"comunidad",ar:"مجتمع",zh:"社区",vi:"cộng đồng",ru:"сообщество",ur:"برادری"}},
+    {word:"city",def:"A large place where many people live and work.",defA:"A big place with many people.",emoji:"🌆",lesson:"L2",tr:{es:"ciudad",ar:"مدينة",zh:"城市",vi:"thành phố",ru:"город",ur:"شہر"}},
+    {word:"home",def:"The place where you live.",defA:"Where you live.",emoji:"🏠",lesson:"L2",tr:{es:"hogar",ar:"بيت",zh:"家",vi:"nhà",ru:"дом",ur:"گھر"}},
+    {word:"bus",def:"A large vehicle that carries many people along a set route.",defA:"A big vehicle for many people.",emoji:"🚌",lesson:"L3",tr:{es:"autobús",ar:"حافلة",zh:"公交车",vi:"xe buýt",ru:"автобус",ur:"بس"}},
+    {word:"walk",def:"To move on foot from one place to another.",defA:"To move on your feet.",emoji:"🚶",lesson:"L3",tr:{es:"caminar",ar:"يمشي",zh:"步行",vi:"đi bộ",ru:"ходить пешком",ur:"چلنا"}},
+    {word:"near",def:"A short distance away.",defA:"Close, not far.",emoji:"📍",lesson:"L3",tr:{es:"cerca",ar:"بالقرب من",zh:"靠近",vi:"gần",ru:"рядом",ur:"قریب"}},
+    {word:"far",def:"A long distance away.",defA:"Not close.",emoji:"↔️",lesson:"L3",tr:{es:"lejos",ar:"بعيد",zh:"很远",vi:"xa",ru:"далеко",ur:"دور"}},
+    {word:"doctor",def:"A person trained to treat illness and injury.",defA:"A person who treats sickness.",emoji:"🩺",lesson:"L7",tr:{es:"doctor/a",ar:"طبيب",zh:"医生",vi:"bác sĩ",ru:"врач",ur:"ڈاکٹر"}},
+    {word:"hospital",def:"A building where sick or hurt people get medical care.",defA:"Where sick people get help.",emoji:"🏥",lesson:"L7",tr:{es:"hospital",ar:"مستشفى",zh:"医院",ru:"больница",ur:"ہسپتال"}},
+    {word:"healthy",def:"In good physical condition, not sick.",defA:"Not sick — feeling good.",emoji:"💪",lesson:"L7",tr:{es:"sano/a",ar:"بصحة جيدة",zh:"健康",vi:"khỏe mạnh",ru:"здоровый",ur:"صحت مند"}},
+    {word:"bill",def:"Paper money used to buy things.",defA:"Paper money.",emoji:"💵",lesson:"L5",tr:{es:"billete",ar:"ورقة نقدية",zh:"钞票",vi:"giấy bạc",ru:"счёт",ur:"بل"}},
+    {word:"buy",def:"To pay money for something.",defA:"To pay money for something.",emoji:"🛍️",lesson:"L5",tr:{es:"comprar",ar:"يشتري",zh:"买",vi:"mua",ru:"покупать",ur:"خریدنا"}},
+    {word:"firefighter",def:"A person trained to put out fires.",defA:"A person who fights fires.",emoji:"🧑‍🚒",lesson:"L7",tr:{es:"bombero/a",zh:"消防员",vi:"lính cứu hỏa",ru:"пожарный",ur:"فائر فائٹر"}},
+    {word:"government",def:"The group of people who make rules for a country or city.",defA:"People who make rules.",emoji:"🏛️",lesson:"L6",tr:{es:"gobierno",ar:"حكومة",zh:"政府",vi:"chính quyền",ru:"правительство",ur:"حکومت"}},
+    {word:"education",def:"The process of learning at school.",defA:"Learning at school.",emoji:"🎓",lesson:"L6",tr:{es:"educación",ar:"تعليم",zh:"教育",vi:"giáo dục",ru:"образование",ur:"تعلیم"}},
+    {word:"hurricane",def:"A very powerful storm with strong winds and rain.",defA:"A very powerful storm.",emoji:"🌀",lesson:"L8",tr:{es:"huracán",ar:"إعصار",zh:"飓风",vi:"bão nhiệt đới",ru:"ураган",ur:"طوفان"}},
+    {word:"donate",def:"To give something to help others.",defA:"To give to help others.",emoji:"❤️",lesson:"L6",tr:{es:"donar",ar:"يتبرع",zh:"捐赠",vi:"quyên góp",ru:"жертвовать",ur:"عطیہ دینا"}},
+  ],
+  U4:[
+    {word:"map",def:"A flat image showing where places are located.",defA:"Shows where places are.",emoji:"🗺️",lesson:"L1",tr:{es:"mapa",ar:"خريطة",zh:"地图",vi:"bản đồ",ru:"карта",ur:"نقشہ"}},
+    {word:"Earth",def:"The planet we live on.",defA:"Our planet.",emoji:"🌍",lesson:"L1",tr:{ur:"زمین"}},
+    {word:"continent",def:"One of the seven large landmasses on our planet.",defA:"A very big area of land.",emoji:"🌍",lesson:"L2",tr:{es:"continente",ar:"قارة",zh:"大陆",vi:"lục địa",ru:"континент",ur:"براعظم"}},
+    {word:"ocean",def:"A very large body of salt water.",defA:"A very big area of water.",emoji:"🌊",lesson:"L2",tr:{es:"océano",ar:"محيط",zh:"海洋",vi:"đại dương",ru:"океан",ur:"سمندر"}},
+    {word:"mountain",def:"A massive, raised area of land.",defA:"Very tall raised land.",emoji:"⛰️",lesson:"L3",tr:{es:"montaña",ar:"جبل",zh:"山",vi:"núi",ru:"гора",ur:"پہاڑ"}},
+    {word:"river",def:"A large stream of fresh water that flows into an ocean.",defA:"Moving fresh water.",emoji:"🏞️",lesson:"L3",tr:{es:"río",ar:"نهر",zh:"河流",ru:"река",ur:"دریا"}},
+    {word:"island",def:"A piece of land completely surrounded by water.",defA:"Land with water all around.",emoji:"🏝️",lesson:"L5",tr:{es:"isla",ar:"جزيرة",zh:"岛屿",vi:"hòn đảo",ru:"остров",ur:"جزیرہ"}},
+    {word:"climate",def:"The typical weather patterns in a place over many years.",defA:"The usual weather over many years.",emoji:"🌤️",lesson:"L4",tr:{es:"clima",ar:"المناخ",zh:"气候",vi:"khí hậu",ru:"климат",ur:"موسم"}},
+    {word:"tropical",def:"Wet and warm all year — found near the equator.",defA:"Hot and wet all year.",emoji:"🌴",lesson:"L4",tr:{es:"tropical",ar:"استوائي",zh:"热带",vi:"nhiệt đới",ru:"тропический",ur:"اشنکٹبندیی"}},
+    {word:"population",def:"The total number of people in a place.",defA:"How many people live somewhere.",emoji:"👥",lesson:"L9",tr:{es:"población",ar:"عدد السكان",zh:"人口",vi:"dân số",ru:"население",ur:"آبادی"}},
+    {word:"migrate",def:"To move permanently from one country to another.",defA:"To move to a new country.",emoji:"✈️",lesson:"L11",tr:{es:"migrar",ar:"يهاجر",zh:"移居",vi:"di cư",ru:"мигрировать",ur:"ہجرت کرنا"}},
+    {word:"capital",def:"The city where a government is based.",defA:"The government's city.",emoji:"🏛️",lesson:"L6",tr:{es:"capital",ar:"عاصمة",zh:"首都",vi:"thủ đô",ru:"столица",ur:"دارالحکومت"}},
+    {word:"border",def:"A line where one country or state ends and another begins.",defA:"A line between places.",emoji:"📍",lesson:"L6",tr:{es:"frontera",ar:"حد",zh:"边界",vi:"biên giới",ru:"граница",ur:"سرحد"}},
+    {word:"coast",def:"The strip of land along the edge of an ocean.",defA:"Land along the ocean.",emoji:"🌊",lesson:"L6",tr:{es:"costa",ar:"ساحل",zh:"海岸",vi:"bờ biển",ru:"берег",ur:"ساحل"}},
+    {word:"distance",def:"How far apart two places are.",defA:"How far apart two places are.",emoji:"📏",lesson:"L8",tr:{es:"distancia",ar:"مسافة",zh:"距离",vi:"khoảng cách",ru:"расстояние",ur:"فاصلہ"}},
+    {word:"lost",def:"Not knowing where you are or where to go.",defA:"Not knowing where you are.",emoji:"😕",lesson:"L1",tr:{es:"perdido/a",ar:"تائه",zh:"迷路的",vi:"lạc đường",ru:"потерянный",ur:"گم"}},
+  ],
+  U5:[
+    {word:"animal",def:"A living thing that moves and needs food and water to survive.",defA:"A living thing that moves.",emoji:"🐾",lesson:"L1",tr:{es:"animal",ar:"حيوان",zh:"动物",vi:"động vật",ru:"животное",ur:"جانور"}},
+    {word:"extinct",def:"When all animals of one type have died and are gone forever.",defA:"Gone forever — no more left.",emoji:"🦕",lesson:"L1",tr:{es:"extinto",ar:"منقرض",zh:"灭绝",vi:"tuyệt chủng",ru:"вымерший",ur:"معدوم"}},
+    {word:"endangered",def:"When very few animals of one type are still alive.",defA:"Almost extinct — very few left.",emoji:"🐢",lesson:"L1",tr:{es:"en peligro",ar:"مهدد بالانقراض",zh:"濒危",vi:"có nguy cơ tuyệt chủng",ru:"исчезающий",ur:"خطرے میں"}},
+    {word:"habitat",def:"The natural place where an animal or plant lives.",defA:"Where an animal lives in nature.",emoji:"🌿",lesson:"L1",tr:{es:"hábitat",ar:"موطن",zh:"栖息地",vi:"môi trường sống",ru:"среда обитания",ur:"مسکن"}},
+    {word:"environment",def:"The natural world around us — land, water, air, plants, and animals.",defA:"The world around us.",emoji:"🌍",lesson:"L1",tr:{es:"medio ambiente",ar:"البيئة",zh:"环境",vi:"môi trường",ru:"окружающая среда",ur:"ماحول"}},
+    {word:"ecosystem",def:"All the living things in a place and how they work together.",defA:"Living things sharing a place.",emoji:"🌱",lesson:"L2",tr:{es:"ecosistema",ar:"نظام بيئي",zh:"生态系统",vi:"hệ sinh thái",ru:"экосистема",ur:"ماحولیاتی نظام"}},
+    {word:"mammal",def:"A warm-blooded animal with fur or hair that feeds milk to its young.",defA:"A warm animal with fur or hair.",emoji:"🐻",lesson:"L4",tr:{es:"mamífero",ar:"ثدييات",zh:"哺乳动物",vi:"động vật có vú",ru:"млекопитающее",ur:"دودھ پلانے والا"}},
+    {word:"reptile",def:"A cold-blooded animal with scales, like a snake or lizard.",defA:"A cold-blooded animal with scales.",emoji:"🦎",lesson:"L4",tr:{es:"reptil",ar:"زواحف",zh:"爬行动物",vi:"bò sát",ru:"рептилия",ur:"رینگنے والا"}},
+    {word:"predator",def:"An animal that hunts and eats other animals.",defA:"An animal that hunts others.",emoji:"🦁",lesson:"L4",tr:{es:"depredador",ar:"مفترس",zh:"捕食者",vi:"động vật săn mồi",ru:"хищник",ur:"شکاری"}},
+    {word:"prey",def:"An animal that is hunted and eaten by a predator.",defA:"An animal that gets hunted.",emoji:"🐇",lesson:"L4",tr:{es:"presa",ar:"فريسة",zh:"猎物",vi:"con mồi",ru:"жертва",ur:"شکار"}},
+    {word:"herbivore",def:"An animal that eats only plants.",defA:"An animal that only eats plants.",emoji:"🐄",lesson:"L8",tr:{es:"herbívoro",ar:"آكل عشب",zh:"草食动物",vi:"động vật ăn cỏ",ru:"травоядное",ur:"گھاس خور"}},
+    {word:"carnivore",def:"An animal that eats only other animals.",defA:"An animal that only eats meat.",emoji:"🐺",lesson:"L8",tr:{es:"carnívoro",ar:"آكل لحوم",zh:"肉食动物",vi:"động vật ăn thịt",ru:"хищник",ur:"گوشت خور"}},
+    {word:"omnivore",def:"An animal that eats both plants and animals.",defA:"Eats plants AND animals.",emoji:"🐻",lesson:"L8",tr:{es:"omnívoro",ar:"آكل كل شيء",zh:"杂食动物",vi:"động vật ăn tạp",ru:"всеядное",ur:"ہر چیز کھانے والا"}},
+    {word:"renewable",def:"A resource that can be replaced or will not run out.",defA:"Can be replaced or refilled.",emoji:"♻️",lesson:"L9",tr:{es:"renovable",ar:"متجدد",zh:"可再生",vi:"tái tạo được",ru:"возобновляемый",ur:"قابل تجدید"}},
+    {word:"nonrenewable",def:"A resource that cannot be replaced once it is used up.",defA:"Cannot be replaced once used.",emoji:"⛽",lesson:"L9",tr:{es:"no renovable",ar:"غير متجدد",zh:"不可再生",vi:"không tái tạo được",ru:"невозобновляемый",ur:"غیر قابل تجدید"}},
+    {word:"pollution",def:"Harmful substances in the air, water, or land.",defA:"Harmful stuff in nature.",emoji:"🏭",lesson:"L11",tr:{es:"contaminación",ar:"تلوث",zh:"污染",vi:"ô nhiễm",ru:"загрязнение",ur:"آلودگی"}},
+    {word:"recycle",def:"To turn old materials into new products.",defA:"Turn old things into new things.",emoji:"♻️",lesson:"L12",tr:{es:"reciclar",ar:"يعيد التدوير",zh:"回收利用",vi:"tái chế",ru:"перерабатывать",ur:"ری سائیکل"}},
+    {word:"food chain",def:"The order in which animals eat plants and other animals.",defA:"The order of who eats what.",emoji:"⛓️",lesson:"L8",tr:{es:"cadena alimentaria",ar:"سلسلة غذائية",zh:"食物链",vi:"chuỗi thức ăn",ru:"пищевая цепочка",ur:"خوراک کی زنجیر"}},
+    {word:"forest",def:"A large area of land covered with trees and plants.",defA:"A large area with many trees.",emoji:"🌲",lesson:"L6",tr:{es:"bosque",ar:"غابة",zh:"森林",vi:"rừng",ru:"лес",ur:"جنگل"}},
+    {word:"desert",def:"A very dry area that gets very little rain.",defA:"A very dry, hot place.",emoji:"🏜️",lesson:"L6",tr:{es:"desierto",ar:"صحراء",zh:"沙漠",vi:"sa mạc",ru:"пустыня",ur:"صحرا"}},
+  ],
+  U6:[
+    {word:"relative",def:"A person who is part of your family.",defA:"A family member.",emoji:"👨‍👩‍👧‍👦",lesson:"L1",tr:{es:"familiar",ar:"قريب",zh:"亲戚",vi:"họ hàng",ru:"родственник",ur:"رشتہ دار"}},
+    {word:"sibling",def:"A brother or sister.",defA:"A brother or sister.",emoji:"👫",lesson:"L1",tr:{es:"hermano/a",ar:"أخ/أخت",zh:"兄弟姐妹",vi:"anh chị em",ru:"брат или сестра",ur:"بھائی یا بہن"}},
+    {word:"grandparent",def:"The parent of your mother or father.",defA:"Your parent's parent.",emoji:"👴",lesson:"L1",tr:{es:"abuelo/a",ar:"جد/جدة",zh:"祖父母",vi:"ông bà",ru:"дедушка или бабушка",ur:"دادا/نانا"}},
+    {word:"cousin",def:"The child of your aunt or uncle.",defA:"Your aunt or uncle's child.",emoji:"🧑",lesson:"L1",tr:{es:"primo/a",ar:"ابن/بنت العم",zh:"堂兄弟姐妹",vi:"anh chị em họ",ru:"двоюродный брат/сестра",ur:"چچا زاد"}},
+    {word:"culture",def:"The traditions, beliefs, food, and art shared by a group of people.",defA:"The traditions of a group of people.",emoji:"🌍",lesson:"L2",tr:{es:"cultura",ar:"ثقافة",zh:"文化",vi:"văn hóa",ru:"культура",ur:"ثقافت"}},
+    {word:"tradition",def:"A custom or practice passed down through generations.",defA:"A custom passed down in families.",emoji:"🎎",lesson:"L2",tr:{es:"tradición",ar:"تقليد",zh:"传统",vi:"truyền thống",ru:"традиция",ur:"روایت"}},
+    {word:"holiday",def:"A day of special celebration.",defA:"A special day to celebrate.",emoji:"🎉",lesson:"L2",tr:{es:"día festivo",ar:"عطلة",zh:"节日",vi:"ngày lễ",ru:"праздник",ur:"چھٹی"}},
+    {word:"recipe",def:"Instructions for how to prepare a food or drink.",defA:"Steps for making food.",emoji:"📝",lesson:"L3",tr:{es:"receta",ar:"وصفة",zh:"食谱",vi:"công thức nấu ăn",ru:"рецепт",ur:"ترکیب"}},
+    {word:"meal",def:"All the food eaten at one time, like breakfast or dinner.",defA:"All the food at one time.",emoji:"🍽️",lesson:"L3",tr:{es:"comida",ar:"وجبة",zh:"一餐",vi:"bữa ăn",ru:"приём пищи",ur:"کھانا"}},
+    {word:"instrument",def:"A tool used to make music, like a guitar or drum.",defA:"A tool to make music.",emoji:"🎸",lesson:"L4",tr:{es:"instrumento",ar:"آلة موسيقية",zh:"乐器",vi:"nhạc cụ",ru:"инструмент",ur:"ساز"}},
+    {word:"musician",def:"A person who plays or creates music.",defA:"A person who makes music.",emoji:"🎤",lesson:"L4",tr:{es:"músico",ar:"موسيقي",zh:"音乐家",vi:"nhạc sĩ",ru:"музыкант",ur:"موسیقار"}},
+    {word:"lyrics",def:"The words of a song.",defA:"The words of a song.",emoji:"📜",lesson:"L4",tr:{es:"letra",ar:"كلمات الأغنية",zh:"歌词",vi:"lời bài hát",ru:"слова",ur:"گیت کے بول"}},
+    {word:"painting",def:"A picture made with paint on a surface like canvas.",defA:"A picture made with paint.",emoji:"🎨",lesson:"L5",tr:{es:"pintura",ar:"لوحة",zh:"画",vi:"bức tranh",ru:"картина",ur:"تصویر"}},
+    {word:"calligraphy",def:"Beautiful decorative writing as an art form.",defA:"Beautiful artistic writing.",emoji:"✍️",lesson:"L5",tr:{es:"caligrafía",ar:"الخط العربي",zh:"书法",vi:"thư pháp",ru:"каллиграфия",ur:"خطاطی"}},
+    {word:"oral tradition",def:"Stories and knowledge passed down by speaking, not writing.",defA:"Stories passed down by talking.",emoji:"🗣️",lesson:"L6",tr:{es:"tradición oral",ar:"تقليد شفهي",zh:"口头传统",vi:"truyền miệng",ru:"устная традиция",ur:"زبانی روایت"}},
+    {word:"respect",def:"To treat someone or something with care and consideration.",defA:"To treat others with care.",emoji:"🤝",lesson:"L7",tr:{es:"respeto",ar:"احترام",zh:"尊重",vi:"tôn trọng",ru:"уважение",ur:"احترام"}},
+    {word:"unique",def:"One of a kind — different from everything else.",defA:"One of a kind.",emoji:"✨",lesson:"L7",tr:{es:"único",ar:"فريد",zh:"独特",vi:"độc đáo",ru:"уникальный",ur:"منفرد"}},
+    {word:"multicultural",def:"Including or representing many different cultures.",defA:"Having many different cultures.",emoji:"🌈",lesson:"L7",tr:{es:"multicultural",ar:"متعدد الثقافات",zh:"多元文化",vi:"đa văn hóa",ru:"многокультурный",ur:"کثیر الثقافتی"}},
+    {word:"hobby",def:"An activity you enjoy doing in your free time.",defA:"Something fun you do in your free time.",emoji:"🎯",lesson:"L8",tr:{es:"pasatiempo",ar:"هواية",zh:"爱好",vi:"sở thích",ru:"хобби",ur:"مشغلہ"}},
+    {word:"knowledge",def:"Facts and information you have learned.",defA:"Things you have learned.",emoji:"🧠",lesson:"L9",tr:{es:"conocimiento",ar:"معرفة",zh:"知识",vi:"kiến thức",ru:"знания",ur:"علم"}},
+  ]
+};
+
+/* ════════════════════════════════════════════
+   SESSION STATE
+════════════════════════════════════════════ */
+let SESSION = {
+  username: '', name: '', period: '', lang: '',
+  totalScore: 0,
+  isGuest: false
+};
+let CURRENT_ASSIGNMENT = null;
+let QUESTIONS = [];
+let Q_IDX = 0;
+let Q_RESULTS = []; // {word, correct, userAnswer, correctAnswer}
+let ASSIGNMENT_SCORES = {}; // asgnId → {score, total, pct, completed}
+
+/* ════════════════════════════════════════════
+   SUPABASE HELPERS
+════════════════════════════════════════════ */
+async function supaGet(table, query) {
+  try {
+    const r = await fetch(`${SUPA_URL}/rest/v1/${table}?${query}`, {
+      headers: { apikey: SUPA_KEY, Authorization: `Bearer ${SUPA_KEY}` }
+    });
+    return await r.json();
+  } catch(e) { return []; }
+}
+async function supaUpsert(table, data) {
+  try {
+    const r = await fetch(`${SUPA_URL}/rest/v1/${table}`, {
+      method: 'POST',
+      headers: {
+        apikey: SUPA_KEY, Authorization: `Bearer ${SUPA_KEY}`,
+        'Content-Type': 'application/json',
+        'Prefer': 'resolution=merge-duplicates,return=representation'
+      },
+      body: JSON.stringify(data)
+    });
+    return await r.json();
+  } catch(e) { return null; }
+}
+
+/* ════════════════════════════════════════════
+   LOGIN
+════════════════════════════════════════════ */
+function attemptLogin() {
+  const period = document.getElementById('inp-period').value;
+  const name   = document.getElementById('inp-name').value.trim();
+  const user   = document.getElementById('inp-username').value.trim().toLowerCase();
+  const lang   = document.getElementById('inp-lang').value;
+  const err    = document.getElementById('login-err');
+
+  if (!period) { err.textContent = 'Please select your period.'; return; }
+  if (!name)   { err.textContent = 'Please enter your first name.'; return; }
+  if (!user)   { err.textContent = 'Please enter your username.'; return; }
+  if (!lang)   { err.textContent = 'Please select your language.'; return; }
+
+  if (user === 'teacher') {
+    window.location.href = DASHBOARD_URL;
+    return;
+  }
+
+  const record = ROSTER[user];
+  if (!record && user !== 'other') {
+    err.textContent = 'Username not found. Check your spelling or ask your teacher.';
+    return;
+  }
+
+  SESSION.username = user;
+  SESSION.name = name;
+  SESSION.period = period;
+  SESSION.lang = lang;
+  SESSION.isGuest = (user === 'other');
+
+  showScreen('home');
+  loadStudentHome();
+}
+
+/* ════════════════════════════════════════════
+   HOME SCREEN
+════════════════════════════════════════════ */
+async function loadStudentHome() {
+  document.getElementById('hdr-user-label').textContent =
+    `${SESSION.name} · ${SESSION.period}`;
+  document.getElementById('home-greeting').textContent =
+    `Hi, ${SESSION.name}! 👋`;
+
+  // Load scores from Supabase
+  if (!SESSION.isGuest) {
+    await loadScores();
+  }
+
+  renderAssignmentList();
+}
+
+async function loadScores() {
+  const rows = await supaGet('ll_practice_scores',
+    `username=eq.${SESSION.username}&select=assignment_id,score,total,completed`);
+  if (Array.isArray(rows)) {
+    rows.forEach(r => {
+      ASSIGNMENT_SCORES[r.assignment_id] = {
+        score: r.score, total: r.total,
+        pct: r.total > 0 ? Math.round(r.score/r.total*100) : 0,
+        completed: r.completed
+      };
+    });
+  }
+  // Calculate total score
+  SESSION.totalScore = Object.values(ASSIGNMENT_SCORES)
+    .reduce((sum, s) => sum + (s.score || 0), 0);
+  updateScoreBadges();
+}
+
+function updateScoreBadges() {
+  ['hdr-total-score','q-total-score','sc-total-score'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.textContent = SESSION.totalScore;
+  });
+}
+
+function renderAssignmentList() {
+  const list = document.getElementById('assignment-list');
+  const active = DEFAULT_ASSIGNMENTS.filter(a => a.active);
+
+  list.innerHTML = active.map(a => {
+    const s = ASSIGNMENT_SCORES[a.id];
+    const pct = s ? s.pct : 0;
+    const done = s && s.completed;
+    const label = done ? 'Completed ✓' : (s && s.score > 0 ? 'In progress' : 'Not started');
+    const labelClass = done ? 'done' : '';
+
+    return `
+    <div class="assignment-card ${done ? 'completed' : ''}" onclick="startAssignment('${a.id}')">
+      <div class="asgn-icon ${a.color}">${a.emoji}</div>
+      <div class="asgn-body">
+        <div class="asgn-title">${a.title}</div>
+        <div class="asgn-meta">${a.questionCount} questions · ${a.units.join(', ')} · ${a.aiEnabled ? '🤖 AI feedback' : 'Practice mode'}</div>
+        <div class="mini-bar"><div class="mini-fill" style="width:${pct}%"></div></div>
+      </div>
+      <div class="asgn-right">
+        <div class="asgn-pct ${pct === 0 ? 'zero' : ''}">${pct > 0 ? pct+'%' : '—'}</div>
+        <div class="asgn-status ${labelClass}">${label}</div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+/* ════════════════════════════════════════════
+   QUESTION GENERATION
+════════════════════════════════════════════ */
+function buildQuestions(assignment) {
+  const pool = assignment.units.flatMap(u => VOCAB[u] || []);
+  const shuffled = shuffle([...pool]);
+  const selected = shuffled.slice(0, Math.min(assignment.questionCount, shuffled.length));
+
+  // Cycle question types: mc, tf, fib, mc, tf, fib...
+  const types = ['mc','tf','fib'];
+  return selected.map((word, i) => ({
+    word,
+    type: types[i % types.length],
+    pool,  // full pool for distractor generation
+    aiEnabled: assignment.aiEnabled
+  }));
+}
+
+function shuffle(arr) {
+  for (let i = arr.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+  return arr;
+}
+
+function getDistractors(word, pool, n) {
+  return shuffle(pool.filter(w => w.word !== word.word)).slice(0, n);
+}
+
+/* ════════════════════════════════════════════
+   ASSIGNMENT START
+════════════════════════════════════════════ */
+function startAssignment(id) {
+  const asgn = DEFAULT_ASSIGNMENTS.find(a => a.id === id);
+  if (!asgn) return;
+  CURRENT_ASSIGNMENT = asgn;
+  QUESTIONS = buildQuestions(asgn);
+  Q_IDX = 0;
+  Q_RESULTS = [];
+
+  document.getElementById('q-asgn-name').textContent = asgn.title;
+  document.getElementById('q-user-label').textContent = `${SESSION.name} · ${SESSION.period}`;
+
+  showScreen('question');
+  renderQuestion();
+}
+
+/* ════════════════════════════════════════════
+   QUESTION RENDERING
+════════════════════════════════════════════ */
+function renderQuestion() {
+  const q = QUESTIONS[Q_IDX];
+  const total = QUESTIONS.length;
+
+  // Progress
+  const pct = Math.round(Q_IDX / total * 100);
+  document.getElementById('q-prog-text').textContent = `${Q_IDX + 1} / ${total}`;
+  document.getElementById('q-prog-fill').style.width = pct + '%';
+
+  let html = '';
+  if (q.type === 'mc') html = renderMC(q);
+  else if (q.type === 'tf') html = renderTF(q);
+  else html = renderFIB(q);
+
+  document.getElementById('question-wrap').innerHTML = html;
+}
+
+function renderMC(q) {
+  const w = q.word;
+  const distractors = getDistractors(w, q.pool, 3);
+  const opts = shuffle([...distractors.map(d => ({text: d.def, correct: false})),
+                        {text: w.def, correct: true}]);
+  const optHtml = opts.map((o,i) =>
+    `<button class="mc-opt" onclick="checkMC(this,${o.correct})" data-correct="${o.correct}">
+      ${o.text}
+    </button>`).join('');
+
+  const trans = w.tr && SESSION.lang ? getTranslation(w) : '';
+
+  return `
+    <div class="q-card">
+      <div class="q-type-label">🎯 Multiple Choice</div>
+      <div class="q-prompt">What does <strong>${w.emoji} ${w.word}</strong> mean?
+        ${trans ? `<span style="display:block;font-size:.8rem;color:var(--muted);font-weight:600;margin-top:4px;">(${SESSION.lang}: ${trans})</span>` : ''}
+      </div>
+      <div class="mc-opts">${optHtml}</div>
+      <div class="q-feedback" id="q-fb"></div>
+      ${q.aiEnabled ? `<div class="ai-panel" id="ai-panel"></div>` : ''}
+      ${renderTeacherFeedback(q)}
+    </div>
+    <button class="btn-next" id="btn-next" onclick="nextQuestion()" disabled>Next →</button>`;
+}
+
+function renderTF(q) {
+  const w = q.word;
+  const isTrue = Math.random() > 0.5;
+  let statement, explanation;
+  if (isTrue) {
+    statement = w.def;
+    explanation = '✅ Correct! ' + w.def;
+  } else {
+    const other = getDistractors(w, q.pool, 1)[0] || q.pool[0];
+    statement = `"${w.word}" means: ${other.def}`;
+    explanation = `❌ Actually, "${w.word}" means: ${w.def}`;
+  }
+
+  const trans = w.tr && SESSION.lang ? getTranslation(w) : '';
+
+  return `
+    <div class="q-card">
+      <div class="q-type-label">⚖️ True or False?</div>
+      <div class="q-prompt"><strong>${w.emoji} ${w.word}</strong>
+        ${trans ? `<span style="display:block;font-size:.8rem;color:var(--muted);font-weight:600;">(${SESSION.lang}: ${trans})</span>` : ''}
+      </div>
+      <div style="background:var(--bg);border-radius:var(--r-sm);padding:14px;margin-bottom:14px;font-size:.95rem;font-weight:600;line-height:1.5;border:1.5px solid var(--border);">
+        "${statement}"
+      </div>
+      <div class="tf-opts">
+        <button class="tf-opt" onclick="checkTF(this,${isTrue},true)">👍 True</button>
+        <button class="tf-opt" onclick="checkTF(this,${isTrue},false)">👎 False</button>
+      </div>
+      <div class="q-feedback" id="q-fb"></div>
+      <div id="tf-explain" style="font-size:.85rem;color:var(--muted);font-weight:600;margin-top:6px;min-height:14px;"></div>
+      ${q.aiEnabled ? `<div class="ai-panel" id="ai-panel"></div>` : ''}
+      ${renderTeacherFeedback(q)}
+    </div>
+    <button class="btn-next" id="btn-next" onclick="nextQuestion()" disabled>Next →</button>`;
+}
+
+function renderFIB(q) {
+  const w = q.word;
+  // Build a sentence with the word blanked
+  const def = w.defA || w.def;
+  const rx = new RegExp('\\b' + w.word.replace(/[.*+?^${}()|[\]\\]/g,'\\$&') + '\\b', 'gi');
+  let sentence = def.replace(rx, '___');
+  if (!sentence.includes('___')) sentence = def + ' This is called ___.';
+
+  // Word bank: correct + 3 distractors
+  const bank = shuffle([w.word, ...getDistractors(w, q.pool, 3).map(d => d.word)]);
+  const bankHtml = bank.map(word =>
+    `<button class="wb-chip" onclick="fillBlank(this,'${word.replace(/'/g,"\\'")}','${w.word.replace(/'/g,"\\'")}')">${word}</button>`
+  ).join('');
+
+  return `
+    <div class="q-card">
+      <div class="q-type-label">✏️ Fill in the Blank</div>
+      <div class="q-prompt">Complete the sentence:</div>
+      <div class="fib-sentence">${sentence.replace('___','<input class="fib-blank" id="fib-input" placeholder="?" autocomplete="off" readonly>')}</div>
+      <div class="word-bank-row">
+        <div style="font-size:.65rem;font-weight:900;text-transform:uppercase;letter-spacing:1px;color:var(--blue);width:100%;margin-bottom:4px;">Word Bank</div>
+        ${bankHtml}
+      </div>
+      <div class="q-feedback" id="q-fb"></div>
+      ${q.aiEnabled ? `<div class="ai-panel" id="ai-panel"></div>` : ''}
+      ${renderTeacherFeedback(q)}
+    </div>
+    <button class="btn-next" id="btn-next" onclick="nextQuestion()" disabled>Next →</button>`;
+}
+
+function renderTeacherFeedback(q) {
+  // Check if teacher has left feedback for this word in this assignment
+  const key = `${SESSION.username}_${CURRENT_ASSIGNMENT?.id}_${q.word.word}`;
+  // Will be populated from Supabase asynchronously
+  return `<div class="teacher-fb-row" id="tfb-${q.word.word.replace(/\s+/g,'-')}"></div>`;
+}
+
+function getTranslation(word) {
+  const langMap = {Spanish:'es',Cantonese:'zh',Mandarin:'zh',Arabic:'ar',
+                   Vietnamese:'vi',Russian:'ru',Urdu:'ur',Tagalog:'tl',
+                   French:'fr',Korean:'ko',Hindi:'hi',Somali:'so',Nepali:'ne',Darija:'ar'};
+  const code = langMap[SESSION.lang];
+  return word.tr && code ? (word.tr[code] || '') : '';
+}
+
+/* ════════════════════════════════════════════
+   CHECK ANSWERS
+════════════════════════════════════════════ */
+function checkMC(btn, isCorrect) {
+  const zone = btn.closest('.q-card');
+  zone.querySelectorAll('.mc-opt').forEach(b => {
+    b.disabled = true;
+    if (b.dataset.correct === 'true') b.classList.add('reveal');
+  });
+  const fb = document.getElementById('q-fb');
+  if (isCorrect) {
+    btn.classList.add('correct');
+    fb.className = 'q-feedback ok'; fb.textContent = '✅ Correct!';
+    recordResult(true, btn.textContent.trim());
+  } else {
+    btn.classList.add('wrong');
+    fb.className = 'q-feedback err'; fb.textContent = '❌ Not quite — the correct answer is highlighted.';
+    recordResult(false, btn.textContent.trim());
+    if (QUESTIONS[Q_IDX].aiEnabled) fetchAIFeedback(false);
+  }
+  document.getElementById('btn-next').disabled = false;
+}
+
+function checkTF(btn, isTrue, userTrue) {
+  const zone = btn.closest('.q-card');
+  zone.querySelectorAll('.tf-opt').forEach(b => b.disabled = true);
+  const correct = isTrue === userTrue;
+  const fb = document.getElementById('q-fb');
+  const exp = document.getElementById('tf-explain');
+  if (correct) {
+    btn.classList.add('correct');
+    fb.className = 'q-feedback ok'; fb.textContent = '✅ Correct!';
+  } else {
+    btn.classList.add('wrong');
+    fb.className = 'q-feedback err'; fb.textContent = '❌ Not quite.';
+    if (exp) exp.textContent = `The statement is ${isTrue ? 'TRUE' : 'FALSE'}.`;
+    if (QUESTIONS[Q_IDX].aiEnabled) fetchAIFeedback(false);
+  }
+  recordResult(correct, userTrue ? 'True' : 'False');
+  document.getElementById('btn-next').disabled = false;
+}
+
+function fillBlank(btn, chosen, correct) {
+  // Fill the input
+  const inp = document.getElementById('fib-input');
+  if (!inp) return;
+  inp.value = chosen;
+  btn.classList.add('used');
+
+  const isCorrect = chosen.toLowerCase() === correct.toLowerCase();
+  const fb = document.getElementById('q-fb');
+
+  // Disable all chips
+  document.querySelectorAll('.wb-chip').forEach(c => c.disabled = true);
+
+  if (isCorrect) {
+    inp.classList.add('correct');
+    fb.className = 'q-feedback ok'; fb.textContent = '✅ Correct!';
+  } else {
+    inp.classList.add('wrong');
+    fb.className = 'q-feedback err'; fb.textContent = `❌ The answer is "${correct}".`;
+    // Show correct chip
+    document.querySelectorAll('.wb-chip').forEach(c => {
+      if (c.textContent.trim() === correct) { c.style.outline = '2px solid var(--green)'; }
+    });
+    if (QUESTIONS[Q_IDX].aiEnabled) fetchAIFeedback(false);
+  }
+  recordResult(isCorrect, chosen);
+  document.getElementById('btn-next').disabled = false;
+}
+
+function recordResult(correct, userAnswer) {
+  const q = QUESTIONS[Q_IDX];
+  Q_RESULTS.push({ word: q.word.word, correct, userAnswer, correctAnswer: q.word.def });
+}
+
+/* ════════════════════════════════════════════
+   AI FEEDBACK
+════════════════════════════════════════════ */
+async function fetchAIFeedback(correct) {
+  const panel = document.getElementById('ai-panel');
+  if (!panel) return;
+  panel.classList.add('show');
+  panel.innerHTML = `<div class="ai-label">🤖 AI Feedback</div><div class="ai-loading">Thinking…</div>`;
+
+  const q = QUESTIONS[Q_IDX];
+  const word = q.word.word;
+  const def = q.word.def;
+  const trans = getTranslation(q.word);
+  const langNote = SESSION.lang && trans ? ` In ${SESSION.lang}: "${trans}".` : '';
+
+  const prompt = `A student learning English is practicing the word "${word}". Its definition: "${def}".${langNote} They got it wrong. Give ONE short encouraging sentence of feedback in English, then ONE short sentence in ${SESSION.lang || 'Spanish'} explaining the word. Keep it very simple for a newcomer English learner. Format: English sentence. [Native language sentence].`;
+
+  try {
+    const resp = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-20250514',
+        max_tokens: 150,
+        messages: [{ role: 'user', content: prompt }]
+      })
+    });
+    const data = await resp.json();
+    const text = data.content?.[0]?.text || '';
+    const parts = text.split('.');
+    const eng = parts[0]?.trim() + '.';
+    const native = parts.slice(1).join('.').trim();
+    panel.innerHTML = `
+      <div class="ai-label">🤖 Feedback</div>
+      <div class="ai-text">${eng}</div>
+      ${native ? `<div class="ai-text-native">${native}</div>` : ''}`;
+  } catch(e) {
+    panel.innerHTML = `<div class="ai-label">🤖 Feedback</div><div class="ai-text">Keep trying — you're learning!</div>`;
+  }
+}
+
+/* ════════════════════════════════════════════
+   NEXT QUESTION / FINISH
+════════════════════════════════════════════ */
+function nextQuestion() {
+  Q_IDX++;
+  if (Q_IDX >= QUESTIONS.length) {
+    finishAssignment();
+  } else {
+    renderQuestion();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+}
+
+async function finishAssignment() {
+  const correct = Q_RESULTS.filter(r => r.correct).length;
+  const total = Q_RESULTS.length;
+  const pct = Math.round(correct / total * 100);
+
+  // Save to Supabase
+  if (!SESSION.isGuest) {
+    const prev = ASSIGNMENT_SCORES[CURRENT_ASSIGNMENT.id];
+    // Only update if this is better or first time
+    const shouldSave = !prev || pct >= (prev.pct || 0);
+    if (shouldSave) {
+      await supaUpsert('ll_practice_scores', {
+        username: SESSION.username,
+        student_name: SESSION.name,
+        period: SESSION.period,
+        assignment_id: CURRENT_ASSIGNMENT.id,
+        assignment_title: CURRENT_ASSIGNMENT.title,
+        score: correct,
+        total,
+        pct,
+        completed: true,
+        lang: SESSION.lang,
+        updated_at: new Date().toISOString(),
+        results: JSON.stringify(Q_RESULTS.map(r => ({
+          word: r.word, correct: r.correct
+        })))
+      });
+    }
+    // Update local state
+    ASSIGNMENT_SCORES[CURRENT_ASSIGNMENT.id] = { score: correct, total, pct, completed: true };
+    SESSION.totalScore = Object.values(ASSIGNMENT_SCORES).reduce((s, x) => s + (x.score||0), 0);
+    updateScoreBadges();
+  }
+
+  showScreen('score');
+  renderScoreScreen(correct, total, pct);
+}
+
+function renderScoreScreen(correct, total, pct) {
+  document.getElementById('sc-user-label').textContent = `${SESSION.name} · ${SESSION.period}`;
+
+  const emoji = pct >= 80 ? '🎉' : pct >= 60 ? '🙌' : '💪';
+  const heroClass = pct >= 80 ? '' : pct >= 60 ? 'partial' : 'low';
+  const msg = pct >= 80 ? 'Excellent work!' : pct >= 60 ? 'Good effort!' : 'Keep practicing!';
+
+  const breakdown = Q_RESULTS.map(r => `
+    <div class="breakdown-item">
+      <div class="bi-icon">${r.correct ? '✅' : '❌'}</div>
+      <div class="bi-text">${r.word}</div>
+      <div class="bi-result ${r.correct ? 'ok' : 'err'}">${r.correct ? 'Correct' : 'Incorrect'}</div>
+    </div>`).join('');
+
+  document.getElementById('score-screen-wrap').innerHTML = `
+    <div class="score-hero ${heroClass}">
+      <div class="score-emoji">${emoji}</div>
+      <div class="score-assignment">${CURRENT_ASSIGNMENT.title}</div>
+      <div class="score-main">${correct} / ${total}</div>
+      <div class="score-label">${pct}% · ${msg}</div>
+    </div>
+    <div class="score-breakdown">
+      <div class="breakdown-title">Question by Question</div>
+      ${breakdown}
+    </div>
+    <button class="btn-retry" onclick="startAssignment('${CURRENT_ASSIGNMENT.id}')">🔁 Try Again</button>
+    <button class="btn-home" onclick="goHome()">← Back to Assignments</button>`;
+}
+
+/* ════════════════════════════════════════════
+   NAVIGATION
+════════════════════════════════════════════ */
+function showScreen(name) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById('screen-' + name).classList.add('active');
+  window.scrollTo({ top: 0 });
+}
+
+function goHome() {
+  renderAssignmentList();
+  showScreen('home');
+}
+
+/* ════════════════════════════════════════════
+   KEYBOARD SUPPORT
+════════════════════════════════════════════ */
+document.addEventListener('keydown', e => {
+  if (e.key === 'Enter') {
+    if (document.getElementById('screen-login').classList.contains('active')) {
+      attemptLogin();
+    }
+  }
+});
+</script>
+</body>
+</html>

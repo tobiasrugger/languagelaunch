@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Language Launch · Teacher Dashboard</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@700;900&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f0f4fa;--card:#fff;--ink:#1a2332;--muted:#6b7a90;--border:#dde5f0;
+  --blue:#2563eb;--blue-dk:#1d4ed8;--blue-lt:#dbeafe;
+  --green:#16a34a;--green-lt:#dcfce7;
+  --red:#dc2626;--red-lt:#fee2e2;
+  --amber:#d97706;--amber-lt:#fef3c7;
+  --purple:#7c3aed;--purple-lt:#ede9fe;
+  --r:14px;--r-sm:8px;
+  --sh:0 2px 14px rgba(37,99,235,.09);
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--ink);}
+
+/* LOGIN */
+#screen-login{
+  display:flex;align-items:center;justify-content:center;
+  min-height:100vh;
+  background:linear-gradient(135deg,#1e3a8a,#2563eb,#7c3aed);
+  padding:20px;
+}
+.login-box{background:var(--card);border-radius:20px;padding:32px 28px;width:100%;max-width:360px;box-shadow:0 20px 60px rgba(0,0,0,.25);}
+.login-logo{font-family:'Fraunces',serif;font-size:1.5rem;font-weight:900;color:var(--blue);text-align:center;margin-bottom:4px;}
+.login-sub{text-align:center;font-size:.75rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:24px;}
+.form-group{margin-bottom:14px;}
+.form-label{display:block;font-size:.72rem;font-weight:800;text-transform:uppercase;letter-spacing:1px;color:var(--muted);margin-bottom:5px;}
+.form-input{width:100%;padding:10px 12px;border:2px solid var(--border);border-radius:var(--r-sm);font-family:'Nunito',sans-serif;font-size:.92rem;font-weight:700;color:var(--ink);background:var(--bg);outline:none;transition:border-color .15s;}
+.form-input:focus{border-color:var(--blue);}
+.btn-login{width:100%;padding:12px;border-radius:var(--r-sm);border:none;background:linear-gradient(135deg,var(--blue),var(--purple));color:#fff;font-family:'Nunito',sans-serif;font-size:.95rem;font-weight:900;cursor:pointer;margin-top:6px;box-shadow:0 4px 14px rgba(37,99,235,.3);}
+.login-err{color:var(--red);font-size:.8rem;font-weight:700;text-align:center;margin-top:8px;min-height:16px;}
+
+/* MAIN LAYOUT */
+#screen-dash{display:none;min-height:100vh;}
+.dash-header{
+  background:linear-gradient(135deg,#1e3a8a,#2563eb);
+  padding:14px 20px;display:flex;align-items:center;justify-content:space-between;
+  position:sticky;top:0;z-index:100;box-shadow:0 2px 12px rgba(0,0,0,.2);flex-wrap:wrap;gap:8px;
+}
+.dash-logo{font-family:'Fraunces',serif;font-size:1.1rem;font-weight:900;color:#fff;}
+.dash-logo em{color:#fbbf24;font-style:normal;}
+.dash-tabs{display:flex;gap:4px;}
+.dash-tab{
+  padding:6px 14px;border-radius:20px;border:none;
+  font-family:'Nunito',sans-serif;font-size:.78rem;font-weight:800;
+  cursor:pointer;transition:all .15s;
+  background:rgba(255,255,255,.12);color:rgba(255,255,255,.7);
+}
+.dash-tab.active{background:rgba(255,255,255,.9);color:var(--blue-dk);}
+
+.dash-body{max-width:1200px;margin:0 auto;padding:20px 16px 60px;}
+
+/* OVERVIEW GRID */
+.overview-header{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;margin-bottom:16px;}
+.overview-title{font-family:'Fraunces',serif;font-size:1.3rem;font-weight:900;color:var(--ink);}
+.period-filter{display:flex;gap:5px;flex-wrap:wrap;}
+.pf-btn{padding:4px 12px;border-radius:20px;border:1.5px solid var(--border);background:var(--card);font-family:'Nunito',sans-serif;font-size:.75rem;font-weight:800;cursor:pointer;color:var(--muted);transition:all .15s;}
+.pf-btn.active{background:var(--blue);border-color:var(--blue);color:#fff;}
+
+/* OVERVIEW TABLE */
+.table-wrap{overflow-x:auto;border-radius:var(--r);box-shadow:var(--sh);background:var(--card);}
+table{width:100%;border-collapse:collapse;min-width:600px;}
+thead tr{background:linear-gradient(135deg,#f8faff,#f0f5ff);}
+th{padding:10px 12px;font-size:.7rem;font-weight:900;text-transform:uppercase;letter-spacing:.8px;color:var(--muted);text-align:left;border-bottom:2px solid var(--border);}
+th.asgn-th{text-align:center;min-width:90px;}
+td{padding:9px 12px;border-bottom:1px solid var(--border);font-size:.85rem;vertical-align:middle;}
+tr:last-child td{border-bottom:none;}
+tr:hover td{background:#f8faff;}
+
+.student-name{font-weight:800;color:var(--ink);}
+.student-period{font-size:.72rem;font-weight:700;color:var(--muted);}
+.pct-cell{text-align:center;}
+.pct-pill{
+  display:inline-block;padding:3px 10px;border-radius:20px;
+  font-size:.78rem;font-weight:900;
+}
+.pct-pill.high{background:var(--green-lt);color:#166534;}
+.pct-pill.mid{background:var(--amber-lt);color:#92400e;}
+.pct-pill.low{background:var(--red-lt);color:#991b1b;}
+.pct-pill.none{background:var(--border);color:var(--muted);}
+
+/* DETAIL PANEL */
+.detail-back{
+  display:flex;align-items:center;gap:8px;margin-bottom:16px;
+  font-weight:800;color:var(--blue);cursor:pointer;font-size:.9rem;
+}
+.detail-back:hover{text-decoration:underline;}
+.detail-header{background:var(--card);border-radius:var(--r);padding:20px;box-shadow:var(--sh);margin-bottom:16px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;}
+.detail-name{font-family:'Fraunces',serif;font-size:1.2rem;font-weight:900;}
+.detail-meta{font-size:.8rem;color:var(--muted);font-weight:600;}
+
+.detail-asgn-card{background:var(--card);border-radius:var(--r);padding:18px;box-shadow:var(--sh);margin-bottom:12px;}
+.detail-asgn-title{font-weight:800;font-size:.95rem;margin-bottom:12px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;}
+.detail-asgn-score{font-size:.82rem;font-weight:700;color:var(--green);}
+
+/* per-question teacher feedback */
+.q-result-row{
+  display:flex;align-items:flex-start;gap:10px;padding:10px 0;
+  border-bottom:1px solid var(--border);flex-wrap:wrap;
+}
+.q-result-row:last-child{border-bottom:none;}
+.qr-icon{font-size:1rem;flex-shrink:0;margin-top:2px;}
+.qr-word{font-weight:800;min-width:100px;flex-shrink:0;}
+.qr-answer{font-size:.82rem;color:var(--muted);flex:1;font-weight:600;}
+.qr-result{font-size:.78rem;font-weight:800;flex-shrink:0;}
+.qr-result.ok{color:var(--green);}
+.qr-result.err{color:var(--red);}
+.teacher-inputs{display:flex;align-items:center;gap:8px;margin-top:6px;width:100%;}
+.t-score-input{
+  width:52px;padding:5px 7px;border:1.5px solid var(--border);border-radius:var(--r-sm);
+  font-family:'Nunito',sans-serif;font-size:.85rem;font-weight:800;color:var(--ink);
+  text-align:center;outline:none;background:#fffbeb;
+}
+.t-score-input:focus{border-color:var(--amber);}
+.t-comment-input{
+  flex:1;padding:5px 9px;border:1.5px solid var(--border);border-radius:var(--r-sm);
+  font-family:'Nunito',sans-serif;font-size:.82rem;color:var(--ink);
+  outline:none;background:#fffbeb;
+}
+.t-comment-input:focus{border-color:var(--amber);}
+.t-save-btn{
+  padding:5px 14px;border-radius:var(--r-sm);border:none;
+  background:var(--amber);color:#fff;font-family:'Nunito',sans-serif;
+  font-size:.78rem;font-weight:800;cursor:pointer;transition:all .15s;white-space:nowrap;
+}
+.t-save-btn:hover{background:#b45309;}
+.t-saved-indicator{font-size:.72rem;color:var(--green);font-weight:700;min-width:36px;}
+
+/* ASSIGNMENTS TAB */
+.asgn-mgr{background:var(--card);border-radius:var(--r);padding:20px;box-shadow:var(--sh);margin-bottom:14px;}
+.asgn-mgr-title{font-weight:800;margin-bottom:14px;display:flex;align-items:center;justify-content:space-between;}
+.asgn-row{display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid var(--border);flex-wrap:wrap;}
+.asgn-row:last-child{border-bottom:none;}
+.asgn-toggle{width:42px;height:24px;border-radius:12px;border:none;cursor:pointer;position:relative;transition:background .2s;flex-shrink:0;}
+.asgn-toggle.on{background:var(--green);}
+.asgn-toggle.off{background:var(--border);}
+.asgn-toggle::after{content:'';position:absolute;width:18px;height:18px;border-radius:9px;background:#fff;top:3px;transition:left .2s;box-shadow:0 1px 4px rgba(0,0,0,.2);}
+.asgn-toggle.on::after{left:21px;}
+.asgn-toggle.off::after{left:3px;}
+.asgn-row-title{font-weight:800;font-size:.9rem;flex:1;}
+.asgn-row-meta{font-size:.75rem;color:var(--muted);font-weight:600;}
+.asgn-ai-toggle{display:flex;align-items:center;gap:5px;font-size:.75rem;font-weight:700;color:var(--purple);}
+.asgn-ai-toggle input{cursor:pointer;}
+
+/* STATS CARDS */
+.stats-row{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px;margin-bottom:20px;}
+.stat-card{background:var(--card);border-radius:var(--r);padding:16px;box-shadow:var(--sh);text-align:center;}
+.stat-num{font-family:'Fraunces',serif;font-size:2rem;font-weight:900;color:var(--blue);}
+.stat-label{font-size:.72rem;font-weight:800;text-transform:uppercase;letter-spacing:.5px;color:var(--muted);margin-top:2px;}
+
+/* utility */
+.btn-sm{padding:5px 14px;border-radius:var(--r-sm);border:1.5px solid var(--border);background:var(--card);font-family:'Nunito',sans-serif;font-size:.78rem;font-weight:800;cursor:pointer;color:var(--ink);transition:all .15s;}
+.btn-sm:hover{border-color:var(--blue);color:var(--blue);}
+.btn-sm.primary{background:var(--blue);border-color:var(--blue);color:#fff;}
+.btn-sm.primary:hover{background:var(--blue-dk);}
+.empty-state{text-align:center;padding:40px;color:var(--muted);font-weight:600;}
+.loading{text-align:center;padding:30px;color:var(--muted);font-weight:700;font-style:italic;}
+</style>
+</head>
+<body>
+
+<!-- LOGIN -->
+<div id="screen-login">
+  <div class="login-box">
+    <div class="login-logo">Language <em>Launch</em></div>
+    <div class="login-sub">Teacher Dashboard</div>
+    <div class="form-group">
+      <label class="form-label" for="pw-input">Password</label>
+      <input class="form-input" id="pw-input" type="password" placeholder="••••••••••">
+    </div>
+    <button class="btn-login" onclick="checkPassword()">Enter Dashboard →</button>
+    <div class="login-err" id="pw-err"></div>
+  </div>
+</div>
+
+<!-- DASHBOARD -->
+<div id="screen-dash">
+  <header class="dash-header">
+    <div class="dash-logo">Language <em>Launch</em> <span style="font-size:.75rem;opacity:.7;font-family:'Nunito',sans-serif;font-weight:700;"> · Teacher Dashboard</span></div>
+    <div class="dash-tabs">
+      <button class="dash-tab active" id="tab-overview" onclick="showTab('overview')">📊 Overview</button>
+      <button class="dash-tab" id="tab-assignments" onclick="showTab('assignments')">📋 Assignments</button>
+    </div>
+  </header>
+  <div class="dash-body" id="dash-body">
+    <div class="loading">Loading student data…</div>
+  </div>
+</div>
+
+<script>
+/* ════════════════════════════════════════════
+   CONFIG (same as practice site)
+════════════════════════════════════════════ */
+const SUPA_URL  = 'https://lhmwtfyceilgndpygivj.supabase.co';
+const SUPA_KEY  = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImxobXd0ZnljZWlsZ25kcHlnaXZqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzYxMzk5MDIsImV4cCI6MjA5MTcxNTkwMn0.0uIXyctHMfTN4doWYn2JJ260swD5b-t0T-oDMSIPtBU';
+const TEACHER_PW = 'galileo2026';
+
+const ASSIGNMENTS = [
+  {id:'asgn-u1',   title:'Unit 1: Welcome to School',   emoji:'🏫', units:['U1'], questionCount:20},
+  {id:'asgn-u2',   title:'Unit 2: Getting to Know You', emoji:'👋', units:['U2'], questionCount:20},
+  {id:'asgn-u3',   title:'Unit 3: Community Voices',    emoji:'🏘️', units:['U3'], questionCount:20},
+  {id:'asgn-u4',   title:'Unit 4: On the Map',          emoji:'🗺️', units:['U4'], questionCount:20},
+  {id:'asgn-u5',   title:'Unit 5: What in the World?',  emoji:'🌍', units:['U5'], questionCount:20},
+  {id:'asgn-u6',   title:'Unit 6: Our Cultures',        emoji:'🎎', units:['U6'], questionCount:20},
+  {id:'asgn-mix',  title:'Mixed Review: Units 1–4',     emoji:'🎯', units:['U1','U2','U3','U4'], questionCount:25},
+  {id:'asgn-mix56',title:'Mixed Review: Units 5–6',     emoji:'🌐', units:['U5','U6'], questionCount:20},
+  {id:'asgn-final',title:'Final Review: All Units',     emoji:'⭐', units:['U1','U2','U3','U4','U5','U6'], questionCount:30},
+];
+
+const PERIODS = ['All','P1','P2','P3','P5','P6'];
+
+/* ════════════════════════════════════════════
+   STATE
+════════════════════════════════════════════ */
+let ALL_SCORES = [];
+let CURRENT_TAB = 'overview';
+let CURRENT_PERIOD = 'All';
+let DETAIL_STUDENT = null;
+
+/* ════════════════════════════════════════════
+   SUPABASE
+════════════════════════════════════════════ */
+async function supaGet(table, query) {
+  try {
+    const r = await fetch(`${SUPA_URL}/rest/v1/${table}?${query}`, {
+      headers: { apikey: SUPA_KEY, Authorization: `Bearer ${SUPA_KEY}` }
+    });
+    return await r.json();
+  } catch(e) { return []; }
+}
+async function supaUpsert(table, data) {
+  try {
+    const r = await fetch(`${SUPA_URL}/rest/v1/${table}`, {
+      method: 'POST',
+      headers: {
+        apikey: SUPA_KEY, Authorization: `Bearer ${SUPA_KEY}`,
+        'Content-Type': 'application/json',
+        'Prefer': 'resolution=merge-duplicates,return=representation'
+      },
+      body: JSON.stringify(data)
+    });
+    return await r.json();
+  } catch(e) { return null; }
+}
+
+/* ════════════════════════════════════════════
+   LOGIN
+════════════════════════════════════════════ */
+function checkPassword() {
+  const pw = document.getElementById('pw-input').value;
+  if (pw === TEACHER_PW) {
+    document.getElementById('screen-login').style.display = 'none';
+    document.getElementById('screen-dash').style.display = 'block';
+    loadDashboard();
+  } else {
+    document.getElementById('pw-err').textContent = 'Incorrect password.';
+    document.getElementById('pw-input').value = '';
+  }
+}
+document.getElementById('pw-input').addEventListener('keydown', e => {
+  if (e.key === 'Enter') checkPassword();
+});
+
+/* ════════════════════════════════════════════
+   LOAD DATA
+════════════════════════════════════════════ */
+async function loadDashboard() {
+  document.getElementById('dash-body').innerHTML = '<div class="loading">Loading student data…</div>';
+  ALL_SCORES = await supaGet('ll_practice_scores', 'select=*&order=student_name.asc');
+  if (!Array.isArray(ALL_SCORES)) ALL_SCORES = [];
+  renderCurrentView();
+}
+
+/* ════════════════════════════════════════════
+   TABS
+════════════════════════════════════════════ */
+function showTab(tab) {
+  CURRENT_TAB = tab;
+  DETAIL_STUDENT = null;
+  document.querySelectorAll('.dash-tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('tab-' + tab).classList.add('active');
+  renderCurrentView();
+}
+
+function renderCurrentView() {
+  if (CURRENT_TAB === 'overview') {
+    if (DETAIL_STUDENT) renderStudentDetail(DETAIL_STUDENT);
+    else renderOverview();
+  } else {
+    renderAssignments();
+  }
+}
+
+/* ════════════════════════════════════════════
+   OVERVIEW
+════════════════════════════════════════════ */
+function renderOverview() {
+  // Build student × assignment matrix
+  const studentMap = {}; // username → {name, period, scores: {asgnId → score_row}}
+  ALL_SCORES.forEach(row => {
+    if (!studentMap[row.username]) {
+      studentMap[row.username] = { name: row.student_name, period: row.period, scores: {} };
+    }
+    studentMap[row.username].scores[row.assignment_id] = row;
+  });
+
+  const students = Object.entries(studentMap)
+    .filter(([u, s]) => CURRENT_PERIOD === 'All' || s.period === CURRENT_PERIOD)
+    .sort((a,b) => a[1].name.localeCompare(b[1].name));
+
+  // Stats
+  const totalStudents = students.length;
+  const activeStudents = students.filter(([u,s]) => Object.keys(s.scores).length > 0).length;
+  const allPcts = ALL_SCORES.filter(r => r.pct !== null).map(r => r.pct);
+  const avgPct = allPcts.length ? Math.round(allPcts.reduce((a,b)=>a+b,0)/allPcts.length) : 0;
+  const completions = ALL_SCORES.filter(r => r.completed).length;
+
+  const statsHtml = `
+    <div class="stats-row">
+      <div class="stat-card"><div class="stat-num">${totalStudents}</div><div class="stat-label">Students shown</div></div>
+      <div class="stat-card"><div class="stat-num">${activeStudents}</div><div class="stat-label">Active</div></div>
+      <div class="stat-card"><div class="stat-num">${avgPct}%</div><div class="stat-label">Avg score</div></div>
+      <div class="stat-card"><div class="stat-num">${completions}</div><div class="stat-label">Completions</div></div>
+    </div>`;
+
+  const periodBtns = PERIODS.map(p =>
+    `<button class="pf-btn ${CURRENT_PERIOD===p?'active':''}" onclick="filterPeriod('${p}')">${p}</button>`
+  ).join('');
+
+  // Table headers
+  const asgnHeaders = ASSIGNMENTS.map(a =>
+    `<th class="asgn-th">${a.emoji}<br><span style="font-size:.62rem;">${a.title.split(':')[0]}</span></th>`
+  ).join('');
+
+  // Table rows
+  const rows = students.length === 0
+    ? `<tr><td colspan="${2+ASSIGNMENTS.length}" class="empty-state">No students found.</td></tr>`
+    : students.map(([username, s]) => {
+        const cells = ASSIGNMENTS.map(a => {
+          const row = s.scores[a.id];
+          if (!row) return `<td class="pct-cell"><span class="pct-pill none">—</span></td>`;
+          const cls = row.pct >= 80 ? 'high' : row.pct >= 60 ? 'mid' : 'low';
+          return `<td class="pct-cell">
+            <span class="pct-pill ${cls}" style="cursor:pointer" onclick="openStudentDetail('${username}')" title="${row.score}/${row.total}">${row.pct}%</span>
+          </td>`;
+        }).join('');
+        return `<tr>
+          <td>
+            <div class="student-name" style="cursor:pointer;color:var(--blue)" onclick="openStudentDetail('${username}')">${s.name}</div>
+            <div class="student-period">${username} · ${s.period || '—'}</div>
+          </td>
+          ${cells}
+        </tr>`;
+      }).join('');
+
+  document.getElementById('dash-body').innerHTML = `
+    ${statsHtml}
+    <div class="overview-header">
+      <div class="overview-title">Student Progress</div>
+      <div class="period-filter">${periodBtns}</div>
+    </div>
+    <div style="margin-bottom:8px;font-size:.75rem;color:var(--muted);font-weight:600;">
+      Click any student name or score to see full detail and leave feedback.
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr>
+          <th>Student</th>
+          ${asgnHeaders}
+        </tr></thead>
+        <tbody>${rows}</tbody>
+      </table>
+    </div>`;
+}
+
+function filterPeriod(p) {
+  CURRENT_PERIOD = p;
+  renderOverview();
+}
+
+/* ════════════════════════════════════════════
+   STUDENT DETAIL
+════════════════════════════════════════════ */
+function openStudentDetail(username) {
+  DETAIL_STUDENT = username;
+  renderStudentDetail(username);
+}
+
+function renderStudentDetail(username) {
+  const studentScores = ALL_SCORES.filter(r => r.username === username);
+  if (!studentScores.length) {
+    document.getElementById('dash-body').innerHTML = `
+      <div class="detail-back" onclick="backToOverview()">← Back to Overview</div>
+      <div class="empty-state">No activity recorded for this student yet.</div>`;
+    return;
+  }
+
+  const s = studentScores[0];
+  const totalCorrect = studentScores.reduce((sum, r) => sum + (r.score||0), 0);
+  const totalQ = studentScores.reduce((sum, r) => sum + (r.total||0), 0);
+  const overallPct = totalQ ? Math.round(totalCorrect/totalQ*100) : 0;
+
+  const asgnCards = studentScores.map(row => {
+    const asgn = ASSIGNMENTS.find(a => a.id === row.assignment_id);
+    if (!asgn) return '';
+
+    let results = [];
+    try { results = JSON.parse(row.results || '[]'); } catch(e) {}
+
+    const qRows = results.map((r, ri) => {
+      const feedbackKey = `${username}_${row.assignment_id}_${r.word}`;
+      return `
+      <div class="q-result-row" id="qrow-${feedbackKey.replace(/\s+/g,'-')}">
+        <div class="qr-icon">${r.correct ? '✅' : '❌'}</div>
+        <div class="qr-word">${r.word}</div>
+        <div class="qr-answer">Student answered: ${r.userAnswer || '—'}</div>
+        <div class="qr-result ${r.correct ? 'ok' : 'err'}">${r.correct ? 'Correct' : 'Incorrect'}</div>
+        <div class="teacher-inputs" style="display:flex;gap:8px;align-items:center;width:100%;margin-top:6px;">
+          <input class="t-score-input" type="number" min="0" max="1" step="1"
+            placeholder="pts" id="tscore-${feedbackKey.replace(/\s+/g,'-')}"
+            title="Points (0 or 1)">
+          <input class="t-comment-input" type="text" placeholder="Add comment for student…"
+            id="tcomment-${feedbackKey.replace(/\s+/g,'-')}">
+          <button class="t-save-btn" onclick="saveTeacherFeedback('${username}','${row.assignment_id}','${r.word.replace(/'/g,"\\'")}','${feedbackKey.replace(/\s+/g,'-')}')">Save</button>
+          <span class="t-saved-indicator" id="saved-${feedbackKey.replace(/\s+/g,'-')}"></span>
+        </div>
+      </div>`;
+    }).join('');
+
+    const pctClass = row.pct >= 80 ? 'high' : row.pct >= 60 ? 'mid' : 'low';
+
+    return `
+    <div class="detail-asgn-card">
+      <div class="detail-asgn-title">
+        <span>${asgn.emoji} ${asgn.title}</span>
+        <span class="pct-pill ${pctClass} detail-asgn-score">${row.pct}% · ${row.score}/${row.total}</span>
+      </div>
+      ${qRows.length ? qRows : '<div style="color:var(--muted);font-size:.82rem;font-weight:600;">No question-level data available.</div>'}
+    </div>`;
+  }).join('');
+
+  document.getElementById('dash-body').innerHTML = `
+    <div class="detail-back" onclick="backToOverview()">← Back to Overview</div>
+    <div class="detail-header">
+      <div>
+        <div class="detail-name">${s.student_name}</div>
+        <div class="detail-meta">${username} · ${s.period || '—'} · Language: ${s.lang || '—'}</div>
+      </div>
+      <div>
+        <div class="pct-pill ${overallPct>=80?'high':overallPct>=60?'mid':'low'}" style="font-size:.9rem;padding:5px 14px;">
+          Overall: ${overallPct}%
+        </div>
+      </div>
+    </div>
+    <div style="font-size:.78rem;color:var(--muted);font-weight:600;margin-bottom:12px;">
+      Use the score + comment fields below to give per-question feedback. Students see your feedback when they log in.
+    </div>
+    ${asgnCards}`;
+
+  // Load any existing teacher feedback
+  loadTeacherFeedback(username);
+}
+
+async function loadTeacherFeedback(username) {
+  const rows = await supaGet('ll_teacher_feedback',
+    `username=eq.${username}&select=*`);
+  if (!Array.isArray(rows)) return;
+  rows.forEach(fb => {
+    const key = `${username}_${fb.assignment_id}_${fb.word}`.replace(/\s+/g,'-');
+    const scoreEl = document.getElementById('tscore-' + key);
+    const commentEl = document.getElementById('tcomment-' + key);
+    if (scoreEl) scoreEl.value = fb.teacher_score ?? '';
+    if (commentEl) commentEl.value = fb.teacher_comment || '';
+  });
+}
+
+async function saveTeacherFeedback(username, asgnId, word, key) {
+  const score = document.getElementById('tscore-' + key)?.value;
+  const comment = document.getElementById('tcomment-' + key)?.value || '';
+  const savedEl = document.getElementById('saved-' + key);
+
+  if (savedEl) savedEl.textContent = '…';
+
+  await supaUpsert('ll_teacher_feedback', {
+    username,
+    assignment_id: asgnId,
+    word,
+    teacher_score: score !== '' ? parseInt(score) : null,
+    teacher_comment: comment,
+    updated_at: new Date().toISOString()
+  });
+
+  if (savedEl) { savedEl.textContent = '✓ Saved'; setTimeout(() => { savedEl.textContent = ''; }, 2000); }
+}
+
+function backToOverview() {
+  DETAIL_STUDENT = null;
+  renderOverview();
+}
+
+/* ════════════════════════════════════════════
+   ASSIGNMENTS TAB
+════════════════════════════════════════════ */
+function renderAssignments() {
+  const rows = ASSIGNMENTS.map(a => `
+    <div class="asgn-row">
+      <button class="asgn-toggle on" id="toggle-${a.id}"
+        onclick="toggleAssignment('${a.id}', this)"
+        title="Toggle on/off for students"></button>
+      <div style="flex:1">
+        <div class="asgn-row-title">${a.emoji} ${a.title}</div>
+        <div class="asgn-row-meta">${a.questionCount} questions · Units: ${a.units.join(', ')}</div>
+      </div>
+      <label class="asgn-ai-toggle">
+        <input type="checkbox" id="ai-${a.id}" onchange="toggleAI('${a.id}', this)">
+        🤖 AI feedback
+      </label>
+    </div>`).join('');
+
+  document.getElementById('dash-body').innerHTML = `
+    <div class="overview-title" style="margin-bottom:16px">Assignment Manager</div>
+    <div style="font-size:.82rem;color:var(--muted);font-weight:600;margin-bottom:14px;">
+      Toggle assignments on/off to control what students see. Enable AI feedback per assignment (uses API credits — ~1¢ per wrong answer).
+    </div>
+    <div class="asgn-mgr">
+      <div class="asgn-mgr-title">
+        <span>All Assignments</span>
+        <button class="btn-sm primary" onclick="saveAssignmentSettings()">Save Changes</button>
+      </div>
+      ${rows}
+    </div>
+    <div id="asgn-save-status" style="font-size:.82rem;color:var(--green);font-weight:700;text-align:center;min-height:18px;"></div>
+    <div class="asgn-mgr" style="margin-top:16px;">
+      <div class="asgn-mgr-title">Supabase Setup Reminder</div>
+      <div style="font-size:.82rem;color:var(--muted);line-height:1.6;font-weight:600;">
+        Make sure these tables exist in your Supabase project:<br><br>
+        <code style="background:var(--bg);padding:2px 6px;border-radius:4px;font-size:.78rem;">ll_practice_scores</code> — stores student scores per assignment<br>
+        <code style="background:var(--bg);padding:2px 6px;border-radius:4px;font-size:.78rem;">ll_teacher_feedback</code> — stores your per-question comments<br>
+        <code style="background:var(--bg);padding:2px 6px;border-radius:4px;font-size:.78rem;">ll_assignment_settings</code> — stores which assignments are active<br><br>
+        See the SQL setup guide below.
+      </div>
+    </div>
+    <div class="asgn-mgr" style="margin-top:12px;">
+      <div class="asgn-mgr-title">SQL Setup (run once in Supabase SQL Editor)</div>
+      <pre style="font-size:.72rem;background:var(--bg);padding:14px;border-radius:var(--r-sm);overflow-x:auto;line-height:1.6;color:var(--ink);">${SQL_SETUP}</pre>
+    </div>`;
+}
+
+function toggleAssignment(id, btn) {
+  btn.classList.toggle('on');
+  btn.classList.toggle('off');
+}
+function toggleAI(id, cb) { /* will save with saveAssignmentSettings */ }
+
+async function saveAssignmentSettings() {
+  const settings = ASSIGNMENTS.map(a => ({
+    assignment_id: a.id,
+    active: document.getElementById('toggle-'+a.id)?.classList.contains('on') ?? true,
+    ai_enabled: document.getElementById('ai-'+a.id)?.checked ?? false,
+    updated_at: new Date().toISOString()
+  }));
+  for (const s of settings) {
+    await supaUpsert('ll_assignment_settings', s);
+  }
+  document.getElementById('asgn-save-status').textContent = '✓ Settings saved';
+  setTimeout(() => { document.getElementById('asgn-save-status').textContent = ''; }, 2000);
+}
+
+const SQL_SETUP = `-- Run this in Supabase SQL Editor (Dashboard → SQL Editor → New query)
+
+create table if not exists ll_practice_scores (
+  id uuid default gen_random_uuid() primary key,
+  username text not null,
+  student_name text,
+  period text,
+  assignment_id text not null,
+  assignment_title text,
+  score int default 0,
+  total int default 0,
+  pct int default 0,
+  completed boolean default false,
+  lang text,
+  results jsonb,
+  updated_at timestamptz default now(),
+  unique(username, assignment_id)
+);
+
+create table if not exists ll_teacher_feedback (
+  id uuid default gen_random_uuid() primary key,
+  username text not null,
+  assignment_id text not null,
+  word text not null,
+  teacher_score int,
+  teacher_comment text,
+  updated_at timestamptz default now(),
+  unique(username, assignment_id, word)
+);
+
+create table if not exists ll_assignment_settings (
+  assignment_id text primary key,
+  active boolean default true,
+  ai_enabled boolean default false,
+  updated_at timestamptz default now()
+);
+
+-- Enable Row Level Security and allow anon reads/writes
+-- (adjust policies to your needs)
+alter table ll_practice_scores enable row level security;
+alter table ll_teacher_feedback enable row level security;
+alter table ll_assignment_settings enable row level security;
+
+create policy "allow all" on ll_practice_scores for all using (true) with check (true);
+create policy "allow all" on ll_teacher_feedback for all using (true) with check (true);
+create policy "allow all" on ll_assignment_settings for all using (true) with check (true);`.replace(/</g,'&lt;').replace(/>/g,'&gt;');
+
+/* ════════════════════════════════════════════
+   REFRESH
+════════════════════════════════════════════ */
+setInterval(() => {
+  if (document.getElementById('screen-dash').style.display === 'block') {
+    supaGet('ll_practice_scores','select=*&order=student_name.asc').then(rows => {
+      if (Array.isArray(rows)) {
+        ALL_SCORES = rows;
+        if (CURRENT_TAB === 'overview' && !DETAIL_STUDENT) renderOverview();
+      }
+    });
+  }
+}, 30000); // refresh every 30s
+</script>
+</body>
+</html>
