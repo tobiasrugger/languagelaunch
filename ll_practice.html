@@ -32,12 +32,14 @@
 body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--ink);min-height:100vh;}
 
 /* ── SCREENS ── */
-.screen{display:none;min-height:100vh;}
-.screen.active{display:block;}
+.screen{display:none;}
+.screen.active{display:block;animation:screenIn .35s ease;}
+#screen-login.active{display:flex;}
+@keyframes screenIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
 
 /* ── LOGIN ── */
 #screen-login{
-  display:flex;align-items:center;justify-content:center;
+  align-items:center;justify-content:center;
   min-height:100vh;
   background:linear-gradient(135deg,#1e3a8a 0%,#2563eb 50%,#7c3aed 100%);
   padding:20px;
@@ -342,7 +344,7 @@ body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--ink);min-h
         <option value="Nepali">Nepali</option>
       </select>
     </div>
-    <button class="btn-login" onclick="attemptLogin()">Enter →</button>
+    <button class="btn-login" id="btn-login" onclick="attemptLogin()">Enter →</button>
     <div class="login-err" id="login-err"></div>
     <div class="login-hint">Type "teacher" as your username to access the dashboard.</div>
   </div>
@@ -833,27 +835,30 @@ async function supaUpsert(table, data) {
    LOGIN
 ════════════════════════════════════════════ */
 function attemptLogin() {
+  const loginBtn = document.getElementById('btn-login');
+  if (loginBtn) { loginBtn.textContent = 'Loading…'; loginBtn.style.opacity = '0.7'; }
   const period = document.getElementById('inp-period').value;
   const name   = document.getElementById('inp-name').value.trim();
   const user   = document.getElementById('inp-username').value.trim().toLowerCase();
   const lang   = document.getElementById('inp-lang').value;
   const err    = document.getElementById('login-err');
 
-  if (!period) { err.textContent = 'Please select your period.'; return; }
-  if (!name)   { err.textContent = 'Please enter your first name.'; return; }
-  if (!user)   { err.textContent = 'Please enter your username.'; return; }
-  if (!lang)   { err.textContent = 'Please select your language.'; return; }
-
   if (user === 'teacher') {
     window.location.href = DASHBOARD_URL;
     return;
   }
 
-  // Accept username or full email, case-insensitive
+  if (!period) { if(loginBtn){loginBtn.textContent='Enter →';loginBtn.style.opacity='1';} err.textContent = 'Please select your period.'; return; }
+  if (!name)   { if(loginBtn){loginBtn.textContent='Enter →';loginBtn.style.opacity='1';} err.textContent = 'Please enter your first name.'; return; }
+  if (!user)   { if(loginBtn){loginBtn.textContent='Enter →';loginBtn.style.opacity='1';} err.textContent = 'Please enter your username.'; return; }
+  if (!lang)   { if(loginBtn){loginBtn.textContent='Enter →';loginBtn.style.opacity='1';} err.textContent = 'Please select your language.'; return; }
+
   const normalised = user.toLowerCase().replace(/@s\.sfusd\.edu$/, '').trim();
   const record = ROSTER[normalised] || ROSTER[normalised + '@s.sfusd.edu'];
   const resolvedUser = normalised;
+
   if (!record && normalised !== 'other') {
+    if(loginBtn){loginBtn.textContent='Enter →';loginBtn.style.opacity='1';}
     err.textContent = 'Username not found. Check your spelling or ask your teacher.';
     return;
   }
@@ -862,10 +867,11 @@ function attemptLogin() {
   SESSION.name = name;
   SESSION.period = period;
   SESSION.lang = lang;
-  SESSION.isGuest = (user === 'other');
+  SESSION.isGuest = (normalised === 'other');
 
   showScreen('home');
   loadStudentHome();
+  window.scrollTo({ top: 0, behavior: 'instant' });
 }
 
 /* ════════════════════════════════════════════
