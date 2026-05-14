@@ -3,841 +3,207 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Language Launch · Units 1–6</title>
+<title>Language Launch · Galileo</title>
 <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Nunito+Sans:wght@400;600&display=swap" rel="stylesheet">
 <style>
-:root{--sky:#1B6CA8;--sky-light:#D6EAFF;--sky-mid:#5FA8D3;--sky-dark:#0D3F66;--green:#2E8B57;--green-light:#D4F5E2;--green-dark:#1A5C38;--red:#C0392B;--red-light:#FDECEA;--amber:#E07B00;--amber-light:#FFF4CC;--purple:#6B3FA0;--purple-light:#EDE0FF;--bg:#F4F8FC;--card:#fff;--text:#1C2B3A;--muted:#5E7A8A;--border:#D0E3F0;--radius:14px;--radius-sm:8px;--shadow:0 2px 12px rgba(27,108,168,.10);--shadow-lg:0 6px 28px rgba(27,108,168,.15);}
+:root{--sky:#1B6CA8;--sky-light:#D6EAFF;--sky-mid:#5FA8D3;--sky-dark:#0D3F66;--green:#2E8B57;--green-light:#D4F5E2;--amber:#E07B00;--amber-light:#FFF4CC;--purple:#6B3FA0;--purple-light:#EDE0FF;--bg:#F4F8FC;--card:#fff;--text:#1C2B3A;--muted:#5E7A8A;--border:#D0E3F0;--radius:16px;--shadow:0 4px 20px rgba(27,108,168,.12);--shadow-lg:0 8px 40px rgba(27,108,168,.18);}
 *{box-sizing:border-box;margin:0;padding:0;}
-body{font-family:'Nunito Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;font-size:16px;}
+body{font-family:'Nunito Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;}
 
-/* HEADER */
-.site-header{background:linear-gradient(135deg,var(--sky-dark),var(--sky));padding:14px 20px 0;position:sticky;top:0;z-index:100;box-shadow:0 2px 16px rgba(0,0,0,.18);}
-.hdr-row1{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;margin-bottom:10px;}
-.site-title{font-family:'Nunito',sans-serif;font-size:18px;font-weight:800;color:#fff;letter-spacing:-.3px;}
-.site-title span{color:#A8D8F0;font-weight:600;}
-.hdr-controls{display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
-.level-toggle{display:flex;background:rgba(255,255,255,.15);border-radius:30px;padding:3px;gap:2px;}
-.level-btn{padding:6px 14px;border-radius:26px;border:none;font-family:'Nunito',sans-serif;font-size:12px;font-weight:700;cursor:pointer;color:rgba(255,255,255,.75);background:transparent;transition:all .2s;}
-.level-btn.active{background:#fff;color:var(--sky-dark);box-shadow:0 2px 8px rgba(0,0,0,.15);}
-.badge-a{background:#FFD166;color:#7A4400;font-size:10px;padding:2px 6px;border-radius:8px;font-weight:700;margin-left:4px;}
-.badge-c{background:#A8D8F0;color:#0D3F66;font-size:10px;padding:2px 6px;border-radius:8px;font-weight:700;margin-left:4px;}
-.unit-tabs{display:flex;gap:2px;}
-.unit-tab{padding:5px 12px;border-radius:16px;border:none;font-family:'Nunito',sans-serif;font-size:12px;font-weight:700;cursor:pointer;color:rgba(255,255,255,.65);background:rgba(255,255,255,.12);transition:all .15s;}
-.unit-tab.active{background:rgba(255,255,255,.9);color:var(--sky-dark);}
-.unit-tab.mixed{background:rgba(255,215,102,.25);color:#FFD166;}
-.unit-tab.mixed.active{background:#FFD166;color:#7A4400;}
-.trans-bar{background:rgba(0,0,0,.15);border-top:1px solid rgba(255,255,255,.1);padding:7px 20px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
-.trans-label{font-size:11px;font-weight:700;color:rgba(255,255,255,.6);text-transform:uppercase;letter-spacing:.5px;}
-.lang-select{padding:4px 22px 4px 10px;border-radius:16px;border:1.5px solid rgba(255,255,255,.3);background:rgba(255,255,255,.12);color:#fff;font-family:'Nunito',sans-serif;font-size:12px;font-weight:700;cursor:pointer;outline:none;-webkit-appearance:none;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='5'%3E%3Cpath d='M0 0l4 5 4-5z' fill='rgba(255,255,255,.6)'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 7px center;}
-.lang-select option{background:#1B6CA8;}
-.trans-mode-toggle{display:flex;background:rgba(255,255,255,.12);border-radius:16px;padding:2px;gap:1px;margin-left:auto;}
-.tmode-btn{padding:4px 10px;border-radius:14px;border:none;font-family:'Nunito',sans-serif;font-size:11px;font-weight:700;cursor:pointer;color:rgba(255,255,255,.65);background:transparent;transition:all .18s;white-space:nowrap;}
-.tmode-btn.active{background:rgba(255,255,255,.9);color:var(--sky-dark);}
-.activity-nav{display:flex;gap:0;overflow-x:auto;scrollbar-width:none;}
-.activity-nav::-webkit-scrollbar{display:none;}
-.tab-btn{padding:9px 13px;border:none;background:transparent;font-family:'Nunito',sans-serif;font-size:12px;font-weight:700;color:rgba(255,255,255,.65);cursor:pointer;border-bottom:3px solid transparent;white-space:nowrap;transition:all .18s;}
-.tab-btn:hover{color:rgba(255,255,255,.9);}
-.tab-btn.active{color:#fff;border-bottom-color:#FFD166;}
+/* HERO */
+.hero{background:linear-gradient(135deg,var(--sky-dark) 0%,var(--sky) 60%,var(--sky-mid) 100%);padding:48px 24px 56px;text-align:center;position:relative;overflow:hidden;}
+.hero::before{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.04'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");}
+.hero-badge{display:inline-block;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.3);color:rgba(255,255,255,.9);font-size:12px;font-weight:700;font-family:'Nunito',sans-serif;letter-spacing:.8px;text-transform:uppercase;padding:5px 14px;border-radius:20px;margin-bottom:18px;}
+.hero h1{font-family:'Nunito',sans-serif;font-size:42px;font-weight:800;color:#fff;line-height:1.15;margin-bottom:10px;letter-spacing:-.5px;}
+.hero h1 span{color:#FFD166;}
+.hero p{font-size:16px;color:rgba(255,255,255,.8);max-width:480px;margin:0 auto 28px;line-height:1.7;}
+.hero-langs{display:flex;justify-content:center;gap:8px;flex-wrap:wrap;margin-bottom:4px;}
+.lang-pill{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);color:rgba(255,255,255,.85);font-size:13px;font-weight:600;padding:4px 12px;border-radius:20px;font-family:'Nunito Sans',sans-serif;}
 
 /* MAIN */
-main{max-width:720px;margin:0 auto;padding:20px 14px 60px;}
-.activity-panel{display:none;}
-.activity-panel.visible{display:block;}
-.panel-title{font-family:'Nunito',sans-serif;font-size:20px;font-weight:800;color:var(--sky-dark);margin-bottom:3px;}
-.panel-desc{font-size:13px;color:var(--muted);margin-bottom:16px;}
-.lesson-filter{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:16px;}
-.filter-pill{padding:4px 11px;border-radius:16px;font-size:11px;font-weight:700;font-family:'Nunito',sans-serif;cursor:pointer;border:1.5px solid var(--border);background:var(--card);color:var(--muted);transition:all .15s;}
-.filter-pill.active{background:var(--sky);border-color:var(--sky);color:#fff;}
-.progress-bar{height:4px;background:var(--border);border-radius:2px;margin-bottom:14px;overflow:hidden;}
-.progress-fill{height:100%;background:linear-gradient(90deg,var(--sky-mid),var(--sky));border-radius:2px;transition:width .35s;}
+main{max-width:900px;margin:0 auto;padding:40px 20px 80px;}
 
-/* SPEAK BUTTON */
-.speak-btn{display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:50%;border:1.5px solid var(--border);background:var(--card);cursor:pointer;font-size:12px;transition:all .15s;flex-shrink:0;padding:0;}
-.speak-btn:hover{background:var(--sky-light);border-color:var(--sky-mid);}
-.speak-btn.speaking{background:var(--sky);border-color:var(--sky);animation:spk .7s ease-in-out infinite alternate;}
-@keyframes spk{from{transform:scale(1);}to{transform:scale(1.18);}}
+/* SECTION HEADER */
+.section-hdr{margin-bottom:20px;}
+.section-hdr h2{font-family:'Nunito',sans-serif;font-size:13px;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:.8px;}
 
-/* TRANSLATION INLINE */
-.tw{position:relative;display:inline;}
-.tw .tt{display:none;position:absolute;bottom:calc(100% + 5px);left:50%;transform:translateX(-50%);background:var(--sky-dark);color:#fff;font-size:11px;font-weight:700;font-family:'Nunito',sans-serif;padding:4px 9px;border-radius:7px;white-space:nowrap;z-index:500;pointer-events:none;box-shadow:0 3px 8px rgba(0,0,0,.25);}
-.tw .tt::after{content:'';position:absolute;top:100%;left:50%;transform:translateX(-50%);border:4px solid transparent;border-top-color:var(--sky-dark);}
-.tw:hover .tt,.tw.tapped .tt{display:block;}
-.pt{display:inline-flex;flex-direction:column;align-items:center;gap:0;vertical-align:bottom;}
-.pt-word{font-weight:inherit;font-size:inherit;line-height:inherit;}
-.pt-trans{font-size:10px;color:var(--sky);font-weight:700;font-family:'Nunito',sans-serif;font-style:italic;line-height:1.2;display:none;text-align:center;}
-body.trans-persistent .pt-trans{display:block;}
-.fc-trans{font-size:12px;color:rgba(255,255,255,.85);font-style:italic;font-weight:600;margin-top:2px;min-height:16px;display:none;}
-body.trans-persistent .fc-trans,.fc-trans.show{display:block;}
-.listen-trans{font-size:15px;color:var(--sky);font-style:italic;font-weight:700;margin-bottom:6px;min-height:20px;display:none;}
-body.trans-persistent .listen-trans,.listen-trans.show{display:block;}
-.chip-trans{font-size:10px;color:var(--sky);font-weight:700;font-style:italic;display:block;text-align:center;line-height:1.2;}
-.match-trans{font-size:10px;color:var(--sky);font-weight:700;font-style:italic;display:block;line-height:1.2;}
+/* CARDS */
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;margin-bottom:48px;}
+.tool-card{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden;transition:transform .2s,box-shadow .2s;text-decoration:none;color:inherit;display:flex;flex-direction:column;}
+.tool-card:hover{transform:translateY(-3px);box-shadow:var(--shadow-lg);}
+.card-stripe{height:6px;}
+.stripe-practice{background:linear-gradient(90deg,var(--sky),var(--sky-mid));}
+.stripe-assess{background:linear-gradient(90deg,var(--purple),#9B59B6);}
+.stripe-dash{background:linear-gradient(90deg,var(--green),#27AE60);}
+.card-body{padding:22px 22px 18px;flex:1;}
+.card-icon{font-size:32px;margin-bottom:12px;display:block;}
+.card-title{font-family:'Nunito',sans-serif;font-size:19px;font-weight:800;color:var(--text);margin-bottom:6px;}
+.card-desc{font-size:13px;color:var(--muted);line-height:1.65;}
+.card-tags{display:flex;flex-wrap:wrap;gap:5px;margin-top:12px;}
+.tag{font-size:11px;font-weight:700;padding:3px 9px;border-radius:10px;font-family:'Nunito',sans-serif;}
+.tag-blue{background:var(--sky-light);color:var(--sky-dark);}
+.tag-purple{background:var(--purple-light);color:var(--purple);}
+.tag-green{background:var(--green-light);color:var(--green);}
+.tag-amber{background:var(--amber-light);color:var(--amber);}
+.card-footer{padding:14px 22px;border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;}
+.card-link{font-family:'Nunito',sans-serif;font-size:13px;font-weight:800;color:var(--sky);text-decoration:none;}
+.card-link::after{content:' →';}
+.who-badge{font-size:11px;font-weight:700;color:var(--muted);background:var(--bg);padding:3px 9px;border-radius:10px;border:1px solid var(--border);}
 
-/* FLASHCARD */
-.fc-container{perspective:800px;margin-bottom:14px;}
-.flashcard{width:100%;height:190px;position:relative;transform-style:preserve-3d;transition:transform .45s cubic-bezier(.4,0,.2,1);cursor:pointer;border-radius:var(--radius);}
-.flashcard.flipped{transform:rotateY(180deg);}
-.card-face{position:absolute;inset:0;border-radius:var(--radius);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px;backface-visibility:hidden;-webkit-backface-visibility:hidden;box-shadow:var(--shadow-lg);}
-.card-front{background:linear-gradient(135deg,var(--sky),var(--sky-mid));}
-.card-back{background:var(--card);border:2px solid var(--sky-light);transform:rotateY(180deg);}
-.card-emoji{font-size:32px;margin-bottom:6px;}
-.card-word{font-family:'Nunito',sans-serif;font-size:26px;font-weight:800;color:#fff;margin-bottom:3px;text-align:center;}
-.card-tap{font-size:11px;color:rgba(255,255,255,.75);}
-.card-def{font-size:14px;color:var(--text);text-align:center;line-height:1.6;font-weight:600;}
-.card-tag{font-size:11px;color:var(--muted);margin-top:6px;}
-.fc-word-row{display:flex;align-items:center;gap:8px;justify-content:center;}
-.fc-controls{display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:12px;}
-.fc-count{font-size:12px;font-weight:700;color:var(--muted);min-width:58px;text-align:center;}
+/* HOW IT WORKS */
+.how-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;margin-bottom:48px;}
+.how-card{background:var(--card);border-radius:var(--radius);padding:20px;box-shadow:var(--shadow);}
+.how-num{font-family:'Nunito',sans-serif;font-size:28px;font-weight:800;color:var(--sky-light);margin-bottom:8px;}
+.how-title{font-family:'Nunito',sans-serif;font-size:14px;font-weight:800;color:var(--text);margin-bottom:5px;}
+.how-desc{font-size:12px;color:var(--muted);line-height:1.6;}
 
-/* LISTEN */
-.listen-card{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow-lg);padding:24px 20px;text-align:center;margin-bottom:14px;border:2px solid var(--sky-light);}
-.listen-emoji{font-size:44px;margin-bottom:8px;display:block;}
-.listen-word{font-family:'Nunito',sans-serif;font-size:30px;font-weight:800;color:var(--sky-dark);margin-bottom:12px;}
-.listen-btns-row{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-bottom:8px;}
-.listen-main-btn{display:inline-flex;align-items:center;gap:7px;padding:11px 22px;border-radius:30px;border:none;background:var(--sky);color:#fff;font-family:'Nunito',sans-serif;font-size:14px;font-weight:800;cursor:pointer;transition:all .2s;}
-.listen-main-btn:hover{background:var(--sky-dark);}
-.listen-main-btn.speaking{background:var(--purple);animation:spk .7s ease-in-out infinite alternate;}
-.listen-main-btn.recording{background:var(--red);animation:spk .5s ease-in-out infinite alternate;}
-.show-def-btn{padding:8px 18px;border-radius:30px;border:1.5px solid var(--border);background:var(--card);font-family:'Nunito',sans-serif;font-size:13px;font-weight:700;cursor:pointer;color:var(--muted);}
-.show-def-btn:hover{background:var(--sky-light);}
-.listen-def{font-size:14px;color:var(--muted);font-weight:600;line-height:1.6;margin-bottom:10px;min-height:40px;}
-.listen-def.hidden{visibility:hidden;}
-.listen-hint{font-size:11px;color:var(--muted);font-style:italic;}
-.rec-status{font-size:12px;font-weight:600;color:var(--muted);min-height:16px;margin:6px 0;}
-.playback-row{display:flex;align-items:center;gap:8px;justify-content:center;margin-bottom:8px;}
-.save-status{font-size:11px;font-weight:700;color:var(--green);min-height:14px;}
-.listen-nav{display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:10px;}
-.listen-count{font-size:12px;font-weight:700;color:var(--muted);min-width:56px;text-align:center;}
+/* UNITS */
+.units-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin-bottom:48px;}
+.unit-card{background:var(--card);border-radius:var(--radius);padding:16px 18px;box-shadow:var(--shadow);border-left:4px solid var(--sky);}
+.unit-card:nth-child(2){border-left-color:#F39C12;}
+.unit-card:nth-child(3){border-left-color:var(--green);}
+.unit-card:nth-child(4){border-left-color:var(--purple);}
+.unit-label{font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px;font-family:'Nunito',sans-serif;}
+.unit-title{font-family:'Nunito',sans-serif;font-size:14px;font-weight:800;color:var(--text);margin-bottom:4px;}
+.unit-count{font-size:11px;color:var(--muted);}
 
-/* WORD MATCH */
-.match-col-hdr{font-size:11px;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;font-family:'Nunito',sans-serif;margin-bottom:5px;}
-.match-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px;}
-.match-col{display:flex;flex-direction:column;gap:7px;}
-.match-item{padding:9px 11px;border:2px solid var(--border);border-radius:var(--radius-sm);font-size:12px;font-weight:600;cursor:pointer;background:var(--card);color:var(--text);transition:all .15s;user-select:none;line-height:1.4;display:flex;align-items:center;gap:5px;}
-.match-item:hover{border-color:var(--sky-mid);background:var(--sky-light);}
-.match-item.selected{border-color:var(--sky);background:var(--sky-light);color:var(--sky-dark);}
-.match-item.matched{border-color:var(--green);background:var(--green-light);color:var(--green-dark);cursor:default;}
-.match-item.wrong{border-color:var(--red);background:var(--red-light);animation:shk .35s;}
-@keyframes shk{0%,100%{transform:translateX(0)}25%{transform:translateX(-4px)}75%{transform:translateX(4px)}}
-.match-feedback{font-size:12px;font-weight:700;color:var(--muted);text-align:center;min-height:18px;margin-bottom:8px;}
-.score-pill{display:inline-block;padding:3px 10px;border-radius:16px;font-size:11px;font-weight:700;background:var(--green-light);color:var(--green-dark);border:1.5px solid #A8E6C4;}
-.match-word-inner{display:inline-flex;flex-direction:column;align-items:flex-start;gap:1px;}
+/* FOOTER */
+footer{text-align:center;padding:28px;border-top:1px solid var(--border);font-size:12px;color:var(--muted);}
 
-/* FIB */
-.fib-sentence{font-size:14px;font-weight:600;line-height:2.1;margin-bottom:8px;color:var(--text);display:flex;align-items:center;flex-wrap:wrap;gap:3px;}
-.blank-input{border:none;border-bottom:2.5px solid var(--sky);font-size:14px;font-family:'Nunito Sans',sans-serif;font-weight:700;color:var(--sky-dark);background:transparent;min-width:80px;padding:0 3px;outline:none;text-align:center;}
-.blank-input.correct{border-color:var(--green);background:var(--green-light);border-radius:5px;padding:1px 8px;color:var(--green-dark);}
-.blank-input.wrong{border-color:var(--red);background:var(--red-light);border-radius:5px;}
-.word-bank{display:flex;flex-wrap:wrap;gap:7px;padding:12px;background:var(--sky-light);border-radius:var(--radius-sm);margin-bottom:12px;align-items:center;}
-.word-bank-label{font-size:10px;font-weight:700;color:var(--sky-dark);letter-spacing:.5px;width:100%;margin-bottom:3px;text-transform:uppercase;}
-.bank-chip-wrap,.sort-chip-wrap{display:inline-flex;align-items:center;gap:4px;margin:2px;}
-.bank-chip-wrap.used,.sort-chip-wrap.used{opacity:.3;pointer-events:none;}
-.chip-spk{width:22px;height:22px;font-size:11px;flex-shrink:0;}
-.bank-chip{display:inline-flex;flex-direction:column;align-items:center;padding:5px 10px;border-radius:16px;font-size:12px;font-weight:700;background:var(--card);border:1.5px solid var(--sky-mid);cursor:pointer;color:var(--sky-dark);transition:all .15s;font-family:'Nunito',sans-serif;}
-.bank-chip:hover{background:var(--sky);color:#fff;border-color:var(--sky);}
-
-/* QUIZ */
-.quiz-card{background:var(--sky-light);border-radius:var(--radius);padding:18px;margin-bottom:12px;border:1.5px solid var(--border);}
-.q-label-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;}
-.q-num{font-size:10px;font-weight:700;color:var(--sky);letter-spacing:.5px;text-transform:uppercase;margin-bottom:6px;}
-.q-text{font-family:'Nunito',sans-serif;font-size:16px;font-weight:700;color:var(--text);line-height:1.5;}
-.q-row{display:flex;align-items:flex-start;gap:8px;}
-.tf-row{display:flex;gap:8px;margin-bottom:8px;}
-.tf-btn{flex:1;padding:11px;border-radius:var(--radius-sm);border:2px solid var(--border);font-family:'Nunito',sans-serif;font-size:14px;font-weight:800;cursor:pointer;background:var(--card);color:var(--text);transition:all .15s;}
-.tf-btn:hover{border-color:var(--sky);background:var(--sky-light);}
-.tf-btn.correct{background:var(--green-light);border-color:var(--green);color:var(--green-dark);}
-.tf-btn.wrong{background:var(--red-light);border-color:var(--red);color:var(--red);}
-.tf-explain{font-size:12px;font-weight:600;color:var(--muted);min-height:16px;padding:0 3px;}
-.dot-row{display:flex;gap:5px;align-items:center;}
-.q-dot{width:9px;height:9px;border-radius:50%;background:var(--border);border:1.5px solid var(--border);transition:all .2s;}
-.q-dot.right{background:var(--green);border-color:var(--green);}
-.q-dot.wrong2{background:var(--red);border-color:var(--red);}
-.q-dot.current{background:var(--sky);border-color:var(--sky);}
-.result-banner{text-align:center;padding:16px;background:linear-gradient(135deg,var(--green-light),var(--sky-light));border-radius:var(--radius);border:1.5px solid #A8E6C4;margin-bottom:12px;}
-.result-emoji{font-size:36px;display:block;margin-bottom:5px;}
-.result-score{font-family:'Nunito',sans-serif;font-size:26px;font-weight:800;color:var(--sky-dark);}
-.result-msg{font-size:13px;color:var(--muted);font-weight:600;}
-
-/* SORT */
-.sort-bank{display:flex;flex-wrap:wrap;gap:7px;padding:12px;background:#F8F8F0;border:1.5px dashed var(--border);border-radius:var(--radius-sm);margin-bottom:12px;min-height:50px;align-items:center;}
-.sort-bank-label{font-size:10px;font-weight:700;color:var(--muted);letter-spacing:.5px;width:100%;margin-bottom:3px;text-transform:uppercase;}
-.sort-chip{display:inline-flex;flex-direction:column;align-items:center;padding:6px 11px;border-radius:16px;font-size:12px;font-weight:700;font-family:'Nunito',sans-serif;background:var(--card);border:1.5px solid var(--border);cursor:pointer;color:var(--text);transition:all .15s;}
-.sort-chip:hover{border-color:var(--sky);background:var(--sky-light);}
-.sort-chip-wrap.pending .sort-chip{outline:2px solid var(--sky);background:var(--sky-light);}
-.sort-cols{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px;}
-.sort-col{min-height:90px;border-radius:var(--radius-sm);border:2px solid var(--border);padding:9px;background:var(--card);cursor:pointer;transition:border-color .15s,background .15s;}
-.sort-col.drop-target{border-color:var(--sky);background:var(--sky-light);}
-.sort-col-label{font-size:11px;font-weight:800;color:var(--sky-dark);text-transform:uppercase;letter-spacing:.5px;margin-bottom:7px;font-family:'Nunito',sans-serif;}
-.sort-placed{padding:6px 10px;border-radius:var(--radius-sm);font-size:12px;font-weight:700;margin-bottom:5px;cursor:pointer;font-family:'Nunito',sans-serif;}
-.sort-placed:hover{opacity:.75;}
-.sort-placed.right{background:var(--green-light);color:var(--green-dark);border:1.5px solid #A8E6C4;}
-.sort-placed.wrong{background:var(--red-light);color:var(--red);border:1.5px solid #F5B7B1;}
-
-/* BUTTONS */
-.btn{padding:8px 18px;border-radius:30px;border:1.5px solid var(--border);background:var(--card);font-family:'Nunito',sans-serif;font-size:12px;font-weight:700;cursor:pointer;color:var(--text);transition:all .15s;}
-.btn:hover{background:var(--sky-light);border-color:var(--sky-mid);}
-.btn.pri{background:var(--sky);border-color:var(--sky);color:#fff;}
-.btn.pri:hover{background:var(--sky-dark);}
-.btn:disabled{opacity:.4;pointer-events:none;}
-.btn-row{display:flex;gap:8px;flex-wrap:wrap;align-items:center;justify-content:center;margin-top:5px;}
-.a-hint{font-size:12px;color:var(--muted);background:var(--sky-light);border-radius:var(--radius-sm);padding:7px 11px;margin-bottom:10px;font-weight:600;}
-audio{height:30px;max-width:200px;}
-@media(max-width:480px){.card-word{font-size:20px;}.listen-word{font-size:22px;}.match-item{font-size:11px;padding:7px 8px;}.site-title{font-size:15px;}.hdr-controls{gap:5px;}}
+@media(max-width:600px){.hero h1{font-size:30px;}.cards{grid-template-columns:1fr;}}
 </style>
 </head>
 <body>
 
-<header class="site-header">
-  <div class="hdr-row1">
-    <div class="site-title">Language Launch <span id="unit-subtitle">· Unit 1</span></div>
-    <div class="hdr-controls">
-      <div class="level-toggle">
-        <button class="level-btn active" id="btn-a" onclick="setLevel('A')">Level A <span class="badge-a">★</span></button>
-        <button class="level-btn" id="btn-c" onclick="setLevel('C')">Level C <span class="badge-c">★★★</span></button>
-      </div>
-      <div class="unit-tabs">
-        <button class="unit-tab active" id="utab-U1" onclick="setUnit('U1')">Unit 1</button>
-        <button class="unit-tab" id="utab-U2" onclick="setUnit('U2')">Unit 2</button>
-        <button class="unit-tab" id="utab-U3" onclick="setUnit('U3')">Unit 3</button>
-        <button class="unit-tab" id="utab-U4" onclick="setUnit('U4')">Unit 4</button>
-        <button class="unit-tab" id="utab-U5" onclick="setUnit('U5')">Unit 5</button>
-        <button class="unit-tab" id="utab-U6" onclick="setUnit('U6')">Unit 6</button>
-        <button class="unit-tab mixed" id="utab-MIX" onclick="setUnit('MIX')">★ Mix</button>
-      </div>
-    </div>
+<div class="hero">
+  <div class="hero-badge">Galileo Academy · ELD Program</div>
+  <h1>Language <span>Launch</span></h1>
+  <p>Interactive vocabulary practice for English learners. Units 1–4 with translations, pronunciation recording, and teacher assessment tools.</p>
+  <div class="hero-langs">
+    <span class="lang-pill">Español</span>
+    <span class="lang-pill">العربية</span>
+    <span class="lang-pill">中文</span>
+    <span class="lang-pill">Tiếng Việt</span>
+    <span class="lang-pill">Русский</span>
+    <span class="lang-pill">اردو</span>
   </div>
-  <div class="trans-bar">
-    <span class="trans-label">🌐 Translate</span>
-    <select class="lang-select" id="lang-sel" onchange="setLang(this.value)">
-      <option value="off">Off</option>
-      <option value="es">Español</option>
-      <option value="ar">العربية</option>
-      <option value="zh">中文</option>
-      <option value="vi">Tiếng Việt</option>
-      <option value="ru">Русский</option>
-      <option value="ur">اردو</option>
-    </select>
-    <div class="trans-mode-toggle" id="tmode-wrap" style="display:none">
-      <button class="tmode-btn active" id="tmode-tip" onclick="setTransMode('tooltip')">Hover/tap</button>
-      <button class="tmode-btn" id="tmode-pin" onclick="setTransMode('persistent')">Always show</button>
-    </div>
-  </div>
-  <nav class="activity-nav">
-    <button class="tab-btn active" onclick="showTab('flashcards')">🃏 Flashcards</button>
-    <button class="tab-btn" onclick="showTab('listen')">🔊 Listen</button>
-    <button class="tab-btn" onclick="showTab('match')">🔗 Match</button>
-    <button class="tab-btn" onclick="showTab('fillin')">✏️ Fill In</button>
-    <button class="tab-btn" onclick="showTab('quiz')">❓ True/False</button>
-    <button class="tab-btn" onclick="showTab('sort')">📦 Sort It</button>
-  </nav>
-</header>
+</div>
 
 <main>
 
-<!-- FLASHCARDS -->
-<div class="activity-panel visible" id="panel-flashcards">
-  <div class="panel-title">Flashcards</div>
-  <div class="panel-desc" id="fc-desc">Tap the card to see the meaning. Tap 🔊 to hear the word.</div>
-  <div class="lesson-filter" id="fc-filter"></div>
-  <div class="progress-bar"><div class="progress-fill" id="fc-prog" style="width:0%"></div></div>
-  <div class="fc-container">
-    <div class="flashcard" id="flashcard" onclick="flipCard(event)">
-      <div class="card-face card-front">
-        <span class="card-emoji" id="fc-emoji">🏫</span>
-        <div class="fc-word-row">
-          <div class="card-word" id="fc-word">school</div>
-          <button class="speak-btn" id="fc-spk" onclick="event.stopPropagation();spk(document.getElementById('fc-word').textContent,'fc-spk')">🔊</button>
+  <div class="section-hdr"><h2>Tools</h2></div>
+  <div class="cards">
+
+    <a class="tool-card" href="language_launch.html">
+      <div class="card-stripe stripe-practice"></div>
+      <div class="card-body">
+        <span class="card-icon">🃏</span>
+        <div class="card-title">Practice Site</div>
+        <div class="card-desc">Six interactive activities — Flashcards, Listen & Record, Word Match, Fill In the Blank, True/False, and Sort It. Works across Units 1–4 with a Mixed mode.</div>
+        <div class="card-tags">
+          <span class="tag tag-blue">Level A</span>
+          <span class="tag tag-blue">Level C</span>
+          <span class="tag tag-amber">6 languages</span>
+          <span class="tag tag-blue">Units 1–4</span>
         </div>
-        <div class="fc-trans" id="fc-trans"></div>
-        <div class="card-tap" id="fc-tap">tap to see definition</div>
       </div>
-      <div class="card-face card-back">
-        <div class="card-def" id="fc-def"></div>
-        <div class="card-tag" id="fc-tag"></div>
+      <div class="card-footer">
+        <span class="who-badge">👩‍🎓 Students</span>
+        <span class="card-link">Open</span>
       </div>
+    </a>
+
+    <a class="tool-card" href="assessment.html">
+      <div class="card-stripe stripe-assess"></div>
+      <div class="card-body">
+        <span class="card-icon">🎤</span>
+        <div class="card-title">Pronunciation Assessment</div>
+        <div class="card-desc">Students read words and sentences aloud with no audio model. Each reading is recorded and saved. A soft speech-recognition indicator gives immediate feedback.</div>
+        <div class="card-tags">
+          <span class="tag tag-purple">Cold read</span>
+          <span class="tag tag-purple">Recorded</span>
+          <span class="tag tag-purple">Units 1–4</span>
+        </div>
+      </div>
+      <div class="card-footer">
+        <span class="who-badge">👩‍🎓 Students</span>
+        <span class="card-link">Open</span>
+      </div>
+    </a>
+
+    <a class="tool-card" href="dashboard.html">
+      <div class="card-stripe stripe-dash"></div>
+      <div class="card-body">
+        <span class="card-icon">📊</span>
+        <div class="card-title">Teacher Dashboard</div>
+        <div class="card-desc">Listen to all student recordings in one place. Filter by student name, unit, lesson, activity type, or speech-match result. Requires Supabase credentials.</div>
+        <div class="card-tags">
+          <span class="tag tag-green">All students</span>
+          <span class="tag tag-green">Audio playback</span>
+          <span class="tag tag-green">Filterable</span>
+        </div>
+      </div>
+      <div class="card-footer">
+        <span class="who-badge">👩‍🏫 Teacher only</span>
+        <span class="card-link">Open</span>
+      </div>
+    </a>
+
+  </div>
+
+  <div class="section-hdr"><h2>Units covered</h2></div>
+  <div class="units-row">
+    <div class="unit-card">
+      <div class="unit-label">Unit 1</div>
+      <div class="unit-title">Welcome to School</div>
+      <div class="unit-count">~50 vocabulary words · 8 lessons</div>
+    </div>
+    <div class="unit-card">
+      <div class="unit-label">Unit 2</div>
+      <div class="unit-title">Getting to Know You</div>
+      <div class="unit-count">~48 vocabulary words · 9 lessons</div>
+    </div>
+    <div class="unit-card">
+      <div class="unit-label">Unit 3</div>
+      <div class="unit-title">Community Voices</div>
+      <div class="unit-count">~50 vocabulary words · 8 lessons</div>
+    </div>
+    <div class="unit-card">
+      <div class="unit-label">Unit 4</div>
+      <div class="unit-title">On the Map</div>
+      <div class="unit-count">~56 vocabulary words · 11 lessons</div>
     </div>
   </div>
-  <div class="fc-controls">
-    <button class="btn" onclick="prevCard()">← Back</button>
-    <span class="fc-count" id="fc-count">1 / 1</span>
-    <button class="btn" onclick="nextCard()">Next →</button>
-  </div>
-  <div class="btn-row"><button class="btn" onclick="shuffleCards()">🔀 Shuffle</button></div>
-</div>
 
-<!-- LISTEN -->
-<div class="activity-panel" id="panel-listen">
-  <div class="panel-title">🔊 Listen &amp; Repeat</div>
-  <div class="panel-desc" id="listen-desc">Hear it. Say it. Record yourself.</div>
-  <div class="lesson-filter" id="listen-filter"></div>
-  <div class="progress-bar"><div class="progress-fill" id="listen-prog" style="width:0%"></div></div>
-  <div class="listen-card">
-    <span class="listen-emoji" id="listen-emoji">🏫</span>
-    <div class="listen-word" id="listen-word">school</div>
-    <div class="listen-trans" id="listen-trans"></div>
-    <div class="listen-btns-row">
-      <button class="listen-main-btn" id="listen-hear-btn" onclick="listenHear()">
-        <span style="font-size:17px">🔊</span><span id="listen-hear-lbl">Hear it</span>
-      </button>
-      <button class="listen-main-btn" id="listen-rec-btn" onclick="toggleRec()" style="background:var(--green)">
-        <span style="font-size:17px" id="listen-rec-icon">🎤</span><span id="listen-rec-lbl">Say it</span>
-      </button>
+  <div class="section-hdr"><h2>How it works</h2></div>
+  <div class="how-grid">
+    <div class="how-card">
+      <div class="how-num">01</div>
+      <div class="how-title">Student opens the practice site</div>
+      <div class="how-desc">They pick a unit, a level (A for newcomers, C for intermediate), and an optional translation language.</div>
     </div>
-    <div class="rec-status" id="rec-status"></div>
-    <div class="playback-row" id="playback-row" style="display:none">
-      <audio id="listen-playback" controls></audio>
-      <button class="btn" id="save-btn" onclick="savePracticeRec()" style="font-size:11px;padding:5px 12px">💾 Save</button>
+    <div class="how-card">
+      <div class="how-num">02</div>
+      <div class="how-title">They work through activities</div>
+      <div class="how-desc">Flashcards, Match, Fill In, True/False, Sort It. In Listen & Repeat, they can record themselves and save.</div>
     </div>
-    <div class="save-status" id="save-status"></div>
-    <button class="show-def-btn" id="show-def-btn" onclick="toggleDef()">Show meaning</button>
-    <div class="listen-def hidden" id="listen-def"></div>
-    <div class="listen-hint" id="listen-hint">Tap 🔊 to hear, 🎤 to record.</div>
-  </div>
-  <div class="listen-nav">
-    <button class="btn" onclick="prevListen()">← Back</button>
-    <span class="listen-count" id="listen-count">1 / 1</span>
-    <button class="btn" onclick="nextListen()">Next →</button>
-  </div>
-  <div class="btn-row" style="margin-top:12px">
-    <button class="btn" onclick="shuffleListen()">🔀 Shuffle</button>
-    <button class="btn pri" onclick="autoPlayListen()">▶ Auto-Play</button>
-  </div>
-</div>
-
-<!-- MATCH -->
-<div class="activity-panel" id="panel-match">
-  <div class="panel-title">Word Match</div>
-  <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:6px;margin-bottom:6px">
-    <div class="panel-desc" id="match-desc" style="margin:0">Tap a word, then its definition.</div>
-    <span class="score-pill" id="match-score">0 matched</span>
-  </div>
-  <div class="lesson-filter" id="match-filter"></div>
-  <div class="match-feedback" id="match-fb">Choose a word on the left to start.</div>
-  <div class="match-grid">
-    <div><div class="match-col-hdr">Words</div><div class="match-col" id="match-words"></div></div>
-    <div><div class="match-col-hdr">Meanings</div><div class="match-col" id="match-defs"></div></div>
-  </div>
-  <div class="btn-row"><button class="btn pri" onclick="newMatchRound()">New Round</button></div>
-</div>
-
-<!-- FILL IN -->
-<div class="activity-panel" id="panel-fillin">
-  <div class="panel-title">Fill In the Blank</div>
-  <div class="panel-desc" id="fib-desc">Choose a word from the bank.</div>
-  <div class="lesson-filter" id="fib-filter"></div>
-  <div id="fib-content"></div>
-  <div class="btn-row">
-    <button class="btn pri" onclick="checkFIB()">✓ Check</button>
-    <button class="btn" onclick="newFIBSet()">New Sentences</button>
-  </div>
-</div>
-
-<!-- QUIZ -->
-<div class="activity-panel" id="panel-quiz">
-  <div class="panel-title">True or False?</div>
-  <div class="panel-desc" id="quiz-desc">Read the sentence. Is it true or false?</div>
-  <div class="lesson-filter" id="quiz-filter"></div>
-  <div class="q-label-row">
-    <span id="q-label" style="font-size:12px;font-weight:700;color:var(--muted)">Question 1 of 6</span>
-    <div class="dot-row" id="q-dots"></div>
-  </div>
-  <div class="quiz-card">
-    <div class="q-num" id="q-num">Question 1</div>
-    <div class="q-row">
-      <div class="q-text" id="q-text">School is a place where students learn.</div>
-      <button class="speak-btn" id="quiz-spk" onclick="spk(document.getElementById('q-text').textContent,'quiz-spk')" style="margin-top:2px">🔊</button>
+    <div class="how-card">
+      <div class="how-num">03</div>
+      <div class="how-title">Teacher runs assessment</div>
+      <div class="how-desc">Students open the Assessment page, type their name, and read words and sentences aloud — no audio model.</div>
+    </div>
+    <div class="how-card">
+      <div class="how-num">04</div>
+      <div class="how-title">Teacher reviews in dashboard</div>
+      <div class="how-desc">All recordings appear in the Teacher Dashboard, organized by student, with inline audio playback.</div>
     </div>
   </div>
-  <div class="tf-row">
-    <button class="tf-btn" id="btn-true" onclick="answerTF(true)">✅ True</button>
-    <button class="tf-btn" id="btn-false" onclick="answerTF(false)">❌ False</button>
-  </div>
-  <div class="tf-explain" id="tf-explain"></div>
-  <div class="btn-row" style="margin-top:10px">
-    <button class="btn" id="q-next" onclick="nextQ()" style="display:none">Next →</button>
-    <button class="btn pri" id="q-restart" onclick="startQuiz()" style="display:none">Play Again</button>
-  </div>
-  <div id="quiz-result" style="margin-top:10px;display:none"></div>
-</div>
-
-<!-- SORT -->
-<div class="activity-panel" id="panel-sort">
-  <div class="panel-title">Sort It</div>
-  <div class="panel-desc" id="sort-desc">Tap a word, then tap the correct column.</div>
-  <div id="sort-content"></div>
-  <div class="btn-row"><button class="btn pri" onclick="newSortRound()">New Round</button></div>
-</div>
 
 </main>
 
-<script>
-// ── SUPABASE ─────────────────────────────────────────────────────
-const SUPA_URL='https://lhmwtfyceilgndpygivj.supabase.co';
-const SUPA_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImxobXd0ZnljZWlsZ25kcHlnaXZqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzYxMzk5MDIsImV4cCI6MjA5MTcxNTkwMn0.0uIXyctHMfTN4doWYn2JJ260swD5b-t0T-oDMSIPtBU';
-const supaOK=true;
-async function supaUpload(blob,fn){
-  if(!supaOK)return null;
-  try{
-    const r=await fetch(`${SUPA_URL}/storage/v1/object/recordings/${fn}`,{method:'POST',headers:{'Authorization':`Bearer ${SUPA_KEY}`,'Content-Type':blob.type||'audio/webm'},body:blob});
-    if(!r.ok){console.error('Upload failed:',r.status,await r.text());return null;}
-    return `${SUPA_URL}/storage/v1/object/public/recordings/${fn}`;
-  }catch(e){console.error('Upload error:',e);return null;}
-}
-async function supaInsert(row){
-  if(!supaOK)return;
-  await fetch(`${SUPA_URL}/rest/v1/recordings`,{method:'POST',headers:{'Authorization':`Bearer ${SUPA_KEY}`,'apikey':SUPA_KEY,'Content-Type':'application/json','Prefer':'return=minimal'},body:JSON.stringify(row)});
-}
+<footer>
+  Language Launch · Galileo Academy ELD Program · Built with HMH curriculum materials
+</footer>
 
-// ── SPEECH ───────────────────────────────────────────────────────
-function spk(text,btnId,rate=0.72){
-  if(!('speechSynthesis' in window))return;
-  window.speechSynthesis.cancel();
-  document.querySelectorAll('.speak-btn.speaking,.listen-main-btn.speaking').forEach(b=>b.classList.remove('speaking'));
-  const u=new SpeechSynthesisUtterance(text);
-  u.lang='en-US';u.rate=rate;u.pitch=1;
-  if(btnId){const b=document.getElementById(btnId);if(b)b.classList.add('speaking');}
-  u.onend=u.onerror=()=>{if(btnId){const b=document.getElementById(btnId);if(b)b.classList.remove('speaking');}};
-  window.speechSynthesis.speak(u);
-}
-
-// ── RECORDING ────────────────────────────────────────────────────
-let mediaRec=null,recChunks=[],recBlob=null;
-async function toggleRec(){
-  if(mediaRec&&mediaRec.state==='recording'){mediaRec.stop();return;}
-  recChunks=[];recBlob=null;
-  document.getElementById('playback-row').style.display='none';
-  document.getElementById('save-status').textContent='';
-  try{
-    const stream=await navigator.mediaDevices.getUserMedia({audio:true});
-    const mimeType=MediaRecorder.isTypeSupported('audio/webm;codecs=opus')?'audio/webm;codecs=opus':MediaRecorder.isTypeSupported('audio/webm')?'audio/webm':MediaRecorder.isTypeSupported('audio/mp4')?'audio/mp4':'';
-    mediaRec=new MediaRecorder(stream,mimeType?{mimeType}:{});
-    mediaRec.ondataavailable=e=>{if(e.data.size>0)recChunks.push(e.data);};
-    mediaRec.onstop=()=>{
-      stream.getTracks().forEach(t=>t.stop());
-      recBlob=new Blob(recChunks,{type:mediaRec.mimeType||'audio/webm'});
-      document.getElementById('listen-playback').src=URL.createObjectURL(recBlob);
-      document.getElementById('playback-row').style.display='flex';
-      document.getElementById('listen-rec-btn').style.background='var(--green)';
-      document.getElementById('listen-rec-btn').classList.remove('recording');
-      document.getElementById('listen-rec-icon').textContent='🎤';
-      document.getElementById('listen-rec-lbl').textContent='Say it again';
-      document.getElementById('rec-status').textContent='✓ Recorded! Press ▶ to hear yourself.';
-    };
-    mediaRec.start();
-    document.getElementById('listen-rec-btn').classList.add('recording');
-    document.getElementById('listen-rec-icon').textContent='⏹';
-    document.getElementById('listen-rec-lbl').textContent='Stop';
-    document.getElementById('rec-status').textContent='🔴 Recording… say the word now!';
-    setTimeout(()=>{if(mediaRec&&mediaRec.state==='recording')mediaRec.stop();},5000);
-  }catch(e){document.getElementById('rec-status').textContent='Microphone not available. Try serving over https://';}
-}
-async function savePracticeRec(){
-  if(!recBlob)return;
-  const c=lisCards[lisIdx];
-  let sname=localStorage.getItem('ll_student')||'';
-  if(!sname){const n=prompt('Enter your name to save:');if(!n)return;localStorage.setItem('ll_student',n);sname=n;}
-  const btn=document.getElementById('save-btn');
-  btn.textContent='Saving…';btn.disabled=true;
-  const ext=recBlob.type.includes('mp4')?'mp4':'webm';
-  const fn=`practice_${sname.replace(/\s+/g,'_')}_${c.word.replace(/\s+/g,'_')}_${Date.now()}.${ext}`;
-  const url=await supaUpload(recBlob,fn);
-  await supaInsert({student_name:sname,activity_type:'practice',word:c.word,audio_url:url||'(local)',level:LV,lesson:c.lesson,unit:CU});
-  btn.textContent='💾 Save';btn.disabled=false;
-  document.getElementById('save-status').textContent=url?'✓ Saved to dashboard!':'⚠️ Upload failed — check console';
-}
-
-// ── DATA ─────────────────────────────────────────────────────────
-const VOCAB_DATA={"U1":[{"word":"school","def":"A place where you can learn and grow.","defA":"A place to learn.","emoji":"🏫","lesson":"L1","tr":{"es":"escuela","ar":"‫مدرسة‬","zh":"学校","ru":"школа","ur":"اسکول","vi":"trường học"}},{"word":"students","def":"People who learn at a school.","defA":"People who learn.","emoji":"🧑‍🎓","lesson":"L1","tr":{"es":"estudiantes","ar":"‫طالب‬","zh":"学生们","vi":"học sinh","ru":"ученики","ur":"طلبہ"}},{"word":"teacher","def":"A person who helps you learn.","defA":"A person who teaches.","emoji":"👩‍🏫","lesson":"L1","tr":{"es":"maestro/a","ar":"‫المعلم‬","zh":"老师","vi":"giáo viên","ru":"учитель","ur":"استاد"}},{"word":"friends","def":"People you like to spend time with.","defA":"People you like.","emoji":"🤝","lesson":"L1","tr":{"es":"amigos/as","ar":"‫أصدقاء‬","zh":"朋友","vi":"bạn/bạn bè","ru":"друзья","ur":"دوست"}},{"word":"principal","def":"The leader of a school.","defA":"The leader of the school.","emoji":"👔","lesson":"L1","tr":{"es":"director/a","ar":"‫ناظر‬","zh":"校长","vi":"hiệu trưởng","ru":"директор","ur":"پرنسپل"}},{"word":"assistant","def":"A person who helps another person do their job.","defA":"A helper.","emoji":"🙋","lesson":"L1","tr":{"es":"asistente","ar":"‫المساعد‬","zh":"助理","vi":"trợ lý","ru":"заместитель","ur":"معاون"}},{"word":"name","def":"The word people use to identify you.","defA":"What people call you.","emoji":"🪪","lesson":"L2","tr":{"es":"nombre","ar":"‫اسم‬","zh":"名字","vi":"tên","ru":"имя","ur":"نام"}},{"word":"introduce","def":"To tell someone who you are for the first time.","defA":"To tell your name.","emoji":"👋","lesson":"L2","tr":{"es":"presentarse","ar":"‫يقدم‬","zh":"介绍","vi":"giới thiệu","ru":"представляться","ur":"تعارف کرانا"}},{"word":"meet","def":"To see and talk to someone for the first time.","defA":"To see someone new.","emoji":"🤝","lesson":"L2","tr":{"es":"conocer","ar":"‫يلتقي‬","zh":"遇见","vi":"gặp","ru":"знакомиться","ur":"ملنا"}},{"word":"language","def":"The words people use to speak and write.","defA":"Words we use to talk.","emoji":"💬","lesson":"L2","tr":{"es":"idioma","ar":"‫لغة‬","zh":"语言","vi":"ngôn ngữ","ru":"язык","ur":"زبان"}},{"word":"hello","def":"A word you say to greet someone.","defA":"A greeting word.","emoji":"👋","lesson":"L2","tr":{"es":"hola","ar":"‫مرحبا‬","zh":"你好","vi":"xin chào","ru":"привет","ur":"سلام"}},{"word":"goodbye","def":"A word you say when you leave.","defA":"A word for leaving.","emoji":"👋","lesson":"L2","tr":{"es":"adiós","ar":"‫مع السالمة‬","zh":"再见","vi":"tạm biệt","ru":"до свидания","ur":"خدا حافظ"}},{"word":"thank you","def":"Words you say to show you are grateful.","defA":"Words to show thanks.","emoji":"🙏","lesson":"L2","tr":{"es":"gracias","ar":"‫أشكرك‬","zh":"谢谢","vi":"cảm ơn","ru":"спасибо","ur":"شکریہ"}},{"word":"classroom","def":"The room where students learn.","defA":"The room where you learn.","emoji":"🏛️","lesson":"L3","tr":{"es":"aula","ar":"‫فصل‬","zh":"教室","vi":"phòng học","ru":"классная комната","ur":"جماعت"}},{"word":"library","def":"A place with many books to read or borrow.","defA":"A place with books.","emoji":"📚","lesson":"L3","tr":{"es":"biblioteca","ar":"‫مكتبة‬","zh":"图书馆","vi":"thư viện","ru":"библиотека","ur":"کتب خانہ"}},{"word":"cafeteria","def":"The place at school where students eat.","defA":"Where students eat.","emoji":"🍽️","lesson":"L3","tr":{"es":"cafetería","ar":"‫كافيتريا‬","zh":"食堂","vi":"căng-tin","ru":"столовая","ur":"کینٹین"}},{"word":"gym","def":"A large room for sports and exercise.","defA":"A room for sports.","emoji":"🏃","lesson":"L3","tr":{"es":"gimnasio","ar":"‫صالة ألعاب‬","zh":"体育馆","vi":"phòng tập thể dục","ru":"спортивный зал","ur":"جم"}},{"word":"hallway","def":"A long path inside a building connecting rooms.","defA":"A path inside school.","emoji":"🚶","lesson":"L3","tr":{"es":"pasillo","ar":"‫الردهة‬","zh":"走廊","vi":"hành lang","ru":"коридор","ur":"راہداری"}},{"word":"counselor","def":"A person at school who gives advice and support.","defA":"A person who helps you.","emoji":"🫂","lesson":"L3","tr":{"es":"consejero/a","ar":"‫مستشار‬","zh":"顾问","vi":"cán bộ cố vấn","ru":"психолог","ur":"مشیر"}},{"word":"librarian","def":"The person who works in the library.","defA":"The person in the library.","emoji":"📖","lesson":"L3","tr":{"es":"bibliotecario/a","ar":"‫أمين مكتبة‬","zh":"图书管理员","vi":"cán bộ thư viện","ru":"библиотекарь","ur":"کتب دار"}},{"word":"backpack","def":"A bag you carry on your back to hold school supplies.","defA":"A bag for school things.","emoji":"🎒","lesson":"L4","tr":{"es":"mochila","ar":"‫حقيبة ظهر‬","zh":"双肩背包","vi":"ba lô","ru":"рюкзак","ur":"بستہ"}},{"word":"notebook","def":"A book with blank pages for writing notes.","defA":"A book for writing.","emoji":"📓","lesson":"L4","tr":{"es":"cuaderno","ar":"‫كراسة‬","zh":"笔记本","vi":"vở","ru":"блокнот","ur":"کاپی"}},{"word":"pencil","def":"A tool for writing that can be erased.","defA":"A tool for writing.","emoji":"✏️","lesson":"L4","tr":{"es":"lápiz","ar":"‫قلم رصاص‬","zh":"铅笔","vi":"bút chì","ru":"карандаш","ur":"پنسل"}},{"word":"calculator","def":"A tool that helps you do math.","defA":"A tool for math.","emoji":"🔢","lesson":"L4","tr":{"es":"calculadora","ar":"‫آلة حاسبة‬","zh":"计算器","vi":"máy tính bỏ túi","ru":"калькулятор","ur":"کیلکولیٹر"}},{"word":"computer","def":"A machine used to write, learn, and find information.","defA":"A machine for learning.","emoji":"💻","lesson":"L4","tr":{"es":"computadora","ar":"‫كمبيوتر‬","zh":"电脑","vi":"máy tính","ru":"компьютер","ur":"کمپیوٹر"}},{"word":"subject","def":"A topic or area of learning at school.","defA":"A topic you study.","emoji":"📐","lesson":"L5","tr":{"es":"materia","ar":"‫مادة دراسية‬","zh":"科目","vi":"môn học","ru":"предмет","ur":"مضمون"}},{"word":"math","def":"The study of numbers, shapes, and patterns.","defA":"The study of numbers.","emoji":"➕","lesson":"L5","tr":{"es":"matemáticas","ar":"‫رياضيات‬","zh":"数学","vi":"toán","ru":"математика","ur":"ریاضی"}},{"word":"science","def":"The study of the natural world.","defA":"The study of nature.","emoji":"🔬","lesson":"L5","tr":{"es":"ciencias","ar":"‫علوم‬","zh":"科学","vi":"khoa học","ru":"естествознание","ur":"سائنس"}},{"word":"art","def":"Drawing, painting, and creating things.","defA":"Making pictures and things.","emoji":"🎨","lesson":"L5","tr":{"vi":"nghệ thuật"}},{"word":"morning","def":"The early part of the day, before noon.","defA":"Early in the day.","emoji":"🌅","lesson":"L6","tr":{"es":"mañana","ar":"‫صباح‬","zh":"早上","vi":"buổi sáng","ru":"утро","ur":"صبح"}},{"word":"afternoon","def":"The part of the day after noon.","defA":"The middle of the day.","emoji":"☀️","lesson":"L6","tr":{"es":"tarde","ar":"‫بعد الظهر‬","zh":"下午","vi":"buổi chiều","ru":"вторая половина","ur":"دوپہر"}},{"word":"breakfast","def":"The first meal of the day.","defA":"The first meal.","emoji":"🍳","lesson":"L6","tr":{"es":"desayuno","ar":"‫وجبة اإلفطار‬","zh":"早餐","vi":"bữa sáng","ru":"завтрак","ur":"ناشتہ"}},{"word":"lunch","def":"The meal eaten in the middle of the day.","defA":"The middle meal.","emoji":"🥪","lesson":"L6","tr":{"es":"almuerzo","ar":"‫وجبة الغداء‬","zh":"午餐","vi":"bữa trưa","ru":"обедать","ur":"دوپہر کا کھانا"}},{"word":"day","def":"A period of 24 hours.","defA":"24 hours.","emoji":"📅","lesson":"L6","tr":{"es":"día","ar":"‫يوم‬","zh":"天","vi":"ngày","ru":"день","ur":"دن"}},{"word":"week","def":"A period of seven days.","defA":"Seven days.","emoji":"🗓️","lesson":"L6","tr":{"es":"semana","ar":"‫أسبوع‬","vi":"tuần","ru":"неделя","ur":"ہفتہ"}},{"word":"left","def":"The direction opposite to right.","defA":"The opposite of right.","emoji":"⬅️","lesson":"L7","tr":{"es":"izquierda","ar":"‫يسار‬","zh":"向左","vi":"trái","ru":"лево","ur":"بائیں"}},{"word":"right","def":"The direction opposite to left.","defA":"The opposite of left.","emoji":"➡️","lesson":"L7","tr":{"es":"derecha","ar":"‫يمين‬","zh":"向右","vi":"phải","ru":"право","ur":"دائیں"}},{"word":"upstairs","def":"On a higher floor of a building.","defA":"The floor above.","emoji":"⬆️","lesson":"L7","tr":{"es":"arriba","ar":"‫الطابق العلوي‬","zh":"楼上","vi":"lên tầng trên","ru":"наверх","ur":"اوپر"}},{"word":"downstairs","def":"On a lower floor of a building.","defA":"The floor below.","emoji":"⬇️","lesson":"L7","tr":{"es":"abajo","ar":"‫الطابق السفلي‬","zh":"楼下","vi":"xuống tầng dưới","ru":"вниз","ur":"نیچے"}},{"word":"inside","def":"In the interior of a place.","defA":"In a building.","emoji":"🏠","lesson":"L7","tr":{"es":"dentro","ar":"‫في الداخل‬","zh":"在里面","vi":"trong/bên trong","ru":"внутри","ur":"اندر"}},{"word":"outside","def":"Not inside a building.","defA":"Not inside.","emoji":"🌳","lesson":"L7","tr":{"es":"afuera","ar":"‫في الخارج‬","zh":"在外面","ru":"снаружи","ur":"باہر","vi":"bên ngoài"}},{"word":"learn","def":"To gain new knowledge or skills.","defA":"To get new knowledge.","emoji":"🧠","lesson":"L8","tr":{"es":"aprender","ar":"‫يتعلم‬","zh":"学习","vi":"học","ru":"учиться","ur":"سیکھنا"}},{"word":"listen","def":"To pay attention to sounds or words.","defA":"To hear carefully.","emoji":"👂","lesson":"L8","tr":{"es":"escuchar","ar":"‫يسمع‬","zh":"听","vi":"nghe","ru":"слушать","ur":"سننا"}},{"word":"read","def":"To understand written words.","defA":"To understand words.","emoji":"📖","lesson":"L8","tr":{"es":"leer","ar":"‫يقرأ‬","zh":"阅读","vi":"đọc","ru":"читать","ur":"پڑھنا"}},{"word":"write","def":"To put words or letters on paper.","defA":"To put words on paper.","emoji":"✍️","lesson":"L8","tr":{"es":"escribir","ar":"‫يكتب‬","zh":"书写","vi":"viết","ru":"писать","ur":"لکھنا"}},{"word":"speak","def":"To say words out loud.","defA":"To say words.","emoji":"🗣️","lesson":"L8","tr":{"es":"hablar","ar":"‫يتحدث‬","vi":"nói","ru":"говорить","ur":"بولنا"}},{"word":"choose","def":"To pick one thing from a group.","defA":"To pick something.","emoji":"☑️","lesson":"L8","tr":{"es":"elegir","ar":"‫يختار‬","zh":"选择","vi":"chọn/lựa chọn","ru":"выбирать","ur":"چننا"}},{"word":"share","def":"To let others use or have something too.","defA":"To give some to others.","emoji":"🤲","lesson":"L8","tr":{"es":"compartir","ar":"‫يشارك‬","zh":"分享","vi":"chia sẻ","ru":"делиться","ur":"بانٹنا"}},{"word":"before","def":"Earlier in time than something else.","defA":"Earlier than.","emoji":"⏮️","lesson":"L8","tr":{"es":"antes","ar":"‫قبل‬","zh":"在...之前","vi":"trước khi","ru":"перед","ur":"پہلے"}},{"word":"after","def":"Later in time than something else.","defA":"Later than.","emoji":"⏭️","lesson":"L8","tr":{"es":"después","ar":"‫بعد‬","zh":"在...之后","vi":"sau khi","ru":"после","ur":"بعد"}}],"U2":[{"word":"talent","def":"A natural ability to do something well.","defA":"Something you do well.","emoji":"⭐","lesson":"L1","tr":{"es":"talento","ar":"‫موهبة‬","zh":"才能","vi":"tài năng/năng khiếu","ru":"талант","ur":"ہنر"}},{"word":"interest","def":"Something you enjoy learning about or doing.","defA":"Something you like.","emoji":"❤️","lesson":"L1","tr":{"es":"interés","ar":"‫اهتمام‬","zh":"兴趣","vi":"sở thích","ru":"интерес","ur":"دلچسپی"}},{"word":"similar","def":"Almost the same as something else.","defA":"Almost the same.","emoji":"🔄","lesson":"L1","tr":{"es":"parecido/a","ar":"‫متشابه‬","vi":"giống nhau","ru":"похожий","ur":"ملتا جلتا"}},{"word":"different","def":"Not the same as something else.","defA":"Not the same.","emoji":"↔️","lesson":"L1","tr":{"es":"diferente","ar":"‫مختلف‬","zh":"不同、不一样","vi":"khác nhau","ru":"разный","ur":"مختلف"}},{"word":"together","def":"With another person or group.","defA":"With other people.","emoji":"🫂","lesson":"L1","tr":{"es":"juntos","ar":"‫سويًا‬","zh":"一起","vi":"cùng nhau","ru":"вместе","ur":"مل کر"}},{"word":"try","def":"To make an effort to do something.","defA":"To make an effort.","emoji":"💪","lesson":"L1","tr":{"es":"probar","ar":"‫يحاول‬","zh":"尝试","vi":"thử","ru":"пробовать","ur":"کوشش کرنا"}},{"word":"nickname","def":"A shorter or informal name someone uses instead of their real name.","defA":"A fun name people call you.","emoji":"😄","lesson":"L2","tr":{"es":"apodo","ar":"‫إسم الشهرة‬","zh":"昵称、小名","vi":"biệt danh","ru":"прозвище","ur":"عرفی نام"}},{"word":"pronounce","def":"To say a word correctly.","defA":"To say a word the right way.","emoji":"🗣️","lesson":"L2","tr":{"es":"pronunciar","ar":"‫ينطق‬","zh":"发音","vi":"phát âm","ru":"выговаривать","ur":"تلفظ"}},{"word":"correct","def":"Right, without any mistakes.","defA":"Right — no mistakes.","emoji":"✅","lesson":"L2","tr":{"es":"correcto/a","ar":"‫صحيح‬","zh":"正确（的）","vi":"đúng/chính xác","ru":"правильный","ur":"درست"}},{"word":"remember","def":"To keep something in your memory.","defA":"To keep in your mind.","emoji":"🧠","lesson":"L2","tr":{"es":"recordar","ar":"‫يتذكر‬","zh":"记住","vi":"nhớ/ghi nhớ/nhớ lại","ru":"вспоминать","ur":"یاد رکھنا"}},{"word":"forget","def":"To fail to remember something.","defA":"To not remember.","emoji":"😶‍🌫️","lesson":"L2","tr":{"es":"olvidar","ar":"‫ينسى‬","zh":"忘记","vi":"quên","ru":"забывать","ur":"بھولنا"}},{"word":"brave","def":"Not afraid to do hard or scary things.","defA":"Not afraid.","emoji":"🦁","lesson":"L3","tr":{"es":"valiente","ar":"‫شجاع‬","zh":"勇敢（的）","vi":"dũng cảm","ru":"храбрый","ur":"بہادر"}},{"word":"curious","def":"Having a strong desire to learn or know things.","defA":"Wanting to learn.","emoji":"🔍","lesson":"L3","tr":{"es":"curioso/a","ar":"‫فضولي‬","zh":"好奇的","vi":"hiếu kỳ/tò mò","ru":"любопытный","ur":"متجسس"}},{"word":"creative","def":"Able to make new and original things.","defA":"Good at making new things.","emoji":"🎨","lesson":"L3","tr":{"es":"creativo/a","ar":"‫مبتكر‬","zh":"有创造力（的）、创","vi":"đầy sáng tạo","ru":"креативный","ur":"تخلیقی"}},{"word":"helpful","def":"Ready and willing to help others.","defA":"Good at helping others.","emoji":"🙋","lesson":"L3","tr":{"es":"servicial","ar":"‫متعاون‬","zh":"帮了忙","vi":"hữu ích/giúp đỡ","ru":"готовый помочь/","ur":"مددگار"}},{"word":"kind","def":"Caring and gentle toward others.","defA":"Nice to other people.","emoji":"💛","lesson":"L3","tr":{"es":"amable","ar":"‫عطوف‬","zh":"善良（的）","vi":"tốt bụng","ru":"добрый","ur":"مہربان"}},{"word":"responsible","def":"Able to be trusted to do the right thing.","defA":"Can be trusted.","emoji":"👍","lesson":"L3","tr":{"es":"responsable","ar":"‫مسؤول‬","zh":"负责任的、有责任","vi":"có trách nhiện","ru":"ответственный","ur":"ذمہ دار"}},{"word":"collaborative","def":"Good at working with other people.","defA":"Good at working together.","emoji":"🤝","lesson":"L3","tr":{"es":"colaborativo/a","ar":"‫يتعاون‬","zh":"合作（的）","vi":"mang tính cộng","ru":"способный к","ur":"تعاون کرنے والا"}},{"word":"imaginative","def":"Good at creating pictures or ideas in your mind.","defA":"Good at imagining things.","emoji":"💭","lesson":"L3","tr":{"es":"imaginativo/a","ar":"‫خيالي‬","zh":"富有想象力（的）","vi":"sáng tạo","ru":"имеющий богатое","ur":"تخلیقی"}},{"word":"birthday","def":"The day each year that you celebrate being born.","defA":"Your special day each year.","emoji":"🎂","lesson":"L4","tr":{"es":"cumpleaños","ar":"‫عيد الميالد‬","zh":"生日","vi":"sinh nhật","ru":"день рождения","ur":"سالگرہ"}},{"word":"calendar","def":"A chart that shows all the days in a year.","defA":"A chart showing all the days.","emoji":"📅","lesson":"L4","tr":{"es":"calendario","ar":"‫تقويم‬","zh":"日历","vi":"lịch","ru":"календарь","ur":"کیلنڈر"}},{"word":"month","def":"One of twelve parts that divide a year.","defA":"One of 12 parts of a year.","emoji":"🗓️","lesson":"L4","tr":{"es":"mes","ar":"‫شهر‬","zh":"月","vi":"tháng","ru":"месяц","ur":"مہینہ"}},{"word":"today","def":"This current day.","defA":"Right now — this day.","emoji":"📍","lesson":"L4","tr":{"es":"hoy","ar":"‫اليوم‬","zh":"今天","vi":"hôm nay","ru":"сегодня","ur":"آج"}},{"word":"yesterday","def":"The day before today.","defA":"The day before today.","emoji":"⏮️","lesson":"L4","tr":{"es":"ayer","ar":"‫األمس‬","zh":"昨天","vi":"hôm qua","ru":"вчера","ur":"کل"}},{"word":"tomorrow","def":"The day after today.","defA":"The day after today.","emoji":"⏭️","lesson":"L4","tr":{"es":"mañana","ar":"‫الغد‬","zh":"明天","vi":"ngày mai","ru":"завтра","ur":"کل (آنے والا)"}},{"word":"weather","def":"The conditions outside, like rain, sun, or wind.","defA":"What it is like outside.","emoji":"🌤️","lesson":"L5","tr":{"es":"clima","ar":"‫الطقس‬","zh":"天气","vi":"thời tiết","ru":"погода","ur":"موسم"}},{"word":"sunny","def":"When the sky is clear and the sun is shining.","defA":"The sun is shining.","emoji":"☀️","lesson":"L5","tr":{"es":"soleado/a","ar":"‫مشمس‬","zh":"晴朗的","vi":"có nắng","ru":"солнечный","ur":"دھوپ والا"}},{"word":"rainy","def":"When water falls from clouds.","defA":"It is raining.","emoji":"🌧️","lesson":"L5","tr":{"es":"lluvioso/a","ar":"‫ممطر‬","zh":"下雨的","vi":"có mưa","ru":"дождливый","ur":"بارش والا"}},{"word":"cloudy","def":"When the sky is covered with clouds.","defA":"Many clouds in the sky.","emoji":"☁️","lesson":"L5","tr":{"es":"nublado/a","ar":"‫غائم‬","zh":"多云（的）","vi":"nhiều mây","ru":"облачный","ur":"ابر آلود"}},{"word":"windy","def":"When there is a lot of wind.","defA":"A lot of wind.","emoji":"💨","lesson":"L5","tr":{"es":"ventoso/a","ar":"‫عاصف‬","zh":"多风（的）、刮风、风","vi":"nhiều gió","ru":"ветренный/ветрено","ur":"ہوا والا"}},{"word":"temperature","def":"How hot or cold something is.","defA":"How hot or cold it is.","emoji":"🌡️","lesson":"L5","tr":{"es":"temperatura","ar":"‫درجة الحرارة‬","zh":"温度","vi":"nhiệt độ","ru":"температура","ur":"درجہ حرارت"}},{"word":"cold","def":"Having a low temperature.","defA":"Not warm.","emoji":"❄️","lesson":"L5","tr":{"es":"frío/a","ar":"‫بارد‬","zh":"寒冷（的）、冷","vi":"lạnh","ru":"холодный/холодно"}},{"word":"hot","def":"Having a high temperature.","defA":"Very warm.","emoji":"🔥","lesson":"L5","tr":{"es":"caluroso/a","ar":"‫حار‬","zh":"炎热、热","vi":"nóng","ru":"жаркий/жарко","ur":"گرم"}},{"word":"cook","def":"To prepare food by heating it.","defA":"To make food with heat.","emoji":"🍳","lesson":"L6","tr":{"es":"cocinar","ar":"‫يطبخ‬","zh":"烹饪、煮（饭）、做（","vi":"nấu/nấu ăn","ru":"готовить","ur":"پکانا"}},{"word":"dance","def":"To move your body to music.","defA":"To move to music.","emoji":"💃","lesson":"L6","tr":{"es":"bailar","ar":"‫يرقص‬","zh":"跳舞","vi":"nhảy/khiêu vũ","ru":"танцевать","ur":"ناچنا"}},{"word":"draw","def":"To make a picture with a pencil or pen.","defA":"To make a picture.","emoji":"✏️","lesson":"L6","tr":{"es":"dibujar","ar":"‫يرسم‬","zh":"绘画、描绘","vi":"vẽ","ru":"рисовать","ur":"بنانا"}},{"word":"sing","def":"To make music with your voice.","defA":"To make music with voice.","emoji":"🎵","lesson":"L6","tr":{"es":"cantar","ar":"‫يغني‬","zh":"唱歌","vi":"hát","ru":"петь","ur":"گانا"}},{"word":"watch","def":"To look at something happening.","defA":"To look at something.","emoji":"👀","lesson":"L6","tr":{"es":"mirar","ar":"‫يشاهد‬","zh":"观看","vi":"xem","ru":"смотреть","ur":"دیکھنا"}},{"word":"color","def":"A quality seen by the eye, like red or blue.","defA":"Red, blue, green, etc.","emoji":"🌈","lesson":"L7","tr":{"es":"color","ar":"‫لون‬","zh":"颜色","vi":"màu sắc","ru":"цвет","ur":"رنگ"}},{"word":"jacket","def":"A piece of clothing worn on the upper body.","defA":"A coat you wear.","emoji":"🧥","lesson":"L7","tr":{"es":"chaqueta","ar":"‫سترة‬","zh":"夹克衫","vi":"áo khoác","ru":"куртка","ur":"جیکٹ"}},{"word":"angry","def":"Feeling very upset or mad.","defA":"Feeling very mad.","emoji":"😠","lesson":"L8","tr":{"es":"enojado/a","ar":"‫غاضب‬","zh":"生气（的）","vi":"giận","ru":"злиться","ur":"غصہ"}},{"word":"confused","def":"Not able to understand something clearly.","defA":"Not able to understand.","emoji":"😕","lesson":"L8","tr":{"es":"confundido/a","ar":"‫مرتبك‬","zh":"困惑的","vi":"rối trí","ru":"сбитый с толку","ur":"پریشان"}},{"word":"happy","def":"Feeling pleased and glad.","defA":"Feeling good.","emoji":"😊","lesson":"L8","tr":{"es":"feliz","ar":"‫سعيد‬","zh":"开心（的）","vi":"hạnh phúc/vui vẻ/vui","ru":"счастливый","ur":"خوش"}},{"word":"memory","def":"Something you can remember from the past.","defA":"Something you remember.","emoji":"💭","lesson":"L8","tr":{"es":"recuerdo","ar":"‫ذكرى‬","zh":"回忆","vi":"ký ức","ru":"воспоминания","ur":"یاد"}},{"word":"spring","def":"The season after winter when things get warmer.","defA":"The warm season after winter.","emoji":"🌸","lesson":"L9","tr":{"es":"primavera","ar":"‫الربيع‬","zh":"春季","vi":"mùa xuân","ru":"весна","ur":"بہار"}},{"word":"summer","def":"The hottest season of the year.","defA":"The hottest season.","emoji":"☀️","lesson":"L9","tr":{"es":"verano","ar":"‫الصيف‬","zh":"夏季","vi":"mùa hè","ru":"лето","ur":"گرمی"}},{"word":"fall","def":"The season after summer when leaves change color.","defA":"The season with falling leaves.","emoji":"🍂","lesson":"L9","tr":{"es":"otoño","ar":"‫الخريف‬","zh":"秋季、秋天","vi":"mùa thu","ru":"осень","ur":"خزاں"}},{"word":"winter","def":"The coldest season of the year.","defA":"The coldest season.","emoji":"❄️","lesson":"L9","tr":{"es":"invierno","ar":"‫الشتاء‬","zh":"冬季","vi":"mùa đông","ru":"зима","ur":"سردی"}}],"U3":[{"word":"neighborhood","def":"The area around where you live.","defA":"The area near your home.","emoji":"🏘️","lesson":"L1","tr":{"es":"vecindario","ar":"‫حي‬","zh":"附近、邻里","vi":"khu dân cư","ru":"район","ur":"محلہ"}},{"word":"community","def":"A group of people who live and work in the same area.","defA":"People who live together.","emoji":"👥","lesson":"L1","tr":{"es":"comunidad","ar":"‫مجتمع‬","zh":"社区","vi":"cộng đồng","ru":"сообщество","ur":"برادری"}},{"word":"belong","def":"To be part of a group or place.","defA":"To be part of something.","emoji":"🫂","lesson":"L1","tr":{"es":"pertenecer","ar":"‫ينتمي إلى‬","zh":"属于","vi":"thuộc về","ru":"принадлежать","ur":"تعلق رکھنا"}},{"word":"city","def":"A large place where many people live and work.","defA":"A big place with many people.","emoji":"🌆","lesson":"L2","tr":{"es":"ciudad","ar":"‫مدينة‬","zh":"城市","vi":"thành phố","ru":"город","ur":"شہر"}},{"word":"street","def":"A road in a town with buildings on each side.","defA":"A road in a town.","emoji":"🛣️","lesson":"L2","tr":{"es":"calle","ar":"‫شارع‬","zh":"街道","vi":"phố","ru":"улица","ur":"سڑک"}},{"word":"address","def":"The numbers and street name that show where a place is.","defA":"Where a place is located.","emoji":"📍","lesson":"L2","tr":{"es":"dirección","ar":"‫عنوان‬","zh":"地址","vi":"địa chỉ","ru":"адрес","ur":"پتہ"}},{"word":"home","def":"The place where you live.","defA":"Where you live.","emoji":"🏠","lesson":"L2","tr":{"es":"hogar","ar":"‫بيت‬","zh":"家","vi":"nhà","ru":"дом (место)","ur":"گھر"}},{"word":"park","def":"An outdoor area with plants where people can relax.","defA":"An outdoor place to relax.","emoji":"🌳","lesson":"L2","tr":{"es":"parque","ar":"‫حديقة‬","zh":"公园","vi":"công viên","ru":"парк","ur":"پارک"}},{"word":"community center","def":"A building where people in a neighborhood gather.","defA":"A place for community events.","emoji":"🏛️","lesson":"L2","tr":{"es":"centro","ar":"‫مركز مجتمعي‬","zh":"社区活动中","vi":"trung tâm","ur":"کمیونٹی سینٹر"}},{"word":"bus","def":"A large vehicle that carries many people along a set route.","defA":"A big vehicle for many people.","emoji":"🚌","lesson":"L3","tr":{"es":"autobús","ar":"‫حافلة‬","zh":"公交车","vi":"xe buýt","ru":"автобус","ur":"بس"}},{"word":"car","def":"A vehicle with four wheels used for transportation.","defA":"A vehicle with four wheels.","emoji":"🚗","lesson":"L3","tr":{"es":"carro","ar":"‫سيارة‬","zh":"轿车","vi":"xe ô tô/xe hơi","ru":"легковой автомобиль","ur":"گاڑی"}},{"word":"ferry","def":"A boat that carries people across water.","defA":"A boat for crossing water.","emoji":"⛴️","lesson":"L3","tr":{"es":"transbordador","ar":"‫عبّارة‬","zh":"渡船","vi":"phà","ru":"паром","ur":"کشتی"}},{"word":"taxi","def":"A car you can pay to take you somewhere.","defA":"A car you pay to ride.","emoji":"🚕","lesson":"L3","tr":{"es":"taxi","ar":"‫سيارة أجرة‬","zh":"出租车","vi":"tắc-xi","ru":"такси","ur":"ٹیکسی"}},{"word":"walk","def":"To move on foot from one place to another.","defA":"To move on your feet.","emoji":"🚶","lesson":"L3","tr":{"es":"caminar","ar":"‫يمشي‬","zh":"步行","vi":"đi bộ","ru":"ходить пешком","ur":"چلنا"}},{"word":"bicycle","def":"A vehicle with two wheels that you pedal.","defA":"A two-wheeled vehicle you pedal.","emoji":"🚲","lesson":"L3","tr":{"es":"bicicleta","ar":"‫الدراجة‬","zh":"自行车","vi":"xe đạp","ru":"велосипед","ur":"سائیکل"}},{"word":"near","def":"A short distance away.","defA":"Close, not far.","emoji":"📍","lesson":"L3","tr":{"ar":"‫بالقرب من‬","zh":"靠近","ru":"рядом","ur":"قریب","vi":"gần","es":"cerca"}},{"word":"far","def":"A long distance away.","defA":"Not close.","emoji":"↔️","lesson":"L3","tr":{"es":"lejos","ar":"‫بعيد‬","zh":"很远","vi":"xa","ru":"далеко","ur":"دور"}},{"word":"behind","def":"At the back of something.","defA":"At the back.","emoji":"⬅️","lesson":"L3","tr":{"es":"detrás de","ar":"‫خلف‬","zh":"在...后面","vi":"phía sau","ru":"за","ur":"پیچھے"}},{"word":"between","def":"In the middle of two things.","defA":"In the middle.","emoji":"↔️","lesson":"L3","tr":{"es":"entre","ar":"‫بين‬","zh":"在...之间","vi":"ở giữa","ru":"между","ur":"درمیان"}},{"word":"across","def":"On the other side of something.","defA":"On the other side.","emoji":"➡️","lesson":"L3","tr":{"es":"frente","ar":"‫عبر‬","zh":"在...对面","vi":"đối diện","ru":"через","ur":"آر پار"}},{"word":"banker","def":"A person who works at a bank.","defA":"A person who works at a bank.","emoji":"🏦","lesson":"L4","tr":{"es":"banquero/a","ar":"‫مصرفي‬","zh":"银行家、银行经理","vi":"nhân viên ngân hàng","ru":"банкир","ur":"بینکر"}},{"word":"business owner","def":"A person who owns a company or store.","defA":"A person who owns a store.","emoji":"💼","lesson":"L4","tr":{"es":"empresario/a","ar":"‫صاحب عمل‬","zh":"企业主","vi":"chủ doanh","ru":"владелец","ur":"کاروباری"}},{"word":"server","def":"A person who brings food at a restaurant.","defA":"A person who brings food.","emoji":"🍽️","lesson":"L4","tr":{"es":"mesero/a","ar":"‫نادل‬","zh":"服务员","vi":"nhân viên phục vụ","ru":"официант","ur":"خادم"}},{"word":"bill","def":"Paper money used to buy things.","defA":"Paper money.","emoji":"💵","lesson":"L5","tr":{"es":"billete","ar":"‫ورقة نقدية‬","zh":"钞票","vi":"hóa đơn/giấy bạc","ru":"счёт","ur":"بل"}},{"word":"coin","def":"Round metal money.","defA":"Round metal money.","emoji":"🪙","lesson":"L5","tr":{"es":"moneda","ar":"‫عملة معدنية‬","zh":"硬币","vi":"tiền xu","ru":"монета","ur":"سکہ"}},{"word":"buy","def":"To pay money for something.","defA":"To pay money for something.","emoji":"🛍️","lesson":"L5","tr":{"es":"comprar","ar":"‫يشتري‬","zh":"买","vi":"mua","ru":"покупать","ur":"خریدنا"}},{"word":"pay","def":"To give money for goods or services.","defA":"To give money.","emoji":"💳","lesson":"L5","tr":{"es":"pagar","ar":"‫يدفع‬","zh":"付款","vi":"thanh toán","ru":"платить","ur":"ادا کرنا"}},{"word":"cost","def":"The amount of money needed to buy something.","defA":"How much money you need.","emoji":"💰","lesson":"L5","tr":{"es":"costo/costar","ar":"‫تكلفة‬","zh":"费用","vi":"giá","ru":"стоимость/стоить","ur":"قیمت"}},{"word":"sale","def":"When items are sold at a lower price than usual.","defA":"A lower price.","emoji":"🏷️","lesson":"L5","tr":{"es":"venta/oferta","ar":"‫تخفيضات‬","zh":"销售、促销","vi":"giảm giá","ru":"продажа/распродажа","ur":"فروخت"}},{"word":"government","def":"The group of people who make rules for a country or city.","defA":"People who make rules.","emoji":"🏛️","lesson":"L6","tr":{"es":"gobierno","ar":"‫حكومة‬","zh":"政府","vi":"chính quyền","ru":"правительство","ur":"حکومت"}},{"word":"public","def":"For everyone to use.","defA":"For all people.","emoji":"👥","lesson":"L6","tr":{"es":"público/a","ar":"‫عامة‬","zh":"公共（的）","vi":"công cộng","ru":"общественный","ur":"عوامی"}},{"word":"education","def":"The process of learning at school.","defA":"Learning at school.","emoji":"🎓","lesson":"L6","tr":{"es":"educación","ar":"‫تعليم‬","zh":"教育","vi":"giáo dục","ru":"образование","ur":"تعلیم"}},{"word":"build","def":"To put materials together to make something.","defA":"To make something.","emoji":"🏗️","lesson":"L6","tr":{"es":"construir","ar":"‫يبني‬","zh":"修建、建造、建设","vi":"xây dựng","ru":"строить","ur":"بنانا"}},{"word":"design","def":"A plan for how something will look or be made.","defA":"A plan for making.","emoji":"📐","lesson":"L6","tr":{"es":"diseñar/diseño","ar":"‫تصميم‬/‫يصمم‬","zh":"设计","vi":"thiết kế","ru":"проектировать/проект","ur":"ڈیزائن"}},{"word":"donate","def":"To give something to help others.","defA":"To give to help others.","emoji":"❤️","lesson":"L6","tr":{"es":"donar","ar":"‫يتبرع‬","zh":"捐赠","vi":"quyên góp","ru":"жертвовать","ur":"عطیہ دینا"}},{"word":"shelter","def":"A building or place that protects you from weather or danger.","defA":"A place to stay safe.","emoji":"🏠","lesson":"L6","tr":{"es":"refugio","ar":"‫مأوى‬","zh":"居所","vi":"nơi trú ẩn","ru":"укрытие","ur":"پناہ گاہ"}},{"word":"emergency","def":"A sudden, dangerous situation that needs immediate action.","defA":"A dangerous situation.","emoji":"🚨","lesson":"L7","tr":{"ur":"ایمرجنسی","vi":"khẩn cấp"}},{"word":"paramedic","def":"A trained person who gives medical help in emergencies.","defA":"A helper in emergencies.","emoji":"🚑","lesson":"L7","tr":{"es":"paramédico/a","ar":"‫مسعف‬","zh":"护理人员","vi":"chuyên viên cấp","ru":"работник скорой","ur":"پیرامیڈک"}},{"word":"firefighter","def":"A person trained to put out fires.","defA":"A person who fights fires.","emoji":"🧑‍🚒","lesson":"L7","tr":{"es":"bombero/a","zh":"消防员","vi":"lính cứu hỏa","ru":"пожарный","ur":"فائر فائٹر"}},{"word":"police","def":"People trained to keep the public safe.","defA":"People who keep us safe.","emoji":"👮","lesson":"L7","tr":{"es":"policía","ar":"‫الشرطة‬","zh":"警察","ru":"полиция","ur":"پولیس","vi":"cảảnh sát"}},{"word":"ambulance","def":"A vehicle that takes sick or hurt people to the hospital.","defA":"A vehicle for emergencies.","emoji":"🚑","lesson":"L7","tr":{"es":"ambulancia","ar":"‫سيارة إسعاف‬","zh":"救护车","vi":"xe cứu thương","ru":"скорая помощь","ur":"ایمبولینس"}},{"word":"doctor","def":"A person trained to treat illness and injury.","defA":"A person who treats sickness.","emoji":"🩺","lesson":"L7","tr":{"es":"doctor/a","ar":"‫طبيب‬","zh":"医生","vi":"bác sĩ","ru":"врач","ur":"ڈاکٹر"}},{"word":"hospital","def":"A building where sick or hurt people get medical care.","defA":"Where sick people get help.","emoji":"🏥","lesson":"L7","tr":{"es":"hospital","ar":"‫مستشفى‬","zh":"医院","ru":"больница","ur":"ہسپتال"}},{"word":"healthy","def":"In good physical condition, not sick.","defA":"Not sick — feeling good.","emoji":"💪","lesson":"L7","tr":{"es":"sano/a","ar":"‫بصحة جيدة‬","zh":"健康（的）","vi":"khỏe mạnh","ru":"здоровый","ur":"صحت مند"}},{"word":"sick","def":"Not in good health, having an illness.","defA":"Not feeling well.","emoji":"🤒","lesson":"L7","tr":{"es":"enfermo/a","ar":"‫مريض‬","zh":"生病的","vi":"ốm","ru":"больной","ur":"بیمار"}},{"word":"fever","def":"A body temperature higher than normal, a sign of illness.","defA":"High body temperature.","emoji":"🌡️","lesson":"L7","tr":{"es":"fiebre","ar":"‫حمى‬","zh":"发烧","vi":"cơn sốt","ru":"жар","ur":"بخار"}},{"word":"stomachache","def":"A pain in the stomach area.","defA":"Pain in your stomach.","emoji":"🤢","lesson":"L7","tr":{"es":"dolor de","ar":"‫ألم في المعدة‬","zh":"胃痛","vi":"đau dạ dày","ru":"боль в животе","ur":"پیٹ درد"}},{"word":"pharmacist","def":"A trained person who gives out medicine.","defA":"A person who gives medicine.","emoji":"💊","lesson":"L7","tr":{"es":"farmacéutico/a","ar":"‫صيدلي‬","zh":"药剂师","vi":"dược sĩ","ru":"фармацевт","ur":"فارماسسٹ"}},{"word":"hurricane","def":"A very powerful storm with strong winds and rain.","defA":"A very powerful storm.","emoji":"🌀","lesson":"L8","tr":{"es":"huracán","ar":"‫إعصار‬","zh":"飓风","vi":"bão nhiệt đới","ru":"ураган","ur":"طوفان"}},{"word":"blizzard","def":"A severe snowstorm with strong winds.","defA":"A very bad snowstorm.","emoji":"❄️","lesson":"L8","tr":{"es":"ventisca","ar":"‫عاصفة ثلجية‬","zh":"暴风雪","vi":"bão tuyết","ru":"метель","ur":"برفانی طوفان"}}],"U4":[{"word":"map","def":"A flat image showing where places are located.","defA":"Shows where places are.","emoji":"🗺️","lesson":"L1","tr":{"es":"mapa","ar":"‫خريطة‬","zh":"地图","vi":"bản đồ","ru":"карта","ur":"نقشہ"}},{"word":"compass","def":"A tool that shows you which direction to go.","defA":"Shows directions.","emoji":"🧭","lesson":"L1","tr":{"es":"brújula","ar":"‫بوصلة‬","zh":"指南针","vi":"la bàn","ru":"компас","ur":"قطب نما"}},{"word":"Earth","def":"The planet we live on.","defA":"Our planet.","emoji":"🌍","lesson":"L1","tr":{"ur":"زمین"}},{"word":"globe","def":"A ball-shaped model of our planet.","defA":"A round model of our planet.","emoji":"🌐","lesson":"L1","tr":{"es":"globo terráqueo","ar":"‫الكرة األرضية‬","zh":"地球仪","vi":"quả địa cầu","ru":"глобус","ur":"کرہ ارض"}},{"word":"geography","def":"The study of land, water, and how people interact with them.","defA":"The study of land and water.","emoji":"📚","lesson":"L1","tr":{"es":"geografía","ar":"‫الجغرافيا‬","zh":"地理学","vi":"địa lý","ru":"география","ur":"جغرافیہ"}},{"word":"world","def":"All the countries, people, and places on our planet.","defA":"All places on our planet.","emoji":"🌎","lesson":"L1","tr":{"es":"mundo","ar":"‫العالم‬","zh":"世界","vi":"thế giới","ru":"мир","ur":"دنیا"}},{"word":"lost","def":"Not knowing where you are or where to go.","defA":"Not knowing where you are.","emoji":"😕","lesson":"L1","tr":{"es":"perdido/a","ar":"‫تائه‬","zh":"迷路的","vi":"lạc đường/lạc lối","ru":"потерянный","ur":"گم"}},{"word":"directions","def":"Instructions for getting from one place to another.","defA":"How to get somewhere.","emoji":"🧭","lesson":"L1","tr":{"ur":"سمتیں"}},{"word":"continent","def":"One of the seven large landmasses on our planet.","defA":"A very big area of land.","emoji":"🌍","lesson":"L2","tr":{"es":"continente","ar":"‫قارة‬","zh":"大陆","vi":"lục địa","ru":"континент","ur":"براعظم"}},{"word":"ocean","def":"A very large body of salt water.","defA":"A very big area of water.","emoji":"🌊","lesson":"L2","tr":{"es":"océano","ar":"‫محيط‬","zh":"海洋","vi":"đại dương","ru":"океан","ur":"سمندر"}},{"word":"equator","def":"An imaginary line around the middle of our planet.","defA":"A line around the middle.","emoji":"〰️","lesson":"L2","tr":{"es":"ecuador","ar":"‫خط االستواء‬","zh":"赤道","vi":"xích đạo","ru":"экватор","ur":"خط استوا"}},{"word":"hemisphere","def":"Half of our planet.","defA":"Half of our planet.","emoji":"🌐","lesson":"L2","tr":{"es":"hemisferio","ar":"‫نصف الكرة األرضية‬","zh":"半球","vi":"bán cầu","ru":"полушарие","ur":"نصف کرہ"}},{"word":"prime meridian","def":"The imaginary line connecting the North and South Poles.","defA":"A line from pole to pole.","emoji":"📍","lesson":"L2","tr":{"es":"primer","ar":"‫خط الزوال الرئيسي‬","zh":"本初子午线","vi":"kinh tuyến gốc","ru":"нулевой","ur":"صفر میریڈیئن"}},{"word":"land","def":"Dry ground not covered by water.","defA":"Dry ground.","emoji":"🏕️","lesson":"L2","tr":{"ar":"‫أرض‬","zh":"土地","ru":"суша","ur":"زمین","es":"tierra"}},{"word":"water","def":"The liquid that covers most of our planet.","defA":"Covers most of our planet.","emoji":"💧","lesson":"L2","tr":{"es":"agua","ar":"‫مياه‬","vi":"nước","ru":"вода","ur":"پانی"}},{"word":"surface","def":"The outer layer of our planet.","defA":"The outside of our planet.","emoji":"🗺️","lesson":"L2","tr":{"es":"superficie","ar":"‫سطح‬","zh":"表面","vi":"bề mặt","ru":"поверхность","ur":"سطح"}},{"word":"hill","def":"A rounded, raised area of land — smaller than a mountain.","defA":"Small raised land.","emoji":"🌄","lesson":"L3","tr":{"es":"colina","ar":"‫تل‬","zh":"山丘","vi":"đồi","ru":"холм","ur":"پہاڑی"}},{"word":"mountain","def":"A massive, raised area of land.","defA":"Very tall raised land.","emoji":"⛰️","lesson":"L3","tr":{"es":"montaña","ar":"‫جبل‬","zh":"山、山脉","vi":"núi","ru":"гора","ur":"پہاڑ"}},{"word":"river","def":"A large stream of fresh water that flows into an ocean.","defA":"Moving fresh water.","emoji":"🏞️","lesson":"L3","tr":{"es":"río","ar":"‫نهر‬","zh":"河流","ru":"река","ur":"دریا"}},{"word":"reservoir","def":"A human-made lake used to store water.","defA":"A lake made by people.","emoji":"💧","lesson":"L3","tr":{"es":"embalse","ar":"‫خزان‬","zh":"水库","vi":"hồ chứa","ru":"водохранилище","ur":"آبی ذخیرہ"}},{"word":"wetland","def":"An area of ground that is often covered by water.","defA":"Land often covered by water.","emoji":"🌿","lesson":"L3","tr":{"es":"humedal","ar":"‫األراضي الرطبة‬","zh":"湿地","vi":"đất ngập nước","ru":"заболоченная","ur":"دلدل"}},{"word":"valley","def":"A low area of land between hills or mountains.","defA":"Low land between hills.","emoji":"🌿","lesson":"L3","tr":{"es":"valle","ar":"‫وادي‬","zh":"山谷","vi":"thung lũng","ru":"долина","ur":"وادی"}},{"word":"sand dune","def":"A mound of sand shaped by wind.","defA":"A hill made of sand.","emoji":"🏜️","lesson":"L3","tr":{"es":"duna","ar":"‫كثبان رملية‬","zh":"沙丘","vi":"cồn cát","ru":"песчаные дюны","ur":"ریت کا ٹیلہ"}},{"word":"climate","def":"The typical weather patterns in a place over many years.","defA":"The usual weather over many years.","emoji":"🌤️","lesson":"L4","tr":{"es":"clima","ar":"‫المناخ‬","zh":"气候","vi":"khí hậu","ru":"климат","ur":"موسم"}},{"word":"tropical","def":"Wet and warm all year — found near the equator.","defA":"Hot and wet all year.","emoji":"🌴","lesson":"L4","tr":{"es":"tropical","ar":"‫استوائي‬","zh":"热带","vi":"nhiệt đới","ru":"тропический","ur":"اشنکٹبندیی"}},{"word":"polar","def":"Cold all year, found near the poles.","defA":"Very cold all year.","emoji":"🧊","lesson":"L4","tr":{"es":"polar","ar":"‫قطبي‬","zh":"极地（的）","vi":"hàn đới","ru":"арктический","ur":"قطبی"}},{"word":"dry","def":"Gets very little rainfall and is often hot.","defA":"Little rain, very hot.","emoji":"☀️","lesson":"L4","tr":{"es":"seco/a","ar":"‫جاف‬","zh":"干燥（的）","vi":"khô","ru":"сухой","ur":"خشک"}},{"word":"temperate","def":"Mild, with warm summers and cool winters.","defA":"Mild — not too hot or cold.","emoji":"🌤️","lesson":"L4","tr":{"es":"templado","ar":"‫معتدل‬","zh":"温和","vi":"ôn đới","ru":"умеренный","ur":"معتدل"}},{"word":"precipitation","def":"Any form of water falling from the sky.","defA":"Rain, snow, hail, or sleet.","emoji":"🌧️","lesson":"L4","tr":{"es":"precipitación","ar":"‫هطول األمطار‬","zh":"降水","vi":"lượng mưa","ru":"атмосферные","ur":"بارش"}},{"word":"humidity","def":"How much moisture is in the air.","defA":"How wet the air feels.","emoji":"💦","lesson":"L4","tr":{"es":"humedad","ar":"‫رطوبة‬","zh":"湿度","vi":"độ ẩm","ru":"влажность","ur":"نمی"}},{"word":"physical feature","def":"A natural part of Earth's surface, like a mountain.","defA":"A natural part of Earth.","emoji":"⛰️","lesson":"L5","tr":{"es":"característica","ar":"‫معلم طبيعي‬","zh":"物理特征","vi":"đặc điểm vật lý","ru":"природный","ur":"قدرتی خصوصیت"}},{"word":"human activity","def":"Something people do that changes the environment.","defA":"Something people do to change Earth.","emoji":"🏗️","lesson":"L5","tr":{"es":"actividad","ar":"‫نشاط بشري‬","zh":"人类活动","vi":"hoạt động của","ru":"деятельность","ur":"انسانی سرگرمی"}},{"word":"island","def":"A piece of land completely surrounded by water.","defA":"Land with water all around.","emoji":"🏝️","lesson":"L5","tr":{"es":"isla","ar":"‫جزيرة‬","zh":"岛屿","vi":"hòn đảo","ru":"остров","ur":"جزیرہ"}},{"word":"beach","def":"Sandy land along the edge of water.","defA":"Sandy land near water.","emoji":"🏖️","lesson":"L5","tr":{"es":"playa","ar":"‫شاطئ‬","zh":"海滩","vi":"bãi biển","ru":"пляж","ur":"ساحل"}},{"word":"bridge","def":"A structure built to cross over water.","defA":"Connects two places over water.","emoji":"🌉","lesson":"L5","tr":{"es":"puente","ar":"‫جسر‬","zh":"桥","vi":"cây cầu","ru":"мост","ur":"پل"}},{"word":"area","def":"One part or section of a larger place.","defA":"One part of a place.","emoji":"🗺️","lesson":"L6","tr":{"es":"área","ar":"‫منطقة‬","zh":"区域","vi":"khu vực","ru":"область","ur":"علاقہ"}},{"word":"region","def":"A large section of land that shares features.","defA":"A large section of land.","emoji":"📌","lesson":"L6","tr":{"ar":"‫إقليم‬","zh":"地区","vi":"vùng/miền","ru":"регион","ur":"خطہ","es":"región"}},{"word":"state","def":"A subdivision of a country with its own government.","defA":"A part of a country.","emoji":"📍","lesson":"L6","tr":{"es":"estado","ar":"‫والية‬","zh":"州、邦","vi":"bang","ru":"штат","ur":"صوبہ"}},{"word":"capital","def":"The city where a government is based.","defA":"The government's city.","emoji":"🏛️","lesson":"L6","tr":{"es":"capital","ar":"‫عاصمة‬","zh":"首都","vi":"thủ đô","ru":"столица","ur":"دارالحکومت"}},{"word":"border","def":"A line where one country or state ends and another begins.","defA":"A line between places.","emoji":"📍","lesson":"L6","tr":{"es":"frontera","ar":"‫يحد‬/‫حد‬","zh":"边界/接壤","vi":"biên giới/giáp ranh","ru":"граница/граничить","ur":"سرحد"}},{"word":"coast","def":"The strip of land along the edge of an ocean.","defA":"Land along the ocean.","emoji":"🌊","lesson":"L6","tr":{"es":"costa","ar":"‫ساحل‬","zh":"海岸","vi":"bờ biển","ru":"берег","ur":"ساحل"}},{"word":"legend","def":"The key on a map that explains what symbols mean.","defA":"Explains map symbols.","emoji":"🔑","lesson":"L7","tr":{"es":"leyenda","ar":"‫وسيلة إيضاح‬","zh":"图例","vi":"chú giải","ru":"легенда","ur":"نقشے کی علامات"}},{"word":"compass rose","def":"A symbol on a map showing directions.","defA":"Shows directions on a map.","emoji":"🧭","lesson":"L7","tr":{"es":"rosa de los","ar":"‫وردة البوصلة‬","zh":"罗盘刻度盘","vi":"mũi tên la bàn","ru":"компасная роза","ur":"سمتی گلاب"}},{"word":"locate","def":"To find the exact position of something on a map.","defA":"To find on a map.","emoji":"📍","lesson":"L7","tr":{"es":"localizar","ar":"‫يحدد موقع‬","zh":"定位","vi":"xác định vị trí","ru":"определять","ur":"جگہ تلاش کرنا"}},{"word":"distance","def":"How far apart two places are.","defA":"How far apart two places are.","emoji":"📏","lesson":"L8","tr":{"es":"distancia","ar":"‫مسافة‬","zh":"距离","vi":"khoảng cách","ru":"расстояние","ur":"فاصلہ"}},{"word":"scale","def":"A ratio on a map comparing map distance to real distance.","defA":"Shows real distances on a map.","emoji":"📐","lesson":"L8","tr":{"es":"escala","ar":"‫مقياس‬","zh":"比例尺","vi":"tỷ lệ","ru":"масштаб","ur":"پیمانہ"}},{"word":"mile","def":"A unit of length — about 1.6 kilometers.","defA":"About 1.6 kilometers.","emoji":"📏","lesson":"L8","tr":{"es":"milla","ar":"‫ميل‬","zh":"英里","vi":"dặm","ru":"миля","ur":"میل"}},{"word":"kilometer","def":"A unit of length equal to 1,000 meters.","defA":"1,000 meters.","emoji":"📏","lesson":"L8","tr":{"es":"kilómetro","ar":"‫كيلومتر‬","zh":"千米","vi":"ki-lô-mét","ru":"километр","ur":"کلومیٹر"}},{"word":"population","def":"The total number of people in a place.","defA":"How many people live somewhere.","emoji":"👥","lesson":"L9","tr":{"es":"población","ar":"‫عدد السكان‬","zh":"人口","vi":"dân số","ru":"население","ur":"آبادی"}},{"word":"increase","def":"To grow larger in number.","defA":"The number goes up.","emoji":"⬆️","lesson":"L9","tr":{"es":"aumentar","ar":"‫يزيد‬","zh":"增加","vi":"tăng","ru":"увеличиваться","ur":"اضافہ"}},{"word":"decrease","def":"To grow smaller in number.","defA":"The number goes down.","emoji":"⬇️","lesson":"L9","tr":{"es":"disminuir","ar":"‫ينقص‬","zh":"减少","vi":"giảm","ru":"уменьшаться","ur":"کمی"}},{"word":"estimate","def":"To make a careful guess about an amount.","defA":"A careful guess.","emoji":"🔢","lesson":"L9","tr":{"es":"estimar","ar":"‫يقدر‬","zh":"估计","vi":"ước tính","ru":"оценивать","ur":"اندازہ"}},{"word":"migrate","def":"To move permanently from one country to another.","defA":"To move to a new country.","emoji":"✈️","lesson":"L11","tr":{"es":"migrar","ar":"‫يهاجر‬","zh":"移居","vi":"di cư","ru":"мигрировать","ur":"ہجرت کرنا"}},{"word":"refuge","def":"A safe place protecting someone from danger.","defA":"A safe place.","emoji":"🛡️","lesson":"L11","tr":{"es":"refugio","ar":"‫لجوء‬","zh":"避难","vi":"tị nạn","ru":"убежище","ur":"پناہ گاہ"}},{"word":"opportunity","def":"A favorable chance to do something.","defA":"A chance to do something.","emoji":"✨","lesson":"L11","tr":{"es":"oportunidad","ar":"‫فرصة‬","zh":"机会","vi":"cơ hội","ru":"возможность","ur":"موقع"}},{"word":"cause","def":"An event that makes something else happen.","defA":"What makes something happen.","emoji":"🔗","lesson":"L11","tr":{"es":"causa","ar":"‫سبب‬","zh":"原因","vi":"nguyên nhân","ru":"причина","ur":"وجہ"}}],"U5":[{"word": "animal", "def": "A living thing that moves and needs food and water to survive.", "defA": "A living thing that moves.", "emoji": "🐾", "lesson": "L1", "tr": {"es": "animal", "ar": "‫حيوان‬", "zh": "动物", "vi": "động vật", "ru": "животное", "ur": "جانور"}}, {"word": "extinct", "def": "When all animals of one type have died and are gone forever.", "defA": "Gone forever — no more left.", "emoji": "🦕", "lesson": "L1", "tr": {"es": "extinto", "ar": "‫منقرض‬", "zh": "灭绝", "vi": "tuyệt chủng", "ru": "вымерший", "ur": "معدوم"}}, {"word": "endangered", "def": "When very few animals of one type are still alive.", "defA": "Almost extinct — very few left.", "emoji": "🐢", "lesson": "L1", "tr": {"es": "en peligro", "ar": "‫مهدد بالانقراض‬", "zh": "濒危", "vi": "có nguy cơ tuyệt chủng", "ru": "исчезающий", "ur": "خطرے میں"}}, {"word": "habitat", "def": "The natural place where an animal or plant lives.", "defA": "Where an animal lives in nature.", "emoji": "🌿", "lesson": "L1", "tr": {"es": "hábitat", "ar": "‫موطن‬", "zh": "栖息地", "vi": "môi trường sống", "ru": "среда обитания", "ur": "مسکن"}}, {"word": "environment", "def": "The natural world around us — land, water, air, plants, and animals.", "defA": "The world around us.", "emoji": "🌍", "lesson": "L1", "tr": {"es": "medio ambiente", "ar": "‫البيئة‬", "zh": "环境", "vi": "môi trường", "ru": "окружающая среда", "ur": "ماحول"}}, {"word": "ecosystem", "def": "All the living things in a place and how they work together.", "defA": "Living things sharing a place.", "emoji": "🌱", "lesson": "L2", "tr": {"es": "ecosistema", "ar": "‫نظام بيئي‬", "zh": "生态系统", "vi": "hệ sinh thái", "ru": "экосистема", "ur": "ماحولیاتی نظام"}}, {"word": "survive", "def": "To stay alive by getting what you need.", "defA": "To stay alive.", "emoji": "💪", "lesson": "L2", "tr": {"es": "sobrevivir", "ar": "‫يبقى على قيد الحياة‬", "zh": "生存", "vi": "sống sót", "ru": "выживать", "ur": "زندہ رہنا"}}, {"word": "producer", "def": "A living thing that makes its own food, like a plant.", "defA": "A living thing that makes food.", "emoji": "🌿", "lesson": "L2", "tr": {"es": "productor", "ar": "‫منتج‬", "zh": "生产者", "vi": "sinh vật sản xuất", "ru": "производитель", "ur": "پیدا کرنے والا"}}, {"word": "consumer", "def": "A living thing that eats other living things for energy.", "defA": "A living thing that eats others.", "emoji": "🦊", "lesson": "L2", "tr": {"es": "consumidor", "ar": "‫مستهلك‬", "zh": "消费者", "vi": "sinh vật tiêu thụ", "ru": "потребитель", "ur": "صارف"}}, {"word": "plant", "def": "A living thing that uses sunlight to make its own food.", "defA": "A living thing that grows in soil.", "emoji": "🌱", "lesson": "L3", "tr": {"es": "planta", "ar": "‫نبات‬", "zh": "植物", "vi": "cây", "ru": "растение", "ur": "پودا"}}, {"word": "flower", "def": "The colorful part of a plant that makes seeds.", "defA": "The colorful part of a plant.", "emoji": "🌸", "lesson": "L3", "tr": {"es": "flor", "ar": "‫زهرة‬", "zh": "花", "vi": "hoa", "ru": "цветок", "ur": "پھول"}}, {"word": "seed", "def": "A small part of a plant that can grow into a new plant.", "defA": "A small thing that grows into a plant.", "emoji": "🌰", "lesson": "L3", "tr": {"es": "semilla", "ar": "‫بذرة‬", "zh": "种子", "vi": "hạt giống", "ru": "семя", "ur": "بیج"}}, {"word": "root", "def": "The part of a plant that grows underground and absorbs water.", "defA": "The part underground that absorbs water.", "emoji": "🌿", "lesson": "L3", "tr": {"es": "raíz", "ar": "‫جذر‬", "zh": "根", "vi": "rễ", "ru": "корень", "ur": "جڑ"}}, {"word": "mammal", "def": "A warm-blooded animal with fur or hair that feeds milk to its young.", "defA": "A warm animal with fur or hair.", "emoji": "🐻", "lesson": "L4", "tr": {"es": "mamífero", "ar": "‫ثدييات‬", "zh": "哺乳动物", "vi": "động vật có vú", "ru": "млекопитающее", "ur": "دودھ پلانے والا"}}, {"word": "reptile", "def": "A cold-blooded animal with scales, like a snake or lizard.", "defA": "A cold-blooded animal with scales.", "emoji": "🦎", "lesson": "L4", "tr": {"es": "reptil", "ar": "‫زواحف‬", "zh": "爬行动物", "vi": "bò sát", "ru": "рептилия", "ur": "رینگنے والا"}}, {"word": "amphibian", "def": "An animal that lives both in water and on land, like a frog.", "defA": "Lives in water and on land.", "emoji": "🐸", "lesson": "L4", "tr": {"es": "anfibio", "ar": "‫برمائي‬", "zh": "两栖动物", "vi": "động vật lưỡng cư", "ru": "земноводное", "ur": "دو جہتی جانور"}}, {"word": "predator", "def": "An animal that hunts and eats other animals.", "defA": "An animal that hunts others.", "emoji": "🦁", "lesson": "L4", "tr": {"es": "depredador", "ar": "‫مفترس‬", "zh": "捕食者", "vi": "động vật săn mồi", "ru": "хищник", "ur": "شکاری"}}, {"word": "prey", "def": "An animal that is hunted and eaten by a predator.", "defA": "An animal that gets hunted.", "emoji": "🐇", "lesson": "L4", "tr": {"es": "presa", "ar": "‫فريسة‬", "zh": "猎物", "vi": "con mồi", "ru": "жертва", "ur": "شکار"}}, {"word": "organism", "def": "Any living thing — plant, animal, or fungus.", "defA": "Any living thing.", "emoji": "🔬", "lesson": "L5", "tr": {"es": "organismo", "ar": "‫كائن حي‬", "zh": "生物", "vi": "sinh vật", "ru": "организм", "ur": "جاندار"}}, {"word": "decomposer", "def": "A living thing that breaks down dead plants and animals.", "defA": "Breaks down dead things.", "emoji": "🍄", "lesson": "L5", "tr": {"es": "descomponedor", "ar": "‫محلل‬", "zh": "分解者", "vi": "sinh vật phân hủy", "ru": "разложитель", "ur": "گلانے والا"}}, {"word": "decay", "def": "When something breaks down and rots over time.", "defA": "To rot and break down.", "emoji": "🍂", "lesson": "L5", "tr": {"es": "descomponerse", "ar": "‫تحلل‬", "zh": "腐烂", "vi": "phân hủy", "ru": "разлагаться", "ur": "سڑنا"}}, {"word": "forest", "def": "A large area of land covered with trees and plants.", "defA": "A large area with many trees.", "emoji": "🌲", "lesson": "L6", "tr": {"es": "bosque", "ar": "‫غابة‬", "zh": "森林", "vi": "rừng", "ru": "лес", "ur": "جنگل"}}, {"word": "ocean", "def": "The very large body of salt water that covers most of Earth.", "defA": "A very large body of salt water.", "emoji": "🌊", "lesson": "L6", "tr": {"es": "océano", "ar": "‫محيط‬", "zh": "海洋", "vi": "đại dương", "ru": "океан", "ur": "سمندر"}}, {"word": "desert", "def": "A very dry area that gets very little rain.", "defA": "A very dry, hot place.", "emoji": "🏜️", "lesson": "L6", "tr": {"es": "desierto", "ar": "‫صحراء‬", "zh": "沙漠", "vi": "sa mạc", "ru": "пустыня", "ur": "صحرا"}}, {"word": "wetland", "def": "An area where the ground is often covered with water.", "defA": "Wet, muddy land.", "emoji": "🌿", "lesson": "L6", "tr": {"es": "humedal", "ar": "‫أراضٍ رطبة‬", "zh": "湿地", "vi": "đất ngập nước", "ru": "болото", "ur": "دلدل"}}, {"word": "life cycle", "def": "The stages a living thing goes through from birth to death.", "defA": "Stages of a living thing's life.", "emoji": "🔄", "lesson": "L7", "tr": {"es": "ciclo de vida", "ar": "‫دورة الحياة‬", "zh": "生命周期", "vi": "vòng đời", "ru": "жизненный цикл", "ur": "زندگی کا چکر"}}, {"word": "larva", "def": "An early stage of an insect, like a caterpillar.", "defA": "A young insect before it changes.", "emoji": "🐛", "lesson": "L7", "tr": {"es": "larva", "ar": "‫يرقة‬", "zh": "幼虫", "vi": "ấu trùng", "ru": "личинка", "ur": "لاروا"}}, {"word": "food chain", "def": "The order in which animals eat plants and other animals.", "defA": "The order of who eats what.", "emoji": "⛓️", "lesson": "L8", "tr": {"es": "cadena alimentaria", "ar": "‫سلسلة غذائية‬", "zh": "食物链", "vi": "chuỗi thức ăn", "ru": "пищевая цепочка", "ur": "خوراک کی زنجیر"}}, {"word": "energy", "def": "The power living things use to move, grow, and stay warm.", "defA": "The power to live and move.", "emoji": "⚡", "lesson": "L8", "tr": {"es": "energía", "ar": "‫طاقة‬", "zh": "能量", "vi": "năng lượng", "ru": "энергия", "ur": "توانائی"}}, {"word": "herbivore", "def": "An animal that eats only plants.", "defA": "An animal that only eats plants.", "emoji": "🐄", "lesson": "L8", "tr": {"es": "herbívoro", "ar": "‫آكل عشب‬", "zh": "草食动物", "vi": "động vật ăn cỏ", "ru": "травоядное", "ur": "گھاس خور"}}, {"word": "carnivore", "def": "An animal that eats only other animals.", "defA": "An animal that only eats meat.", "emoji": "🐺", "lesson": "L8", "tr": {"es": "carnívoro", "ar": "‫آكل لحوم‬", "zh": "肉食动物", "vi": "động vật ăn thịt", "ru": "хищник", "ur": "گوشت خور"}}, {"word": "omnivore", "def": "An animal that eats both plants and animals.", "defA": "Eats plants AND animals.", "emoji": "🐻", "lesson": "L8", "tr": {"es": "omnívoro", "ar": "‫آكل كل شيء‬", "zh": "杂食动物", "vi": "động vật ăn tạp", "ru": "всеядное", "ur": "ہر چیز کھانے والا"}}, {"word": "natural resource", "def": "Something from nature that people use, like water or wood.", "defA": "Something from nature people use.", "emoji": "🌳", "lesson": "L9", "tr": {"es": "recurso natural", "ar": "‫مورد طبيعي‬", "zh": "自然资源", "vi": "tài nguyên thiên nhiên", "ru": "природный ресурс", "ur": "قدرتی وسیلہ"}}, {"word": "renewable", "def": "A resource that can be replaced or will not run out.", "defA": "Can be replaced or refilled.", "emoji": "♻️", "lesson": "L9", "tr": {"es": "renovable", "ar": "‫متجدد‬", "zh": "可再生", "vi": "tái tạo được", "ru": "возобновляемый", "ur": "قابل تجدید"}}, {"word": "nonrenewable", "def": "A resource that cannot be replaced once it is used up.", "defA": "Cannot be replaced once used.", "emoji": "⛽", "lesson": "L9", "tr": {"es": "no renovable", "ar": "‫غير متجدد‬", "zh": "不可再生", "vi": "không tái tạo được", "ru": "невозобновляемый", "ur": "غیر قابل تجدید"}}, {"word": "water cycle", "def": "The path water takes as it moves from Earth to sky and back.", "defA": "How water moves on Earth.", "emoji": "💧", "lesson": "L10", "tr": {"es": "ciclo del agua", "ar": "‫دورة المياه‬", "zh": "水循环", "vi": "vòng tuần hoàn nước", "ru": "круговорот воды", "ur": "پانی کا چکر"}}, {"word": "evaporation", "def": "When water heats up and turns into water vapor in the air.", "defA": "Water turns into gas.", "emoji": "☁️", "lesson": "L10", "tr": {"es": "evaporación", "ar": "‫تبخر‬", "zh": "蒸发", "vi": "bốc hơi", "ru": "испарение", "ur": "بخارات"}}, {"word": "precipitation", "def": "Water that falls from clouds as rain, snow, sleet, or hail.", "defA": "Rain, snow, or hail falling.", "emoji": "🌧️", "lesson": "L10", "tr": {"es": "precipitación", "ar": "‫هطول‬", "zh": "降水", "vi": "lượng mưa", "ru": "осадки", "ur": "بارش"}}, {"word": "pollution", "def": "Harmful substances in the air, water, or land.", "defA": "Harmful stuff in nature.", "emoji": "🏭", "lesson": "L11", "tr": {"es": "contaminación", "ar": "‫تلوث‬", "zh": "污染", "vi": "ô nhiễm", "ru": "загрязнение", "ur": "آلودگی"}}, {"word": "conservation", "def": "Protecting and saving natural resources and living things.", "defA": "Protecting nature.", "emoji": "🌿", "lesson": "L11", "tr": {"es": "conservación", "ar": "‫حفاظة‬", "zh": "保护", "vi": "bảo tồn", "ru": "охрана природы", "ur": "تحفظ"}}, {"word": "reduce", "def": "To use less of something to help the environment.", "defA": "Use less.", "emoji": "📉", "lesson": "L12", "tr": {"es": "reducir", "ar": "‫يقلل‬", "zh": "减少", "vi": "giảm thiểu", "ru": "уменьшать", "ur": "کم کرنا"}}, {"word": "reuse", "def": "To use something again instead of throwing it away.", "defA": "Use again.", "emoji": "🔁", "lesson": "L12", "tr": {"es": "reusar", "ar": "‫يعيد الاستخدام‬", "zh": "再利用", "vi": "tái sử dụng", "ru": "повторно использовать", "ur": "دوبارہ استعمال"}}, {"word": "recycle", "def": "To turn old materials into new products.", "defA": "Turn old things into new things.", "emoji": "♻️", "lesson": "L12", "tr": {"es": "reciclar", "ar": "‫يعيد التدوير‬", "zh": "回收利用", "vi": "tái chế", "ru": "перерабатывать", "ur": "ری سائیکل"}}],"U6":[{"word": "relative", "def": "A person who is part of your family.", "defA": "A family member.", "emoji": "👨‍👩‍👧‍👦", "lesson": "L1", "tr": {"es": "familiar", "ar": "‫قريب‬", "zh": "亲戚", "vi": "họ hàng", "ru": "родственник", "ur": "رشتہ دار"}}, {"word": "parent", "def": "A mother or father.", "defA": "A mother or father.", "emoji": "👨‍👩‍👧", "lesson": "L1", "tr": {"es": "padre/madre", "ar": "‫والد/والدة‬", "zh": "父母", "vi": "bố mẹ", "ru": "родитель", "ur": "والدین"}}, {"word": "sibling", "def": "A brother or sister.", "defA": "A brother or sister.", "emoji": "👫", "lesson": "L1", "tr": {"es": "hermano/a", "ar": "‫أخ/أخت‬", "zh": "兄弟姐妹", "vi": "anh chị em", "ru": "брат или сестра", "ur": "بھائی یا بہن"}}, {"word": "grandparent", "def": "The parent of your mother or father.", "defA": "Your parent's parent.", "emoji": "👴", "lesson": "L1", "tr": {"es": "abuelo/a", "ar": "‫جد/جدة‬", "zh": "祖父母", "vi": "ông bà", "ru": "дедушка или бабушка", "ur": "دادا/نانا"}}, {"word": "aunt", "def": "The sister of your parent.", "defA": "Your parent's sister.", "emoji": "👩", "lesson": "L1", "tr": {"es": "tía", "ar": "‫عمة/خالة‬", "zh": "阿姨/姑姑", "vi": "cô/dì", "ru": "тётя", "ur": "پھوپھی/خالہ"}}, {"word": "uncle", "def": "The brother of your parent.", "defA": "Your parent's brother.", "emoji": "👨", "lesson": "L1", "tr": {"es": "tío", "ar": "‫عم/خال‬", "zh": "叔叔/舅舅", "vi": "chú/cậu", "ru": "дядя", "ur": "چاچا/ماموں"}}, {"word": "cousin", "def": "The child of your aunt or uncle.", "defA": "Your aunt or uncle's child.", "emoji": "🧑", "lesson": "L1", "tr": {"es": "primo/a", "ar": "‫ابن/بنت العم‬", "zh": "堂兄弟姐妹", "vi": "anh chị em họ", "ru": "двоюродный брат/сестра", "ur": "چچا زاد"}}, {"word": "culture", "def": "The traditions, beliefs, food, and art shared by a group of people.", "defA": "The traditions of a group of people.", "emoji": "🌍", "lesson": "L2", "tr": {"es": "cultura", "ar": "‫ثقافة‬", "zh": "文化", "vi": "văn hóa", "ru": "культура", "ur": "ثقافت"}}, {"word": "tradition", "def": "A custom or practice passed down through generations.", "defA": "A custom passed down in families.", "emoji": "🎎", "lesson": "L2", "tr": {"es": "tradición", "ar": "‫تقليد‬", "zh": "传统", "vi": "truyền thống", "ru": "традиция", "ur": "روایت"}}, {"word": "holiday", "def": "A day of special celebration.", "defA": "A special day to celebrate.", "emoji": "🎉", "lesson": "L2", "tr": {"es": "día festivo", "ar": "‫عطلة‬", "zh": "节日", "vi": "ngày lễ", "ru": "праздник", "ur": "چھٹی"}}, {"word": "celebrate", "def": "To do something special for a happy occasion.", "defA": "To do something fun for a special day.", "emoji": "🎊", "lesson": "L2", "tr": {"es": "celebrar", "ar": "‫يحتفل‬", "zh": "庆祝", "vi": "kỷ niệm", "ru": "праздновать", "ur": "جشن منانا"}}, {"word": "occasion", "def": "A special event or important time.", "defA": "A special event.", "emoji": "📅", "lesson": "L2", "tr": {"es": "ocasión", "ar": "‫مناسبة‬", "zh": "场合", "vi": "dịp", "ru": "торжество", "ur": "موقع"}}, {"word": "recipe", "def": "Instructions for how to prepare a food or drink.", "defA": "Steps for making food.", "emoji": "📝", "lesson": "L3", "tr": {"es": "receta", "ar": "‫وصفة‬", "zh": "食谱", "vi": "công thức nấu ăn", "ru": "рецепт", "ur": "ترکیب"}}, {"word": "ingredient", "def": "One of the foods or liquids used to make a dish.", "defA": "Something used to make food.", "emoji": "🧅", "lesson": "L3", "tr": {"es": "ingrediente", "ar": "‫مكون‬", "zh": "食材", "vi": "nguyên liệu", "ru": "ингредиент", "ur": "اجزاء"}}, {"word": "meal", "def": "All the food eaten at one time, like breakfast or dinner.", "defA": "All the food at one time.", "emoji": "🍽️", "lesson": "L3", "tr": {"es": "comida", "ar": "‫وجبة‬", "zh": "一餐", "vi": "bữa ăn", "ru": "приём пищи", "ur": "کھانا"}}, {"word": "homemade", "def": "Made at home, not bought from a store.", "defA": "Made at home.", "emoji": "🏠", "lesson": "L3", "tr": {"es": "casero", "ar": "‫محلي الصنع‬", "zh": "自制的", "vi": "tự làm", "ru": "домашний", "ur": "گھر کا بنا"}}, {"word": "serve", "def": "To give food or drinks to someone.", "defA": "To give food to someone.", "emoji": "🍲", "lesson": "L3", "tr": {"es": "servir", "ar": "‫يقدم‬", "zh": "端上", "vi": "phục vụ", "ru": "подавать", "ur": "پیش کرنا"}}, {"word": "music", "def": "Sound made with instruments or voices to express feelings.", "defA": "Sound made to express feelings.", "emoji": "🎵", "lesson": "L4", "tr": {"es": "música", "ar": "‫موسيقى‬", "zh": "音乐", "vi": "âm nhạc", "ru": "музыка", "ur": "موسیقی"}}, {"word": "instrument", "def": "A tool used to make music, like a guitar or drum.", "defA": "A tool to make music.", "emoji": "🎸", "lesson": "L4", "tr": {"es": "instrumento", "ar": "‫آلة موسيقية‬", "zh": "乐器", "vi": "nhạc cụ", "ru": "инструмент", "ur": "ساز"}}, {"word": "musician", "def": "A person who plays or creates music.", "defA": "A person who makes music.", "emoji": "🎤", "lesson": "L4", "tr": {"es": "músico", "ar": "‫موسيقي‬", "zh": "音乐家", "vi": "nhạc sĩ", "ru": "музыкант", "ur": "موسیقار"}}, {"word": "genre", "def": "A type or style of music, art, or writing.", "defA": "A type or style of music or art.", "emoji": "🎭", "lesson": "L4", "tr": {"es": "género", "ar": "‫نوع‬", "zh": "流派", "vi": "thể loại", "ru": "жанр", "ur": "صنف"}}, {"word": "lyrics", "def": "The words of a song.", "defA": "The words of a song.", "emoji": "📜", "lesson": "L4", "tr": {"es": "letra", "ar": "‫كلمات الأغنية‬", "zh": "歌词", "vi": "lời bài hát", "ru": "слова", "ur": "گیت کے بول"}}, {"word": "painting", "def": "A picture made with paint on a surface like canvas.", "defA": "A picture made with paint.", "emoji": "🎨", "lesson": "L5", "tr": {"es": "pintura", "ar": "‫لوحة‬", "zh": "画", "vi": "bức tranh", "ru": "картина", "ur": "تصویر"}}, {"word": "photograph", "def": "A picture taken with a camera.", "defA": "A picture taken with a camera.", "emoji": "📷", "lesson": "L5", "tr": {"es": "fotografía", "ar": "‫صورة فوتوغرافية‬", "zh": "照片", "vi": "bức ảnh", "ru": "фотография", "ur": "تصویر"}}, {"word": "textile", "def": "A cloth or fabric made by weaving or knitting.", "defA": "A type of cloth or fabric.", "emoji": "🧶", "lesson": "L5", "tr": {"es": "textil", "ar": "‫منسوج‬", "zh": "纺织品", "vi": "vải dệt", "ru": "ткань", "ur": "کپڑا"}}, {"word": "calligraphy", "def": "Beautiful decorative writing as an art form.", "defA": "Beautiful artistic writing.", "emoji": "✍️", "lesson": "L5", "tr": {"es": "caligrafía", "ar": "‫الخط العربي‬", "zh": "书法", "vi": "thư pháp", "ru": "каллиграфия", "ur": "خطاطی"}}, {"word": "oral tradition", "def": "Stories and knowledge passed down by speaking, not writing.", "defA": "Stories passed down by talking.", "emoji": "🗣️", "lesson": "L6", "tr": {"es": "tradición oral", "ar": "‫تقليد شفهي‬", "zh": "口头传统", "vi": "truyền miệng", "ru": "устная традиция", "ur": "زبانی روایت"}}, {"word": "story", "def": "A description of real or imagined events.", "defA": "A description of events.", "emoji": "📖", "lesson": "L6", "tr": {"es": "historia/cuento", "ar": "‫قصة‬", "zh": "故事", "vi": "câu chuyện", "ru": "рассказ", "ur": "کہانی"}}, {"word": "communicate", "def": "To share information with others by speaking, writing, or other ways.", "defA": "To share information with others.", "emoji": "💬", "lesson": "L6", "tr": {"es": "comunicar", "ar": "‫يتواصل‬", "zh": "交流", "vi": "giao tiếp", "ru": "общаться", "ur": "بات چیت"}}, {"word": "represent", "def": "To stand for or be a symbol of something.", "defA": "To stand for something.", "emoji": "🔣", "lesson": "L6", "tr": {"es": "representar", "ar": "‫يمثل‬", "zh": "代表", "vi": "đại diện", "ru": "представлять", "ur": "نمائندگی"}}, {"word": "value", "def": "Something that is important to you and guides your choices.", "defA": "Something important to you.", "emoji": "⭐", "lesson": "L7", "tr": {"es": "valor", "ar": "‫قيمة‬", "zh": "价值", "vi": "giá trị", "ru": "ценность", "ur": "قدر"}}, {"word": "respect", "def": "To treat someone or something with care and consideration.", "defA": "To treat others with care.", "emoji": "🤝", "lesson": "L7", "tr": {"es": "respeto", "ar": "‫احترام‬", "zh": "尊重", "vi": "tôn trọng", "ru": "уважение", "ur": "احترام"}}, {"word": "appreciate", "def": "To recognize the value or importance of something.", "defA": "To see the value in something.", "emoji": "🙏", "lesson": "L7", "tr": {"es": "apreciar", "ar": "‫يقدر‬", "zh": "感激", "vi": "trân trọng", "ru": "ценить", "ur": "قدر کرنا"}}, {"word": "unique", "def": "One of a kind — different from everything else.", "defA": "One of a kind.", "emoji": "✨", "lesson": "L7", "tr": {"es": "único", "ar": "‫فريد‬", "zh": "独特", "vi": "độc đáo", "ru": "уникальный", "ur": "منفرد"}}, {"word": "multicultural", "def": "Including or representing many different cultures.", "defA": "Having many different cultures.", "emoji": "🌈", "lesson": "L7", "tr": {"es": "multicultural", "ar": "‫متعدد الثقافات‬", "zh": "多元文化", "vi": "đa văn hóa", "ru": "многокультурный", "ur": "کثیر الثقافتی"}}, {"word": "hobby", "def": "An activity you enjoy doing in your free time.", "defA": "Something fun you do in your free time.", "emoji": "🎯", "lesson": "L8", "tr": {"es": "pasatiempo", "ar": "‫هواية‬", "zh": "爱好", "vi": "sở thích", "ru": "хобби", "ur": "مشغلہ"}}, {"word": "sport", "def": "A physical activity done for fun or competition.", "defA": "A physical activity done for fun.", "emoji": "⚽", "lesson": "L8", "tr": {"es": "deporte", "ar": "‫رياضة‬", "zh": "运动", "vi": "thể thao", "ru": "спорт", "ur": "کھیل"}}, {"word": "travel", "def": "To go from one place to another, especially far away.", "defA": "To go to another place.", "emoji": "✈️", "lesson": "L8", "tr": {"es": "viajar", "ar": "‫يسافر‬", "zh": "旅行", "vi": "du lịch", "ru": "путешествовать", "ur": "سفر"}}, {"word": "relax", "def": "To rest and stop worrying or working.", "defA": "To rest and take it easy.", "emoji": "😌", "lesson": "L8", "tr": {"es": "relajarse", "ar": "‫يرتاح‬", "zh": "放松", "vi": "thư giãn", "ru": "расслабляться", "ur": "آرام"}}, {"word": "enjoy", "def": "To take pleasure in something.", "defA": "To like doing something.", "emoji": "😊", "lesson": "L8", "tr": {"es": "disfrutar", "ar": "‫يستمتع‬", "zh": "享受", "vi": "thích", "ru": "наслаждаться", "ur": "لطف اندوز ہونا"}}, {"word": "exchange", "def": "To give something and get something in return.", "defA": "To trade something.", "emoji": "🔄", "lesson": "L9", "tr": {"es": "intercambiar", "ar": "‫يتبادل‬", "zh": "交换", "vi": "trao đổi", "ru": "обмениваться", "ur": "تبادلہ"}}, {"word": "gift", "def": "Something given to someone without expecting anything back.", "defA": "Something you give to someone.", "emoji": "🎁", "lesson": "L9", "tr": {"es": "regalo", "ar": "‫هدية‬", "zh": "礼物", "vi": "quà tặng", "ru": "подарок", "ur": "تحفہ"}}, {"word": "offer", "def": "To say you are willing to give or do something.", "defA": "To say you will give or help.", "emoji": "🤲", "lesson": "L9", "tr": {"es": "ofrecer", "ar": "‫يعرض‬", "zh": "提供", "vi": "đề nghị", "ru": "предлагать", "ur": "پیش کرنا"}}, {"word": "receive", "def": "To get something that is given to you.", "defA": "To get something.", "emoji": "📦", "lesson": "L9", "tr": {"es": "recibir", "ar": "‫يستقبل‬", "zh": "收到", "vi": "nhận", "ru": "получать", "ur": "وصول کرنا"}}, {"word": "knowledge", "def": "Facts and information you have learned.", "defA": "Things you have learned.", "emoji": "🧠", "lesson": "L9", "tr": {"es": "conocimiento", "ar": "‫معرفة‬", "zh": "知识", "vi": "kiến thức", "ru": "знания", "ur": "علم"}}]};
-const FIB_DATA={"U1":{"A":[{"lesson":"L1","bank":["school","teacher","friends","principal","assistant"],"s":[{"t":"___ is a place where students learn.","a":"school"},{"t":"A ___ helps you learn new things.","a":"teacher"},{"t":"I made new ___ at school.","a":"friends"},{"t":"The ___ is the leader of the school.","a":"principal"}]},{"lesson":"L3","bank":["classroom","library","cafeteria","gym","hallway"],"s":[{"t":"Students learn in the ___.","a":"classroom"},{"t":"A ___ has many books to read.","a":"library"},{"t":"Students eat lunch in the ___.","a":"cafeteria"},{"t":"Students play sports in the ___.","a":"gym"}]},{"lesson":"L7","bank":["left","right","upstairs","downstairs","inside","outside"],"s":[{"t":"Turn ___ at the hallway.","a":"left"},{"t":"The gym is ___ on the second floor.","a":"upstairs"},{"t":"We play ___ in the schoolyard.","a":"outside"},{"t":"The cafeteria is ___ on the first floor.","a":"downstairs"}]}],"C":[{"lesson":"L1","bank":["school","students","teacher","friends","principal","assistant","counselor"],"s":[{"t":"___ is a place where you can learn and grow.","a":"school"},{"t":"___ learn new things every day.","a":"students"},{"t":"A ___ helps you learn in class.","a":"teacher"},{"t":"A ___ gives advice and support to students.","a":"counselor"},{"t":"The ___ is the leader of the school.","a":"principal"}]},{"lesson":"L3","bank":["classroom","library","cafeteria","gym","hallway","librarian"],"s":[{"t":"Students learn in the ___.","a":"classroom"},{"t":"A ___ is a place with many books to borrow.","a":"library"},{"t":"The ___ works in the library.","a":"librarian"},{"t":"Students eat their meals in the ___.","a":"cafeteria"},{"t":"The ___ connects rooms inside the building.","a":"hallway"}]},{"lesson":"L8","bank":["learn","listen","read","write","speak","choose","share","before","after"],"s":[{"t":"You ___ new skills and knowledge at school.","a":"learn"},{"t":"Please ___ carefully when the teacher talks.","a":"listen"},{"t":"I like to ___ books about animals.","a":"read"},{"t":"We eat breakfast ___ school starts.","a":"before"},{"t":"We have lunch ___ morning classes.","a":"after"}]}]},"U2":{"A":[{"lesson":"L3","bank":["brave","curious","creative","helpful","kind","happy"],"s":[{"t":"She is ___ — she is not afraid.","a":"brave"},{"t":"He is ___ — he always wants to learn.","a":"curious"},{"t":"A ___ person makes new and original things.","a":"creative"},{"t":"She is ___ — she smiles and feels good.","a":"happy"}]},{"lesson":"L4","bank":["birthday","calendar","month","today","yesterday","tomorrow"],"s":[{"t":"My ___ is in March.","a":"birthday"},{"t":"A ___ shows all the days in a year.","a":"calendar"},{"t":"January is the first ___ of the year.","a":"month"},{"t":"___ is the day before today.","a":"yesterday"}]},{"lesson":"L5","bank":["weather","sunny","rainy","cloudy","hot","cold"],"s":[{"t":"The ___ is what it is like outside.","a":"weather"},{"t":"It is ___. I can see the sun!","a":"sunny"},{"t":"Take an umbrella — it is ___ today.","a":"rainy"},{"t":"Wear a coat — it is very ___.","a":"cold"}]}],"C":[{"lesson":"L2","bank":["nickname","pronounce","correct","remember","forget"],"s":[{"t":"My ___ is Sunshine because I am always happy.","a":"nickname"},{"t":"It is important to ___ names correctly.","a":"pronounce"},{"t":"That answer is ___  — no mistakes!","a":"correct"},{"t":"I always ___ my best friend's birthday.","a":"remember"},{"t":"Don't ___ to bring your backpack tomorrow.","a":"forget"}]},{"lesson":"L3","bank":["brave","curious","creative","helpful","kind","responsible","collaborative","imaginative"],"s":[{"t":"She is ___ — she is not afraid to try hard things.","a":"brave"},{"t":"A ___ person always wants to learn more.","a":"curious"},{"t":"Being ___ means you can be trusted to do the right thing.","a":"responsible"},{"t":"___ students work well with others.","a":"collaborative"},{"t":"A ___ person makes new and original ideas.","a":"imaginative"}]},{"lesson":"L5","bank":["weather","sunny","rainy","cloudy","windy","temperature","cold","hot"],"s":[{"t":"The ___ describes conditions outside like rain or sun.","a":"weather"},{"t":"The ___ tells you how hot or cold it is.","a":"temperature"},{"t":"It is ___ today — wear a jacket!","a":"windy"},{"t":"A ___ day has clouds covering the sky.","a":"cloudy"},{"t":"The desert has a ___ and dry climate.","a":"hot"}]}]},"U3":{"A":[{"lesson":"L1","bank":["neighborhood","community","belong","city","street"],"s":[{"t":"The area around my home is my ___.","a":"neighborhood"},{"t":"People in a ___ help each other.","a":"community"},{"t":"I ___ to a strong community.","a":"belong"},{"t":"San Francisco is a big ___.","a":"city"}]},{"lesson":"L3","bank":["bus","car","taxi","walk","bicycle","near","far"],"s":[{"t":"I ride the ___ to school every day.","a":"bus"},{"t":"A ___ has four wheels.","a":"car"},{"t":"You can pay a ___ to take you somewhere.","a":"taxi"},{"t":"My friend lives ___ — only one block away.","a":"near"}]},{"lesson":"L7","bank":["firefighter","police","doctor","hospital","sick","healthy"],"s":[{"t":"A ___ puts out fires.","a":"firefighter"},{"t":"___ keep the community safe.","a":"police"},{"t":"A ___ treats people who are sick or hurt.","a":"doctor"},{"t":"Eat well and exercise to stay ___.","a":"healthy"}]}],"C":[{"lesson":"L1","bank":["neighborhood","community","belong","city","street","address","home"],"s":[{"t":"The area near your home is your ___.","a":"neighborhood"},{"t":"A ___ is a group of people who live in the same area.","a":"community"},{"t":"Everyone deserves to ___ somewhere.","a":"belong"},{"t":"Your ___ tells people exactly where you live.","a":"address"},{"t":"A ___ is a large place where many people live and work.","a":"city"}]},{"lesson":"L5","bank":["bill","coin","buy","pay","cost","sale","donate"],"s":[{"t":"A ___ is paper money.","a":"bill"},{"t":"A ___ is round metal money.","a":"coin"},{"t":"How much does it ___?","a":"cost"},{"t":"I will ___ for the book with cash.","a":"pay"},{"t":"The store has a ___ — everything is cheaper!","a":"sale"}]},{"lesson":"L7","bank":["emergency","paramedic","firefighter","police","ambulance","doctor","hospital","pharmacist"],"s":[{"t":"A fire is an ___ — call for help right away.","a":"emergency"},{"t":"A ___ gives medical help in emergencies.","a":"paramedic"},{"t":"Sick or hurt people go to the ___ for care.","a":"hospital"},{"t":"An ___ takes people to the hospital quickly.","a":"ambulance"},{"t":"A ___ gives out medicine prescribed by a doctor.","a":"pharmacist"}]}]},"U4":{"A":[{"lesson":"L1","bank":["map","compass","globe","lost","Earth"],"s":[{"t":"A ___ shows where places are.","a":"map"},{"t":"A ___ shows directions.","a":"compass"},{"t":"A ___ is a round model of our planet.","a":"globe"},{"t":"If you are ___, you do not know where you are.","a":"lost"}]},{"lesson":"L2","bank":["continent","ocean","equator","land","water"],"s":[{"t":"A ___ is a very big area of land.","a":"continent"},{"t":"An ___ is a very big area of water.","a":"ocean"},{"t":"The ___ is a line around the middle of Earth.","a":"equator"},{"t":"Most of Earth is covered in ___.","a":"water"}]},{"lesson":"L4","bank":["climate","tropical","polar","hot","cold","rain"],"s":[{"t":"The usual weather over many years is the ___.","a":"climate"},{"t":"A ___ climate is hot and wet.","a":"tropical"},{"t":"A ___ climate is very cold all year.","a":"polar"},{"t":"The desert is very ___ and dry.","a":"hot"}]}],"C":[{"lesson":"L1","bank":["map","compass","geography","world","lost","directions","Earth","globe"],"s":[{"t":"You can use a ___ to find where places are located.","a":"map"},{"t":"A ___ is a ball-shaped model of our planet.","a":"globe"},{"t":"If you are ___, you do not know where to go.","a":"lost"},{"t":"___ is the study of land, water, and how people interact with them.","a":"geography"},{"t":"Use a map or ___ to find your way.","a":"compass"}]},{"lesson":"L4","bank":["climate","tropical","polar","dry","temperate","precipitation","humidity"],"s":[{"t":"___ is the typical weather pattern in a place over many years.","a":"climate"},{"t":"A ___ climate is wet and warm, found near the equator.","a":"tropical"},{"t":"A ___ climate is cold all year.","a":"polar"},{"t":"___ is any water falling from the sky — rain, snow, or hail.","a":"precipitation"},{"t":"A ___ climate has warm summers and mild winters.","a":"temperate"}]},{"lesson":"L6","bank":["area","region","state","capital","border","coast"],"s":[{"t":"A ___ is a line separating two countries or states.","a":"border"},{"t":"A ___ is land along the edge of an ocean.","a":"coast"},{"t":"A ___ is the city where a government is located.","a":"capital"},{"t":"A ___ is a large section of land that shares features.","a":"region"},{"t":"A ___ is a division of a country with its own government.","a":"state"}]}]},"U5":{"A": [{"lesson": "L1", "bank": ["animal", "extinct", "endangered", "habitat", "environment"], "s": [{"t": "A ___ is a living thing that moves.", "a": "animal"}, {"t": "When all animals of one kind die forever, they are ___.", "a": "extinct"}, {"t": "An ___ animal has very few left.", "a": "endangered"}, {"t": "A ___ is where an animal lives in nature.", "a": "habitat"}]}, {"lesson": "L4", "bank": ["mammal", "reptile", "amphibian", "predator", "prey"], "s": [{"t": "A ___ has fur or hair and feeds milk to its young.", "a": "mammal"}, {"t": "A frog is an ___ — it lives in water and on land.", "a": "amphibian"}, {"t": "A ___ hunts and eats other animals.", "a": "predator"}, {"t": "The animal that gets eaten is called ___.", "a": "prey"}]}, {"lesson": "L8", "bank": ["herbivore", "carnivore", "omnivore", "energy", "food chain"], "s": [{"t": "A ___ eats only plants.", "a": "herbivore"}, {"t": "A ___ eats only meat.", "a": "carnivore"}, {"t": "A bear is an ___ — it eats plants AND animals.", "a": "omnivore"}, {"t": "Living things need ___ to move and grow.", "a": "energy"}]}], "C": [{"lesson": "L1", "bank": ["animal", "extinct", "endangered", "habitat", "environment", "ecosystem"], "s": [{"t": "When an animal species dies out forever, the species is ___.", "a": "extinct"}, {"t": "An ___ species has very few animals left.", "a": "endangered"}, {"t": "All living things in a place and how they interact make up an ___.", "a": "ecosystem"}, {"t": "The ___ includes land, water, air, plants, and animals.", "a": "environment"}]}, {"lesson": "L9", "bank": ["natural resource", "renewable", "nonrenewable", "pollution", "conservation"], "s": [{"t": "Solar energy is a ___ resource because it will not run out.", "a": "renewable"}, {"t": "Oil is a ___ resource because once it is used, it is gone.", "a": "nonrenewable"}, {"t": "Harmful substances in air and water are called ___.", "a": "pollution"}, {"t": "___ means protecting and saving natural resources.", "a": "conservation"}]}, {"lesson": "L10", "bank": ["water cycle", "evaporation", "precipitation", "reduce", "recycle"], "s": [{"t": "The ___ describes how water moves from Earth to sky and back.", "a": "water cycle"}, {"t": "When water heats up and becomes vapor, that is ___.", "a": "evaporation"}, {"t": "Rain, snow, and hail are all forms of ___.", "a": "precipitation"}, {"t": "When you ___ paper, it becomes new paper products.", "a": "recycle"}]}]},"U6":{"A": [{"lesson": "L1", "bank": ["relative", "parent", "sibling", "grandparent", "aunt", "uncle", "cousin"], "s": [{"t": "A ___ is any person in your family.", "a": "relative"}, {"t": "Your ___ is your mother or father.", "a": "parent"}, {"t": "A ___ is your brother or sister.", "a": "sibling"}, {"t": "Your ___ is the parent of your mother or father.", "a": "grandparent"}]}, {"lesson": "L2", "bank": ["culture", "tradition", "holiday", "celebrate", "occasion"], "s": [{"t": "The food, art, and traditions of a group are their ___.", "a": "culture"}, {"t": "A ___ is a custom passed down through generations.", "a": "tradition"}, {"t": "A ___ is a day of special celebration.", "a": "holiday"}, {"t": "We ___ birthdays with cake and singing.", "a": "celebrate"}]}, {"lesson": "L4", "bank": ["music", "instrument", "musician", "genre", "lyrics"], "s": [{"t": "A guitar is a musical ___.", "a": "instrument"}, {"t": "A person who plays music is called a ___.", "a": "musician"}, {"t": "The words of a song are called ___.", "a": "lyrics"}, {"t": "Hip-hop is a ___ of music.", "a": "genre"}]}], "C": [{"lesson": "L2", "bank": ["culture", "tradition", "holiday", "occasion", "multicultural"], "s": [{"t": "A school with students from many countries is ___.", "a": "multicultural"}, {"t": "An ___ is a special event or important time.", "a": "occasion"}, {"t": "A ___ is a custom or practice passed down through generations.", "a": "tradition"}, {"t": "The food, art, and beliefs of a group make up their ___.", "a": "culture"}]}, {"lesson": "L6", "bank": ["oral tradition", "story", "communicate", "represent", "knowledge"], "s": [{"t": "Telling stories by speaking, not writing, is called ___.", "a": "oral tradition"}, {"t": "We ___ by speaking, writing, or using symbols.", "a": "communicate"}, {"t": "A dove can ___ peace.", "a": "represent"}, {"t": "Facts and information you have learned are called ___.", "a": "knowledge"}]}, {"lesson": "L7", "bank": ["value", "respect", "appreciate", "unique", "multicultural"], "s": [{"t": "Each person is ___ — there is no one exactly like you.", "a": "unique"}, {"t": "When you ___ someone, you treat them with care.", "a": "respect"}, {"t": "Something important that guides your choices is a ___.", "a": "value"}, {"t": "When you ___ something, you see its importance.", "a": "appreciate"}]}]}};
-const TF_DATA={"U1":{"A":[{"q":"School is a place to learn. 🏫","ans":true,"exp":"Yes! School is a place to learn. ✓","lesson":"L1"},{"q":"A teacher cooks your food. 👩‍🍳","ans":false,"exp":"No! A teacher helps you learn. 👩‍🏫","lesson":"L1"},{"q":"The library has books. 📚","ans":true,"exp":"Yes! Libraries have lots of books. ✓","lesson":"L3"},{"q":"Students eat lunch in the gym. 🏃","ans":false,"exp":"No! Students eat in the cafeteria. 🍽️","lesson":"L3"},{"q":"Left is the opposite of right. ↔️","ans":true,"exp":"Yes! Left and right are opposites. ✓","lesson":"L7"},{"q":"Upstairs means going down. ⬇️","ans":false,"exp":"No! Upstairs means going UP. ⬆️","lesson":"L7"},{"q":"Breakfast is the first meal of the day. 🍳","ans":true,"exp":"Yes! Breakfast comes first. ✓","lesson":"L6"},{"q":"Math is a school subject. ➕","ans":true,"exp":"Yes! Math is a subject at school. ✓","lesson":"L5"},{"q":"A backpack is worn on your feet. 👟","ans":false,"exp":"No! A backpack goes on your BACK. 🎒","lesson":"L4"},{"q":"Friends are people you like. 🤝","ans":true,"exp":"Yes! Friends are people you enjoy. ✓","lesson":"L1"}],"C":[{"q":"A school is a place where students learn.","ans":true,"exp":"Correct! Schools are for learning.","lesson":"L1"},{"q":"A principal is a student at school.","ans":false,"exp":"A principal is the leader of the school.","lesson":"L1"},{"q":"The cafeteria is where students sleep.","ans":false,"exp":"The cafeteria is where students eat.","lesson":"L3"},{"q":"A librarian works in the library.","ans":true,"exp":"Correct! The librarian manages the library.","lesson":"L3"},{"q":"Left and right are directions.","ans":true,"exp":"Correct! They tell you which way to go.","lesson":"L7"},{"q":"Breakfast is the last meal of the day.","ans":false,"exp":"Breakfast is the FIRST meal — eaten in the morning.","lesson":"L6"},{"q":"A counselor gives advice and support to students.","ans":true,"exp":"Correct! Counselors help students.","lesson":"L1"},{"q":"Language refers to the words people use to communicate.","ans":true,"exp":"Correct! Language is how we communicate.","lesson":"L2"},{"q":"A calculator is used in science class only.","ans":false,"exp":"Calculators are mainly used in math class.","lesson":"L4"},{"q":"Listening is an important skill in school.","ans":true,"exp":"Correct! Listening helps you learn.","lesson":"L8"}]},"U2":{"A":[{"q":"A talent is something you do well. ⭐","ans":true,"exp":"Yes! A talent is something you do well. ✓","lesson":"L1"},{"q":"Brave means you are very scared. 😨","ans":false,"exp":"No! Brave means NOT afraid. 🦁","lesson":"L3"},{"q":"A birthday happens every year. 🎂","ans":true,"exp":"Yes! Birthdays happen once a year. ✓","lesson":"L4"},{"q":"Yesterday is the day after today. ⏭️","ans":false,"exp":"No! Yesterday is the day BEFORE today. ⏮️","lesson":"L4"},{"q":"Sunny means the sun is shining. ☀️","ans":true,"exp":"Yes! Sunny = the sun is out. ✓","lesson":"L5"},{"q":"Hot and cold mean the same thing. 🌡️","ans":false,"exp":"No! Hot and cold are opposites. 🔥❄️","lesson":"L5"},{"q":"Winter is the coldest season. ❄️","ans":true,"exp":"Yes! Winter is the coldest. ✓","lesson":"L9"},{"q":"Spring comes after summer. 🌸","ans":false,"exp":"No! Spring comes AFTER winter. ⬇️❄️➡️🌸","lesson":"L9"},{"q":"Dancing is moving your body to music. 💃","ans":true,"exp":"Yes! Dancing is moving to music. ✓","lesson":"L6"},{"q":"A calendar shows the days of the year. 📅","ans":true,"exp":"Yes! Calendars show all the days. ✓","lesson":"L4"}],"C":[{"q":"A talent is a natural ability to do something well.","ans":true,"exp":"Correct! Talents are natural abilities.","lesson":"L1"},{"q":"A nickname is your official legal name.","ans":false,"exp":"A nickname is an informal name — not your official one.","lesson":"L2"},{"q":"Curious people have a strong desire to learn.","ans":true,"exp":"Correct! Curiosity means wanting to know more.","lesson":"L3"},{"q":"Responsible means you cannot be trusted.","ans":false,"exp":"Responsible means you CAN be trusted to do the right thing.","lesson":"L3"},{"q":"Temperature measures how hot or cold something is.","ans":true,"exp":"Correct! Temperature shows heat level.","lesson":"L5"},{"q":"Fall comes before summer in the year.","ans":false,"exp":"Summer comes before fall. The order is spring, summer, fall, winter.","lesson":"L9"},{"q":"A memory is something you remember from the past.","ans":true,"exp":"Correct! Memories are stored experiences.","lesson":"L8"},{"q":"Collaborative students prefer working alone.","ans":false,"exp":"Collaborative means working WELL with others.","lesson":"L3"},{"q":"Weather describes conditions outside like rain or sun.","ans":true,"exp":"Correct! Weather is what it is like outside.","lesson":"L5"},{"q":"Today comes after tomorrow.","ans":false,"exp":"Tomorrow comes AFTER today, not before.","lesson":"L4"}]},"U3":{"A":[{"q":"A neighborhood is the area near your home. 🏘️","ans":true,"exp":"Yes! Your neighborhood is near your home. ✓","lesson":"L1"},{"q":"A bus carries only one person. 🚌","ans":false,"exp":"No! A bus carries MANY people. 👥","lesson":"L3"},{"q":"Near means close, not far. 📍","ans":true,"exp":"Yes! Near means close. ✓","lesson":"L3"},{"q":"A firefighter puts out fires. 🧑‍🚒","ans":true,"exp":"Yes! Firefighters fight fires. ✓","lesson":"L7"},{"q":"A doctor makes you sick. 🩺","ans":false,"exp":"No! A doctor HELPS you get better. 💊","lesson":"L7"},{"q":"A bill is round metal money. 💵","ans":false,"exp":"No! A COIN is round metal money. A bill is paper money.","lesson":"L5"},{"q":"Government makes rules for a city or country. 🏛️","ans":true,"exp":"Yes! Government creates rules. ✓","lesson":"L6"},{"q":"An ambulance is a vehicle for emergencies. 🚑","ans":true,"exp":"Yes! Ambulances rush people to the hospital. ✓","lesson":"L7"},{"q":"A park is indoors. 🌳","ans":false,"exp":"No! Parks are OUTDOORS, with plants and space. 🌤️","lesson":"L2"},{"q":"Donating means giving to help others. ❤️","ans":true,"exp":"Yes! Donating is giving to help. ✓","lesson":"L6"}],"C":[{"q":"A community is a group of people who live and work in the same area.","ans":true,"exp":"Correct! Communities are built around shared places.","lesson":"L1"},{"q":"A ferry is a vehicle with four wheels.","ans":false,"exp":"A ferry is a BOAT that carries people across water.","lesson":"L3"},{"q":"A bill is paper money used to buy things.","ans":true,"exp":"Correct! Bills are paper currency.","lesson":"L5"},{"q":"The government makes rules for a country or city.","ans":true,"exp":"Correct! That is the role of government.","lesson":"L6"},{"q":"An emergency is a calm situation with no danger.","ans":false,"exp":"An emergency is a SUDDEN, DANGEROUS situation needing immediate help.","lesson":"L7"},{"q":"A pharmacist is trained to give out medicine.","ans":true,"exp":"Correct! Pharmacists manage and distribute medicine.","lesson":"L7"},{"q":"A sale means items cost more than usual.","ans":false,"exp":"A sale means items cost LESS than usual.","lesson":"L5"},{"q":"Your address tells people where you live.","ans":true,"exp":"Correct! An address shows the exact location of a home.","lesson":"L2"},{"q":"A blizzard is a severe snowstorm.","ans":true,"exp":"Correct! Blizzards have heavy snow and strong winds.","lesson":"L8"},{"q":"Donating something means you are selling it.","ans":false,"exp":"Donating means GIVING something for free to help others.","lesson":"L6"}]},"U4":{"A":[{"q":"A map shows where places are. 🗺️","ans":true,"exp":"Yes! Maps show where places are. ✓","lesson":"L1"},{"q":"A globe is flat. 📄","ans":false,"exp":"No! A globe is round. 🌐","lesson":"L1"},{"q":"The ocean is land. 🏕️","ans":false,"exp":"No! The ocean is water. 🌊","lesson":"L2"},{"q":"A continent is a very big area of land. 🌍","ans":true,"exp":"Yes! Continents are very big. ✓","lesson":"L2"},{"q":"A mountain is tall land. ⛰️","ans":true,"exp":"Yes! Mountains are very tall. ✓","lesson":"L3"},{"q":"A tropical climate is cold all year. ❄️","ans":false,"exp":"No! Tropical = hot and wet. 🌴","lesson":"L4"},{"q":"An island has water all around it. 🏝️","ans":true,"exp":"Yes! Water goes all the way around. ✓","lesson":"L5"},{"q":"Population means how many people live somewhere. 👥","ans":true,"exp":"Yes! Population = number of people. ✓","lesson":"L9"},{"q":"A legend on a map tells you who made it.","ans":false,"exp":"No! A legend explains the map's symbols. 🔑","lesson":"L7"},{"q":"To migrate means to move to a new country. ✈️","ans":true,"exp":"Yes! Migration is moving to a new country. ✓","lesson":"L11"}],"C":[{"q":"A map shows where places are located.","ans":true,"exp":"Correct! Maps show where places are.","lesson":"L1"},{"q":"A globe is flat like a piece of paper.","ans":false,"exp":"A globe is round — it is a ball-shaped model of Earth.","lesson":"L1"},{"q":"The equator connects the North and South Poles.","ans":false,"exp":"That is the prime meridian. The equator goes around the middle of Earth.","lesson":"L2"},{"q":"A hemisphere is half of Earth.","ans":true,"exp":"Correct! Hemi means half.","lesson":"L2"},{"q":"A mountain is a rounded, raised area of land.","ans":false,"exp":"That describes a hill. A mountain is massive and steep.","lesson":"L3"},{"q":"Precipitation includes rain, snow, sleet, and hail.","ans":true,"exp":"Correct! All are forms of precipitation.","lesson":"L4"},{"q":"A border separates two countries or states.","ans":true,"exp":"Correct! Borders are dividing lines.","lesson":"L6"},{"q":"The scale on a map shows how distances compare to real ones.","ans":true,"exp":"Correct! Scale lets you measure real distances.","lesson":"L8"},{"q":"When a population increases, the number goes down.","ans":false,"exp":"Increase means the number goes UP.","lesson":"L9"},{"q":"When you migrate, you move from one country to another.","ans":true,"exp":"Correct! Migration means moving to a new country.","lesson":"L11"}]},"U5":{"A": [{"q": "An animal is a living thing. 🐾", "ans": true, "exp": "Yes! Animals are living things. ✓", "lesson": "L1"}, {"q": "Extinct animals still live today. 🦕", "ans": false, "exp": "No — extinct means all animals of that kind are gone forever.", "lesson": "L1"}, {"q": "A habitat is where an animal lives. 🌿", "ans": true, "exp": "Yes! A habitat is an animal's natural home. ✓", "lesson": "L1"}, {"q": "A plant is a consumer — it eats other things. 🌱", "ans": false, "exp": "No — plants are producers. They make their own food from sunlight.", "lesson": "L2"}, {"q": "A mammal has fur or hair. 🐻", "ans": true, "exp": "Yes! Mammals are covered in fur or hair. ✓", "lesson": "L4"}, {"q": "A carnivore eats only plants. 🥬", "ans": false, "exp": "No — carnivores eat only meat. Herbivores eat plants.", "lesson": "L8"}, {"q": "Solar energy is renewable. ☀️", "ans": true, "exp": "Yes! The sun will not run out, so solar energy is renewable. ✓", "lesson": "L9"}, {"q": "Oil is a renewable resource. ⛽", "ans": false, "exp": "No — oil is nonrenewable. Once it is used up, it is gone.", "lesson": "L9"}, {"q": "Rain and snow are forms of precipitation. 🌧️", "ans": true, "exp": "Yes! Rain, snow, and hail are all precipitation. ✓", "lesson": "L10"}, {"q": "Recycling turns old materials into new products. ♻️", "ans": true, "exp": "Yes! Recycling helps reduce waste. ✓", "lesson": "L12"}], "C": [{"q": "When all members of a species die, it becomes extinct.", "ans": true, "exp": "Correct! Extinction means a species is gone forever.", "lesson": "L1"}, {"q": "An ecosystem includes only animals, not plants.", "ans": false, "exp": "Incorrect. An ecosystem includes all living things — plants, animals, and more.", "lesson": "L2"}, {"q": "A decomposer breaks down dead plants and animals.", "ans": true, "exp": "Correct! Decomposers like mushrooms break down dead organisms.", "lesson": "L5"}, {"q": "A predator is an animal that gets hunted by others.", "ans": false, "exp": "Incorrect. A predator hunts others. The animal that gets hunted is called prey.", "lesson": "L4"}, {"q": "The water cycle describes how water moves from Earth to sky and back.", "ans": true, "exp": "Correct! The water cycle is the continuous movement of water.", "lesson": "L10"}, {"q": "Renewable resources can be replaced, while nonrenewable ones cannot.", "ans": true, "exp": "Correct! Solar and wind are renewable; oil and coal are not.", "lesson": "L9"}, {"q": "Pollution is good for the environment.", "ans": false, "exp": "Incorrect. Pollution is harmful to the environment.", "lesson": "L11"}, {"q": "A food chain shows the order in which animals eat plants and other animals.", "ans": true, "exp": "Correct! Energy moves through a food chain from producers to consumers.", "lesson": "L8"}, {"q": "Evaporation happens when water heats up and turns into water vapor.", "ans": true, "exp": "Correct! Heat turns liquid water into water vapor — that is evaporation.", "lesson": "L10"}, {"q": "An omnivore eats only plants.", "ans": false, "exp": "Incorrect. An omnivore eats both plants and animals.", "lesson": "L8"}]},"U6":{"A": [{"q": "A sibling is your brother or sister. 👫", "ans": true, "exp": "Yes! A sibling is a brother or sister. ✓", "lesson": "L1"}, {"q": "A cousin is your grandparent's parent. 👴", "ans": false, "exp": "No — a cousin is the child of your aunt or uncle.", "lesson": "L1"}, {"q": "A tradition is a custom passed down in families. 🎎", "ans": true, "exp": "Yes! Traditions are passed down through generations. ✓", "lesson": "L2"}, {"q": "A guitar is a musical instrument. 🎸", "ans": true, "exp": "Yes! A guitar is a tool used to make music. ✓", "lesson": "L4"}, {"q": "The lyrics of a song are the pictures. 🖼️", "ans": false, "exp": "No — lyrics are the words of a song.", "lesson": "L4"}, {"q": "A recipe gives instructions for making food. 📝", "ans": true, "exp": "Yes! A recipe tells you how to prepare food. ✓", "lesson": "L3"}, {"q": "Homemade food is food bought at a store. 🏪", "ans": false, "exp": "No — homemade food is made at home, not bought.", "lesson": "L3"}, {"q": "A hobby is something you do for fun in your free time. 🎯", "ans": true, "exp": "Yes! Hobbies are fun free-time activities. ✓", "lesson": "L8"}, {"q": "Each person is unique — there is no one exactly like you. ✨", "ans": true, "exp": "Yes! Every person is one of a kind. ✓", "lesson": "L7"}, {"q": "Oral tradition means writing stories in books. 📚", "ans": false, "exp": "No — oral tradition means stories are passed down by speaking, not writing.", "lesson": "L6"}], "C": [{"q": "A relative is anyone who is part of your family.", "ans": true, "exp": "Correct! Relatives are all family members.", "lesson": "L1"}, {"q": "Culture includes only the food of a group of people.", "ans": false, "exp": "Incorrect. Culture includes traditions, beliefs, food, art, and more.", "lesson": "L2"}, {"q": "A multicultural school has students from many different cultures.", "ans": true, "exp": "Correct! Multicultural means including many different cultures.", "lesson": "L7"}, {"q": "Calligraphy is a type of musical instrument.", "ans": false, "exp": "Incorrect. Calligraphy is beautiful decorative writing — it is an art form.", "lesson": "L5"}, {"q": "Oral tradition involves passing down stories by speaking rather than writing.", "ans": true, "exp": "Correct! Oral means spoken — oral tradition is verbal storytelling.", "lesson": "L6"}, {"q": "To respect someone means to treat them with care and consideration.", "ans": true, "exp": "Correct! Respect is showing care for others.", "lesson": "L7"}, {"q": "A genre is a type or style of music, art, or writing.", "ans": true, "exp": "Correct! Jazz, hip-hop, and classical are all different genres.", "lesson": "L4"}, {"q": "To exchange something means to give it away and get nothing back.", "ans": false, "exp": "Incorrect. To exchange means to give something AND get something in return.", "lesson": "L9"}, {"q": "A recipe is a list of steps for preparing food.", "ans": true, "exp": "Correct! Recipes give instructions and ingredients.", "lesson": "L3"}, {"q": "Unique means exactly the same as everything else.", "ans": false, "exp": "Incorrect. Unique means one of a kind — different from everything else.", "lesson": "L7"}]}};
-const SORT_DATA={"U1":{"A":[{"title":"School room or school person?","cols":["Room 🏛️","Person 👤"],"items":[{"l":"classroom 🏛️","c":"Room 🏛️"},{"l":"teacher 👩‍🏫","c":"Person 👤"},{"l":"library 📚","c":"Room 🏛️"},{"l":"principal 👔","c":"Person 👤"},{"l":"cafeteria 🍽️","c":"Room 🏛️"},{"l":"counselor 🫂","c":"Person 👤"},{"l":"gym 🏃","c":"Room 🏛️"},{"l":"librarian 📖","c":"Person 👤"}]},{"title":"School supply or school subject?","cols":["Supply 🎒","Subject 📚"],"items":[{"l":"backpack 🎒","c":"Supply 🎒"},{"l":"math ➕","c":"Subject 📚"},{"l":"pencil ✏️","c":"Supply 🎒"},{"l":"science 🔬","c":"Subject 📚"},{"l":"notebook 📓","c":"Supply 🎒"},{"l":"art 🎨","c":"Subject 📚"},{"l":"calculator 🔢","c":"Supply 🎒"},{"l":"computer 💻","c":"Supply 🎒"}]}],"C":[{"title":"School location or school person?","cols":["Location","Person"],"items":[{"l":"classroom","c":"Location"},{"l":"teacher","c":"Person"},{"l":"library","c":"Location"},{"l":"principal","c":"Person"},{"l":"cafeteria","c":"Location"},{"l":"counselor","c":"Person"},{"l":"gym","c":"Location"},{"l":"librarian","c":"Person"},{"l":"hallway","c":"Location"},{"l":"assistant","c":"Person"}]},{"title":"Direction or time of day?","cols":["Direction","Time"],"items":[{"l":"left","c":"Direction"},{"l":"morning","c":"Time"},{"l":"right","c":"Direction"},{"l":"afternoon","c":"Time"},{"l":"upstairs","c":"Direction"},{"l":"breakfast","c":"Time"},{"l":"downstairs","c":"Direction"},{"l":"lunch","c":"Time"},{"l":"inside","c":"Direction"},{"l":"day","c":"Time"}]}]},"U2":{"A":[{"title":"Feeling or season?","cols":["Feeling 💭","Season 🍂"],"items":[{"l":"happy 😊","c":"Feeling 💭"},{"l":"spring 🌸","c":"Season 🍂"},{"l":"angry 😠","c":"Feeling 💭"},{"l":"summer ☀️","c":"Season 🍂"},{"l":"confused 😕","c":"Feeling 💭"},{"l":"fall 🍂","c":"Season 🍂"},{"l":"brave 🦁","c":"Feeling 💭"},{"l":"winter ❄️","c":"Season 🍂"}]},{"title":"Hot weather or cold weather?","cols":["Hot ☀️","Cold ❄️"],"items":[{"l":"sunny ☀️","c":"Hot ☀️"},{"l":"cloudy ☁️","c":"Cold ❄️"},{"l":"hot 🔥","c":"Hot ☀️"},{"l":"cold ❄️","c":"Cold ❄️"},{"l":"summer ☀️","c":"Hot ☀️"},{"l":"winter ❄️","c":"Cold ❄️"},{"l":"tropical 🌴","c":"Hot ☀️"},{"l":"polar 🧊","c":"Cold ❄️"}]}],"C":[{"title":"Personal strength or weather word?","cols":["Strength","Weather"],"items":[{"l":"brave","c":"Strength"},{"l":"sunny","c":"Weather"},{"l":"curious","c":"Strength"},{"l":"rainy","c":"Weather"},{"l":"creative","c":"Strength"},{"l":"cloudy","c":"Weather"},{"l":"responsible","c":"Strength"},{"l":"windy","c":"Weather"},{"l":"collaborative","c":"Strength"},{"l":"temperature","c":"Weather"}]},{"title":"Season or personal trait?","cols":["Season","Personal trait"],"items":[{"l":"spring","c":"Season"},{"l":"kind","c":"Personal trait"},{"l":"summer","c":"Season"},{"l":"helpful","c":"Personal trait"},{"l":"fall","c":"Season"},{"l":"imaginative","c":"Personal trait"},{"l":"winter","c":"Season"},{"l":"responsible","c":"Personal trait"}]}]},"U3":{"A":[{"title":"Transportation or community place?","cols":["Transportation 🚌","Place 🏛️"],"items":[{"l":"bus 🚌","c":"Transportation 🚌"},{"l":"park 🌳","c":"Place 🏛️"},{"l":"car 🚗","c":"Transportation 🚌"},{"l":"hospital 🏥","c":"Place 🏛️"},{"l":"taxi 🚕","c":"Transportation 🚌"},{"l":"community center 🏛️","c":"Place 🏛️"},{"l":"bicycle 🚲","c":"Transportation 🚌"},{"l":"library 📚","c":"Place 🏛️"}]},{"title":"Emergency helper or money word?","cols":["Emergency helper 🚨","Money 💰"],"items":[{"l":"firefighter 🧑‍🚒","c":"Emergency helper 🚨"},{"l":"bill 💵","c":"Money 💰"},{"l":"doctor 🩺","c":"Emergency helper 🚨"},{"l":"coin 🪙","c":"Money 💰"},{"l":"police 👮","c":"Emergency helper 🚨"},{"l":"cost 💰","c":"Money 💰"},{"l":"paramedic 🚑","c":"Emergency helper 🚨"},{"l":"sale 🏷️","c":"Money 💰"}]}],"C":[{"title":"Transportation or community person?","cols":["Transportation","Community person"],"items":[{"l":"bus","c":"Transportation"},{"l":"banker","c":"Community person"},{"l":"ferry","c":"Transportation"},{"l":"server","c":"Community person"},{"l":"taxi","c":"Transportation"},{"l":"firefighter","c":"Community person"},{"l":"bicycle","c":"Transportation"},{"l":"pharmacist","c":"Community person"},{"l":"ambulance","c":"Transportation"},{"l":"paramedic","c":"Community person"}]},{"title":"Natural disaster or money concept?","cols":["Natural disaster","Money concept"],"items":[{"l":"hurricane","c":"Natural disaster"},{"l":"bill","c":"Money concept"},{"l":"blizzard","c":"Natural disaster"},{"l":"coin","c":"Money concept"},{"l":"emergency","c":"Natural disaster"},{"l":"sale","c":"Money concept"},{"l":"shelter","c":"Natural disaster"},{"l":"cost","c":"Money concept"}]}]},"U4":{"A":[{"title":"Land or water?","cols":["Land 🏕️","Water 💧"],"items":[{"l":"mountain ⛰️","c":"Land 🏕️"},{"l":"ocean 🌊","c":"Water 💧"},{"l":"hill 🌄","c":"Land 🏕️"},{"l":"river 🏞️","c":"Water 💧"},{"l":"valley 🌿","c":"Land 🏕️"},{"l":"reservoir 💧","c":"Water 💧"},{"l":"island 🏝️","c":"Land 🏕️"},{"l":"wetland 🌿","c":"Water 💧"}]},{"title":"Hot or cold climate?","cols":["Hot ☀️","Cold ❄️"],"items":[{"l":"tropical 🌴","c":"Hot ☀️"},{"l":"polar ❄️","c":"Cold ❄️"},{"l":"dry ☀️","c":"Hot ☀️"},{"l":"temperate 🌤️","c":"Cold ❄️"},{"l":"equator 〰️","c":"Hot ☀️"},{"l":"blizzard ❄️","c":"Cold ❄️"},{"l":"desert ☀️","c":"Hot ☀️"},{"l":"tundra 🧊","c":"Cold ❄️"}]}],"C":[{"title":"Landform or body of water?","cols":["Landform","Body of water"],"items":[{"l":"mountain","c":"Landform"},{"l":"river","c":"Body of water"},{"l":"hill","c":"Landform"},{"l":"ocean","c":"Body of water"},{"l":"valley","c":"Landform"},{"l":"reservoir","c":"Body of water"},{"l":"sand dune","c":"Landform"},{"l":"wetland","c":"Body of water"}]},{"title":"Physical feature or human activity?","cols":["Physical feature","Human activity"],"items":[{"l":"mountain","c":"Physical feature"},{"l":"building homes","c":"Human activity"},{"l":"island","c":"Physical feature"},{"l":"farming","c":"Human activity"},{"l":"ocean","c":"Physical feature"},{"l":"digging a reservoir","c":"Human activity"},{"l":"beach","c":"Physical feature"},{"l":"cutting down forests","c":"Human activity"}]},{"title":"Country feature or map tool?","cols":["Country feature","Map tool"],"items":[{"l":"border","c":"Country feature"},{"l":"legend","c":"Map tool"},{"l":"capital","c":"Country feature"},{"l":"scale","c":"Map tool"},{"l":"coast","c":"Country feature"},{"l":"compass rose","c":"Map tool"},{"l":"region","c":"Country feature"},{"l":"locate","c":"Map tool"}]}]},"U5":{"A": [{"title": "Animal or plant?", "cols": ["Animal 🐾", "Plant 🌱"], "items": [{"l": "animal 🐾", "c": "Animal 🐾"}, {"l": "plant 🌱", "c": "Plant 🌱"}, {"l": "mammal 🐻", "c": "Animal 🐾"}, {"l": "flower 🌸", "c": "Plant 🌱"}, {"l": "reptile 🦎", "c": "Animal 🐾"}, {"l": "seed 🌰", "c": "Plant 🌱"}, {"l": "predator 🦁", "c": "Animal 🐾"}, {"l": "root 🌿", "c": "Plant 🌱"}]}, {"title": "Eats plants or eats meat?", "cols": ["Eats plants 🥬", "Eats meat 🥩"], "items": [{"l": "herbivore 🐄", "c": "Eats plants 🥬"}, {"l": "carnivore 🐺", "c": "Eats meat 🥩"}, {"l": "rabbit 🐇", "c": "Eats plants 🥬"}, {"l": "predator 🦁", "c": "Eats meat 🥩"}, {"l": "deer 🦌", "c": "Eats plants 🥬"}, {"l": "wolf 🐺", "c": "Eats meat 🥩"}, {"l": "cow 🐄", "c": "Eats plants 🥬"}, {"l": "hawk 🦅", "c": "Eats meat 🥩"}]}], "C": [{"title": "Renewable or nonrenewable resource?", "cols": ["Renewable ♻️", "Nonrenewable ⛽"], "items": [{"l": "solar energy ☀️", "c": "Renewable ♻️"}, {"l": "oil ⛽", "c": "Nonrenewable ⛽"}, {"l": "wind 💨", "c": "Renewable ♻️"}, {"l": "coal", "c": "Nonrenewable ⛽"}, {"l": "water 💧", "c": "Renewable ♻️"}, {"l": "natural gas", "c": "Nonrenewable ⛽"}, {"l": "wood 🌲", "c": "Renewable ♻️"}, {"l": "fossil fuel", "c": "Nonrenewable ⛽"}]}, {"title": "Producer or consumer?", "cols": ["Producer 🌿", "Consumer 🦊"], "items": [{"l": "plant 🌱", "c": "Producer 🌿"}, {"l": "wolf 🐺", "c": "Consumer 🦊"}, {"l": "tree 🌲", "c": "Producer 🌿"}, {"l": "deer 🦌", "c": "Consumer 🦊"}, {"l": "grass 🌾", "c": "Producer 🌿"}, {"l": "hawk 🦅", "c": "Consumer 🦊"}, {"l": "flower 🌸", "c": "Producer 🌿"}, {"l": "bear 🐻", "c": "Consumer 🦊"}]}, {"title": "Helps the environment or harms it?", "cols": ["Helps 🌿", "Harms 🏭"], "items": [{"l": "recycle ♻️", "c": "Helps 🌿"}, {"l": "pollution 🏭", "c": "Harms 🏭"}, {"l": "conservation 🌿", "c": "Helps 🌿"}, {"l": "oil spill", "c": "Harms 🏭"}, {"l": "reuse 🔁", "c": "Helps 🌿"}, {"l": "deforestation", "c": "Harms 🏭"}, {"l": "reduce 📉", "c": "Helps 🌿"}, {"l": "litter 🗑️", "c": "Harms 🏭"}]}]},"U6":{"A": [{"title": "Family member or not a family member?", "cols": ["Family 👨‍👩‍👧", "Not family 🚶"], "items": [{"l": "sibling 👫", "c": "Family 👨‍👩‍👧"}, {"l": "teacher 👩‍🏫", "c": "Not family 🚶"}, {"l": "cousin 🧑", "c": "Family 👨‍👩‍👧"}, {"l": "principal 👔", "c": "Not family 🚶"}, {"l": "grandparent 👴", "c": "Family 👨‍👩‍👧"}, {"l": "neighbor", "c": "Not family 🚶"}, {"l": "aunt 👩", "c": "Family 👨‍👩‍👧"}, {"l": "friend 🤝", "c": "Not family 🚶"}]}, {"title": "Music or food?", "cols": ["Music 🎵", "Food 🍽️"], "items": [{"l": "instrument 🎸", "c": "Music 🎵"}, {"l": "recipe 📝", "c": "Food 🍽️"}, {"l": "lyrics 📜", "c": "Music 🎵"}, {"l": "ingredient 🧅", "c": "Food 🍽️"}, {"l": "musician 🎤", "c": "Music 🎵"}, {"l": "meal 🍽️", "c": "Food 🍽️"}, {"l": "genre 🎭", "c": "Music 🎵"}, {"l": "serve 🍲", "c": "Food 🍽️"}]}], "C": [{"title": "Art form or family word?", "cols": ["Art form 🎨", "Family word 👨‍👩‍👧"], "items": [{"l": "calligraphy ✍️", "c": "Art form 🎨"}, {"l": "relative 👨‍👩‍👧", "c": "Family word 👨‍👩‍👧"}, {"l": "painting 🎨", "c": "Art form 🎨"}, {"l": "sibling 👫", "c": "Family word 👨‍👩‍👧"}, {"l": "textile 🧶", "c": "Art form 🎨"}, {"l": "cousin 🧑", "c": "Family word 👨‍👩‍👧"}, {"l": "photograph 📷", "c": "Art form 🎨"}, {"l": "grandparent 👴", "c": "Family word 👨‍👩‍👧"}]}, {"title": "Giving or receiving?", "cols": ["Giving 🤲", "Receiving 📦"], "items": [{"l": "offer 🤲", "c": "Giving 🤲"}, {"l": "receive 📦", "c": "Receiving 📦"}, {"l": "gift 🎁", "c": "Giving 🤲"}, {"l": "appreciate 🙏", "c": "Receiving 📦"}, {"l": "serve 🍲", "c": "Giving 🤲"}, {"l": "enjoy 😊", "c": "Receiving 📦"}, {"l": "exchange 🔄", "c": "Giving 🤲"}, {"l": "knowledge 🧠", "c": "Receiving 📦"}]}]}};
-const LESSON_LABELS={"U1":{"All":"All","L1":"L1: Welcome","L2":"L2: Names","L3":"L3: Rooms","L4":"L4: Supplies","L5":"L5: Subjects","L6":"L6: Time","L7":"L7: Directions","L8":"L8: Skills"},"U2":{"All":"All","L1":"L1: Talents","L2":"L2: Names","L3":"L3: Traits","L4":"L4: Dates","L5":"L5: Weather","L6":"L6: Activities","L7":"L7: Clothes","L8":"L8: Feelings","L9":"L9: Seasons"},"U3":{"All":"All","L1":"L1: Community","L2":"L2: Places","L3":"L3: Getting Around","L4":"L4: Workers","L5":"L5: Money","L6":"L6: Government","L7":"L7: Health","L8":"L8: Disasters"},"U4":{"All":"All","L1":"L1: Maps","L2":"L2: Earth","L3":"L3: Landforms","L4":"L4: Climate","L5":"L5: Features","L6":"L6: Countries","L7":"L7: Map Tools","L8":"L8: Distance","L9":"L9: Population","L11":"L11: Migration"},"U5":{"All":"All","L1":"L1: Animals","L2":"L2: Ecosystems","L3":"L3: Plants","L4":"L4: Animal Classes","L5":"L5: Decomposers","L6":"L6: Habitats","L7":"L7: Life Cycles","L8":"L8: Food Chains","L9":"L9: Resources","L10":"L10: Water Cycle","L11":"L11: Human Impact","L12":"L12: Reduce Reuse"},"U6":{"All":"All","L1":"L1: Family","L2":"L2: Culture","L3":"L3: Food","L4":"L4: Music","L5":"L5: Art","L6":"L6: Stories","L7":"L7: Values","L8":"L8: Hobbies","L9":"L9: Sharing"}};
-
-// ── STATE ────────────────────────────────────────────────────────
-let LV='A', CU='U1', activeTab='flashcards';
-let curLang='off', transMode='tooltip';
-let fcL='All',fcCards=[],fcIdx=0;
-let lisL='All',lisCards=[],lisIdx=0,lisDefOn=false,apTimer=null;
-let mL='All',mSel=null,mDone=0,mPairs=[];
-let fibL='All',fibSet=null,fibUsed=[],fibActive=null;
-let qL='All',qQs=[],qIdx=0,qDone=false,qRes=[];
-let sortSet=null,sortSt={},sortPend=null;
-const RTL=new Set(['ar','ur']);
-
-// ── TRANSLATION HELPERS ──────────────────────────────────────────
-function getTr(word){
-  if(curLang==='off')return null;
-  const w=VOCAB_DATA[CU]||[];
-  const entry=w.find(v=>v.word===word);
-  return entry&&entry.tr?entry.tr[curLang]||null:null;
-}
-function wrapWord(word){
-  const t=getTr(word);
-  if(!t)return esc(word);
-  const d=RTL.has(curLang)?'dir="rtl"':'';
-  if(transMode==='tooltip')
-    return `<span class="tw" onclick="this.classList.toggle('tapped')">${esc(word)}<span class="tt" ${d}>${t}</span></span>`;
-  return `<span class="pt"><span class="pt-word">${esc(word)}</span><span class="pt-trans" ${d}>${t}</span></span>`;
-}
-function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
-function setLang(l){
-  curLang=l;
-  document.getElementById('tmode-wrap').style.display=l==='off'?'none':'flex';
-  applyTrans();
-}
-function setTransMode(m){
-  transMode=m;
-  document.getElementById('tmode-tip').classList.toggle('active',m==='tooltip');
-  document.getElementById('tmode-pin').classList.toggle('active',m==='persistent');
-  document.body.classList.toggle('trans-persistent',m==='persistent');
-  applyTrans();
-}
-function applyTrans(){
-  document.body.classList.toggle('trans-persistent',transMode==='persistent');
-  if(activeTab==='flashcards')showFC();
-  if(activeTab==='listen')showLis();
-  if(activeTab==='match')newMatchRound();
-  if(activeTab==='fillin')renderFIB();
-  if(activeTab==='sort')renderSort();
-}
-
-// ── UTILS ────────────────────────────────────────────────────────
-function shuf(a){let r=[...a];for(let i=r.length-1;i>0;i--){const j=0|Math.random()*(i+1);[r[i],r[j]]=[r[j],r[i]];}return r;}
-function tr2(s,n){return s.length>n?s.slice(0,n-1)+'…':s;}
-function getV(l){
-  let pool=CU==='MIX'?Object.values(VOCAB_DATA).flat():VOCAB_DATA[CU]||[];
-  return l==='All'?pool:pool.filter(v=>v.lesson===l);
-}
-function getLessons(){
-  if(CU==='MIX')return['All'];
-  return['All',...new Set((VOCAB_DATA[CU]||[]).map(v=>v.lesson))];
-}
-function getLessonLabel(l){
-  if(l==='All')return'All';
-  if(CU==='MIX')return l;
-  return(LESSON_LABELS[CU]||{})[l]||l;
-}
-function mkPills(id,act,fn){
-  document.getElementById(id).innerHTML=getLessons().map(l=>
-    `<button class="filter-pill${l===act?' active':''}" onclick="${fn}('${l}')">${getLessonLabel(l)}</button>`
-  ).join('');
-}
-
-// ── LEVEL / UNIT / TAB ───────────────────────────────────────────
-function setLevel(lv){
-  LV=lv;
-  document.getElementById('btn-a').classList.toggle('active',lv==='A');
-  document.getElementById('btn-c').classList.toggle('active',lv==='C');
-  window.speechSynthesis&&window.speechSynthesis.cancel();
-  clearTimeout(apTimer);
-  resetAllLessons();boot();
-}
-function setUnit(u){
-  CU=u;
-  document.querySelectorAll('.unit-tab').forEach(b=>b.classList.remove('active'));
-  document.getElementById('utab-'+u).classList.add('active');
-  const names={U1:'Unit 1: Welcome to School',U2:'Unit 2: Getting to Know You',U3:'Unit 3: Community Voices',U4:'Unit 4: On the Map',U5:'Unit 5: What in the World?',U6:'Unit 6: Our Cultures',MIX:'Mixed Units 1–6'};
-  document.getElementById('unit-subtitle').textContent='· '+(names[u]||u);
-  window.speechSynthesis&&window.speechSynthesis.cancel();
-  clearTimeout(apTimer);
-  resetAllLessons();boot();
-}
-function showTab(t){
-  activeTab=t;
-  window.speechSynthesis&&window.speechSynthesis.cancel();
-  clearTimeout(apTimer);
-  document.querySelectorAll('.activity-panel').forEach(p=>p.classList.remove('visible'));
-  document.getElementById('panel-'+t).classList.add('visible');
-  const tabs=['flashcards','listen','match','fillin','quiz','sort'];
-  document.querySelectorAll('.tab-btn').forEach((b,i)=>b.classList.toggle('active',tabs[i]===t));
-}
-function resetAllLessons(){fcL='All';lisL='All';mL='All';fibL='All';qL='All';}
-function boot(){initFC();initLis();initMatch();initFIB();initQuiz();initSort();}
-
-// ── FLASHCARDS ───────────────────────────────────────────────────
-function initFC(){mkPills('fc-filter','All','setFCL');fcCards=shuf(getV('All'));fcIdx=0;showFC();}
-function setFCL(l){fcL=l;mkPills('fc-filter',l,'setFCL');fcCards=shuf(getV(l));fcIdx=0;document.getElementById('flashcard').classList.remove('flipped');showFC();}
-function showFC(){
-  document.getElementById('flashcard').classList.remove('flipped');
-  const c=fcCards[fcIdx];if(!c)return;
-  const em=document.getElementById('fc-emoji');
-  em.textContent=c.emoji;em.style.display=LV==='A'?'block':'none';
-  document.getElementById('fc-word').textContent=c.word;
-  document.getElementById('fc-tap').textContent=LV==='A'?'tap to see meaning 👆':'tap to see definition';
-  document.getElementById('fc-def').textContent=LV==='A'?c.defA:c.def;
-  document.getElementById('fc-tag').textContent=(LV==='A'?'':c.unit+' · ')+getLessonLabel(c.lesson);
-  document.getElementById('fc-count').textContent=(fcIdx+1)+' / '+fcCards.length;
-  document.getElementById('fc-prog').style.width=((fcIdx+1)/fcCards.length*100)+'%';
-  const t=getTr(c.word);const ft=document.getElementById('fc-trans');
-  if(t&&curLang!=='off'){const d=RTL.has(curLang)?'dir="rtl"':'';ft.innerHTML=`<span ${d}>${t}</span>`;ft.classList.add('show');}
-  else{ft.innerHTML='';ft.classList.remove('show');}
-}
-function flipCard(e){if(e&&e.target.closest('.speak-btn'))return;document.getElementById('flashcard').classList.toggle('flipped');}
-function nextCard(){fcIdx=(fcIdx+1)%fcCards.length;showFC();}
-function prevCard(){fcIdx=(fcIdx-1+fcCards.length)%fcCards.length;showFC();}
-function shuffleCards(){fcCards=shuf(fcCards);fcIdx=0;showFC();}
-
-// ── LISTEN ───────────────────────────────────────────────────────
-function initLis(){
-  mkPills('listen-filter','All','setLisL');
-  lisCards=shuf(getV('All'));lisIdx=0;
-  document.getElementById('listen-desc').textContent=LV==='A'?'Tap 🔊 to hear. Tap 🎤 to record yourself! 🗣️':'Hear it. Say it. Record yourself.';
-  showLis();
-}
-function setLisL(l){lisL=l;mkPills('listen-filter',l,'setLisL');lisCards=shuf(getV(l));lisIdx=0;clearTimeout(apTimer);showLis();}
-function showLis(){
-  clearTimeout(apTimer);window.speechSynthesis&&window.speechSynthesis.cancel();
-  lisDefOn=false;recBlob=null;
-  const c=lisCards[lisIdx];if(!c)return;
-  document.getElementById('listen-emoji').textContent=c.emoji;
-  document.getElementById('listen-word').textContent=c.word;
-  document.getElementById('listen-def').textContent=LV==='A'?c.defA:c.def;
-  document.getElementById('listen-def').classList.add('hidden');
-  document.getElementById('show-def-btn').textContent=LV==='A'?'Show meaning':'Show definition';
-  document.getElementById('listen-hear-lbl').textContent='Hear it';
-  document.getElementById('listen-hear-btn').classList.remove('speaking');
-  document.getElementById('listen-rec-btn').style.background='var(--green)';
-  document.getElementById('listen-rec-btn').classList.remove('recording');
-  document.getElementById('listen-rec-icon').textContent='🎤';
-  document.getElementById('listen-rec-lbl').textContent=LV==='A'?'Say it 🗣️':'Say it';
-  document.getElementById('rec-status').textContent='';
-  document.getElementById('playback-row').style.display='none';
-  document.getElementById('save-status').textContent='';
-  document.getElementById('listen-count').textContent=(lisIdx+1)+' / '+lisCards.length;
-  document.getElementById('listen-prog').style.width=((lisIdx+1)/lisCards.length*100)+'%';
-  const t=getTr(c.word);const lt=document.getElementById('listen-trans');
-  if(t&&curLang!=='off'){const d=RTL.has(curLang)?'dir="rtl"':'';lt.innerHTML=`<span ${d}>${t}</span>`;lt.classList.add('show');}
-  else{lt.innerHTML='';lt.classList.remove('show');}
-}
-function listenHear(){
-  const c=lisCards[lisIdx];
-  spk(c.word,'listen-hear-btn');
-  document.getElementById('listen-hear-btn').classList.add('speaking');
-  const dur=(c.word.length*90)+800;
-  setTimeout(()=>{document.getElementById('listen-hear-lbl').textContent='Hear it again';document.getElementById('listen-hear-btn').classList.remove('speaking');},dur);
-}
-function toggleDef(){
-  lisDefOn=!lisDefOn;
-  document.getElementById('listen-def').classList.toggle('hidden',!lisDefOn);
-  document.getElementById('show-def-btn').textContent=lisDefOn?(LV==='A'?'Hide meaning':'Hide definition'):(LV==='A'?'Show meaning':'Show definition');
-}
-function prevListen(){lisIdx=(lisIdx-1+lisCards.length)%lisCards.length;showLis();}
-function nextListen(){lisIdx=(lisIdx+1)%lisCards.length;showLis();}
-function shuffleListen(){lisCards=shuf(lisCards);lisIdx=0;showLis();}
-function autoPlayListen(){
-  lisIdx=0;showLis();
-  setTimeout(()=>{
-    listenHear();
-    function nx(){if(lisIdx<lisCards.length-1){apTimer=setTimeout(()=>{lisIdx++;showLis();setTimeout(()=>{listenHear();nx();},500);},2800);}}
-    nx();
-  },300);
-}
-
-// ── WORD MATCH ───────────────────────────────────────────────────
-function initMatch(){
-  mkPills('match-filter','All','setML');
-  document.getElementById('match-desc').textContent=LV==='A'?'Tap a word on the left. Then tap the matching meaning. 👆':'Tap a word on the left. Then tap its definition on the right.';
-  newMatchRound();
-}
-function setML(l){mL=l;mkPills('match-filter',l,'setML');newMatchRound();}
-function newMatchRound(){
-  const pool=getV(mL);
-  mPairs=shuf(pool).slice(0,LV==='A'?4:5);
-  mSel=null;mDone=0;
-  document.getElementById('match-score').textContent='0 matched';
-  document.getElementById('match-fb').textContent=LV==='A'?'Tap a word on the left. 👈':'Choose a word on the left to start.';
-  const wOrd=shuf([...mPairs]);const dOrd=shuf([...mPairs]);
-  document.getElementById('match-words').innerHTML=wOrd.map(p=>{
-    const sid='mw-'+p.word.replace(/\s+/g,'_');
-    const spkid='spk-mw-'+p.word.replace(/\s+/g,'_');
-    const t=getTr(p.word);
-    const td=(t&&curLang!=='off')?`<span class="match-trans"${RTL.has(curLang)?' dir="rtl"':''}>${t}</span>`:'';
-    return `<div class="match-item" id="${sid}" data-key="${p.word}" data-side="word" onclick="selMatch(this)">
-      <button class="speak-btn" id="${spkid}" onclick="event.stopPropagation();spk('${p.word}','${spkid}')">🔊</button>
-      <span class="match-word-inner">${LV==='A'?p.emoji+' ':''}${esc(p.word)}${td}</span></div>`;
-  }).join('');
-  // Definitions only on right — no word text
-  document.getElementById('match-defs').innerHTML=dOrd.map(p=>{
-    const sid='md-'+p.word.replace(/\s+/g,'_');
-    return `<div class="match-item" id="${sid}" data-key="${p.word}" data-side="def" onclick="selMatch(this)">${tr2(LV==='A'?p.defA:p.def,65)}</div>`;
-  }).join('');
-}
-function selMatch(el){
-  if(el.classList.contains('matched'))return;
-  const side=el.dataset.side;
-  if(!mSel){
-    if(side!=='word'){document.getElementById('match-fb').textContent=LV==='A'?'Start on the left. 👈':'Start by selecting a word on the left.';return;}
-    document.querySelectorAll('.match-item').forEach(i=>i.classList.remove('selected'));
-    el.classList.add('selected');mSel=el;
-    document.getElementById('match-fb').textContent=LV==='A'?'Good! Now tap the meaning on the right. 👉':'Good! Now tap the matching definition.';
-  }else{
-    if(side==='word'){document.querySelectorAll('.match-item').forEach(i=>i.classList.remove('selected'));el.classList.add('selected');mSel=el;return;}
-    if(el.dataset.key===mSel.dataset.key){
-      el.classList.add('matched');mSel.classList.add('matched');mSel.classList.remove('selected');
-      mDone++;document.getElementById('match-score').textContent=mDone+' matched';
-      document.getElementById('match-fb').textContent=mDone===mPairs.length?(LV==='A'?'All done! 🎉':'All matched!'):(LV==='A'?'Yes! ✅':'Correct!');
-    }else{
-      el.classList.add('wrong');mSel.classList.add('wrong');
-      setTimeout(()=>{el.classList.remove('wrong');if(mSel)mSel.classList.remove('wrong','selected');mSel=null;},600);
-      document.getElementById('match-fb').textContent=LV==='A'?'Try again! 🔄':'Try again!';
-      mSel=null;return;
-    }
-    mSel=null;
-  }
-}
-
-// ── FILL IN THE BLANK ────────────────────────────────────────────
-function initFIB(){
-  mkPills('fib-filter','All','setFIBL');
-  document.getElementById('fib-desc').textContent=LV==='A'?'Tap a word. It goes in the blank. 📝':'Choose a word from the bank to complete each sentence.';
-  newFIBSet();
-}
-function setFIBL(l){fibL=l;mkPills('fib-filter',l,'setFIBL');newFIBSet();}
-function newFIBSet(){
-  const unit=CU==='MIX'?shuf(['U1','U2','U3','U4','U5','U6'])[0]:CU;
-  let sets=((FIB_DATA[unit]||{})[LV])||[];
-  if(fibL!=='All')sets=sets.filter(s=>s.lesson===fibL);
-  if(!sets.length)sets=((FIB_DATA[unit]||{})[LV])||((FIB_DATA['U4']||{})[LV])||[];
-  fibSet=sets[0|Math.random()*sets.length];
-  fibUsed=[];fibActive=null;renderFIB();
-}
-function renderFIB(){
-  if(!fibSet)return;
-  const hint=LV==='A'?`<div class="a-hint">💡 Tap a word below. Then tap where it goes.</div>`:'';
-  let html=hint+'<div class="word-bank"><div class="word-bank-label">Word Bank</div>';
-  fibSet.bank.forEach(w=>{
-    const safe=w.replace(/\s+/g,'_');
-    const t=getTr(w);const td=(t&&curLang!=='off')?`<span class="chip-trans"${RTL.has(curLang)?' dir="rtl"':''}>${t}</span>`:'';
-    html+=`<div class="bank-chip-wrap${fibUsed.includes(w)?' used':''}">
-      <button class="speak-btn chip-spk" onclick="spk('${w}','spk-fb-${safe}')" id="spk-fb-${safe}">🔊</button>
-      <span class="bank-chip" onclick="useWord('${w}')">${esc(w)}${td}</span></div>`;
-  });
-  html+='</div>';
-  fibSet.s.forEach((s,i)=>{
-    const p=s.t.split('___');
-    html+=`<p class="fib-sentence"><span style="font-weight:800;color:var(--sky-dark);margin-right:2px">${i+1}.</span>${p[0]}<input class="blank-input" id="fib-${i}" data-answer="${s.a}" value="" onfocus="fibActive=${i}">${p[1]||''}</p>`;
-  });
-  document.getElementById('fib-content').innerHTML=html;
-}
-function useWord(w){
-  if(fibUsed.includes(w))return;
-  let t=null;
-  if(fibActive!==null)t=document.getElementById('fib-'+fibActive);
-  if(!t){const ins=document.querySelectorAll('.blank-input');for(const i of ins)if(!i.value){t=i;break;}}
-  if(t){t.value=w;fibUsed.push(w);document.querySelectorAll('.bank-chip-wrap').forEach(b=>{if(b.querySelector('.bank-chip')&&b.querySelector('.bank-chip').textContent.trim().startsWith(w))b.classList.add('used');});fibActive=null;}
-}
-function checkFIB(){
-  document.querySelectorAll('.blank-input').forEach(inp=>{
-    inp.classList.remove('correct','wrong');
-    if(!inp.value)return;
-    inp.classList.add(inp.value.trim().toLowerCase()===inp.dataset.answer.toLowerCase()?'correct':'wrong');
-  });
-}
-
-// ── TRUE / FALSE ─────────────────────────────────────────────────
-function initQuiz(){
-  mkPills('quiz-filter','All','setQL');
-  document.getElementById('quiz-desc').textContent=LV==='A'?'Read the sentence. True ✅ or False ❌?':'Read the sentence. Is it true or false?';
-  startQuiz();
-}
-function setQL(l){qL=l;mkPills('quiz-filter',l,'setQL');startQuiz();}
-function startQuiz(){
-  const unit=CU==='MIX'?shuf(['U1','U2','U3','U4','U5','U6'])[0]:CU;
-  let pool=((TF_DATA[unit]||{})[LV])||[];
-  if(qL!=='All')pool=pool.filter(q=>q.lesson===qL);
-  if(pool.length<4)pool=((TF_DATA[unit]||{})[LV])||[];
-  qQs=shuf(pool).slice(0,6);qIdx=0;qDone=false;qRes=[];
-  document.getElementById('q-next').style.display='none';
-  document.getElementById('q-restart').style.display='none';
-  document.getElementById('quiz-result').style.display='none';
-  showQ();
-}
-function showQ(){
-  const q=qQs[qIdx];if(!q)return;
-  document.getElementById('q-num').textContent='Question '+(qIdx+1);
-  document.getElementById('q-text').textContent=q.q;
-  document.getElementById('q-label').textContent='Question '+(qIdx+1)+' of '+qQs.length;
-  document.getElementById('tf-explain').textContent='';
-  document.getElementById('q-next').style.display='none';
-  document.getElementById('q-restart').style.display='none';
-  document.getElementById('btn-true').className='tf-btn';
-  document.getElementById('btn-false').className='tf-btn';
-  qDone=false;renderDots();
-}
-function renderDots(){
-  document.getElementById('q-dots').innerHTML=qQs.map((_,i)=>{
-    let c='q-dot';
-    if(i<qRes.length)c+=qRes[i]?' right':' wrong2';
-    else if(i===qIdx)c+=' current';
-    return `<div class="${c}"></div>`;
-  }).join('');
-}
-function answerTF(val){
-  if(qDone)return;qDone=true;
-  const q=qQs[qIdx];const ok=val===q.ans;qRes.push(ok);
-  document.getElementById('tf-explain').textContent=q.exp;
-  if(val){document.getElementById('btn-true').classList.add(ok?'correct':'wrong');if(!ok)document.getElementById('btn-false').classList.add('correct');}
-  else{document.getElementById('btn-false').classList.add(ok?'correct':'wrong');if(!ok)document.getElementById('btn-true').classList.add('correct');}
-  renderDots();
-  if(qIdx<qQs.length-1){document.getElementById('q-next').style.display='inline-block';}
-  else{
-    const sc=qRes.filter(Boolean).length;const pct=Math.round(sc/qQs.length*100);
-    const em=pct===100?'🏆':pct>=70?'⭐':'💪';
-    document.getElementById('quiz-result').style.display='block';
-    document.getElementById('quiz-result').innerHTML=`<div class="result-banner"><span class="result-emoji">${em}</span><div class="result-score">${sc} / ${qQs.length}</div><div class="result-msg">${LV==='A'?'Good job! 🌟':'Great work!'}</div></div>`;
-    document.getElementById('q-restart').style.display='inline-block';
-  }
-}
-function nextQ(){qIdx++;showQ();}
-
-// ── SORT IT ──────────────────────────────────────────────────────
-function initSort(){
-  document.getElementById('sort-desc').textContent=LV==='A'?'Tap a word to select it. Then tap the correct group. 👆':'Tap a word, then tap the correct column.';
-  newSortRound();
-}
-function newSortRound(){
-  const unit=CU==='MIX'?shuf(['U1','U2','U3','U4','U5','U6'])[0]:CU;
-  const sets=((SORT_DATA[unit]||{})[LV])||[];
-  if(!sets.length)return;
-  sortSet=sets[0|Math.random()*sets.length];
-  sortSt={};sortSet.items.forEach(i=>{sortSt[i.l]=null;});sortPend=null;renderSort();
-}
-function renderSort(){
-  if(!sortSet)return;
-  const unplaced=sortSet.items.filter(i=>sortSt[i.l]===null);
-  let html=`<p style="font-size:14px;font-weight:700;color:var(--sky-dark);margin-bottom:10px">${sortSet.title}</p>`;
-  html+=`<div class="sort-bank"><div class="sort-bank-label">Tap a word to place it</div>`;
-  if(!unplaced.length)html+=`<span style="font-size:12px;color:var(--muted);font-weight:600">All placed! ✅</span>`;
-  else unplaced.forEach(i=>{
-    const safe='srt-'+i.l.replace(/[^a-zA-Z0-9]/g,'_');
-    const spktxt=i.l.replace(/[^\w\s]/g,'').trim();
-    const baseWord=i.l.replace(/[^\w\s\-]/g,'').trim();
-    const t=getTr(baseWord)||getTr(baseWord.toLowerCase());
-    const td=(t&&curLang!=='off')?`<span class="chip-trans"${RTL.has(curLang)?' dir="rtl"':''}>${t}</span>`:'';
-    html+=`<div class="sort-chip-wrap${sortPend===i.l?' pending':''}">
-      <button class="speak-btn chip-spk" onclick="event.stopPropagation();spk('${spktxt.replace(/'/g,"\\'")}','${safe}')" id="${safe}">🔊</button>
-      <span class="sort-chip" onclick="sortTap('${i.l.replace(/'/g,"\\'")}')">${esc(i.l)}${td}</span></div>`;
-  });
-  html+='</div><div class="sort-cols">';
-  sortSet.cols.forEach(col=>{
-    const placed=Object.entries(sortSt).filter(([k,v])=>v===col);
-    html+=`<div class="sort-col${sortPend?' drop-target':''}" onclick="sortDrop('${col.replace(/'/g,"\\'")}')" >
-      <div class="sort-col-label">${col}</div>`;
-    placed.forEach(([k])=>{
-      const ok=sortSet.items.find(i=>i.l===k).c===col;
-      html+=`<div class="sort-placed ${ok?'right':'wrong'}" onclick="unsort('${k.replace(/'/g,"\\'")}');event.stopPropagation()">${k}</div>`;
-    });
-    html+='</div>';
-  });
-  html+='</div>';
-  document.getElementById('sort-content').innerHTML=html;
-}
-function sortTap(label){sortPend=sortPend===label?null:label;renderSort();}
-function sortDrop(col){if(!sortPend)return;sortSt[sortPend]=col;sortPend=null;renderSort();}
-function unsort(label){sortSt[label]=null;renderSort();}
-
-// ── BOOT ─────────────────────────────────────────────────────────
-boot();
-</script>
 </body>
 </html>
