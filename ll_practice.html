@@ -1,437 +1,768 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="galileo">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-<title>Language Launch · Practice · Galileo ELD</title>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@700;900&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Language Launch Practice — Galileo ELD</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@600;700;800;900&display=swap" rel="stylesheet">
 <style>
-:root {
-  --bg: #f0f4fa;
-  --card: #ffffff;
-  --ink: #1a2332;
-  --muted: #6b7a90;
-  --border: #dde5f0;
-  --blue: #2563eb;
-  --blue-dk: #1d4ed8;
-  --blue-lt: #dbeafe;
-  --green: #16a34a;
-  --green-lt: #dcfce7;
-  --red: #dc2626;
-  --red-lt: #fee2e2;
-  --amber: #d97706;
-  --amber-lt: #fef3c7;
-  --purple: #7c3aed;
-  --purple-lt: #ede9fe;
-  --r: 16px;
-  --r-sm: 10px;
-  --sh: 0 2px 16px rgba(37,99,235,.09);
-  --sh-lg: 0 6px 32px rgba(37,99,235,.14);
+/* ══════════ TOKENS ══════════ */
+:root{
+  /* Galileo brand: lion purple #864D9E, G orange #F8981F */
+  --lime:#4CA32E; --lime-dk:#367A1D; --lime-soft:#E3F3D9;
+  --mango:#F8981F; --mango-dk:#C4740D; --mango-soft:#FDEBCE;
+  --coral:#E4572E; --coral-dk:#B43B18; --coral-soft:#FCE2D9;
+  --sky:#864D9E; --sky-dk:#5E3170; --sky-soft:#EFE2F6;
+  --grape:#C2478E; --grape-dk:#96286A; --grape-soft:#F8DCEE;
+  --lion:url('data:image/png;base64,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');
+
+  --r-lg:22px; --r:16px; --r-sm:11px;
+  --lip:5px;
+  --col:620px;
+  --panel-w:300px;
+  --tap:56px;
 }
-*{box-sizing:border-box;margin:0;padding:0;}
-body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--ink);min-height:100vh;}
-
-/* ── SCREENS ── */
-.screen{display:none;}
-.screen.active{display:block;animation:screenIn .35s ease;}
-#screen-login.active{display:flex;}
-@keyframes screenIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
-
-/* ── LOGIN ── */
-#screen-login{
-  align-items:center;justify-content:center;
+html[data-theme="galileo"]{
+  --bg:#33193D; --bg-2:#200F27; --bg-glow:rgba(134,77,158,.34);
+  --paper:#FFF8EF; --paper-2:#F2E7DA; --edge:#DFCEBE;
+  --ink:#2A1633; --ink-2:#6B5A72;
+  --on-bg:#FFF6EC; --on-bg-2:#C3A8D0;
+}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
+html,body{height:100%;}
+body{
+  font-family:'Nunito',system-ui,sans-serif;
+  background:
+    radial-gradient(1100px 520px at 50% -180px,var(--bg-glow),transparent 70%),
+    linear-gradient(180deg,var(--bg) 0%,var(--bg-2) 100%);
+  background-attachment:fixed;
+  color:var(--ink);
   min-height:100vh;
-  background:linear-gradient(135deg,#1e3a8a 0%,#2563eb 50%,#7c3aed 100%);
-  padding:20px;
+  font-size:17px;
+  line-height:1.45;
 }
+button,input,select{font-family:inherit;}
+:focus-visible{outline:3px solid var(--sky);outline-offset:3px;}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;}}
+
+/* ══════════ 3D PRESS BUTTON ══════════ */
+.p3{
+  position:relative;border:none;cursor:pointer;
+  border-radius:var(--r);font-weight:900;color:#fff;
+  box-shadow:0 var(--lip) 0 var(--p3-lip);
+  transition:transform .08s ease,box-shadow .08s ease,filter .12s ease;
+}
+.p3:active:not(:disabled){transform:translateY(var(--lip));box-shadow:0 0 0 var(--p3-lip);}
+.p3:disabled{filter:saturate(.25) opacity(.55);cursor:default;}
+.p3.lime{background:var(--lime);--p3-lip:var(--lime-dk);}
+.p3.mango{background:var(--mango);--p3-lip:var(--mango-dk);color:#3A2600;}
+.p3.sky{background:var(--sky);--p3-lip:var(--sky-dk);}
+.p3.coral{background:var(--coral);--p3-lip:var(--coral-dk);}
+.p3.ghost{background:var(--paper);--p3-lip:var(--edge);color:var(--ink);}
+
+/* ══════════ SCREENS ══════════ */
+.screen{display:none;}
+.screen.active{display:block;}
+#screen-login.active{display:flex;}
+
+/* ══════════ LOGIN ══════════ */
+#screen-login{align-items:center;justify-content:center;min-height:100vh;padding:24px 18px;}
 .login-card{
-  background:var(--card);border-radius:24px;padding:36px 32px;
-  width:100%;max-width:420px;box-shadow:0 20px 60px rgba(0,0,0,.25);
+  background:var(--paper);border-radius:26px;padding:34px 28px 28px;
+  width:100%;max-width:440px;border:2px solid var(--edge);
+  box-shadow:0 18px 0 rgba(0,0,0,.16);
 }
-.login-logo{font-family:'Fraunces',serif;font-size:1.8rem;font-weight:900;color:var(--blue);text-align:center;margin-bottom:4px;}
-.login-logo em{color:var(--purple);font-style:normal;}
-.login-sub{text-align:center;font-size:.82rem;color:var(--muted);margin-bottom:28px;font-weight:600;text-transform:uppercase;letter-spacing:1px;}
-.form-group{margin-bottom:16px;}
-.form-label{display:block;font-size:.75rem;font-weight:800;text-transform:uppercase;letter-spacing:1px;color:var(--muted);margin-bottom:6px;}
-.form-input,.form-select{
-  width:100%;padding:11px 14px;border:2px solid var(--border);border-radius:var(--r-sm);
-  font-family:'Nunito',sans-serif;font-size:.95rem;font-weight:700;color:var(--ink);
-  background:var(--bg);outline:none;transition:border-color .15s;
+.lion{width:108px;height:114px;background:var(--lion) center/contain no-repeat;margin:0 auto 14px;}
+.lion-sm{width:30px;height:32px;background:var(--lion) center/contain no-repeat;flex-shrink:0;}
+.brand{font-size:2rem;font-weight:900;letter-spacing:-.02em;color:var(--ink);line-height:1.1;}
+.brand-sub{color:var(--ink-2);font-weight:700;font-size:.98rem;margin:4px 0 26px;}
+.fld{margin-bottom:15px;}
+.fld label{display:block;font-size:.95rem;font-weight:800;color:var(--ink);margin-bottom:6px;}
+.fld input,.fld select{
+  width:100%;padding:14px 15px;border:2.5px solid var(--edge);border-radius:var(--r-sm);
+  font-size:1.05rem;font-weight:700;color:var(--ink);background:var(--paper-2);
+  outline:none;transition:border-color .15s,background .15s;min-height:var(--tap);
 }
-.form-input:focus,.form-select:focus{border-color:var(--blue);}
-.form-select option{background:#fff;}
-.btn-login{
-  width:100%;padding:13px;border-radius:var(--r-sm);border:none;
-  background:linear-gradient(135deg,var(--blue),var(--purple));
-  color:#fff;font-family:'Nunito',sans-serif;font-size:1rem;font-weight:900;
-  cursor:pointer;transition:all .18s;margin-top:8px;
-  box-shadow:0 4px 16px rgba(37,99,235,.35);
+.fld input:focus,.fld select:focus{border-color:var(--sky);background:var(--paper);}
+.btn-wide{width:100%;padding:17px;font-size:1.15rem;margin-top:10px;min-height:var(--tap);}
+.login-err{
+  color:var(--coral-dk);background:var(--coral-soft);border-radius:var(--r-sm);
+  font-weight:800;font-size:.95rem;text-align:center;margin-top:12px;
+  padding:0;max-height:0;overflow:hidden;transition:max-height .2s,padding .2s;
 }
-.btn-login:hover{transform:translateY(-2px);box-shadow:0 6px 24px rgba(37,99,235,.45);}
-.login-err{color:var(--red);font-size:.82rem;font-weight:700;text-align:center;margin-top:8px;min-height:18px;}
-.login-hint{text-align:center;font-size:.75rem;color:var(--muted);margin-top:16px;}
+.login-err.show{padding:11px 12px;max-height:140px;}
+.login-foot{text-align:center;font-size:.85rem;color:var(--ink-2);margin-top:16px;font-weight:700;}
 
-/* ── HEADER (student) ── */
-.student-header{
-  background:linear-gradient(135deg,#1e3a8a,#2563eb);
-  padding:12px 18px;display:flex;align-items:center;justify-content:space-between;
-  position:sticky;top:0;z-index:100;box-shadow:0 2px 12px rgba(0,0,0,.2);
-  flex-wrap:wrap;gap:8px;
+/* ══════════ TOP BAR ══════════ */
+.topbar{
+  position:sticky;top:0;z-index:60;
+  display:flex;align-items:center;gap:12px;
+  padding:11px 16px;padding-top:calc(11px + env(safe-area-inset-top));
+  background:color-mix(in srgb,var(--bg) 88%,transparent);
+  backdrop-filter:blur(10px);
+  border-bottom:2px solid rgba(255,255,255,.09);
 }
-.hdr-left{display:flex;align-items:center;gap:10px;}
-.hdr-logo{font-family:'Fraunces',serif;font-size:1.1rem;font-weight:900;color:#fff;}
-.hdr-logo em{color:#fbbf24;font-style:normal;}
-.hdr-user{font-size:.75rem;font-weight:700;color:#bfdbfe;text-transform:uppercase;letter-spacing:.5px;}
-.score-badge{
-  background:rgba(255,255,255,.15);border:2px solid rgba(255,255,255,.25);
-  border-radius:20px;padding:4px 14px;
-  font-size:.85rem;font-weight:900;color:#fff;
+.tb-home{
+  background:none;border:none;cursor:pointer;font-size:1.5rem;line-height:1;
+  padding:6px;border-radius:10px;color:var(--on-bg);
+}
+.tb-who{flex:1;min-width:0;}
+.tb-name{font-weight:900;color:var(--on-bg);font-size:1.02rem;line-height:1.2;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.tb-meta{font-weight:700;color:var(--on-bg-2);font-size:.8rem;}
+.tb-pts{
   display:flex;align-items:center;gap:6px;
+  background:var(--mango-soft);color:#5A3D00;border:2px solid var(--mango);
+  border-radius:999px;padding:6px 14px;font-weight:900;font-size:1.02rem;flex-shrink:0;
 }
-.score-badge .score-num{font-size:1.1rem;color:#fbbf24;}
+.tb-btn{
+  background:rgba(255,255,255,.12);border:2px solid rgba(255,255,255,.2);
+  color:var(--on-bg);border-radius:12px;cursor:pointer;
+  font-weight:900;font-size:.95rem;padding:8px 11px;line-height:1;flex-shrink:0;
+}
+html[data-theme="sand"] .tb-btn{background:rgba(0,0,0,.07);border-color:rgba(0,0,0,.14);}
+.tb-btn.on{background:var(--mango);border-color:var(--mango-dk);color:#4A2E00;}
 
-/* ── MAIN CONTENT ── */
-.content-wrap{max-width:660px;margin:0 auto;padding:20px 16px 60px;}
+/* ══════════ LAYOUT ══════════ */
+.wrap{max-width:var(--col);margin:0 auto;padding:22px 16px 130px;}
+@media(min-width:1280px){
+  body{--col:620px;}
+}
+h1.head{font-size:1.85rem;font-weight:900;color:var(--on-bg);letter-spacing:-.02em;line-height:1.15;}
+p.head-sub{color:var(--on-bg-2);font-weight:700;font-size:1rem;margin-top:3px;}
 
-/* ── ASSIGNMENT LIST ── */
-.section-title{
-  font-family:'Fraunces',serif;font-size:1.3rem;font-weight:900;color:var(--ink);
-  margin-bottom:4px;
+/* ══════════ BILINGUAL INSTRUCTION ══════════ */
+.bi-en{display:block;}
+.bi-l1{
+  display:block;color:var(--ink-2);font-weight:700;
+  border-left:4px solid var(--mango);padding-left:10px;margin-top:7px;
+  font-size:.95em;line-height:1.5;
 }
-.section-sub{font-size:.82rem;color:var(--muted);font-weight:600;margin-bottom:18px;}
+.bi-l1[dir="rtl"]{border-left:none;border-right:4px solid var(--mango);padding-left:0;padding-right:10px;text-align:right;}
+.on-bg .bi-l1{color:var(--on-bg-2);}
+body.l1-off .bi-l1{display:none;}
 
-.assignment-card{
-  background:var(--card);border:2px solid var(--border);border-radius:var(--r);
-  padding:18px;margin-bottom:12px;cursor:pointer;
-  box-shadow:var(--sh);transition:all .18s;
-  display:flex;align-items:center;gap:14px;
+/* ══════════ SET CARDS ══════════ */
+.sets{display:flex;flex-direction:column;gap:13px;margin-top:20px;}
+.set{
+  display:flex;align-items:center;gap:15px;width:100%;text-align:left;
+  background:var(--paper);border:2.5px solid var(--edge);border-radius:var(--r-lg);
+  padding:16px;cursor:pointer;color:var(--ink);
+  box-shadow:0 6px 0 rgba(0,0,0,.15);
+  transition:transform .08s,box-shadow .08s;
 }
-.assignment-card:hover{transform:translateY(-2px);box-shadow:var(--sh-lg);border-color:var(--blue);}
-.assignment-card.completed{border-color:var(--green);background:linear-gradient(135deg,#f0fdf4,#fff);}
-.assignment-card.locked{opacity:.5;cursor:default;pointer-events:none;}
-.asgn-icon{
-  width:48px;height:48px;border-radius:12px;flex-shrink:0;
-  display:flex;align-items:center;justify-content:center;font-size:1.4rem;
+.set:active{transform:translateY(5px);box-shadow:0 1px 0 rgba(0,0,0,.15);}
+.set-ico{
+  width:62px;height:62px;border-radius:18px;flex-shrink:0;position:relative;
+  display:grid;place-items:center;font-size:2rem;border:2.5px solid;
 }
-.asgn-icon.blue{background:var(--blue-lt);}
-.asgn-icon.green{background:var(--green-lt);}
-.asgn-icon.amber{background:var(--amber-lt);}
-.asgn-icon.purple{background:var(--purple-lt);}
-.asgn-body{flex:1;min-width:0;}
-.asgn-title{font-weight:800;font-size:1rem;color:var(--ink);margin-bottom:2px;}
-.asgn-meta{font-size:.75rem;color:var(--muted);font-weight:600;}
-.asgn-right{text-align:right;flex-shrink:0;}
-.asgn-pct{
-  font-size:1.3rem;font-weight:900;
-  color:var(--green);
+.set-ico .tick{
+  position:absolute;right:-7px;bottom:-7px;width:26px;height:26px;border-radius:50%;
+  background:var(--lime);border:2.5px solid var(--paper);color:#fff;
+  font-size:.85rem;display:grid;place-items:center;
 }
-.asgn-pct.zero{color:var(--muted);}
-.asgn-status{font-size:.7rem;font-weight:800;text-transform:uppercase;letter-spacing:.5px;color:var(--muted);}
-.asgn-status.done{color:var(--green);}
+.set-ico.sky{background:var(--sky-soft);border-color:var(--sky);}
+.set-ico.lime{background:var(--lime-soft);border-color:var(--lime);}
+.set-ico.mango{background:var(--mango-soft);border-color:var(--mango);}
+.set-ico.grape{background:var(--grape-soft);border-color:var(--grape);}
+.set-body{flex:1;min-width:0;}
+.set-title{font-weight:900;font-size:1.14rem;line-height:1.25;}
+.set-count{font-size:.9rem;font-weight:700;color:var(--ink-2);margin-top:2px;}
+.set-bar{height:11px;background:var(--paper-2);border-radius:99px;margin-top:9px;overflow:hidden;}
+.set-fill{height:100%;border-radius:99px;transition:width .5s cubic-bezier(.3,1.4,.5,1);}
+.set-pct{font-size:1.5rem;font-weight:900;flex-shrink:0;min-width:62px;text-align:right;}
+.set-pct.none{color:var(--edge);font-size:1.2rem;}
 
-/* progress mini bar */
-.mini-bar{height:4px;background:var(--border);border-radius:2px;margin-top:6px;overflow:hidden;}
-.mini-fill{height:100%;background:var(--green);border-radius:2px;transition:width .4s;}
-
-/* ── QUESTION SCREEN ── */
-.q-header{
-  background:var(--card);border-bottom:2px solid var(--border);
-  padding:14px 18px;display:flex;align-items:center;justify-content:space-between;
-  position:sticky;top:0;z-index:50;
-}
-.q-assignment-name{font-weight:800;font-size:.9rem;color:var(--ink);}
-.q-progress-text{font-size:.78rem;font-weight:700;color:var(--muted);}
-.q-progress-bar{height:4px;background:var(--border);margin:0 18px;}
-.q-progress-fill{height:100%;background:var(--blue);transition:width .3s;}
-
-.question-wrap{max-width:600px;margin:0 auto;padding:20px 16px 60px;}
-
-.q-card{
-  background:var(--card);border:2px solid var(--border);border-radius:var(--r);
-  padding:22px;margin-bottom:16px;box-shadow:var(--sh);
-}
-.q-type-label{
-  font-size:.65rem;font-weight:900;text-transform:uppercase;letter-spacing:2px;
-  color:var(--blue);margin-bottom:10px;display:flex;align-items:center;gap:5px;
-}
-.q-prompt{font-size:1.05rem;font-weight:700;color:var(--ink);line-height:1.5;margin-bottom:16px;}
-.q-prompt strong{color:var(--blue);font-family:'Fraunces',serif;font-size:1.2rem;}
-
-/* MC options */
-.mc-opts{display:flex;flex-direction:column;gap:8px;}
-.mc-opt{
-  padding:11px 14px;border-radius:var(--r-sm);border:2px solid var(--border);
-  background:var(--card);font-family:'Nunito',sans-serif;font-size:.92rem;
-  font-weight:700;color:var(--ink);cursor:pointer;text-align:left;
-  transition:all .15s;
-}
-.mc-opt:hover:not(:disabled){border-color:var(--blue);background:var(--blue-lt);}
-.mc-opt.correct{border-color:var(--green);background:var(--green-lt);color:#166534;}
-.mc-opt.wrong{border-color:var(--red);background:var(--red-lt);color:#991b1b;}
-.mc-opt.reveal{border-color:var(--green);background:var(--green-lt);color:#166534;}
-.mc-opt:disabled{cursor:default;}
-
-/* TF */
-.tf-opts{display:flex;gap:10px;}
-.tf-opt{
-  flex:1;padding:13px;border-radius:var(--r-sm);border:2px solid var(--border);
-  background:var(--card);font-family:'Nunito',sans-serif;font-size:1rem;
-  font-weight:800;cursor:pointer;transition:all .15s;
-  display:flex;align-items:center;justify-content:center;gap:6px;
-}
-.tf-opt:hover:not(:disabled){border-color:var(--blue);background:var(--blue-lt);}
-.tf-opt.correct{border-color:var(--green);background:var(--green-lt);color:#166534;}
-.tf-opt.wrong{border-color:var(--red);background:var(--red-lt);color:#991b1b;}
-.tf-opt:disabled{cursor:default;}
-
-/* FIB */
-.fib-sentence{font-size:1.05rem;font-weight:700;line-height:2.2;color:var(--ink);margin-bottom:6px;}
-.fib-blank{
-  display:inline-block;border:none;border-bottom:3px solid var(--blue);
-  width:120px;font-family:'Nunito',sans-serif;font-size:1rem;font-weight:800;
-  color:var(--blue);background:transparent;text-align:center;outline:none;
-  transition:border-color .15s;padding:0 4px;
-}
-.fib-blank:focus{border-bottom-color:var(--purple);}
-.fib-blank.correct{border-bottom-color:var(--green);color:var(--green);}
-.fib-blank.wrong{border-bottom-color:var(--red);color:var(--red);}
-.word-bank-row{display:flex;flex-wrap:wrap;gap:7px;margin-top:10px;
-  padding:10px;background:var(--blue-lt);border-radius:var(--r-sm);}
-.wb-chip{
-  padding:5px 12px;border-radius:20px;background:var(--card);
-  border:1.5px solid var(--blue);color:var(--blue);
-  font-size:.82rem;font-weight:800;cursor:pointer;
-  font-family:'Nunito',sans-serif;transition:all .15s;
-}
-.wb-chip:hover{background:var(--blue);color:#fff;}
-.wb-chip.used{opacity:.3;pointer-events:none;}
-
-/* feedback row */
-.q-feedback{
-  margin-top:12px;font-size:.88rem;font-weight:700;min-height:22px;
-  display:flex;align-items:flex-start;gap:7px;flex-wrap:wrap;
-}
-.q-feedback.ok{color:var(--green);}
-.q-feedback.err{color:var(--red);}
-
-/* AI feedback panel */
-.ai-panel{
-  margin-top:12px;background:linear-gradient(135deg,#f5f3ff,#ede9fe);
-  border:2px solid #c4b5fd;border-radius:var(--r-sm);padding:14px;
-  display:none;animation:fadeIn .3s ease;
-}
-.ai-panel.show{display:block;}
-@keyframes fadeIn{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}
-.ai-label{font-size:.65rem;font-weight:900;text-transform:uppercase;letter-spacing:1.5px;color:var(--purple);margin-bottom:6px;}
-.ai-text{font-size:.88rem;color:var(--ink);line-height:1.6;font-weight:600;}
-.ai-text-native{font-size:.88rem;color:var(--purple);line-height:1.6;font-weight:700;margin-top:6px;}
-.ai-loading{color:var(--purple);font-style:italic;font-size:.85rem;}
-
-/* teacher feedback row (read-only for student) */
-.teacher-fb-row{
-  margin-top:12px;padding:10px 12px;background:#fffbeb;
-  border:1.5px solid #fde68a;border-radius:var(--r-sm);
-  display:none;
-}
-.teacher-fb-row.show{display:flex;gap:10px;align-items:flex-start;flex-wrap:wrap;}
-.t-score-pill{
-  background:#fef3c7;border:1.5px solid #fbbf24;border-radius:20px;
-  padding:3px 11px;font-size:.8rem;font-weight:900;color:#92400e;white-space:nowrap;
-}
-.t-comment{font-size:.82rem;font-weight:600;color:var(--ink);line-height:1.5;}
-
-/* next button */
-.btn-next{
-  display:flex;align-items:center;justify-content:center;gap:7px;
-  padding:12px 28px;border-radius:var(--r-sm);border:none;
-  background:var(--blue);color:#fff;font-family:'Nunito',sans-serif;
-  font-size:.95rem;font-weight:900;cursor:pointer;
-  transition:all .18s;margin-top:16px;
-  box-shadow:0 4px 14px rgba(37,99,235,.3);
-}
-.btn-next:hover{background:var(--blue-dk);transform:translateY(-1px);}
-.btn-next:disabled{opacity:.4;pointer-events:none;}
-
-/* ── SCORE SCREEN ── */
-#screen-score{background:var(--bg);}
-.score-screen-wrap{max-width:560px;margin:0 auto;padding:30px 16px 60px;}
-.score-hero{
-  background:linear-gradient(135deg,#16a34a,#0d9488);
-  border-radius:var(--r);padding:32px 28px;text-align:center;
-  box-shadow:var(--sh-lg);margin-bottom:20px;color:#fff;
-}
-.score-hero.partial{background:linear-gradient(135deg,var(--amber),#f59e0b);}
-.score-hero.low{background:linear-gradient(135deg,var(--blue),var(--purple));}
-.score-emoji{font-size:3rem;margin-bottom:8px;}
-.score-main{font-family:'Fraunces',serif;font-size:3.5rem;font-weight:900;line-height:1;}
-.score-label{font-size:.85rem;opacity:.85;margin-top:4px;}
-.score-assignment{font-size:1rem;font-weight:700;opacity:.9;margin-bottom:16px;}
-
-.score-breakdown{background:var(--card);border-radius:var(--r);padding:20px;box-shadow:var(--sh);margin-bottom:16px;}
-.breakdown-title{font-weight:800;font-size:.88rem;text-transform:uppercase;letter-spacing:1px;color:var(--muted);margin-bottom:12px;}
-.breakdown-item{
-  display:flex;align-items:center;gap:10px;padding:8px 0;
-  border-bottom:1px solid var(--border);font-size:.88rem;
-}
-.breakdown-item:last-child{border-bottom:none;}
-.bi-icon{width:22px;text-align:center;flex-shrink:0;}
-.bi-text{flex:1;font-weight:600;color:var(--ink);}
-.bi-result{font-weight:800;font-size:.82rem;}
-.bi-result.ok{color:var(--green);}
-.bi-result.err{color:var(--red);}
-
-.btn-retry,.btn-home{
-  width:100%;padding:13px;border-radius:var(--r-sm);border:none;
-  font-family:'Nunito',sans-serif;font-size:.95rem;font-weight:900;
-  cursor:pointer;transition:all .18s;margin-bottom:10px;
-}
-.btn-retry{background:var(--blue);color:#fff;box-shadow:0 4px 14px rgba(37,99,235,.3);}
-.btn-retry:hover{background:var(--blue-dk);}
-.btn-home{background:var(--card);color:var(--ink);border:2px solid var(--border);}
-.btn-home:hover{border-color:var(--blue);color:var(--blue);}
-
-/* ── RESPONSIVE ── */
-@media(max-width:420px){
-  .login-card{padding:28px 20px;}
-  .login-logo{font-size:1.5rem;}
-  .tf-opt{padding:10px 8px;font-size:.9rem;}
-}
+/* mastery color utilities */
+.m-strong{color:var(--lime-dk);} .bg-strong{background:var(--lime);}
+.m-mid{color:var(--mango-dk);}   .bg-mid{background:var(--mango);}
+.m-low{color:var(--coral-dk);}   .bg-low{background:var(--coral);}
+.m-none{color:var(--ink-2);}     .bg-none{background:var(--edge);}
 </style>
 </head>
+<style>
+/* ══════════ QUESTION SCREEN ══════════ */
+.qbar-row{display:flex;align-items:center;gap:12px;padding:14px 16px 0;max-width:var(--col);margin:0 auto;}
+.qbar-quit{background:none;border:none;color:var(--on-bg-2);font-size:1.7rem;cursor:pointer;line-height:1;padding:2px 6px;}
+.qbar{flex:1;height:17px;background:rgba(0,0,0,.28);border-radius:99px;overflow:hidden;}
+.qbar-fill{height:100%;background:var(--lime);border-radius:99px;transition:width .4s cubic-bezier(.3,1.4,.5,1);}
+.qbar-n{color:var(--on-bg-2);font-weight:900;font-size:.95rem;flex-shrink:0;}
+
+.q-prompt{color:var(--on-bg);font-weight:900;font-size:1.3rem;line-height:1.3;margin-bottom:16px;}
+.q-card{
+  background:var(--paper);border:2.5px solid var(--edge);border-radius:var(--r-lg);
+  padding:26px 20px;box-shadow:0 7px 0 rgba(0,0,0,.15);margin-bottom:16px;
+}
+.q-word{font-size:2.6rem;font-weight:900;line-height:1.1;letter-spacing:-.02em;text-align:center;}
+.q-emoji{font-size:3.4rem;text-align:center;line-height:1;margin-bottom:10px;}
+.q-tr{
+  text-align:center;font-weight:800;font-size:1.25rem;color:var(--sky-dk);
+  margin-top:8px;padding-top:10px;border-top:2px dashed var(--edge);
+}
+.q-def{font-size:1.3rem;font-weight:800;line-height:1.4;text-align:center;}
+
+.opts{display:flex;flex-direction:column;gap:11px;}
+.opt{
+  width:100%;text-align:left;background:var(--paper);
+  border:2.5px solid var(--edge);border-radius:var(--r);
+  padding:16px 17px;font-size:1.08rem;font-weight:800;color:var(--ink);
+  cursor:pointer;box-shadow:0 5px 0 var(--edge);min-height:var(--tap);
+  transition:transform .08s,box-shadow .08s,background .12s,border-color .12s;
+}
+.opt:active:not(:disabled){transform:translateY(4px);box-shadow:0 1px 0 var(--edge);}
+.opt:disabled{cursor:default;}
+.opt.correct{background:var(--lime-soft);border-color:var(--lime);box-shadow:0 5px 0 var(--lime-dk);color:var(--lime-dk);}
+.opt.wrong{background:var(--coral-soft);border-color:var(--coral);box-shadow:0 5px 0 var(--coral-dk);color:var(--coral-dk);}
+.opt.reveal{border-color:var(--lime);box-shadow:0 5px 0 var(--lime-dk);}
+.opts.tf{flex-direction:row;gap:12px;}
+.opts.tf .opt{text-align:center;font-size:1.35rem;padding:22px 10px;}
+
+.fib-line{font-size:1.45rem;font-weight:800;line-height:1.9;text-align:center;}
+.fib-slot{
+  display:inline-block;min-width:130px;border-bottom:4px solid var(--sky);
+  color:var(--sky-dk);text-align:center;padding:0 8px;
+}
+.fib-slot.correct{border-color:var(--lime);color:var(--lime-dk);}
+.fib-slot.wrong{border-color:var(--coral);color:var(--coral-dk);text-decoration:line-through;}
+.chips{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;}
+.chip{
+  background:var(--paper);border:2.5px solid var(--edge);border-radius:14px;
+  padding:13px 18px;font-size:1.05rem;font-weight:800;color:var(--ink);
+  cursor:pointer;box-shadow:0 4px 0 var(--edge);min-height:48px;
+}
+.chip:active:not(:disabled){transform:translateY(3px);box-shadow:0 1px 0 var(--edge);}
+.chip.used{opacity:.35;}
+.chip.is-answer{border-color:var(--lime);box-shadow:0 4px 0 var(--lime-dk);}
+
+/* ══════════ VERDICT TRAY ══════════ */
+.tray{
+  position:fixed;left:0;right:0;bottom:0;z-index:100;
+  padding:16px 16px calc(16px + env(safe-area-inset-bottom));
+  border-top:3px solid;transform:translateY(102%);
+  transition:transform .22s cubic-bezier(.3,1.2,.5,1);
+}
+.tray.up{transform:translateY(0);}
+.tray.ok{background:var(--lime-soft);border-color:var(--lime);}
+.tray.no{background:var(--coral-soft);border-color:var(--coral);}
+.tray-in{max-width:var(--col);margin:0 auto;display:flex;align-items:center;gap:14px;flex-wrap:wrap;}
+.tray-txt{flex:1;min-width:180px;font-weight:900;font-size:1.15rem;}
+.tray.ok .tray-txt{color:var(--lime-dk);}
+.tray.no .tray-txt{color:var(--coral-dk);}
+.tray-sub{font-weight:800;font-size:.98rem;color:var(--ink-2);margin-top:3px;}
+.tray-btn{padding:15px 34px;font-size:1.1rem;min-height:var(--tap);}
+
+/* ══════════ MASTERY PANEL ══════════ */
+.panel{
+  background:var(--paper);border:2.5px solid var(--edge);border-radius:var(--r-lg);
+  box-shadow:0 8px 0 rgba(0,0,0,.16);overflow:hidden;
+}
+@media(min-width:1280px){
+  .panel{position:fixed;top:80px;left:50%;margin-left:calc(var(--col) / 2 + 24px);
+    width:var(--panel-w);max-height:calc(100vh - 110px);
+    display:flex;flex-direction:column;z-index:50;}
+  .panel-scroll{overflow-y:auto;}
+  .panel-close,.fab{display:none!important;}
+}
+@media(max-width:1279px){
+  .panel{position:fixed;left:0;right:0;bottom:0;z-index:95;border-radius:26px 26px 0 0;
+    border-bottom:none;max-height:82vh;display:flex;flex-direction:column;
+    transform:translateY(101%);transition:transform .26s cubic-bezier(.3,1.15,.5,1);
+    box-shadow:0 -10px 40px rgba(0,0,0,.4);}
+  .panel.open{transform:translateY(0);}
+  .panel-scroll{overflow-y:auto;padding-bottom:env(safe-area-inset-bottom);}
+}
+.panel-head{
+  display:flex;align-items:center;gap:10px;padding:15px 17px;
+  background:var(--paper-2);border-bottom:2.5px solid var(--edge);flex-shrink:0;
+}
+.panel-title{flex:1;font-weight:900;font-size:1.1rem;line-height:1.2;}
+.panel-title .bi-l1{font-size:.8rem;margin-top:2px;border-left-width:3px;}
+.panel-close{background:none;border:none;font-size:1.7rem;cursor:pointer;color:var(--ink-2);line-height:1;padding:0 4px;}
+.panel-overall{padding:16px 17px;border-bottom:2px solid var(--edge);text-align:center;}
+.ring{width:104px;height:104px;margin:0 auto 8px;position:relative;}
+.ring svg{transform:rotate(-90deg);}
+.ring-num{
+  position:absolute;inset:0;display:grid;place-items:center;
+  font-size:1.75rem;font-weight:900;letter-spacing:-.03em;
+}
+.panel-words{font-weight:800;font-size:.9rem;color:var(--ink-2);}
+.unit-row{
+  display:flex;align-items:center;gap:11px;width:100%;text-align:left;
+  padding:12px 17px;background:none;border:none;border-bottom:2px solid var(--paper-2);
+  cursor:pointer;color:var(--ink);
+}
+.unit-row:hover{background:var(--paper-2);}
+.dot{width:15px;height:15px;border-radius:50%;flex-shrink:0;border:2px solid rgba(0,0,0,.16);}
+.unit-name{flex:1;font-weight:800;font-size:.98rem;line-height:1.25;}
+.unit-sub{display:block;font-weight:700;font-size:.78rem;color:var(--ink-2);margin-top:1px;}
+.unit-pct{font-weight:900;font-size:1.12rem;flex-shrink:0;}
+.unit-caret{color:var(--ink-2);font-size:.85rem;width:14px;flex-shrink:0;}
+.lessons{background:var(--paper-2);border-bottom:2px solid var(--edge);padding:6px 17px 11px;}
+.lesson-row{display:flex;align-items:center;gap:9px;padding:6px 0;}
+.lesson-name{flex:1;font-weight:800;font-size:.88rem;}
+.lesson-bar{width:58px;height:9px;background:rgba(0,0,0,.10);border-radius:99px;overflow:hidden;flex-shrink:0;}
+.lesson-fill{height:100%;border-radius:99px;}
+.lesson-pct{font-weight:900;font-size:.84rem;width:38px;text-align:right;flex-shrink:0;}
+.key{display:flex;gap:12px;flex-wrap:wrap;padding:12px 17px;background:var(--paper-2);}
+.key-i{display:flex;align-items:center;gap:6px;font-weight:800;font-size:.8rem;color:var(--ink-2);}
+.panel-empty{padding:26px 20px;text-align:center;color:var(--ink-2);font-weight:800;font-size:.95rem;}
+
+.fab{
+  position:fixed;right:16px;bottom:calc(16px + env(safe-area-inset-bottom));z-index:90;
+  display:flex;align-items:center;gap:9px;
+  background:var(--paper);border:2.5px solid var(--edge);border-radius:999px;
+  padding:11px 19px 11px 13px;cursor:pointer;color:var(--ink);
+  box-shadow:0 6px 0 rgba(0,0,0,.22);font-weight:900;font-size:1rem;
+}
+.fab:active{transform:translateY(5px);box-shadow:0 1px 0 rgba(0,0,0,.22);}
+body.tray-open .fab{display:none!important;}
+.fab-dot{width:13px;height:13px;border-radius:50%;border:2px solid rgba(0,0,0,.16);}
+.scrim{
+  position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:92;
+  opacity:0;pointer-events:none;transition:opacity .22s;
+}
+.scrim.on{opacity:1;pointer-events:auto;}
+
+/* ══════════ MODAL ══════════ */
+.modal-scrim{
+  position:fixed;inset:0;background:rgba(0,0,0,.62);z-index:200;
+  display:none;align-items:center;justify-content:center;padding:20px;
+}
+.modal-scrim.on{display:flex;}
+.modal{
+  background:var(--paper);border:2.5px solid var(--edge);border-radius:24px;
+  padding:26px 22px;max-width:430px;width:100%;box-shadow:0 16px 0 rgba(0,0,0,.25);
+  max-height:88vh;overflow-y:auto;
+}
+.modal-ico{font-size:3rem;text-align:center;line-height:1;margin-bottom:10px;}
+.modal h2{font-size:1.4rem;font-weight:900;text-align:center;line-height:1.25;margin-bottom:10px;}
+.modal p{font-size:1.02rem;font-weight:700;color:var(--ink-2);text-align:center;margin-bottom:20px;}
+.modal .p3{width:100%;padding:16px;font-size:1.08rem;margin-bottom:10px;min-height:var(--tap);}
+.modal-note{font-size:.85rem;font-weight:700;color:var(--ink-2);text-align:center;margin-top:6px;}
+
+
+/* ══════════ SCORE SCREEN ══════════ */
+.hero{
+  background:var(--paper);border:2.5px solid var(--edge);border-radius:var(--r-lg);
+  padding:30px 22px;text-align:center;box-shadow:0 8px 0 rgba(0,0,0,.16);margin-bottom:16px;
+}
+.hero-ico{font-size:4.2rem;line-height:1;margin-bottom:8px;}
+.hero-pct{font-size:4rem;font-weight:900;line-height:1;letter-spacing:-.04em;}
+.hero-frac{font-size:1.2rem;font-weight:800;color:var(--ink-2);margin-top:6px;}
+.hero-msg{font-size:1.25rem;font-weight:900;margin-top:14px;}
+.gained{
+  display:inline-flex;align-items:center;gap:7px;margin-top:14px;
+  background:var(--mango-soft);border:2.5px solid var(--mango);border-radius:999px;
+  padding:9px 20px;font-weight:900;font-size:1.1rem;color:#5A3D00;
+}
+.rev{background:var(--paper);border:2.5px solid var(--edge);border-radius:var(--r-lg);padding:18px;margin-bottom:16px;}
+.rev h3{font-size:1.1rem;font-weight:900;margin-bottom:12px;}
+.rev-grid{display:flex;flex-wrap:wrap;gap:8px;}
+.rev-w{
+  padding:8px 13px;border-radius:11px;font-weight:800;font-size:.98rem;border:2px solid;
+}
+.rev-w.ok{background:var(--lime-soft);border-color:var(--lime);color:var(--lime-dk);}
+.rev-w.no{background:var(--coral-soft);border-color:var(--coral);color:var(--coral-dk);}
+.stack{display:flex;flex-direction:column;gap:11px;}
+.stack .p3{padding:17px;font-size:1.1rem;min-height:var(--tap);}
+
+@media(max-width:400px){
+  body{font-size:16px;}
+  .q-word{font-size:2.1rem;}
+  h1.head{font-size:1.55rem;}
+  .hero-pct{font-size:3.2rem;}
+}
+</style>
 <body>
 
-<!-- LOGIN SCREEN -->
+<!-- ═══════ LOGIN ═══════ -->
 <div id="screen-login" class="screen active">
   <div class="login-card">
-    <div class="login-logo">Language <em>Launch</em></div>
-    <div class="login-sub">Galileo Academy · Practice</div>
-    <div class="form-group">
-      <label class="form-label" for="inp-period">Your Period</label>
-      <select class="form-select" id="inp-period">
-        <option value="">— select your period —</option>
-        <option value="P1">Period 1</option>
-        <option value="P2">Period 2</option>
-        <option value="P3">Period 3</option>
-        <option value="P5">Period 5</option>
+    <div class="lion" role="img" aria-label="Galileo Academy lion"></div>
+    <div class="brand">Language Launch</div>
+    <div class="brand-sub">Vocabulary practice · Galileo Academy</div>
+
+    <div class="fld">
+      <label for="inp-period" id="lb-period">Your period</label>
+      <select id="inp-period">
+        <option value="">Choose your period</option>
+        <option value="P1">Period 1</option><option value="P2">Period 2</option>
+        <option value="P3">Period 3</option><option value="P5">Period 5</option>
         <option value="P6">Period 6</option>
       </select>
     </div>
-    <div class="form-group">
-      <label class="form-label" for="inp-name">First Name</label>
-      <input class="form-input" id="inp-name" type="text" placeholder="e.g. Maria" autocomplete="off" autocorrect="off">
+    <div class="fld">
+      <label for="inp-name" id="lb-name">Your first name</label>
+      <input id="inp-name" type="text" placeholder="Maria" autocomplete="off" autocorrect="off">
     </div>
-    <div class="form-group">
-      <label class="form-label" for="inp-username">Username</label>
-      <input class="form-input" id="inp-username" type="text" placeholder="your school username" autocomplete="off" autocorrect="off" autocapitalize="off">
+    <div class="fld">
+      <label for="inp-username" id="lb-user">Your school username</label>
+      <input id="inp-username" type="text" placeholder="mgarcia" autocomplete="off" autocapitalize="off" autocorrect="off">
     </div>
-    <div class="form-group">
-      <label class="form-label" for="inp-lang">Your Language</label>
-      <select class="form-select" id="inp-lang">
-        <option value="">— select language —</option>
-        <option value="Spanish">Spanish</option>
-        <option value="Cantonese">Cantonese</option>
-        <option value="Mandarin">Mandarin</option>
-        <option value="Arabic">Arabic</option>
-        <option value="Vietnamese">Vietnamese</option>
-        <option value="Russian">Russian</option>
-        <option value="Darija">Darija (Moroccan Arabic)</option>
-        <option value="Urdu">Urdu</option>
+    <div class="fld">
+      <label for="inp-lang" id="lb-lang">Your home language</label>
+      <select id="inp-lang" onchange="previewLang()">
+        <option value="">Choose your language</option>
+        <option value="Spanish">Español — Spanish</option>
+        <option value="Cantonese">廣東話 — Cantonese</option>
+        <option value="Mandarin">普通话 — Mandarin</option>
+        <option value="Arabic">العربية — Arabic</option>
+        <option value="Darija">الدارجة — Darija</option>
+        <option value="Vietnamese">Tiếng Việt — Vietnamese</option>
+        <option value="Russian">Русский — Russian</option>
+        <option value="Urdu">اردو — Urdu</option>
         <option value="Tagalog">Tagalog</option>
-        <option value="French">French</option>
-        <option value="Korean">Korean</option>
-        <option value="Hindi">Hindi</option>
-        <option value="Somali">Somali</option>
-        <option value="Nepali">Nepali</option>
+        <option value="French">Français — French</option>
+        <option value="Korean">한국어 — Korean</option>
+        <option value="Hindi">हिन्दी — Hindi</option>
+        <option value="Somali">Soomaali — Somali</option>
+        <option value="Nepali">नेपाली — Nepali</option>
+        <option value="Thai">ไทย — Thai</option>
       </select>
     </div>
-    <button class="btn-login" id="btn-login" onclick="attemptLogin()">Enter →</button>
+    <button class="p3 sky btn-wide" id="btn-login" onclick="attemptLogin()">Start</button>
     <div class="login-err" id="login-err"></div>
-    <div class="login-hint">Type "teacher" as your username to access the dashboard.</div>
+    <div class="login-foot">Teachers: type <b>teacher</b> as the username.</div>
   </div>
 </div>
 
-<!-- STUDENT HOME SCREEN -->
+<!-- ═══════ HOME ═══════ -->
 <div id="screen-home" class="screen">
-  <header class="student-header">
-    <div class="hdr-left">
-      <div>
-        <div class="hdr-logo">Language <em>Launch</em></div>
-        <div class="hdr-user" id="hdr-user-label">— —</div>
-      </div>
+  <div class="topbar">
+    <div class="lion-sm" role="img" aria-label="Galileo"></div>
+    <div class="tb-who">
+      <div class="tb-name" id="tb-name">—</div>
+      <div class="tb-meta" id="tb-meta">—</div>
     </div>
-    <div class="score-badge">
-      <span>⭐</span>
-      <span class="score-num" id="hdr-total-score">0</span>
-      <span style="font-size:.7rem;opacity:.8">pts</span>
+    <button class="tb-btn" id="tb-l1" onclick="toggleL1()" title="Show my language">文</button>
+    <button class="tb-btn" onclick="openSettings()" title="Settings">⚙</button>
+    <div class="tb-pts">⭐ <span id="tb-pts">0</span></div>
+  </div>
+  <div class="wrap">
+    <div class="on-bg">
+      <h1 class="head" id="home-hi">Welcome</h1>
+      <p class="head-sub">
+        <span class="bi-en" id="home-sub-en">Pick a set and start practicing.</span>
+        <span class="bi-l1" id="home-sub-l1"></span>
+      </p>
     </div>
-  </header>
-  <div class="content-wrap">
-    <div class="section-title" id="home-greeting">Welcome!</div>
-    <div class="section-sub">Choose an assignment to practice.</div>
-    <div id="assignment-list">
-      <!-- populated by JS -->
-    </div>
+    <div class="sets" id="set-list"></div>
   </div>
 </div>
 
-<!-- QUESTION SCREEN -->
+<!-- ═══════ QUESTION ═══════ -->
 <div id="screen-question" class="screen">
-  <header class="student-header">
-    <div class="hdr-left">
-      <div>
-        <div class="hdr-logo">Language <em>Launch</em></div>
-        <div class="hdr-user" id="q-user-label">— —</div>
-      </div>
-    </div>
-    <div class="score-badge">
-      <span>⭐</span>
-      <span class="score-num" id="q-total-score">0</span>
-      <span style="font-size:.7rem;opacity:.8">pts</span>
-    </div>
-  </header>
-  <div class="q-header">
-    <div class="q-assignment-name" id="q-asgn-name">—</div>
-    <div class="q-progress-text" id="q-prog-text">1 / 20</div>
+  <div class="qbar-row">
+    <button class="qbar-quit" onclick="quitSet()" aria-label="Quit">✕</button>
+    <div class="qbar"><div class="qbar-fill" id="qbar-fill" style="width:0%"></div></div>
+    <div class="qbar-n" id="qbar-n">1/20</div>
   </div>
-  <div class="q-progress-bar"><div class="q-progress-fill" id="q-prog-fill" style="width:0%"></div></div>
-  <div class="question-wrap" id="question-wrap">
-    <!-- populated by JS -->
+  <div class="wrap" id="q-wrap"></div>
+  <div class="tray" id="tray">
+    <div class="tray-in">
+      <div style="flex:1;min-width:180px;">
+        <div class="tray-txt" id="tray-txt"></div>
+        <div class="tray-sub" id="tray-sub"></div>
+      </div>
+      <button class="p3 lime tray-btn" id="tray-btn" onclick="nextQuestion()">Next</button>
+    </div>
   </div>
 </div>
 
-<!-- SCORE SCREEN -->
+<!-- ═══════ SCORE ═══════ -->
 <div id="screen-score" class="screen">
-  <header class="student-header">
-    <div class="hdr-left">
-      <div>
-        <div class="hdr-logo">Language <em>Launch</em></div>
-        <div class="hdr-user" id="sc-user-label">— —</div>
-      </div>
+  <div class="topbar">
+    <button class="tb-home" onclick="goHome()" aria-label="Home">🏠</button>
+    <div class="tb-who"><div class="tb-name" id="sc-name">—</div><div class="tb-meta" id="sc-meta">—</div></div>
+    <div class="tb-pts">⭐ <span id="sc-pts">0</span></div>
+  </div>
+  <div class="wrap" id="score-wrap"></div>
+</div>
+
+<!-- ═══════ MASTERY PANEL ═══════ -->
+<div class="scrim" id="panel-scrim" onclick="closePanel()"></div>
+<div class="panel" id="panel">
+  <div class="panel-head">
+    <span style="font-size:1.35rem;">📊</span>
+    <div class="panel-title">
+      <span class="bi-en" id="pnl-title-en">My progress</span>
+      <span class="bi-l1" id="pnl-title-l1"></span>
     </div>
-    <div class="score-badge">
-      <span>⭐</span>
-      <span class="score-num" id="sc-total-score">0</span>
-      <span style="font-size:.7rem;opacity:.8">pts</span>
-    </div>
-  </header>
-  <div class="score-screen-wrap" id="score-screen-wrap">
-    <!-- populated by JS -->
+    <button class="panel-close" onclick="closePanel()" aria-label="Close">✕</button>
+  </div>
+  <div class="panel-scroll" id="panel-scroll"></div>
+</div>
+<button class="fab" id="fab" onclick="openPanel()">
+  <span class="fab-dot bg-none" id="fab-dot"></span>
+  <span id="fab-label">Progress</span>
+</button>
+
+<!-- ═══════ BILINGUAL PROMPT ═══════ -->
+<div class="modal-scrim" id="bi-modal">
+  <div class="modal">
+    <div class="modal-ico">🌍</div>
+    <h2>
+      <span class="bi-en" id="bim-t-en">Keep your language on?</span>
+      <span class="bi-l1" id="bim-t-l1" style="border:none;padding:0;font-size:1.05rem;"></span>
+    </h2>
+    <p>
+      <span class="bi-en" id="bim-b-en">You can read instructions in English and your language, or in English only.</span>
+      <span class="bi-l1" id="bim-b-l1" style="border:none;padding:0;"></span>
+    </p>
+    <button class="p3 sky" onclick="answerBiPrompt(true)" id="bim-keep">Keep both languages</button>
+    <button class="p3 ghost" onclick="answerBiPrompt(false)" id="bim-eng">English only</button>
+    <div class="modal-note" id="bim-note">You can change this anytime.</div>
+  </div>
+</div>
+
+<!-- ═══════ SETTINGS ═══════ -->
+<div class="modal-scrim" id="set-modal">
+  <div class="modal">
+    <h2 id="sm-title">Settings</h2>
+    <div style="font-weight:900;font-size:.98rem;margin-bottom:9px;" id="sm-lang-h">Language help</div>
+    <button class="p3 sky" onclick="toggleL1();refreshSettingsModal()" id="sm-l1btn">Show my language</button>
+    <div class="modal-note" id="sm-l1note"></div>
+    <div style="height:16px"></div>
+    <button class="p3 ghost" onclick="closeSettings()" id="sm-done">Done</button>
   </div>
 </div>
 
 <script>
-/* ════════════════════════════════════════════
-   CONFIG
-════════════════════════════════════════════ */
+/* ════════ CONFIG ════════ */
 const SUPA_URL = 'https://lhmwtfyceilgndpygivj.supabase.co';
 const SUPA_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImxobXd0ZnljZWlsZ25kcHlnaXZqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzYxMzk5MDIsImV4cCI6MjA5MTcxNTkwMn0.0uIXyctHMfTN4doWYn2JJ260swD5b-t0T-oDMSIPtBU';
-const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwbFr3oopIITlxKDhI5wGhEZdomWc3tmB5ZSK6NpBVisPAz-CMA4uKiruXDkCEU3T0Q/exec';
 const DASHBOARD_URL = 'll_dashboard.html';
 
-/* ── PLACEHOLDER ROSTER (replace with real data later) ─────────
-   Format: { username: { name: 'First', period: 'P1' } }
-   Special: 'teacher' → redirect to dashboard
-            'other'   → guest access                        */
+/* Teacher-controlled defaults. Overridden by the ll_settings table if it exists. */
+let CFG = {
+  bilingual_mode: 'student_choice',  // 'on' | 'off' | 'student_choice'
+  prompt_after_sets: 3               // ask the "keep your language?" question after N finished sets
+};
+
+/* Language name → UI code + word-translation code + text direction */
+const LANGMAP = {
+  Spanish:{ui:'es',tr:'es'},      Cantonese:{ui:'yue',tr:'zh'},  Mandarin:{ui:'zh',tr:'zh'},
+  Arabic:{ui:'ar',tr:'ar',rtl:1}, Darija:{ui:'ary',tr:'ar',rtl:1}, Vietnamese:{ui:'vi',tr:'vi'},
+  Russian:{ui:'ru',tr:'ru'},      Urdu:{ui:'ur',tr:'ur',rtl:1},  Tagalog:{ui:'tl',tr:'tl'},
+  French:{ui:'fr',tr:'fr'},       Korean:{ui:'ko',tr:'ko'},      Hindi:{ui:'hi',tr:'hi'},
+  Somali:{ui:'so',tr:'so'},       Nepali:{ui:'ne',tr:'ne'},   Thai:{ui:'th',tr:'th'}
+};
+
+/* ════════ UI STRINGS ════════ */
+const UI = {
+en:{period:"Your period",name:"Your first name",user:"Your school username",lang:"Your home language",start:"Start",
+ePeriod:"Choose your period.",eName:"Type your first name.",eUser:"Type your username.",eLang:"Choose your language.",
+eNotFound:"We can't find that username. Check the spelling or ask your teacher.",
+pick:"Pick a set and start practicing.",notStarted:"Not started",inProgress:"Keep going",done:"Done",
+qOf:"Question {n} of {t}",chooseMeaning:"Choose the correct meaning.",trueFalse:"Is this true or false?",
+tapWord:"Tap the word that fits.",tTrue:"True",tFalse:"False",correct:"Correct!",notQuite:"Not quite.",
+answerIs:"The answer is",next:"Next",score:"Your score",again:"Practice again",back:"Back to practice",
+reviewThese:"Review these words",progress:"My progress",strong:"Strong",mid:"Getting there",low:"Needs work",
+none:"Not started",practiced:"words practiced",emptyPanel:"Finish a set to see your progress here.",
+biTitle:"Keep your language on?",biBody:"You can read instructions in English and your language, or in English only.",
+biKeep:"Keep both languages",biEng:"English only",biNote:"You can change this anytime.",showL1:"Show my language"},
+
+es:{period:"Tu período",name:"Tu nombre",user:"Tu usuario de la escuela",lang:"Tu idioma",start:"Empezar",
+ePeriod:"Elige tu período.",eName:"Escribe tu nombre.",eUser:"Escribe tu usuario.",eLang:"Elige tu idioma.",
+eNotFound:"No encontramos ese usuario. Revisa cómo lo escribiste o pregúntale a tu maestro.",
+pick:"Elige un grupo y empieza a practicar.",notStarted:"Sin empezar",inProgress:"Sigue así",done:"Terminado",
+qOf:"Pregunta {n} de {t}",chooseMeaning:"Elige el significado correcto.",trueFalse:"¿Esto es verdadero o falso?",
+tapWord:"Toca la palabra correcta.",tTrue:"Verdadero",tFalse:"Falso",correct:"¡Correcto!",notQuite:"Casi.",
+answerIs:"La respuesta es",next:"Siguiente",score:"Tu puntaje",again:"Practicar otra vez",back:"Volver a practicar",
+reviewThese:"Repasa estas palabras",progress:"Mi progreso",strong:"Muy bien",mid:"Casi listo",low:"Necesita práctica",
+none:"Sin empezar",practiced:"palabras practicadas",emptyPanel:"Termina un grupo para ver tu progreso aquí.",
+biTitle:"¿Quieres seguir viendo tu idioma?",biBody:"Puedes leer las instrucciones en inglés y en tu idioma, o solo en inglés.",
+biKeep:"Los dos idiomas",biEng:"Solo inglés",biNote:"Puedes cambiarlo cuando quieras.",showL1:"Mostrar mi idioma"},
+
+zh:{period:"你的班次",name:"你的名字",user:"学校用户名",lang:"你的母语",start:"开始",
+ePeriod:"请选择你的班次。",eName:"请输入你的名字。",eUser:"请输入你的用户名。",eLang:"请选择你的语言。",
+eNotFound:"找不到这个用户名。请检查拼写，或问老师。",
+pick:"选择一组，开始练习。",notStarted:"未开始",inProgress:"继续加油",done:"已完成",
+qOf:"第 {n} 题，共 {t} 题",chooseMeaning:"选择正确的意思。",trueFalse:"这句话是对还是错？",
+tapWord:"点击正确的词。",tTrue:"对",tFalse:"错",correct:"正确！",notQuite:"差一点。",
+answerIs:"答案是",next:"下一题",score:"你的分数",again:"再练一次",back:"返回练习",
+reviewThese:"复习这些词",progress:"我的进度",strong:"很好",mid:"快掌握了",low:"需要练习",
+none:"未开始",practiced:"个词已练习",emptyPanel:"完成一组后，这里会显示你的进度。",
+biTitle:"要继续显示你的语言吗？",biBody:"你可以用英语和你的语言看说明，也可以只用英语。",
+biKeep:"两种语言",biEng:"只用英语",biNote:"你随时可以改。",showL1:"显示我的语言"},
+
+yue:{period:"你嘅堂數",name:"你嘅名",user:"學校用戶名",lang:"你嘅母語",start:"開始",
+ePeriod:"請揀你嘅堂數。",eName:"請寫你嘅名。",eUser:"請寫你嘅用戶名。",eLang:"請揀你嘅語言。",
+eNotFound:"搵唔到呢個用戶名。請再睇清楚，或者問老師。",
+pick:"揀一組，開始練習。",notStarted:"未開始",inProgress:"繼續加油",done:"完成",
+qOf:"第 {n} 題，共 {t} 題",chooseMeaning:"揀出正確嘅意思。",trueFalse:"呢句係啱定錯？",
+tapWord:"揀啱嘅詞語。",tTrue:"啱",tFalse:"錯",correct:"啱晒！",notQuite:"差少少。",
+answerIs:"答案係",next:"下一題",score:"你嘅分數",again:"再練習",back:"返去練習",
+reviewThese:"溫習呢啲詞語",progress:"我嘅進度",strong:"好好",mid:"就快得",low:"要多啲練習",
+none:"未開始",practiced:"個詞語練習咗",emptyPanel:"完成一組之後，就可以喺呢度睇到進度。",
+biTitle:"想繼續睇你嘅語言嗎？",biBody:"你可以用英文同你嘅語言睇指示，或者淨係用英文。",
+biKeep:"兩種語言",biEng:"淨係英文",biNote:"你隨時可以改返。",showL1:"顯示我嘅語言"},
+
+ar:{period:"الحصة",name:"اسمك الأول",user:"اسم المستخدم في المدرسة",lang:"لغتك",start:"ابدأ",
+ePeriod:"اختر الحصة.",eName:"اكتب اسمك.",eUser:"اكتب اسم المستخدم.",eLang:"اختر لغتك.",
+eNotFound:"لم نجد اسم المستخدم. تحقق من الكتابة أو اسأل معلمك.",
+pick:"اختر مجموعة وابدأ التدريب.",notStarted:"لم تبدأ",inProgress:"واصل",done:"تم",
+qOf:"سؤال {n} من {t}",chooseMeaning:"اختر المعنى الصحيح.",trueFalse:"هل هذا صحيح أم خطأ؟",
+tapWord:"اضغط على الكلمة المناسبة.",tTrue:"صحيح",tFalse:"خطأ",correct:"صحيح!",notQuite:"قريب.",
+answerIs:"الإجابة هي",next:"التالي",score:"نتيجتك",again:"تدرب مرة أخرى",back:"العودة للتدريب",
+reviewThese:"راجع هذه الكلمات",progress:"تقدمي",strong:"ممتاز",mid:"تقترب",low:"تحتاج تدريب",
+none:"لم تبدأ",practiced:"كلمة تدربت عليها",emptyPanel:"أكمل مجموعة لترى تقدمك هنا.",
+biTitle:"هل تريد إبقاء لغتك؟",biBody:"يمكنك قراءة التعليمات بالإنجليزية ولغتك، أو بالإنجليزية فقط.",
+biKeep:"اللغتان معًا",biEng:"الإنجليزية فقط",biNote:"يمكنك تغيير هذا في أي وقت.",showL1:"اعرض لغتي"},
+
+ary:{period:"الحصة ديالك",name:"سميتك",user:"اسم المستخدم ديال المدرسة",lang:"اللغة ديالك",start:"بدا",
+ePeriod:"ختار الحصة ديالك.",eName:"كتب سميتك.",eUser:"كتب اسم المستخدم ديالك.",eLang:"ختار اللغة ديالك.",
+eNotFound:"ما لقيناش هاد اسم المستخدم. شوف الكتابة ولا سول الأستاذ.",
+pick:"ختار مجموعة وبدا تتمرن.",notStarted:"مابداتيش",inProgress:"كمّل",done:"سالا",
+qOf:"سؤال {n} من {t}",chooseMeaning:"ختار المعنى الصحيح.",trueFalse:"واش هادشي صحيح ولا غالط؟",
+tapWord:"ضغط على الكلمة لي مناسبة.",tTrue:"صحيح",tFalse:"غالط",correct:"صحيح!",notQuite:"قريب.",
+answerIs:"الجواب هو",next:"اللي من بعد",score:"النقطة ديالك",again:"تمرن مرة خرى",back:"رجع للتمرين",
+reviewThese:"راجع هاد الكلمات",progress:"التقدم ديالي",strong:"مزيان بزاف",mid:"قريب",low:"خاصك تمرين",
+none:"مابداتيش",practiced:"كلمة تمرنتي عليها",emptyPanel:"كمّل مجموعة باش تشوف التقدم ديالك هنا.",
+biTitle:"بغيتي تبقى اللغة ديالك؟",biBody:"تقدر تقرا التعليمات بالإنجليزية واللغة ديالك، ولا غير بالإنجليزية.",
+biKeep:"جوج لغات",biEng:"غير الإنجليزية",biNote:"تقدر تبدلها فأي وقت.",showL1:"ورّي اللغة ديالي"},
+
+vi:{period:"Tiết học của bạn",name:"Tên của bạn",user:"Tên đăng nhập của trường",lang:"Tiếng mẹ đẻ",start:"Bắt đầu",
+ePeriod:"Hãy chọn tiết học.",eName:"Hãy nhập tên của bạn.",eUser:"Hãy nhập tên đăng nhập.",eLang:"Hãy chọn ngôn ngữ.",
+eNotFound:"Không tìm thấy tên đăng nhập. Hãy kiểm tra lại hoặc hỏi thầy cô.",
+pick:"Chọn một nhóm và bắt đầu luyện tập.",notStarted:"Chưa bắt đầu",inProgress:"Tiếp tục nhé",done:"Xong",
+qOf:"Câu {n} trên {t}",chooseMeaning:"Chọn nghĩa đúng.",trueFalse:"Câu này đúng hay sai?",
+tapWord:"Chạm vào từ đúng.",tTrue:"Đúng",tFalse:"Sai",correct:"Chính xác!",notQuite:"Gần đúng.",
+answerIs:"Đáp án là",next:"Tiếp theo",score:"Điểm của bạn",again:"Luyện lại",back:"Quay lại luyện tập",
+reviewThese:"Ôn lại các từ này",progress:"Tiến bộ của tôi",strong:"Rất tốt",mid:"Sắp được",low:"Cần luyện thêm",
+none:"Chưa bắt đầu",practiced:"từ đã luyện",emptyPanel:"Hoàn thành một nhóm để xem tiến bộ ở đây.",
+biTitle:"Giữ ngôn ngữ của bạn chứ?",biBody:"Bạn có thể đọc hướng dẫn bằng tiếng Anh và tiếng mẹ đẻ, hoặc chỉ tiếng Anh.",
+biKeep:"Cả hai thứ tiếng",biEng:"Chỉ tiếng Anh",biNote:"Bạn có thể đổi bất cứ lúc nào.",showL1:"Hiện tiếng của tôi"},
+
+ru:{period:"Твой урок",name:"Твоё имя",user:"Школьный логин",lang:"Твой язык",start:"Начать",
+ePeriod:"Выбери урок.",eName:"Напиши своё имя.",eUser:"Напиши свой логин.",eLang:"Выбери язык.",
+eNotFound:"Такой логин не найден. Проверь написание или спроси учителя.",
+pick:"Выбери набор и начни практику.",notStarted:"Не начато",inProgress:"Продолжай",done:"Готово",
+qOf:"Вопрос {n} из {t}",chooseMeaning:"Выбери правильное значение.",trueFalse:"Это правда или нет?",
+tapWord:"Нажми на подходящее слово.",tTrue:"Правда",tFalse:"Неправда",correct:"Верно!",notQuite:"Почти.",
+answerIs:"Правильный ответ",next:"Дальше",score:"Твой результат",again:"Ещё раз",back:"Вернуться к практике",
+reviewThese:"Повтори эти слова",progress:"Мой прогресс",strong:"Отлично",mid:"Почти получается",low:"Нужна практика",
+none:"Не начато",practiced:"слов пройдено",emptyPanel:"Пройди набор, и прогресс появится здесь.",
+biTitle:"Оставить твой язык?",biBody:"Можно читать задания на английском и твоём языке или только на английском.",
+biKeep:"Два языка",biEng:"Только английский",biNote:"Это можно изменить в любой момент.",showL1:"Показать мой язык"},
+
+ur:{period:"آپ کا پیریڈ",name:"آپ کا نام",user:"اسکول یوزرنیم",lang:"آپ کی زبان",start:"شروع کریں",
+ePeriod:"اپنا پیریڈ چنیں۔",eName:"اپنا نام لکھیں۔",eUser:"اپنا یوزرنیم لکھیں۔",eLang:"اپنی زبان چنیں۔",
+eNotFound:"یہ یوزرنیم نہیں ملا۔ ہجے دیکھیں یا استاد سے پوچھیں۔",
+pick:"ایک سیٹ چنیں اور مشق شروع کریں۔",notStarted:"شروع نہیں کیا",inProgress:"جاری رکھیں",done:"مکمل",
+qOf:"سوال {n} از {t}",chooseMeaning:"درست مطلب چنیں۔",trueFalse:"کیا یہ درست ہے یا غلط؟",
+tapWord:"درست لفظ پر ٹیپ کریں۔",tTrue:"درست",tFalse:"غلط",correct:"بالکل درست!",notQuite:"قریب تھا۔",
+answerIs:"جواب ہے",next:"اگلا",score:"آپ کا اسکور",again:"دوبارہ مشق",back:"واپس مشق پر",
+reviewThese:"ان الفاظ کو دہرائیں",progress:"میری پیش رفت",strong:"بہت اچھا",mid:"قریب ہیں",low:"مشق چاہیے",
+none:"شروع نہیں کیا",practiced:"الفاظ کی مشق ہوئی",emptyPanel:"ایک سیٹ مکمل کریں، پیش رفت یہاں نظر آئے گی۔",
+biTitle:"اپنی زبان رکھنی ہے؟",biBody:"آپ ہدایات انگریزی اور اپنی زبان میں پڑھ سکتے ہیں، یا صرف انگریزی میں۔",
+biKeep:"دونوں زبانیں",biEng:"صرف انگریزی",biNote:"آپ اسے کبھی بھی بدل سکتے ہیں۔",showL1:"میری زبان دکھائیں"},
+
+tl:{period:"Ang period mo",name:"Ang pangalan mo",user:"Username sa paaralan",lang:"Ang wika mo",start:"Simulan",
+ePeriod:"Pumili ng period.",eName:"Isulat ang pangalan mo.",eUser:"Isulat ang username mo.",eLang:"Pumili ng wika.",
+eNotFound:"Hindi mahanap ang username. Tingnan ang baybay o tanungin ang guro.",
+pick:"Pumili ng set at magsimulang magsanay.",notStarted:"Hindi pa nagsisimula",inProgress:"Tuloy lang",done:"Tapos na",
+qOf:"Tanong {n} sa {t}",chooseMeaning:"Piliin ang tamang kahulugan.",trueFalse:"Tama ba ito o mali?",
+tapWord:"Pindutin ang tamang salita.",tTrue:"Tama",tFalse:"Mali",correct:"Tama!",notQuite:"Malapit na.",
+answerIs:"Ang sagot ay",next:"Susunod",score:"Ang iskor mo",again:"Magsanay ulit",back:"Balik sa pagsasanay",
+reviewThese:"Balikan ang mga salitang ito",progress:"Ang progreso ko",strong:"Magaling",mid:"Malapit na",low:"Kailangan pa ng practice",
+none:"Hindi pa nagsisimula",practiced:"salitang napag-aralan",emptyPanel:"Tapusin ang isang set para makita ang progreso mo dito.",
+biTitle:"Itutuloy ang wika mo?",biBody:"Pwede mong basahin ang tagubilin sa Ingles at sa wika mo, o sa Ingles lang.",
+biKeep:"Dalawang wika",biEng:"Ingles lang",biNote:"Pwede mong baguhin anumang oras.",showL1:"Ipakita ang wika ko"},
+
+fr:{period:"Ton cours",name:"Ton prénom",user:"Ton identifiant scolaire",lang:"Ta langue",start:"Commencer",
+ePeriod:"Choisis ton cours.",eName:"Écris ton prénom.",eUser:"Écris ton identifiant.",eLang:"Choisis ta langue.",
+eNotFound:"Identifiant introuvable. Vérifie l'orthographe ou demande à ton professeur.",
+pick:"Choisis un ensemble et commence à t'entraîner.",notStarted:"Pas commencé",inProgress:"Continue",done:"Terminé",
+qOf:"Question {n} sur {t}",chooseMeaning:"Choisis le bon sens.",trueFalse:"Est-ce vrai ou faux ?",
+tapWord:"Touche le mot qui convient.",tTrue:"Vrai",tFalse:"Faux",correct:"Correct !",notQuite:"Presque.",
+answerIs:"La réponse est",next:"Suivant",score:"Ton score",again:"S'entraîner encore",back:"Retour à l'entraînement",
+reviewThese:"Révise ces mots",progress:"Mes progrès",strong:"Très bien",mid:"Tu y es presque",low:"À travailler",
+none:"Pas commencé",practiced:"mots travaillés",emptyPanel:"Termine un ensemble pour voir tes progrès ici.",
+biTitle:"Garder ta langue ?",biBody:"Tu peux lire les consignes en anglais et dans ta langue, ou en anglais seulement.",
+biKeep:"Les deux langues",biEng:"Anglais seulement",biNote:"Tu peux changer quand tu veux.",showL1:"Afficher ma langue"},
+
+ko:{period:"수업 시간",name:"이름",user:"학교 아이디",lang:"모국어",start:"시작",
+ePeriod:"수업 시간을 선택하세요.",eName:"이름을 입력하세요.",eUser:"아이디를 입력하세요.",eLang:"언어를 선택하세요.",
+eNotFound:"아이디를 찾을 수 없습니다. 철자를 확인하거나 선생님께 물어보세요.",
+pick:"세트를 골라 연습을 시작하세요.",notStarted:"시작 전",inProgress:"계속하세요",done:"완료",
+qOf:"{t}문제 중 {n}번",chooseMeaning:"알맞은 뜻을 고르세요.",trueFalse:"맞나요, 틀리나요?",
+tapWord:"알맞은 단어를 누르세요.",tTrue:"맞음",tFalse:"틀림",correct:"정답!",notQuite:"아쉬워요.",
+answerIs:"정답은",next:"다음",score:"내 점수",again:"다시 연습",back:"연습으로 돌아가기",
+reviewThese:"이 단어들을 복습하세요",progress:"내 진도",strong:"아주 좋아요",mid:"거의 다 됐어요",low:"연습이 필요해요",
+none:"시작 전",practiced:"개 단어 연습함",emptyPanel:"세트를 완료하면 여기에 진도가 표시됩니다.",
+biTitle:"모국어를 계속 볼까요?",biBody:"설명을 영어와 모국어로 읽거나, 영어로만 읽을 수 있어요.",
+biKeep:"두 언어 모두",biEng:"영어만",biNote:"언제든지 바꿀 수 있어요.",showL1:"내 언어 보기"},
+
+hi:{period:"आपका पीरियड",name:"आपका नाम",user:"स्कूल यूज़रनेम",lang:"आपकी भाषा",start:"शुरू करें",
+ePeriod:"अपना पीरियड चुनें।",eName:"अपना नाम लिखें।",eUser:"अपना यूज़रनेम लिखें।",eLang:"अपनी भाषा चुनें।",
+eNotFound:"यह यूज़रनेम नहीं मिला। वर्तनी जाँचें या शिक्षक से पूछें।",
+pick:"एक सेट चुनें और अभ्यास शुरू करें।",notStarted:"शुरू नहीं किया",inProgress:"जारी रखें",done:"पूरा",
+qOf:"प्रश्न {n} / {t}",chooseMeaning:"सही अर्थ चुनें।",trueFalse:"यह सही है या गलत?",
+tapWord:"सही शब्द पर टैप करें।",tTrue:"सही",tFalse:"गलत",correct:"सही!",notQuite:"बस थोड़ा और।",
+answerIs:"उत्तर है",next:"अगला",score:"आपका स्कोर",again:"फिर से अभ्यास",back:"अभ्यास पर वापस",
+reviewThese:"इन शब्दों को दोहराएँ",progress:"मेरी प्रगति",strong:"बहुत अच्छा",mid:"लगभग हो गया",low:"अभ्यास चाहिए",
+none:"शुरू नहीं किया",practiced:"शब्दों का अभ्यास हुआ",emptyPanel:"एक सेट पूरा करें, प्रगति यहाँ दिखेगी।",
+biTitle:"अपनी भाषा रखें?",biBody:"आप निर्देश अंग्रेज़ी और अपनी भाषा में पढ़ सकते हैं, या केवल अंग्रेज़ी में।",
+biKeep:"दोनों भाषाएँ",biEng:"केवल अंग्रेज़ी",biNote:"आप इसे कभी भी बदल सकते हैं।",showL1:"मेरी भाषा दिखाएँ"},
+
+so:{period:"Fasalkaaga",name:"Magacaaga",user:"Username-ka dugsiga",lang:"Luqaddaada",start:"Bilow",
+ePeriod:"Dooro fasalkaaga.",eName:"Qor magacaaga.",eUser:"Qor username-kaaga.",eLang:"Dooro luqaddaada.",
+eNotFound:"Username-kaas lama helin. Hubi qorista ama weydii macallinkaaga.",
+pick:"Dooro koox oo bilow tababarka.",notStarted:"Lama bilaabin",inProgress:"Sii wad",done:"Dhammaystiran",
+qOf:"Su'aal {n} ka mid ah {t}",chooseMeaning:"Dooro macnaha saxda ah.",trueFalse:"Ma sax baa mise khalad?",
+tapWord:"Taabo erayga saxda ah.",tTrue:"Sax",tFalse:"Khalad",correct:"Sax!",notQuite:"Ku dhowaad.",
+answerIs:"Jawaabtu waa",next:"Xiga",score:"Dhibcahaaga",again:"Mar kale tababar",back:"Ku noqo tababarka",
+reviewThese:"Dib u eeg erayadan",progress:"Horumarkayga",strong:"Aad u fiican",mid:"Ku dhowaad",low:"Tababar dheeraad ah",
+none:"Lama bilaabin",practiced:"eray oo la tababaray",emptyPanel:"Dhammayso koox si aad halkan uga aragto horumarkaaga.",
+biTitle:"Ma sii haysaa luqaddaada?",biBody:"Waxaad tilmaamaha ku akhrisan kartaa Ingiriisi iyo luqaddaada, ama Ingiriisi kaliya.",
+biKeep:"Labada luqadood",biEng:"Ingiriisi kaliya",biNote:"Waad bedeli kartaa wakhti kasta.",showL1:"Tus luqaddayda"},
+
+ne:{period:"तपाईंको पिरियड",name:"तपाईंको नाम",user:"विद्यालयको युजरनेम",lang:"तपाईंको भाषा",start:"सुरु गर्नुहोस्",
+ePeriod:"आफ्नो पिरियड छान्नुहोस्।",eName:"आफ्नो नाम लेख्नुहोस्।",eUser:"आफ्नो युजरनेम लेख्नुहोस्।",eLang:"आफ्नो भाषा छान्नुहोस्।",
+eNotFound:"यो युजरनेम भेटिएन। हिज्जे जाँच्नुहोस् वा शिक्षकलाई सोध्नुहोस्।",
+pick:"एउटा सेट छानेर अभ्यास सुरु गर्नुहोस्।",notStarted:"सुरु भएको छैन",inProgress:"जारी राख्नुहोस्",done:"सकियो",
+qOf:"प्रश्न {n} / {t}",chooseMeaning:"सही अर्थ छान्नुहोस्।",trueFalse:"यो सही हो कि गलत?",
+tapWord:"सही शब्दमा थिच्नुहोस्।",tTrue:"सही",tFalse:"गलत",correct:"सही!",notQuite:"अलिकति बाँकी।",
+answerIs:"उत्तर हो",next:"अर्को",score:"तपाईंको अंक",again:"फेरि अभ्यास",back:"अभ्यासमा फर्कनुहोस्",
+reviewThese:"यी शब्दहरू दोहोर्‍याउनुहोस्",progress:"मेरो प्रगति",strong:"धेरै राम्रो",mid:"प्रायः भयो",low:"अभ्यास चाहिन्छ",
+none:"सुरु भएको छैन",practiced:"शब्द अभ्यास भयो",emptyPanel:"एउटा सेट सक्नुहोस्, प्रगति यहाँ देखिन्छ।",
+biTitle:"आफ्नो भाषा राख्ने?",biBody:"तपाईं निर्देशन अंग्रेजी र आफ्नो भाषामा पढ्न सक्नुहुन्छ, वा अंग्रेजीमा मात्र।",
+biKeep:"दुवै भाषा",biEng:"अंग्रेजी मात्र",biNote:"तपाईं जुनसुकै बेला परिवर्तन गर्न सक्नुहुन्छ।",showL1:"मेरो भाषा देखाउनुहोस्"},
+
+th:{period:"คาบเรียนของคุณ",name:"ชื่อของคุณ",user:"ชื่อผู้ใช้ของโรงเรียน",lang:"ภาษาของคุณ",start:"เริ่ม",
+ePeriod:"เลือกคาบเรียนของคุณ",eName:"พิมพ์ชื่อของคุณ",eUser:"พิมพ์ชื่อผู้ใช้ของคุณ",eLang:"เลือกภาษาของคุณ",
+eNotFound:"ไม่พบชื่อผู้ใช้นี้ ตรวจสอบตัวสะกดหรือถามครู",
+pick:"เลือกชุดคำศัพท์แล้วเริ่มฝึก",notStarted:"ยังไม่เริ่ม",inProgress:"ทำต่อไป",done:"เสร็จแล้ว",
+qOf:"ข้อ {n} จาก {t}",chooseMeaning:"เลือกความหมายที่ถูกต้อง",trueFalse:"ข้อนี้ถูกหรือผิด",
+tapWord:"แตะคำที่ถูกต้อง",tTrue:"ถูก",tFalse:"ผิด",correct:"ถูกต้อง!",notQuite:"ยังไม่ถูก",
+answerIs:"คำตอบคือ",next:"ถัดไป",score:"คะแนนของคุณ",again:"ฝึกอีกครั้ง",back:"กลับไปฝึก",
+reviewThese:"ทบทวนคำเหล่านี้",progress:"ความก้าวหน้าของฉัน",strong:"เก่งมาก",mid:"ใกล้แล้ว",low:"ต้องฝึกเพิ่ม",
+none:"ยังไม่เริ่ม",practiced:"คำที่ฝึกแล้ว",emptyPanel:"ทำชุดคำศัพท์ให้เสร็จเพื่อดูความก้าวหน้าที่นี่",
+biTitle:"ต้องการแสดงภาษาของคุณต่อไหม",biBody:"คุณอ่านคำแนะนำเป็นภาษาอังกฤษและภาษาของคุณได้ หรือภาษาอังกฤษอย่างเดียว",
+biKeep:"สองภาษา",biEng:"ภาษาอังกฤษเท่านั้น",biNote:"เปลี่ยนได้ตลอดเวลา",showL1:"แสดงภาษาของฉัน"}
+};
+
+/* t() = English. tl1() = the student's language (empty when unavailable or turned off). */
+function t(k,vars){ let s = (UI.en[k]||k); return fill(s,vars); }
+function tl1(k,vars){
+  if(!L1_ON) return '';
+  const m = LANGMAP[SESSION.lang]; if(!m) return '';
+  const pack = UI[m.ui]; if(!pack||!pack[k]) return '';
+  return fill(pack[k],vars);
+}
+function fill(s,vars){ if(!vars) return s; return s.replace(/\{(\w+)\}/g,(_,k)=> vars[k]!==undefined?vars[k]:''); }
+function isRTL(){ const m=LANGMAP[SESSION.lang]; return !!(m&&m.rtl); }
+/* Renders an English line plus the student's language underneath it. */
+function bi(k,vars){
+  const l1 = tl1(k,vars);
+  return `<span class="bi-en">${t(k,vars)}</span>` +
+         (l1?`<span class="bi-l1" dir="${isRTL()?'rtl':'ltr'}">${l1}</span>`:'');
+}
+
+/* ════════ ROSTER ════════ */
 const ROSTER = {
   'teacher': { name: 'Teacher', period: null, special: 'teacher' },
   'other':   { name: 'Guest',   period: null, special: 'other'   },
@@ -632,32 +963,20 @@ const ROSTER = {
   'bozhu@s.sfusd.edu': { name: 'Bowei', last: 'Zhu', period: 'P6', email: 'bozhu@s.sfusd.edu', alias: true },
 };
 
-/* ════════════════════════════════════════════
-   ASSIGNMENTS — configured by teacher in dashboard
-   Stored in Supabase; seeded here as defaults
-   Each assignment: {
-     id, title, emoji, color,
-     units: ['U1','U2',...],
-     questionCount: 20,
-     aiEnabled: false,
-     active: true
-   }
-════════════════════════════════════════════ */
+/* ════════ PRACTICE SETS ════════ */
 const DEFAULT_ASSIGNMENTS = [
-  { id:'asgn-u1',   title:'Unit 1: Welcome to School', emoji:'🏫', color:'blue',   units:['U1'], questionCount:20, aiEnabled:false, active:true },
-  { id:'asgn-u2',   title:'Unit 2: Getting to Know You', emoji:'👋', color:'green',  units:['U2'], questionCount:20, aiEnabled:false, active:true },
-  { id:'asgn-u3',   title:'Unit 3: Community Voices',  emoji:'🏘️', color:'amber',  units:['U3'], questionCount:20, aiEnabled:false, active:true },
-  { id:'asgn-u4',   title:'Unit 4: On the Map',        emoji:'🗺️', color:'purple', units:['U4'], questionCount:20, aiEnabled:false, active:true },
-  { id:'asgn-u5',   title:'Unit 5: What in the World?',emoji:'🌍', color:'blue',   units:['U5'], questionCount:20, aiEnabled:false, active:true },
-  { id:'asgn-u6',   title:'Unit 6: Our Cultures',      emoji:'🎎', color:'green',  units:['U6'], questionCount:20, aiEnabled:false, active:true },
-  { id:'asgn-mix',  title:'Mixed Review: Units 1–4',   emoji:'🎯', color:'amber',  units:['U1','U2','U3','U4'], questionCount:25, aiEnabled:false, active:true },
-  { id:'asgn-mix56',title:'Mixed Review: Units 5–6',   emoji:'🌐', color:'purple', units:['U5','U6'], questionCount:20, aiEnabled:false, active:true },
-  { id:'asgn-final',title:'Final Review: All Units',   emoji:'⭐', color:'blue',   units:['U1','U2','U3','U4','U5','U6'], questionCount:30, aiEnabled:false, active:false },
+  { id:'asgn-u1',   title:'Unit 1: Welcome to School',  emoji:'🏫', color:'blue',   units:['U1'], questionCount:20, active:true },
+  { id:'asgn-u2',   title:'Unit 2: Getting to Know You', emoji:'👋', color:'green',  units:['U2'], questionCount:20, active:true },
+  { id:'asgn-u3',   title:'Unit 3: Community Voices',    emoji:'🏘️', color:'amber',  units:['U3'], questionCount:20, active:true },
+  { id:'asgn-u4',   title:'Unit 4: On the Map',          emoji:'🗺️', color:'purple', units:['U4'], questionCount:20, active:true },
+  { id:'asgn-u5',   title:'Unit 5: What in the World?',  emoji:'🌍', color:'blue',   units:['U5'], questionCount:20, active:true },
+  { id:'asgn-u6',   title:'Unit 6: Our Cultures',        emoji:'🎎', color:'green',  units:['U6'], questionCount:20, active:true },
+  { id:'asgn-mix',  title:'Mixed Review: Units 1-4',     emoji:'🎯', color:'amber',  units:['U1','U2','U3','U4'], questionCount:25, active:true },
+  { id:'asgn-mix56',title:'Mixed Review: Units 5-6',     emoji:'🌐', color:'purple', units:['U5','U6'], questionCount:20, active:true },
+  { id:'asgn-final',title:'Final Review: All Units',     emoji:'⭐', color:'blue',   units:['U1','U2','U3','U4','U5','U6'], questionCount:30, active:false },
 ];
 
-/* ════════════════════════════════════════════
-   VOCAB DATA (from index.html — same source)
-════════════════════════════════════════════ */
+/* ════════ VOCAB ════════ */
 const VOCAB = {
   U1:[
     {word:"school",def:"A place where you can learn and grow.",defA:"A place to learn.",emoji:"🏫",lesson:"L1",tr:{es:"escuela",ar:"مدرسة",zh:"学校",ru:"школа",ur:"اسکول",vi:"trường học"}},
@@ -791,554 +1110,619 @@ const VOCAB = {
   ]
 };
 
-/* ════════════════════════════════════════════
-   SESSION STATE
-════════════════════════════════════════════ */
-let SESSION = {
-  username: '', name: '', period: '', lang: '',
-  totalScore: 0,
-  isGuest: false
-};
-let CURRENT_ASSIGNMENT = null;
-let QUESTIONS = [];
-let Q_IDX = 0;
-let Q_RESULTS = []; // {word, correct, userAnswer, correctAnswer}
-let ASSIGNMENT_SCORES = {}; // asgnId → {score, total, pct, completed}
+/* ════════ STATE ════════ */
+let SESSION = { username:'', name:'', period:'', lang:'', totalScore:0, isGuest:false };
+let L1_ON = true;                 // are we showing the student's language right now?
+let BI_ASKED = false;             // has the "keep your language?" prompt been answered?
+let SET_SCORES = {};              // assignmentId → {score,total,pct,completed}
+let WORD_STATS = {};              // word → {a:attempts, c:correct}
+let WORD_INDEX = {};              // word → {unit, lesson, emoji}
+let CURRENT = null, QUESTIONS = [], Q_IDX = 0, Q_RESULTS = [], ANSWERED = false;
+let OPEN_UNIT = null;
+let SCORES_HAVE_L1_COL = true;    // flipped off if the ll_practice_scores.l1_on column is missing
 
-/* ════════════════════════════════════════════
-   SUPABASE HELPERS
-════════════════════════════════════════════ */
-async function supaGet(table, query) {
-  try {
-    const r = await fetch(`${SUPA_URL}/rest/v1/${table}?${query}`, {
-      headers: { apikey: SUPA_KEY, Authorization: `Bearer ${SUPA_KEY}` }
-    });
+/* Build word → unit/lesson lookup once. */
+Object.keys(VOCAB).forEach(u => VOCAB[u].forEach(w => {
+  WORD_INDEX[w.word] = { unit:u, lesson:w.lesson||'L?', emoji:w.emoji||'📘' };
+}));
+
+/* ════════ SUPABASE ════════ */
+async function supaGet(table, query){
+  try{
+    const r = await fetch(`${SUPA_URL}/rest/v1/${table}?${query}`,
+      { headers:{ apikey:SUPA_KEY, Authorization:`Bearer ${SUPA_KEY}` } });
+    if(!r.ok) return null;
     return await r.json();
-  } catch(e) { return []; }
+  }catch(e){ return null; }
 }
-async function supaUpsert(table, data) {
-  try {
-    const r = await fetch(`${SUPA_URL}/rest/v1/${table}`, {
-      method: 'POST',
-      headers: {
-        apikey: SUPA_KEY, Authorization: `Bearer ${SUPA_KEY}`,
-        'Content-Type': 'application/json',
-        'Prefer': 'resolution=merge-duplicates,return=representation'
-      },
-      body: JSON.stringify(data)
+async function supaUpsert(table, data, onConflict){
+  try{
+    const url = `${SUPA_URL}/rest/v1/${table}` + (onConflict?`?on_conflict=${onConflict}`:'');
+    const r = await fetch(url,{
+      method:'POST',
+      headers:{ apikey:SUPA_KEY, Authorization:`Bearer ${SUPA_KEY}`,
+        'Content-Type':'application/json',
+        'Prefer':'resolution=merge-duplicates,return=minimal' },
+      body:JSON.stringify(data)
     });
-    return await r.json();
-  } catch(e) { return null; }
+    return r.ok;
+  }catch(e){ return false; }
 }
 
-/* ════════════════════════════════════════════
-   LOGIN
-════════════════════════════════════════════ */
-function attemptLogin() {
-  const loginBtn = document.getElementById('btn-login');
-  if (loginBtn) { loginBtn.textContent = 'Loading…'; loginBtn.style.opacity = '0.7'; }
+/* ════════ MASTERY ENGINE ════════ */
+function band(pct, attempts){
+  if(!attempts) return 'none';
+  if(pct >= 80) return 'strong';
+  if(pct >= 50) return 'mid';
+  return 'low';
+}
+const BAND_CLASS = { strong:'strong', mid:'mid', low:'low', none:'none' };
+const BAND_KEY   = { strong:'strong', mid:'mid', low:'low', none:'none' };
+
+/* Roll word-level stats up to a unit or a lesson inside a unit. */
+function rollup(unit, lesson){
+  let a=0, c=0, words=0, mastered=0;
+  (VOCAB[unit]||[]).forEach(w=>{
+    if(lesson && (w.lesson||'L?') !== lesson) return;
+    const s = WORD_STATS[w.word];
+    if(s && s.a>0){ a+=s.a; c+=s.c; words++; if(s.c/s.a >= 0.75) mastered++; }
+  });
+  const pct = a ? Math.round(c/a*100) : 0;
+  return { attempts:a, correct:c, pct, words, mastered, band:band(pct,a) };
+}
+function overallStats(){
+  let a=0,c=0,words=0;
+  Object.values(WORD_STATS).forEach(s=>{ if(s.a>0){ a+=s.a; c+=s.c; words++; } });
+  const pct = a ? Math.round(c/a*100) : 0;
+  return { attempts:a, pct, words, band:band(pct,a) };
+}
+function unitsInPlay(){
+  return Object.keys(VOCAB).filter(u => (VOCAB[u]||[]).length);
+}
+function unitLabel(u){
+  const a = DEFAULT_ASSIGNMENTS.find(x => x.units.length===1 && x.units[0]===u);
+  return a ? a.title : u;
+}
+function lessonsIn(unit){
+  const seen = [];
+  (VOCAB[unit]||[]).forEach(w=>{ const l=w.lesson||'L?'; if(!seen.includes(l)) seen.push(l); });
+  return seen.sort((x,y)=> (parseInt(x.slice(1))||0) - (parseInt(y.slice(1))||0));
+}
+
+/* Record one answer into memory immediately so the panel moves in real time. */
+function bumpWord(word, correct){
+  if(!WORD_STATS[word]) WORD_STATS[word] = { a:0, c:0 };
+  WORD_STATS[word].a++;
+  if(correct) WORD_STATS[word].c++;
+}
+
+async function loadMastery(){
+  WORD_STATS = {};
+  const rows = await supaGet('ll_word_mastery',
+    `username=eq.${encodeURIComponent(SESSION.username)}&select=word,attempts,correct`);
+  if(Array.isArray(rows) && rows.length){
+    rows.forEach(r=>{ WORD_STATS[r.word] = { a:r.attempts||0, c:r.correct||0 }; });
+    return;
+  }
+  /* Fallback: rebuild from the results JSON already stored on ll_practice_scores. */
+  const s = await supaGet('ll_practice_scores',
+    `username=eq.${encodeURIComponent(SESSION.username)}&select=results`);
+  if(Array.isArray(s)) s.forEach(row=>{
+    let arr=[]; try{ arr = JSON.parse(row.results||'[]'); }catch(e){ arr=[]; }
+    if(Array.isArray(arr)) arr.forEach(r=>{ if(r && r.word) bumpWord(r.word, !!r.correct); });
+  });
+}
+
+async function saveMastery(words){
+  if(SESSION.isGuest || !words.length) return;
+  const payload = words.map(w=>({
+    username:SESSION.username, student_name:SESSION.name, period:SESSION.period,
+    word:w, unit:(WORD_INDEX[w]||{}).unit||null, lesson:(WORD_INDEX[w]||{}).lesson||null,
+    attempts:WORD_STATS[w].a, correct:WORD_STATS[w].c,
+    updated_at:new Date().toISOString()
+  }));
+  await supaUpsert('ll_word_mastery', payload, 'username,word');
+}
+
+/* ════════ SETTINGS ════════ */
+async function loadSettings(){
+  const rows = await supaGet('ll_settings','select=key,value');
+  if(Array.isArray(rows)) rows.forEach(r=>{
+    if(r.key in CFG){
+      let v = r.value;
+      if(r.key === 'prompt_after_sets') v = parseInt(v)||CFG.prompt_after_sets;
+      CFG[r.key] = v;
+    }
+  });
+}
+
+
+/* ════════ BILINGUAL CONTROL ════════ */
+function langAvailable(){
+  const m = LANGMAP[SESSION.lang];
+  return !!(m && UI[m.ui]);
+}
+function applyL1(){
+  document.body.classList.toggle('l1-off', !L1_ON);
+  const btn = document.getElementById('tb-l1');
+  if(btn){
+    btn.classList.toggle('on', L1_ON);
+    btn.style.display = langAvailable() ? '' : 'none';
+    btn.title = t('showL1');
+  }
+  paintStatic();
+  if(document.getElementById('screen-home').classList.contains('active')) drawSets();
+  drawPanel();
+}
+function toggleL1(){
+  if(CFG.bilingual_mode === 'off' || CFG.bilingual_mode === 'on') return; // teacher has locked it
+  L1_ON = !L1_ON;
+  applyL1();
+  persistL1();
+}
+async function persistL1(){
+  if(SESSION.isGuest || !SCORES_HAVE_L1_COL) return;
+  const anySet = Object.keys(SET_SCORES)[0];
+  if(!anySet) return;
+  const ok = await supaUpsert('ll_practice_scores',
+    [{ username:SESSION.username, assignment_id:anySet, l1_on:L1_ON }], 'username,assignment_id');
+  if(!ok) SCORES_HAVE_L1_COL = false;
+}
+function maybeAskBilingual(){
+  if(BI_ASKED) return false;
+  if(CFG.bilingual_mode !== 'student_choice') return false;
+  if(!langAvailable()) return false;
+  const finished = Object.values(SET_SCORES).filter(s=>s.completed).length;
+  if(finished < (CFG.prompt_after_sets||3)) return false;
+  paintStatic();
+  document.getElementById('bi-modal').classList.add('on');
+  return true;
+}
+function answerBiPrompt(keep){
+  L1_ON = keep; BI_ASKED = true;
+  document.getElementById('bi-modal').classList.remove('on');
+  applyL1();
+  persistL1();
+}
+
+/* Fill in every fixed label that isn't rebuilt on each render. */
+function paintStatic(){
+  const set = (id,k)=>{ const e=document.getElementById(id); if(e) e.innerHTML = bi(k); };
+  set('lb-period','period'); set('lb-name','name'); set('lb-user','user'); set('lb-lang','lang');
+  const lg = document.getElementById('btn-login'); if(lg) lg.textContent = t('start');
+  const sub = document.getElementById('home-sub-en'); if(sub) sub.textContent = t('pick');
+  const subl = document.getElementById('home-sub-l1');
+  if(subl){ subl.textContent = tl1('pick'); subl.dir = isRTL()?'rtl':'ltr'; }
+  const pt = document.getElementById('pnl-title-en'); if(pt) pt.textContent = t('progress');
+  const ptl = document.getElementById('pnl-title-l1');
+  if(ptl){ ptl.textContent = tl1('progress'); ptl.dir = isRTL()?'rtl':'ltr'; }
+  const fl = document.getElementById('fab-label'); if(fl) fl.textContent = t('progress');
+  const setTxt = (id,k)=>{ const e=document.getElementById(id); if(e) e.textContent = k; };
+  setTxt('bim-keep', t('biKeep')); setTxt('bim-eng', t('biEng')); setTxt('bim-note', t('biNote'));
+  const m = (id,k)=>{ const e=document.getElementById(id); if(e){ e.textContent = tl1(k); e.dir = isRTL()?'rtl':'ltr'; } };
+  setTxt('bim-t-en', t('biTitle')); m('bim-t-l1','biTitle');
+  setTxt('bim-b-en', t('biBody')); m('bim-b-l1','biBody');
+  setTxt('sm-l1btn', t('showL1'));
+}
+
+/* ════════ LOGIN ════════ */
+function previewLang(){
+  SESSION.lang = document.getElementById('inp-lang').value;
+  L1_ON = (CFG.bilingual_mode !== 'off');
+  paintStatic();
+}
+function showErr(msg){
+  const e = document.getElementById('login-err');
+  e.innerHTML = msg; e.classList.add('show');
+  const b = document.getElementById('btn-login');
+  b.textContent = t('start'); b.disabled = false;
+}
+async function attemptLogin(){
+  const btn = document.getElementById('btn-login');
   const period = document.getElementById('inp-period').value;
   const name   = document.getElementById('inp-name').value.trim();
   const user   = document.getElementById('inp-username').value.trim().toLowerCase();
   const lang   = document.getElementById('inp-lang').value;
-  const err    = document.getElementById('login-err');
 
-  if (user === 'teacher') {
-    window.location.href = DASHBOARD_URL;
-    return;
-  }
+  if(user === 'teacher'){ window.location.href = DASHBOARD_URL; return; }
+  SESSION.lang = lang;
 
-  if (!period) { if(loginBtn){loginBtn.textContent='Enter →';loginBtn.style.opacity='1';} err.textContent = 'Please select your period.'; return; }
-  if (!name)   { if(loginBtn){loginBtn.textContent='Enter →';loginBtn.style.opacity='1';} err.textContent = 'Please enter your first name.'; return; }
-  if (!user)   { if(loginBtn){loginBtn.textContent='Enter →';loginBtn.style.opacity='1';} err.textContent = 'Please enter your username.'; return; }
-  if (!lang)   { if(loginBtn){loginBtn.textContent='Enter →';loginBtn.style.opacity='1';} err.textContent = 'Please select your language.'; return; }
+  if(!period) return showErr(bi('ePeriod'));
+  if(!name)   return showErr(bi('eName'));
+  if(!user)   return showErr(bi('eUser'));
+  if(!lang)   return showErr(bi('eLang'));
 
-  const normalised = user.toLowerCase().replace(/@s\.sfusd\.edu$/, '').trim();
-  const record = ROSTER[normalised] || ROSTER[normalised + '@s.sfusd.edu'];
-  const resolvedUser = normalised;
+  const norm = user.replace(/@s\.sfusd\.edu$/,'').trim();
+  const rec = ROSTER[norm] || ROSTER[norm+'@s.sfusd.edu'];
+  if(!rec && norm !== 'other') return showErr(bi('eNotFound'));
 
-  if (!record && normalised !== 'other') {
-    if(loginBtn){loginBtn.textContent='Enter →';loginBtn.style.opacity='1';}
-    err.textContent = 'Username not found. Check your spelling or ask your teacher.';
-    return;
-  }
+  btn.textContent = '…'; btn.disabled = true;
+  document.getElementById('login-err').classList.remove('show');
 
-  SESSION.username = resolvedUser;
+  SESSION.username = norm;
   SESSION.name = name;
   SESSION.period = period;
-  SESSION.lang = lang;
-  SESSION.isGuest = (normalised === 'other');
+  SESSION.isGuest = (norm === 'other');
 
-  showScreen('home');
-  loadStudentHome();
-  window.scrollTo({ top: 0, behavior: 'instant' });
-}
+  await loadSettings();
+  L1_ON = CFG.bilingual_mode === 'off' ? false : true;
 
-/* ════════════════════════════════════════════
-   HOME SCREEN
-════════════════════════════════════════════ */
-async function loadStudentHome() {
-  document.getElementById('hdr-user-label').textContent =
-    `${SESSION.name} · ${SESSION.period}`;
-  document.getElementById('home-greeting').textContent =
-    `Hi, ${SESSION.name}! 👋`;
-
-  // Load scores from Supabase
-  if (!SESSION.isGuest) {
-    await loadScores();
+  if(!SESSION.isGuest){
+    await Promise.all([loadScores(), loadMastery()]);
   }
-
-  renderAssignmentList();
+  applyL1();
+  showScreen('home');
+  drawHome();
 }
 
-async function loadScores() {
+async function loadScores(){
   const rows = await supaGet('ll_practice_scores',
-    `username=eq.${SESSION.username}&select=assignment_id,score,total,completed`);
-  if (Array.isArray(rows)) {
-    rows.forEach(r => {
-      ASSIGNMENT_SCORES[r.assignment_id] = {
-        score: r.score, total: r.total,
-        pct: r.total > 0 ? Math.round(r.score/r.total*100) : 0,
-        completed: r.completed
+    `username=eq.${encodeURIComponent(SESSION.username)}&select=assignment_id,score,total,completed,l1_on`);
+  if(Array.isArray(rows)){
+    rows.forEach(r=>{
+      SET_SCORES[r.assignment_id] = {
+        score:r.score, total:r.total,
+        pct: r.total>0 ? Math.round(r.score/r.total*100) : 0,
+        completed:r.completed
       };
+      if(r.l1_on !== undefined && r.l1_on !== null){ L1_ON = !!r.l1_on; BI_ASKED = true; }
     });
   }
-  // Calculate total score
-  SESSION.totalScore = Object.values(ASSIGNMENT_SCORES)
-    .reduce((sum, s) => sum + (s.score || 0), 0);
-  updateScoreBadges();
+  SESSION.totalScore = Object.values(SET_SCORES).reduce((s,x)=> s+(x.score||0), 0);
+  paintPoints();
 }
-
-function updateScoreBadges() {
-  ['hdr-total-score','q-total-score','sc-total-score'].forEach(id => {
-    const el = document.getElementById(id);
-    if (el) el.textContent = SESSION.totalScore;
+function paintPoints(){
+  ['tb-pts','sc-pts'].forEach(id=>{
+    const e = document.getElementById(id); if(e) e.textContent = SESSION.totalScore;
   });
 }
 
-function renderAssignmentList() {
-  const list = document.getElementById('assignment-list');
-  const active = DEFAULT_ASSIGNMENTS.filter(a => a.active);
-
-  list.innerHTML = active.map(a => {
-    const s = ASSIGNMENT_SCORES[a.id];
-    const pct = s ? s.pct : 0;
-    const done = s && s.completed;
-    const label = done ? 'Completed ✓' : (s && s.score > 0 ? 'In progress' : 'Not started');
-    const labelClass = done ? 'done' : '';
-
+/* ════════ HOME ════════ */
+function drawHome(){
+  document.getElementById('tb-name').textContent = SESSION.name;
+  document.getElementById('tb-meta').textContent = `${SESSION.period} · ${SESSION.lang}`;
+  document.getElementById('home-hi').textContent = `Hi, ${SESSION.name}`;
+  paintPoints(); drawSets(); drawPanel();
+}
+function drawSets(){
+  const list = document.getElementById('set-list');
+  list.innerHTML = DEFAULT_ASSIGNMENTS.filter(a=>a.active).map(a=>{
+    const s = SET_SCORES[a.id];
+    const unitRoll = a.units.length===1 ? rollup(a.units[0]) : null;
+    const pct = unitRoll && unitRoll.attempts ? unitRoll.pct : (s ? s.pct : 0);
+    const has = (unitRoll && unitRoll.attempts) || s;
+    const b = has ? band(pct, 1) : 'none';
+    const doneSet = !!(s && s.completed);
+    const nWords = a.units.reduce((n,u)=> n + (VOCAB[u]||[]).length, 0);
     return `
-    <div class="assignment-card ${done ? 'completed' : ''}" onclick="startAssignment('${a.id}')">
-      <div class="asgn-icon ${a.color}">${a.emoji}</div>
-      <div class="asgn-body">
-        <div class="asgn-title">${a.title}</div>
-        <div class="asgn-meta">${a.questionCount} questions · ${a.units.join(', ')} · ${a.aiEnabled ? '🤖 AI feedback' : 'Practice mode'}</div>
-        <div class="mini-bar"><div class="mini-fill" style="width:${pct}%"></div></div>
+    <button class="set" onclick="startSet('${a.id}')">
+      <div class="set-ico ${a.color==='blue'?'sky':a.color==='green'?'lime':a.color==='amber'?'mango':'grape'}">${a.emoji}${doneSet?'<span class="tick">✓</span>':''}</div>
+      <div class="set-body">
+        <div class="set-title">${a.title}</div>
+        <div class="set-count">${nWords} words</div>
+        <div class="set-bar"><div class="set-fill bg-${BAND_CLASS[b]}" style="width:${has?pct:0}%"></div></div>
       </div>
-      <div class="asgn-right">
-        <div class="asgn-pct ${pct === 0 ? 'zero' : ''}">${pct > 0 ? pct+'%' : '—'}</div>
-        <div class="asgn-status ${labelClass}">${label}</div>
-      </div>
-    </div>`;
+      <div class="set-pct ${has?'m-'+BAND_CLASS[b]:'none'}">${has?pct+'%':'—'}</div>
+    </button>`;
   }).join('');
 }
 
-/* ════════════════════════════════════════════
-   QUESTION GENERATION
-════════════════════════════════════════════ */
-function buildQuestions(assignment) {
-  const pool = assignment.units.flatMap(u => VOCAB[u] || []);
-  const shuffled = shuffle([...pool]);
-  const selected = shuffled.slice(0, Math.min(assignment.questionCount, shuffled.length));
+/* ════════ MASTERY PANEL ════════ */
+function drawPanel(){
+  const o = overallStats();
+  const scroll = document.getElementById('panel-scroll');
+  const dot = document.getElementById('fab-dot');
+  if(dot) dot.className = 'fab-dot bg-' + BAND_CLASS[o.band];
 
-  // Cycle question types: mc, tf, fib, mc, tf, fib...
-  const types = ['mc','tf','fib'];
-  return selected.map((word, i) => ({
-    word,
-    type: types[i % types.length],
-    pool,  // full pool for distractor generation
-    aiEnabled: assignment.aiEnabled
-  }));
-}
-
-function shuffle(arr) {
-  for (let i = arr.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [arr[i], arr[j]] = [arr[j], arr[i]];
+  if(!o.attempts){
+    scroll.innerHTML = `<div class="panel-empty">${bi('emptyPanel')}</div>`;
+    return;
   }
-  return arr;
-}
+  const R=44, C=2*Math.PI*R, off = C - (o.pct/100)*C;
+  const ringColor = { strong:'var(--lime)', mid:'var(--mango)', low:'var(--coral)', none:'var(--edge)' }[o.band];
 
-function getDistractors(word, pool, n) {
-  return shuffle(pool.filter(w => w.word !== word.word)).slice(0, n);
-}
+  const units = unitsInPlay().map(u=>{
+    const r = rollup(u);
+    const open = OPEN_UNIT === u;
+    const rows = open ? lessonsIn(u).map(l=>{
+      const lr = rollup(u,l);
+      if(!lr.attempts) return '';
+      return `<div class="lesson-row">
+        <div class="lesson-name">Lesson ${l.replace('L','')}</div>
+        <div class="lesson-bar"><div class="lesson-fill bg-${BAND_CLASS[lr.band]}" style="width:${lr.pct}%"></div></div>
+        <div class="lesson-pct m-${BAND_CLASS[lr.band]}">${lr.pct}%</div>
+      </div>`;
+    }).join('') : '';
+    return `
+    <button class="unit-row" onclick="toggleUnit('${u}')">
+      <span class="dot bg-${BAND_CLASS[r.band]}"></span>
+      <span class="unit-name">${unitLabel(u)}
+        <span class="unit-sub">${r.attempts ? r.mastered+' of '+r.words+' solid' : t('notStarted')}</span>
+      </span>
+      <span class="unit-pct m-${BAND_CLASS[r.band]}">${r.attempts?r.pct+'%':'—'}</span>
+      <span class="unit-caret">${open?'▾':'▸'}</span>
+    </button>
+    ${open && rows ? `<div class="lessons">${rows}</div>` : ''}`;
+  }).join('');
 
-/* ════════════════════════════════════════════
-   ASSIGNMENT START
-════════════════════════════════════════════ */
-function startAssignment(id) {
-  const asgn = DEFAULT_ASSIGNMENTS.find(a => a.id === id);
-  if (!asgn) return;
-  CURRENT_ASSIGNMENT = asgn;
-  QUESTIONS = buildQuestions(asgn);
-  Q_IDX = 0;
-  Q_RESULTS = [];
-
-  document.getElementById('q-asgn-name').textContent = asgn.title;
-  document.getElementById('q-user-label').textContent = `${SESSION.name} · ${SESSION.period}`;
-
-  showScreen('question');
-  renderQuestion();
-}
-
-/* ════════════════════════════════════════════
-   QUESTION RENDERING
-════════════════════════════════════════════ */
-function renderQuestion() {
-  const q = QUESTIONS[Q_IDX];
-  const total = QUESTIONS.length;
-
-  // Progress
-  const pct = Math.round(Q_IDX / total * 100);
-  document.getElementById('q-prog-text').textContent = `${Q_IDX + 1} / ${total}`;
-  document.getElementById('q-prog-fill').style.width = pct + '%';
-
-  let html = '';
-  if (q.type === 'mc') html = renderMC(q);
-  else if (q.type === 'tf') html = renderTF(q);
-  else html = renderFIB(q);
-
-  document.getElementById('question-wrap').innerHTML = html;
-}
-
-function renderMC(q) {
-  const w = q.word;
-  const distractors = getDistractors(w, q.pool, 3);
-  const opts = shuffle([...distractors.map(d => ({text: d.def, correct: false})),
-                        {text: w.def, correct: true}]);
-  const optHtml = opts.map((o,i) =>
-    `<button class="mc-opt" onclick="checkMC(this,${o.correct})" data-correct="${o.correct}">
-      ${o.text}
-    </button>`).join('');
-
-  const trans = w.tr && SESSION.lang ? getTranslation(w) : '';
-
-  return `
-    <div class="q-card">
-      <div class="q-type-label">🎯 Multiple Choice</div>
-      <div class="q-prompt">What does <strong>${w.emoji} ${w.word}</strong> mean?
-        ${trans ? `<span style="display:block;font-size:.8rem;color:var(--muted);font-weight:600;margin-top:4px;">(${SESSION.lang}: ${trans})</span>` : ''}
+  scroll.innerHTML = `
+    <div class="panel-overall">
+      <div class="ring">
+        <svg width="104" height="104">
+          <circle cx="52" cy="52" r="${R}" fill="none" stroke="var(--paper-2)" stroke-width="11"/>
+          <circle cx="52" cy="52" r="${R}" fill="none" stroke="${ringColor}" stroke-width="11"
+            stroke-linecap="round" stroke-dasharray="${C}" stroke-dashoffset="${off}"/>
+        </svg>
+        <div class="ring-num m-${BAND_CLASS[o.band]}">${o.pct}%</div>
       </div>
-      <div class="mc-opts">${optHtml}</div>
-      <div class="q-feedback" id="q-fb"></div>
-      ${q.aiEnabled ? `<div class="ai-panel" id="ai-panel"></div>` : ''}
-      ${renderTeacherFeedback(q)}
+      <div class="panel-words">${o.words} ${t('practiced')}</div>
     </div>
-    <button class="btn-next" id="btn-next" onclick="nextQuestion()" disabled>Next →</button>`;
+    ${units}
+    <div class="key">
+      <span class="key-i"><span class="dot bg-strong"></span>${t('strong')}</span>
+      <span class="key-i"><span class="dot bg-mid"></span>${t('mid')}</span>
+      <span class="key-i"><span class="dot bg-low"></span>${t('low')}</span>
+    </div>`;
+}
+function toggleUnit(u){ OPEN_UNIT = (OPEN_UNIT===u ? null : u); drawPanel(); }
+function openPanel(){
+  document.getElementById('panel').classList.add('open');
+  document.getElementById('panel-scrim').classList.add('on');
+}
+function closePanel(){
+  document.getElementById('panel').classList.remove('open');
+  document.getElementById('panel-scrim').classList.remove('on');
 }
 
-function renderTF(q) {
+/* ════════ QUESTIONS ════════ */
+function shuffle(a){ for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; }
+function distractors(w, pool, n){ return shuffle(pool.filter(x=>x.word!==w.word)).slice(0,n); }
+function wordTr(w){
+  const m = LANGMAP[SESSION.lang];
+  return (m && w.tr && w.tr[m.tr]) ? w.tr[m.tr] : '';
+}
+function esc(s){ return String(s).replace(/'/g,"\\'").replace(/"/g,'&quot;'); }
+
+function startSet(id){
+  const a = DEFAULT_ASSIGNMENTS.find(x=>x.id===id);
+  if(!a) return;
+  CURRENT = a; Q_IDX = 0; Q_RESULTS = [];
+  const pool = a.units.flatMap(u=>VOCAB[u]||[]);
+  const picked = shuffle([...pool]).slice(0, Math.min(a.questionCount, pool.length));
+  const types = ['mc','tf','fib'];
+  QUESTIONS = picked.map((w,i)=>({ word:w, type:types[i%3], pool }));
+  showScreen('question'); renderQuestion();
+}
+function quitSet(){ goHome(); }
+
+function renderQuestion(){
+  ANSWERED = false;
+  hideTray();
+  const q = QUESTIONS[Q_IDX], n = Q_IDX+1, tot = QUESTIONS.length;
+  document.getElementById('qbar-fill').style.width = Math.round(Q_IDX/tot*100)+'%';
+  document.getElementById('qbar-n').textContent = `${n}/${tot}`;
+  const wrap = document.getElementById('q-wrap');
+  wrap.innerHTML = q.type==='mc' ? viewMC(q) : q.type==='tf' ? viewTF(q) : viewFIB(q);
+  window.scrollTo({top:0});
+}
+
+function viewMC(q){
+  const w = q.word, tr = wordTr(w);
+  const opts = shuffle([w, ...distractors(w,q.pool,3)]);
+  return `
+  <div class="on-bg"><div class="q-prompt">${bi('chooseMeaning')}</div></div>
+  <div class="q-card">
+    <div class="q-emoji">${w.emoji||'📘'}</div>
+    <div class="q-word">${w.word}</div>
+    ${tr?`<div class="q-tr" dir="${isRTL()?'rtl':'ltr'}">${tr}</div>`:''}
+  </div>
+  <div class="opts">
+    ${opts.map(o=>`<button class="opt" data-ok="${o.word===w.word}"
+      onclick="answerMC(this,${o.word===w.word})">${o.def}</button>`).join('')}
+  </div>`;
+}
+function viewTF(q){
   const w = q.word;
   const isTrue = Math.random() > 0.5;
-  let statement, explanation;
-  if (isTrue) {
-    statement = w.def;
-    explanation = '✅ Correct! ' + w.def;
-  } else {
-    const other = getDistractors(w, q.pool, 1)[0] || q.pool[0];
-    statement = `"${w.word}" means: ${other.def}`;
-    explanation = `❌ Actually, "${w.word}" means: ${w.def}`;
-  }
-
-  const trans = w.tr && SESSION.lang ? getTranslation(w) : '';
-
+  const other = distractors(w,q.pool,1)[0] || q.pool[0];
+  const shown = isTrue ? w.def : other.def;
+  const tr = wordTr(w);
   return `
-    <div class="q-card">
-      <div class="q-type-label">⚖️ True or False?</div>
-      <div class="q-prompt"><strong>${w.emoji} ${w.word}</strong>
-        ${trans ? `<span style="display:block;font-size:.8rem;color:var(--muted);font-weight:600;">(${SESSION.lang}: ${trans})</span>` : ''}
-      </div>
-      <div style="background:var(--bg);border-radius:var(--r-sm);padding:14px;margin-bottom:14px;font-size:.95rem;font-weight:600;line-height:1.5;border:1.5px solid var(--border);">
-        "${statement}"
-      </div>
-      <div class="tf-opts">
-        <button class="tf-opt" onclick="checkTF(this,${isTrue},true)">👍 True</button>
-        <button class="tf-opt" onclick="checkTF(this,${isTrue},false)">👎 False</button>
-      </div>
-      <div class="q-feedback" id="q-fb"></div>
-      <div id="tf-explain" style="font-size:.85rem;color:var(--muted);font-weight:600;margin-top:6px;min-height:14px;"></div>
-      ${q.aiEnabled ? `<div class="ai-panel" id="ai-panel"></div>` : ''}
-      ${renderTeacherFeedback(q)}
-    </div>
-    <button class="btn-next" id="btn-next" onclick="nextQuestion()" disabled>Next →</button>`;
+  <div class="on-bg"><div class="q-prompt">${bi('trueFalse')}</div></div>
+  <div class="q-card">
+    <div class="q-emoji">${w.emoji||'📘'}</div>
+    <div class="q-word">${w.word}</div>
+    ${tr?`<div class="q-tr" dir="${isRTL()?'rtl':'ltr'}">${tr}</div>`:''}
+    <div style="height:16px"></div>
+    <div class="q-def">“${shown}”</div>
+  </div>
+  <div class="opts tf">
+    <button class="opt" onclick="answerTF(this,${isTrue},true)">👍 ${t('tTrue')}</button>
+    <button class="opt" onclick="answerTF(this,${isTrue},false)">👎 ${t('tFalse')}</button>
+  </div>`;
 }
-
-function renderFIB(q) {
+function viewFIB(q){
   const w = q.word;
-  // Build a sentence with the word blanked
   const def = w.defA || w.def;
-  const rx = new RegExp('\\b' + w.word.replace(/[.*+?^${}()|[\]\\]/g,'\\$&') + '\\b', 'gi');
-  let sentence = def.replace(rx, '___');
-  if (!sentence.includes('___')) sentence = def + ' This is called ___.';
-
-  // Word bank: correct + 3 distractors
-  const bank = shuffle([w.word, ...getDistractors(w, q.pool, 3).map(d => d.word)]);
-  const bankHtml = bank.map(word =>
-    `<button class="wb-chip" onclick="fillBlank(this,'${word.replace(/'/g,"\\'")}','${w.word.replace(/'/g,"\\'")}')">${word}</button>`
-  ).join('');
-
+  const rx = new RegExp('\\b'+w.word.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+'\\b','gi');
+  let sent = def.replace(rx,'___');
+  if(!sent.includes('___')) sent = def + ' This is called ___.';
+  const bank = shuffle([w.word, ...distractors(w,q.pool,3).map(d=>d.word)]);
   return `
-    <div class="q-card">
-      <div class="q-type-label">✏️ Fill in the Blank</div>
-      <div class="q-prompt">Complete the sentence:</div>
-      <div class="fib-sentence">${sentence.replace('___','<input class="fib-blank" id="fib-input" placeholder="?" autocomplete="off" readonly>')}</div>
-      <div class="word-bank-row">
-        <div style="font-size:.65rem;font-weight:900;text-transform:uppercase;letter-spacing:1px;color:var(--blue);width:100%;margin-bottom:4px;">Word Bank</div>
-        ${bankHtml}
-      </div>
-      <div class="q-feedback" id="q-fb"></div>
-      ${q.aiEnabled ? `<div class="ai-panel" id="ai-panel"></div>` : ''}
-      ${renderTeacherFeedback(q)}
-    </div>
-    <button class="btn-next" id="btn-next" onclick="nextQuestion()" disabled>Next →</button>`;
+  <div class="on-bg"><div class="q-prompt">${bi('tapWord')}</div></div>
+  <div class="q-card">
+    <div class="fib-line">${sent.replace('___','<span class="fib-slot" id="slot">?</span>')}</div>
+  </div>
+  <div class="chips">
+    ${bank.map(b=>`<button class="chip" onclick="answerFIB(this,'${esc(b)}','${esc(w.word)}')">${b}</button>`).join('')}
+  </div>`;
 }
 
-function renderTeacherFeedback(q) {
-  // Check if teacher has left feedback for this word in this assignment
-  const key = `${SESSION.username}_${CURRENT_ASSIGNMENT?.id}_${q.word.word}`;
-  // Will be populated from Supabase asynchronously
-  return `<div class="teacher-fb-row" id="tfb-${q.word.word.replace(/\s+/g,'-')}"></div>`;
-}
-
-function getTranslation(word) {
-  const langMap = {Spanish:'es',Cantonese:'zh',Mandarin:'zh',Arabic:'ar',
-                   Vietnamese:'vi',Russian:'ru',Urdu:'ur',Tagalog:'tl',
-                   French:'fr',Korean:'ko',Hindi:'hi',Somali:'so',Nepali:'ne',Darija:'ar'};
-  const code = langMap[SESSION.lang];
-  return word.tr && code ? (word.tr[code] || '') : '';
-}
-
-/* ════════════════════════════════════════════
-   CHECK ANSWERS
-════════════════════════════════════════════ */
-function checkMC(btn, isCorrect) {
-  const zone = btn.closest('.q-card');
-  zone.querySelectorAll('.mc-opt').forEach(b => {
+/* ════════ ANSWER HANDLERS ════════ */
+function answerMC(btn, ok){
+  if(ANSWERED) return; ANSWERED = true;
+  document.querySelectorAll('.opt').forEach(b=>{
     b.disabled = true;
-    if (b.dataset.correct === 'true') b.classList.add('reveal');
+    if(b.dataset.ok === 'true') b.classList.add('reveal');
   });
-  const fb = document.getElementById('q-fb');
-  if (isCorrect) {
-    btn.classList.add('correct');
-    fb.className = 'q-feedback ok'; fb.textContent = '✅ Correct!';
-    recordResult(true, btn.textContent.trim());
-  } else {
-    btn.classList.add('wrong');
-    fb.className = 'q-feedback err'; fb.textContent = '❌ Not quite — the correct answer is highlighted.';
-    recordResult(false, btn.textContent.trim());
-    if (QUESTIONS[Q_IDX].aiEnabled) fetchAIFeedback(false);
-  }
-  document.getElementById('btn-next').disabled = false;
+  btn.classList.add(ok?'correct':'wrong');
+  const right = [...document.querySelectorAll('.opt')].find(b=>b.dataset.ok==='true');
+  finishAnswer(ok, ok ? '' : (right? right.textContent.trim() : ''));
 }
-
-function checkTF(btn, isTrue, userTrue) {
-  const zone = btn.closest('.q-card');
-  zone.querySelectorAll('.tf-opt').forEach(b => b.disabled = true);
-  const correct = isTrue === userTrue;
-  const fb = document.getElementById('q-fb');
-  const exp = document.getElementById('tf-explain');
-  if (correct) {
-    btn.classList.add('correct');
-    fb.className = 'q-feedback ok'; fb.textContent = '✅ Correct!';
-  } else {
-    btn.classList.add('wrong');
-    fb.className = 'q-feedback err'; fb.textContent = '❌ Not quite.';
-    if (exp) exp.textContent = `The statement is ${isTrue ? 'TRUE' : 'FALSE'}.`;
-    if (QUESTIONS[Q_IDX].aiEnabled) fetchAIFeedback(false);
-  }
-  recordResult(correct, userTrue ? 'True' : 'False');
-  document.getElementById('btn-next').disabled = false;
+function answerTF(btn, isTrue, chose){
+  if(ANSWERED) return; ANSWERED = true;
+  document.querySelectorAll('.opt').forEach(b=> b.disabled = true);
+  const ok = (isTrue === chose);
+  btn.classList.add(ok?'correct':'wrong');
+  finishAnswer(ok, ok ? '' : (isTrue ? t('tTrue') : t('tFalse')));
 }
-
-function fillBlank(btn, chosen, correct) {
-  // Fill the input
-  const inp = document.getElementById('fib-input');
-  if (!inp) return;
-  inp.value = chosen;
+function answerFIB(btn, chosen, correct){
+  if(ANSWERED) return; ANSWERED = true;
+  const slot = document.getElementById('slot');
+  const ok = chosen.toLowerCase() === correct.toLowerCase();
+  if(slot){ slot.textContent = chosen; slot.classList.add(ok?'correct':'wrong'); }
+  document.querySelectorAll('.chip').forEach(c=>{
+    c.disabled = true;
+    if(c.textContent.trim() === correct) c.classList.add('is-answer');
+  });
   btn.classList.add('used');
-
-  const isCorrect = chosen.toLowerCase() === correct.toLowerCase();
-  const fb = document.getElementById('q-fb');
-
-  // Disable all chips
-  document.querySelectorAll('.wb-chip').forEach(c => c.disabled = true);
-
-  if (isCorrect) {
-    inp.classList.add('correct');
-    fb.className = 'q-feedback ok'; fb.textContent = '✅ Correct!';
-  } else {
-    inp.classList.add('wrong');
-    fb.className = 'q-feedback err'; fb.textContent = `❌ The answer is "${correct}".`;
-    // Show correct chip
-    document.querySelectorAll('.wb-chip').forEach(c => {
-      if (c.textContent.trim() === correct) { c.style.outline = '2px solid var(--green)'; }
-    });
-    if (QUESTIONS[Q_IDX].aiEnabled) fetchAIFeedback(false);
-  }
-  recordResult(isCorrect, chosen);
-  document.getElementById('btn-next').disabled = false;
+  finishAnswer(ok, ok ? '' : correct);
 }
 
-function recordResult(correct, userAnswer) {
-  const q = QUESTIONS[Q_IDX];
-  Q_RESULTS.push({ word: q.word.word, correct, userAnswer, correctAnswer: q.word.def });
+function finishAnswer(ok, rightAnswer){
+  const w = QUESTIONS[Q_IDX].word.word;
+  Q_RESULTS.push({ word:w, correct:ok });
+  bumpWord(w, ok);
+  drawPanel();                                  // live update, exactly as the student answers
+  showTray(ok, rightAnswer);
+  const fill = document.getElementById('qbar-fill');
+  fill.style.width = Math.round((Q_IDX+1)/QUESTIONS.length*100)+'%';
+}
+function showTray(ok, right){
+  const tray = document.getElementById('tray');
+  tray.className = 'tray up ' + (ok?'ok':'no');
+  document.body.classList.add('tray-open');   // keep the Progress button from covering Next
+  document.getElementById('tray-txt').innerHTML = ok ? bi('correct') : bi('notQuite');
+  document.getElementById('tray-sub').textContent = right ? `${t('answerIs')} “${right}”` : '';
+  const b = document.getElementById('tray-btn');
+  b.textContent = t('next');
+  b.className = 'p3 tray-btn ' + (ok?'lime':'coral');
+  b.focus({preventScroll:true});
+}
+function hideTray(){
+  document.getElementById('tray').className = 'tray';
+  document.body.classList.remove('tray-open');
 }
 
-/* ════════════════════════════════════════════
-   AI FEEDBACK
-════════════════════════════════════════════ */
-async function fetchAIFeedback(correct) {
-  const panel = document.getElementById('ai-panel');
-  if (!panel) return;
-  panel.classList.add('show');
-  panel.innerHTML = `<div class="ai-label">🤖 AI Feedback</div><div class="ai-loading">Thinking…</div>`;
-
-  const q = QUESTIONS[Q_IDX];
-  const word = q.word.word;
-  const def = q.word.def;
-  const trans = getTranslation(q.word);
-  const langNote = SESSION.lang && trans ? ` In ${SESSION.lang}: "${trans}".` : '';
-
-  const prompt = `A student learning English is practicing the word "${word}". Its definition: "${def}".${langNote} They got it wrong. Give ONE short encouraging sentence of feedback in English, then ONE short sentence in ${SESSION.lang || 'Spanish'} explaining the word. Keep it very simple for a newcomer English learner. Format: English sentence. [Native language sentence].`;
-
-  try {
-    const resp = await fetch('https://api.anthropic.com/v1/messages', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        model: 'claude-sonnet-4-20250514',
-        max_tokens: 150,
-        messages: [{ role: 'user', content: prompt }]
-      })
-    });
-    const data = await resp.json();
-    const text = data.content?.[0]?.text || '';
-    const parts = text.split('.');
-    const eng = parts[0]?.trim() + '.';
-    const native = parts.slice(1).join('.').trim();
-    panel.innerHTML = `
-      <div class="ai-label">🤖 Feedback</div>
-      <div class="ai-text">${eng}</div>
-      ${native ? `<div class="ai-text-native">${native}</div>` : ''}`;
-  } catch(e) {
-    panel.innerHTML = `<div class="ai-label">🤖 Feedback</div><div class="ai-text">Keep trying — you're learning!</div>`;
-  }
-}
-
-/* ════════════════════════════════════════════
-   NEXT QUESTION / FINISH
-════════════════════════════════════════════ */
-function nextQuestion() {
+function nextQuestion(){
+  hideTray();
   Q_IDX++;
-  if (Q_IDX >= QUESTIONS.length) {
-    finishAssignment();
-  } else {
-    renderQuestion();
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  }
+  if(Q_IDX >= QUESTIONS.length) finishSet(); else renderQuestion();
 }
 
-async function finishAssignment() {
-  const correct = Q_RESULTS.filter(r => r.correct).length;
+/* ════════ FINISH ════════ */
+async function finishSet(){
+  const correct = Q_RESULTS.filter(r=>r.correct).length;
   const total = Q_RESULTS.length;
-  const pct = Math.round(correct / total * 100);
+  const pct = total ? Math.round(correct/total*100) : 0;
 
-  // Save to Supabase
-  if (!SESSION.isGuest) {
-    const prev = ASSIGNMENT_SCORES[CURRENT_ASSIGNMENT.id];
-    // Only update if this is better or first time
-    const shouldSave = !prev || pct >= (prev.pct || 0);
-    if (shouldSave) {
-      await supaUpsert('ll_practice_scores', {
-        username: SESSION.username,
-        student_name: SESSION.name,
-        period: SESSION.period,
-        assignment_id: CURRENT_ASSIGNMENT.id,
-        assignment_title: CURRENT_ASSIGNMENT.title,
-        score: correct,
-        total,
-        pct,
-        completed: true,
-        lang: SESSION.lang,
-        updated_at: new Date().toISOString(),
-        results: JSON.stringify(Q_RESULTS.map(r => ({
-          word: r.word, correct: r.correct
-        })))
-      });
+  if(!SESSION.isGuest){
+    const prev = SET_SCORES[CURRENT.id];
+    if(!prev || pct >= (prev.pct||0)){
+      const row = {
+        username:SESSION.username, student_name:SESSION.name, period:SESSION.period,
+        assignment_id:CURRENT.id, assignment_title:CURRENT.title,
+        score:correct, total, pct, completed:true, lang:SESSION.lang,
+        updated_at:new Date().toISOString(),
+        results:JSON.stringify(Q_RESULTS)
+      };
+      if(SCORES_HAVE_L1_COL) row.l1_on = L1_ON;
+      let ok = await supaUpsert('ll_practice_scores',[row],'username,assignment_id');
+      if(!ok && SCORES_HAVE_L1_COL){          // column probably isn't there yet — retry without it
+        SCORES_HAVE_L1_COL = false;
+        delete row.l1_on;
+        ok = await supaUpsert('ll_practice_scores',[row],'username,assignment_id');
+      }
     }
-    // Update local state
-    ASSIGNMENT_SCORES[CURRENT_ASSIGNMENT.id] = { score: correct, total, pct, completed: true };
-    SESSION.totalScore = Object.values(ASSIGNMENT_SCORES).reduce((s, x) => s + (x.score||0), 0);
-    updateScoreBadges();
+    SET_SCORES[CURRENT.id] = { score:correct, total, pct, completed:true };
+    SESSION.totalScore = Object.values(SET_SCORES).reduce((s,x)=>s+(x.score||0),0);
+    saveMastery([...new Set(Q_RESULTS.map(r=>r.word))]);
   }
-
+  paintPoints();
   showScreen('score');
-  renderScoreScreen(correct, total, pct);
+  drawScore(correct,total,pct);
+  drawPanel();
+  setTimeout(maybeAskBilingual, 700);
 }
 
-function renderScoreScreen(correct, total, pct) {
-  document.getElementById('sc-user-label').textContent = `${SESSION.name} · ${SESSION.period}`;
+function drawScore(correct,total,pct){
+  document.getElementById('sc-name').textContent = SESSION.name;
+  document.getElementById('sc-meta').textContent = CURRENT.title;
+  const b = band(pct,1);
+  const ico = pct>=80?'🎉':pct>=50?'💪':'🌱';
+  const msgKey = pct>=80?'strong':pct>=50?'mid':'low';
+  const missed = Q_RESULTS.filter(r=>!r.correct).map(r=>r.word);
+  const got = Q_RESULTS.filter(r=>r.correct).map(r=>r.word);
 
-  const emoji = pct >= 80 ? '🎉' : pct >= 60 ? '🙌' : '💪';
-  const heroClass = pct >= 80 ? '' : pct >= 60 ? 'partial' : 'low';
-  const msg = pct >= 80 ? 'Excellent work!' : pct >= 60 ? 'Good effort!' : 'Keep practicing!';
-
-  const breakdown = Q_RESULTS.map(r => `
-    <div class="breakdown-item">
-      <div class="bi-icon">${r.correct ? '✅' : '❌'}</div>
-      <div class="bi-text">${r.word}</div>
-      <div class="bi-result ${r.correct ? 'ok' : 'err'}">${r.correct ? 'Correct' : 'Incorrect'}</div>
-    </div>`).join('');
-
-  document.getElementById('score-screen-wrap').innerHTML = `
-    <div class="score-hero ${heroClass}">
-      <div class="score-emoji">${emoji}</div>
-      <div class="score-assignment">${CURRENT_ASSIGNMENT.title}</div>
-      <div class="score-main">${correct} / ${total}</div>
-      <div class="score-label">${pct}% · ${msg}</div>
-    </div>
-    <div class="score-breakdown">
-      <div class="breakdown-title">Question by Question</div>
-      ${breakdown}
-    </div>
-    <button class="btn-retry" onclick="startAssignment('${CURRENT_ASSIGNMENT.id}')">🔁 Try Again</button>
-    <button class="btn-home" onclick="goHome()">← Back to Assignments</button>`;
+  document.getElementById('score-wrap').innerHTML = `
+  <div class="hero">
+    <div class="hero-ico">${ico}</div>
+    <div class="hero-pct m-${BAND_CLASS[b]}">${pct}%</div>
+    <div class="hero-frac">${correct} / ${total}</div>
+    <div class="hero-msg m-${BAND_CLASS[b]}">${bi(msgKey)}</div>
+    <div class="gained">⭐ +${correct}</div>
+  </div>
+  ${missed.length?`
+  <div class="rev">
+    <h3>${bi('reviewThese')}</h3>
+    <div class="rev-grid">${missed.map(w=>`<span class="rev-w no">${w}</span>`).join('')}</div>
+  </div>`:''}
+  ${got.length?`
+  <div class="rev">
+    <div class="rev-grid">${got.map(w=>`<span class="rev-w ok">${w}</span>`).join('')}</div>
+  </div>`:''}
+  <div class="stack">
+    <button class="p3 sky" onclick="startSet('${CURRENT.id}')">${t('again')}</button>
+    <button class="p3 ghost" onclick="goHome()">${t('back')}</button>
+  </div>`;
 }
 
-/* ════════════════════════════════════════════
-   NAVIGATION
-════════════════════════════════════════════ */
-function showScreen(name) {
-  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-  document.getElementById('screen-' + name).classList.add('active');
-  window.scrollTo({ top: 0 });
+/* ════════ NAV ════════ */
+function showScreen(n){
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  document.getElementById('screen-'+n).classList.add('active');
+  const showFab = (n!=='login');
+  document.getElementById('fab').style.display = showFab ? '' : 'none';
+  document.getElementById('panel').style.visibility = showFab ? '' : 'hidden';
+  window.scrollTo({top:0});
+}
+function goHome(){ hideTray(); closePanel(); showScreen('home'); drawHome(); }
+
+/* ════════ SETTINGS MODAL ════════ */
+function openSettings(){ refreshSettingsModal(); document.getElementById('set-modal').classList.add('on'); }
+function closeSettings(){ document.getElementById('set-modal').classList.remove('on'); }
+function refreshSettingsModal(){
+  const btn = document.getElementById('sm-l1btn');
+  const note = document.getElementById('sm-l1note');
+  const locked = (CFG.bilingual_mode === 'on' || CFG.bilingual_mode === 'off');
+  btn.textContent = L1_ON ? `${SESSION.lang} + English` : 'English only';
+  btn.className = 'p3 ' + (L1_ON ? 'sky' : 'ghost');
+  btn.disabled = locked || !langAvailable();
+  note.textContent = locked ? 'Your teacher set this.'
+    : !langAvailable() ? `${SESSION.lang} isn't translated yet — English only.`
+    : 'Tap to switch.';
 }
 
-function goHome() {
-  renderAssignmentList();
-  showScreen('home');
-}
-
-/* ════════════════════════════════════════════
-   KEYBOARD SUPPORT
-════════════════════════════════════════════ */
-document.addEventListener('keydown', e => {
-  if (e.key === 'Enter') {
-    if (document.getElementById('screen-login').classList.contains('active')) {
-      attemptLogin();
-    }
-  }
+/* ════════ BOOT ════════ */
+document.addEventListener('keydown', e=>{
+  if(e.key === 'Enter' && document.getElementById('screen-login').classList.contains('active')) attemptLogin();
+  if(e.key === 'Enter' && ANSWERED && document.getElementById('screen-question').classList.contains('active')) nextQuestion();
+  if(e.key === 'Escape'){ closePanel(); closeSettings(); }
 });
+showScreen('login');
+paintStatic();
+loadSettings();
+
 </script>
 </body>
 </html>
