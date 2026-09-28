@@ -186,6 +186,27 @@ audio{height:30px;max-width:200px;}
 </style>
 </head>
 <body>
+<div id="gate" style="position:fixed;inset:0;z-index:9000;background:rgba(15,10,20,.93);
+     display:flex;align-items:center;justify-content:center;padding:20px">
+  <div style="background:#fff;border-radius:18px;padding:26px 22px;max-width:420px;width:100%" translate="no">
+    <h2 style="margin:0 0 6px;font-size:1.4rem">Sign in</h2>
+    <p style="margin:0 0 16px;color:#666;font-size:.95rem">Your practice saves by itself. Use your school email.</p>
+    <input id="gName" placeholder="First and last name" autocomplete="name"
+      style="width:100%;padding:12px;margin-bottom:10px;border:2px solid #ddd;border-radius:9px;font-size:1rem">
+    <input id="gEmail" placeholder="you@s.sfusd.edu" autocomplete="email" inputmode="email"
+      style="width:100%;padding:12px;margin-bottom:10px;border:2px solid #ddd;border-radius:9px;font-size:1rem">
+    <select id="gPeriod" style="width:100%;padding:12px;margin-bottom:10px;border:2px solid #ddd;border-radius:9px;font-size:1rem">
+      <option value="">Class period</option>
+      <option>1</option><option>2</option><option>3</option><option>4</option>
+      <option>5</option><option>6</option><option>7</option>
+    </select>
+    <div id="gateErr" style="color:#b23a2c;font-weight:700;font-size:.9rem;min-height:20px"></div>
+    <button id="gBtn" style="width:100%;padding:14px;border:0;border-radius:11px;background:#864D9E;
+      color:#fff;font-size:1.05rem;font-weight:800;cursor:pointer">Start</button>
+  </div>
+</div>
+<span id="canary" style="position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden">the quick brown fox jumps over the lazy dog</span>
+
 
 <header class="site-header">
   <div class="hdr-row1">
@@ -206,15 +227,24 @@ audio{height:30px;max-width:200px;}
   </div>
   <div class="trans-bar">
     <span class="trans-label">🌐 Translate</span>
-    <select class="lang-select" id="lang-sel" onchange="setLang(this.value)">
+    <select class="lang-select" id="lang-sel" data-alias="langSel" onchange="setLang(this.value)">
       <option value="off">Off</option>
       <option value="es">Español</option>
-      <option value="ar">العربية</option>
       <option value="zh">中文</option>
+      <option value="ar">العربية</option>
       <option value="vi">Tiếng Việt</option>
       <option value="ru">Русский</option>
       <option value="ur">اردو</option>
+      <option value="tl">Tagalog</option>
+      <option value="fr">Français</option>
+      <option value="ko">한국어</option>
+      <option value="hi">हिन्दी</option>
+      <option value="so">Soomaali</option>
+      <option value="ne">नेपाली</option>
+      <option value="th">ไทย</option>
     </select>
+    <button class="tmode-btn" id="btn-tap" title="Tap any word for its meaning" style="margin-left:8px">Tap words</button>
+    <button class="tmode-btn" id="btn-dir" title="Show the directions in your language">Directions</button>
     <div class="trans-mode-toggle" id="tmode-wrap" style="display:none">
       <button class="tmode-btn active" id="tmode-tip" onclick="setTransMode('tooltip')">Hover/tap</button>
       <button class="tmode-btn" id="tmode-pin" onclick="setTransMode('persistent')">Always show</button>
@@ -230,12 +260,12 @@ audio{height:30px;max-width:200px;}
   </nav>
 </header>
 
-<main>
+<main translate="no" data-tap="1">
 
 <!-- FLASHCARDS -->
 <div class="activity-panel visible" id="panel-flashcards">
   <div class="panel-title">Flashcards</div>
-  <div class="panel-desc" id="fc-desc">Tap the card to see the meaning. Tap 🔊 to hear the word.</div>
+  <div class="panel-desc" data-dir="1" id="fc-desc">Tap the card to see the meaning. Tap 🔊 to hear the word.</div>
   <div class="lesson-filter" id="fc-filter"></div>
   <div class="progress-bar"><div class="progress-fill" id="fc-prog" style="width:0%"></div></div>
   <div class="fc-container">
@@ -266,7 +296,7 @@ audio{height:30px;max-width:200px;}
 <!-- LISTEN -->
 <div class="activity-panel" id="panel-listen">
   <div class="panel-title">🔊 Listen &amp; Repeat</div>
-  <div class="panel-desc" id="listen-desc">Hear it. Say it. Record yourself.</div>
+  <div class="panel-desc" data-dir="1" id="listen-desc">Hear it. Say it. Record yourself.</div>
   <div class="lesson-filter" id="listen-filter"></div>
   <div class="progress-bar"><div class="progress-fill" id="listen-prog" style="width:0%"></div></div>
   <div class="listen-card">
@@ -306,7 +336,7 @@ audio{height:30px;max-width:200px;}
 <div class="activity-panel" id="panel-match">
   <div class="panel-title">Word Match</div>
   <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:6px;margin-bottom:6px">
-    <div class="panel-desc" id="match-desc" style="margin:0">Tap a word, then its definition.</div>
+    <div class="panel-desc" data-dir="1" id="match-desc" style="margin:0">Tap a word, then its definition.</div>
     <span class="score-pill" id="match-score">0 matched</span>
   </div>
   <div class="lesson-filter" id="match-filter"></div>
@@ -321,7 +351,7 @@ audio{height:30px;max-width:200px;}
 <!-- FILL IN -->
 <div class="activity-panel" id="panel-fillin">
   <div class="panel-title">Fill In the Blank</div>
-  <div class="panel-desc" id="fib-desc">Choose a word from the bank.</div>
+  <div class="panel-desc" data-dir="1" id="fib-desc">Choose a word from the bank.</div>
   <div class="lesson-filter" id="fib-filter"></div>
   <div id="fib-content"></div>
   <div class="btn-row">
@@ -333,7 +363,7 @@ audio{height:30px;max-width:200px;}
 <!-- QUIZ -->
 <div class="activity-panel" id="panel-quiz">
   <div class="panel-title">True or False?</div>
-  <div class="panel-desc" id="quiz-desc">Read the sentence. Is it true or false?</div>
+  <div class="panel-desc" data-dir="1" id="quiz-desc">Read the sentence. Is it true or false?</div>
   <div class="lesson-filter" id="quiz-filter"></div>
   <div class="q-label-row">
     <span id="q-label" style="font-size:12px;font-weight:700;color:var(--muted)">Question 1 of 6</span>
@@ -361,7 +391,7 @@ audio{height:30px;max-width:200px;}
 <!-- SORT -->
 <div class="activity-panel" id="panel-sort">
   <div class="panel-title">Sort It</div>
-  <div class="panel-desc" id="sort-desc">Tap a word, then tap the correct column.</div>
+  <div class="panel-desc" data-dir="1" id="sort-desc">Tap a word, then tap the correct column.</div>
   <div id="sort-content"></div>
   <div class="btn-row"><button class="btn pri" onclick="newSortRound()">New Round</button></div>
 </div>
@@ -432,14 +462,14 @@ async function toggleRec(){
 async function savePracticeRec(){
   if(!recBlob)return;
   const c=lisCards[lisIdx];
-  let sname=localStorage.getItem('ll_student')||'';
-  if(!sname){const n=prompt('Enter your name to save:');if(!n)return;localStorage.setItem('ll_student',n);sname=n;}
+  if(!window.student||!window.student.email){ alert('Please sign in first.'); return; }
+  const sname=window.student.name;
   const btn=document.getElementById('save-btn');
   btn.textContent='Saving…';btn.disabled=true;
   const ext=recBlob.type.includes('mp4')?'mp4':'webm';
   const fn=`practice_${sname.replace(/\s+/g,'_')}_${c.word.replace(/\s+/g,'_')}_${Date.now()}.${ext}`;
   const url=await supaUpload(recBlob,fn);
-  await supaInsert({student_name:sname,activity_type:'practice',word:c.word,audio_url:url||'(local)',level:LV,lesson:c.lesson,unit:CU});
+  await supaInsert({student_name:sname,email:window.student.email,period:window.student.period,activity_type:'practice',word:c.word,audio_url:url||'(local)',level:LV,lesson:c.lesson,unit:CU});
   btn.textContent='💾 Save';btn.disabled=false;
   document.getElementById('save-status').textContent=url?'✓ Saved to dashboard!':'⚠️ Upload failed — check console';
 }
@@ -463,11 +493,33 @@ let sortSet=null,sortSt={},sortPend=null;
 const RTL=new Set(['ar','ur']);
 
 // ── TRANSLATION HELPERS ──────────────────────────────────────────
+var HARD_LANGS=['es','ar','zh','vi','ru','ur'];
+var PROXY_TR={};
 function getTr(word){
   if(curLang==='off')return null;
   const w=VOCAB_DATA[CU]||[];
   const entry=w.find(v=>v.word===word);
-  return entry&&entry.tr?entry.tr[curLang]||null:null;
+  const hard = entry&&entry.tr?entry.tr[curLang]||null:null;
+  if(hard) return hard;
+  return (PROXY_TR[curLang]&&PROXY_TR[curLang][word])||null;
+}
+/* Languages without hand-written data are filled once from the Apps Script proxy,
+   then cached, so every language in the picker actually shows something. */
+function warmProxyLang(code){
+  if(code==='off'||HARD_LANGS.indexOf(code)!==-1) return;
+  if(!PROXY_TR[code]) PROXY_TR[code]={};
+  var list=(VOCAB_DATA[CU]||[]).filter(function(v){ return !PROXY_TR[code][v.word]; });
+  if(!list.length) return;
+  var bar=document.getElementById('tmode-wrap');
+  if(bar) bar.style.opacity='.5';
+  Promise.all(list.map(function(v){
+    return (window.galTranslate? window.galTranslate(v.word, code) : Promise.resolve(null))
+      .then(function(t){ if(t) PROXY_TR[code][v.word]=t; })
+      .catch(function(){});
+  })).then(function(){
+    if(bar) bar.style.opacity='';
+    applyTrans();
+  });
 }
 function wrapWord(word){
   const t=getTr(word);
@@ -480,6 +532,7 @@ function wrapWord(word){
 function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
 function setLang(l){
   curLang=l;
+  warmProxyLang(l);
   document.getElementById('tmode-wrap').style.display=l==='off'?'none':'flex';
   applyTrans();
 }
@@ -836,6 +889,221 @@ function unsort(label){sortSt[label]=null;renderSort();}
 
 // ── BOOT ─────────────────────────────────────────────────────────
 boot();
+</script>
+<script>
+/* ============ Galileo standard: identity, directions, tap words, canary ============ */
+(function(){
+  /* some pages in this family define SLUG, some do not */
+  var PAGE_SLUG=(typeof SLUG!=='undefined'&&SLUG)?SLUG:'arrival-index';
+  var CANON_DOMAIN='@s.sfusd.edu', ROSTER=[];
+  var PROXY='https://script.google.com/macros/s/AKfycbwbFr3oopIITlxKDhI5wGhEZdomWc3tmB5ZSK6NpBVisPAz-CMA4uKiruXDkCEU3T0Q/exec';
+  function ME_(){ return (typeof student!=='undefined'&&student&&student.email)?student:null; }
+  window.cleanMail=function(x){ return String(x||'').trim().toLowerCase(); };
+  window.localPart=function(e){ return cleanMail(e).split('@')[0]; };
+  window.validMail=function(e){ return /^[^@\s]+@(s\.)?sfusd\.edu$/.test(cleanMail(e)); };
+  window.canonMail=function(raw){
+    var lp=localPart(raw), i;
+    for(i=0;i<ROSTER.length;i++){ if(localPart(ROSTER[i].email)===lp) return cleanMail(ROSTER[i].email); }
+    return lp+CANON_DOMAIN;
+  };
+  function head(pref){
+    var h={'apikey':SUPA_KEY,'Authorization':'Bearer '+SUPA_KEY,'Content-Type':'application/json'};
+    if(pref) h['Prefer']=pref; return h;
+  }
+  window.recordAlias=function(alias, canon){
+    if(!alias||alias===canon) return;
+    fetch(SUPA_URL+'/rest/v1/student_aliases?on_conflict=alias_email',{
+      method:'POST', headers:head('resolution=merge-duplicates,return=minimal'),
+      body:JSON.stringify([{alias_email:alias, email:canon}])}).catch(function(){});
+  };
+  window.seedStudent=function(name,email,period){
+    fetch(SUPA_URL+'/rest/v1/students?on_conflict=email',{
+      method:'POST', headers:head('resolution=ignore-duplicates,return=minimal'),
+      body:JSON.stringify([{email:email, name:name, period:period}])}).catch(function(){});
+  };
+  fetch(SUPA_URL+'/rest/v1/students?select=name,email,period&order=name',{headers:head()})
+    .then(function(r){ return r.ok?r.json():[]; })
+    .then(function(rows){ ROSTER=rows||[]; }).catch(function(){});
+
+  /* prefill from a sign-in anywhere else on the site */
+  try{
+    var saved=JSON.parse(localStorage.getItem('arrival_student')||'null');
+    if(saved&&saved.email){
+      if(document.getElementById('gName')) document.getElementById('gName').value=saved.name||'';
+      if(document.getElementById('gEmail')) document.getElementById('gEmail').value=saved.email;
+      if(saved.period&&document.getElementById('gPeriod')) document.getElementById('gPeriod').value=String(saved.period);
+    } else {
+      var g=localStorage.getItem('gal_student_email');
+      if(g&&document.getElementById('gEmail')) document.getElementById('gEmail').value=g;
+    }
+  }catch(e){}
+
+  /* ---------- translate through the proxy ---------- */
+  var tcache={};
+  var C2N={es:'Spanish',zh:'Chinese (Simplified)','zh-CN':'Chinese (Simplified)',ar:'Arabic',
+    vi:'Vietnamese',ru:'Russian',ur:'Urdu',tl:'Tagalog',fr:'French',ko:'Korean',hi:'Hindi',
+    so:'Somali',ne:'Nepali',th:'Thai'};
+  window.galTranslate=function(text, code){ return tr(text, code).then(function(t){ return t?(t.equiv||t.meaning||null):null; }); };
+  function tr(text, code){
+    var lang=(!code||code==='none')?'':(C2N[code]||code);
+    var key=text+'|'+lang;
+    if(tcache[key]) return Promise.resolve(tcache[key]);
+    var url=PROXY+'?action=translate&idiom='+encodeURIComponent(text)+'&meaning=&lang='+encodeURIComponent(lang);
+    return fetch(url).then(function(r){return r.json();}).then(function(d){
+      if(!d||!d.ok||!d.translation) return null;
+      tcache[key]=d.translation; return d.translation;
+    }).catch(function(){return null;});
+  }
+
+  /* ---------- directions in the student's language ---------- */
+  var DIR_ON=false, SENT={};
+  try{ DIR_ON=localStorage.getItem('song_dir')==='1'; }catch(e){}
+  function logReveal(k, lang){
+    if(!ME_()) return;
+    var sig=k+'|'+lang; if(SENT[sig]) return; SENT[sig]=true;
+    fetch(SUPA_URL+'/rest/v1/instruction_reveals',{
+      method:'POST', headers:head('return=minimal'),
+      body:JSON.stringify([{email:ME_().email, set_slug:PAGE_SLUG, activity:k, lang:lang}])}).catch(function(){});
+  }
+  function showDirections(){
+    var lang=document.getElementById('lang-sel').value;
+    var list=document.querySelectorAll('[data-dir]');
+    Array.prototype.forEach.call(list,function(p){
+      var out=p.querySelector('.dirtr');
+      if(!out){ out=document.createElement('span'); out.className='dirtr'; p.appendChild(out); }
+      if(!DIR_ON||!lang){ out.textContent=''; return; }
+      var k=p.getAttribute('data-dir'), en=p.getAttribute('data-en')||'';
+      out.textContent='…';
+      tr(en, lang).then(function(t){
+        out.textContent=t?(t.equiv||t.meaning||''):'';
+        if(out.textContent) logReveal(k, lang);
+      });
+    });
+  }
+  var dirBtn=document.getElementById('btn-dir');
+  if(dirBtn){
+    dirBtn.classList.toggle('on', DIR_ON);
+    dirBtn.addEventListener('click',function(){
+      DIR_ON=!DIR_ON;
+      try{ localStorage.setItem('song_dir', DIR_ON?'1':'0'); }catch(e){}
+      dirBtn.classList.toggle('on', DIR_ON);
+      showDirections();
+    });
+  }
+  var langSel=document.getElementById('lang-sel');
+  if(langSel) langSel.addEventListener('change', function(){ if(DIR_ON) showDirections(); });
+  if(DIR_ON) setTimeout(showDirections, 600);
+
+  /* ---------- tap any word ---------- */
+  var TAP_ON=false;
+  try{ TAP_ON=localStorage.getItem('song_tap')==='1'; }catch(e){}
+  function wrapWords(root){
+    if(root.getAttribute('data-wrapped')) return;
+    root.setAttribute('data-wrapped','1');
+    var walker=document.createTreeWalker(root, NodeFilter.SHOW_TEXT, null), nodes=[], n;
+    while((n=walker.nextNode())) if(n.nodeValue.trim()) nodes.push(n);
+    nodes.forEach(function(node){
+      if(node.parentNode.closest('textarea,input,button,select,.wt-tap')) return;
+      var frag=document.createDocumentFragment();
+      node.nodeValue.split(/(\s+)/).forEach(function(piece){
+        if(!piece.trim()){ frag.appendChild(document.createTextNode(piece)); return; }
+        var s=document.createElement('span');
+        s.className='wt-tap'; s.textContent=piece;
+        frag.appendChild(s);
+      });
+      node.parentNode.replaceChild(frag, node);
+    });
+  }
+  function tapTargets(){ return document.querySelectorAll('[data-tap]'); }
+  function setTap(on){
+    TAP_ON=on;
+    try{ localStorage.setItem('song_tap', on?'1':'0'); }catch(e){}
+    document.body.classList.toggle('tap-on', on);
+    var b=document.getElementById('btn-tap');
+    if(b) b.classList.toggle('on', on);
+    if(on) Array.prototype.forEach.call(tapTargets(), wrapWords);
+  }
+  var tapBtn=document.getElementById('btn-tap');
+  if(tapBtn) tapBtn.addEventListener('click', function(){ setTap(!TAP_ON); });
+  document.addEventListener('click', function(ev){
+    if(!TAP_ON) return;
+    var s=ev.target.closest('.wt-tap'); if(!s) return;
+    var lang=document.getElementById('lang-sel').value;
+    if(!lang){ document.getElementById('lang-sel').focus(); return; }
+    var word=(s.textContent||'').replace(/[^A-Za-zÀ-ÿ'’-]/g,'');
+    if(!word) return;
+    var old=s.getAttribute('data-shown');
+    if(old){ s.removeAttribute('data-shown'); var t=s.querySelector('.wt-bub'); if(t) t.remove(); return; }
+    var bub=document.createElement('span'); bub.className='wt-bub'; bub.textContent='…';
+    s.appendChild(bub); s.setAttribute('data-shown','1');
+    tr(word, lang).then(function(t){ bub.textContent=t?(t.equiv||t.meaning||'?'):'?'; });
+  });
+  if(TAP_ON) setTimeout(function(){ setTap(true); }, 400);
+
+  /* ---------- quiet browser-translation canary ---------- */
+  var CANARY='the quick brown fox jumps over the lazy dog', TR_SENT='';
+  function detectTranslation(){
+    var c=document.getElementById('canary');
+    var got=c?(c.textContent||'').trim().toLowerCase():'';
+    var cls=document.documentElement.className||'';
+    var drift=(c&&got!==CANARY)?got:'';
+    if(!drift&&!/translated|notranslate-off/.test(cls)) return null;
+    return {observed:drift, html_lang:document.documentElement.lang||'', html_class:cls};
+  }
+  function checkTranslation(){
+    var d=detectTranslation();
+    if(!d||!ME_()) return;
+    var sig=d.observed+'|'+d.html_lang;
+    if(sig===TR_SENT) return;
+    TR_SENT=sig;
+    fetch(SUPA_URL+'/rest/v1/page_translation?on_conflict=email,set_slug',{
+      method:'POST', headers:head('resolution=merge-duplicates,return=minimal'),
+      body:JSON.stringify([{email:ME_().email, set_slug:PAGE_SLUG, translated:true,
+        observed:d.observed, html_lang:d.html_lang, html_class:d.html_class,
+        updated_at:new Date().toISOString()}])}).catch(function(){});
+  }
+  window.checkTranslation=checkTranslation;
+  setInterval(checkTranslation, 20000);
+  setTimeout(checkTranslation, 4000);
+})();
+</script>
+<script>
+/* record each direction line's English text so the Directions button can translate it */
+(function(){
+  var d=document.querySelectorAll('[data-dir]');
+  Array.prototype.forEach.call(d,function(p,i){
+    if(!p.getAttribute('data-en')) p.setAttribute('data-en',(p.textContent||'').trim());
+    p.setAttribute('data-dir','panel'+i);
+  });
+})();
+(function(){
+  var g=document.getElementById('gate');
+  function go(){
+    var name=document.getElementById('gName').value.trim();
+    var raw=document.getElementById('gEmail').value.trim().toLowerCase();
+    var per=document.getElementById('gPeriod').value;
+    var err=document.getElementById('gateErr');
+    if(name.length<2){ err.textContent='Please write your name.'; return; }
+    if(!validMail(raw)){ err.textContent='Use your school email \u2014 it ends with @s.sfusd.edu'; return; }
+    if(!per){ err.textContent='Please choose your period.'; return; }
+    var email=canonMail(raw);
+    recordAlias(raw,email); seedStudent(name,email,per);
+    try{ localStorage.setItem('gal_student_email',email); }catch(e){}
+    try{ localStorage.setItem('ll_student_rec',JSON.stringify({name:name,email:email,period:per})); }catch(e){}
+    window.student={name:name,email:email,period:per};
+    g.style.display='none';
+  }
+  document.getElementById('gBtn').addEventListener('click',go);
+  document.getElementById('gEmail').addEventListener('keydown',function(e){ if(e.key==='Enter') go(); });
+  try{
+    var sv=JSON.parse(localStorage.getItem('ll_student_rec')||'null');
+    if(sv&&sv.email){ window.student=sv; g.style.display='none'; }
+    else{
+      var pre=localStorage.getItem('gal_student_email');
+      if(pre) document.getElementById('gEmail').value=pre;
+    }
+  }catch(e){}
+})();
 </script>
 </body>
 </html>
