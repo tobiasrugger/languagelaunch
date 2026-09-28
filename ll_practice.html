@@ -180,6 +180,12 @@ body.l1-off .bi-l1{display:none;}
 .m-mid{color:var(--mango-dk);}   .bg-mid{background:var(--mango);}
 .m-low{color:var(--coral-dk);}   .bg-low{background:var(--coral);}
 .m-none{color:var(--ink-2);}     .bg-none{background:var(--edge);}
+.dirtr{display:block;margin-top:6px;color:var(--sky-dk);font-weight:800;font-size:.95em}
+.tap-on .wt-tap{cursor:pointer;border-bottom:2px dotted var(--sky);}
+.tap-on .wt-tap:hover{background:var(--sky-soft);border-radius:4px}
+.wt-bub{display:inline-block;margin-left:6px;padding:2px 8px;border-radius:8px;
+  background:var(--sky);color:#fff;font-size:.8em;font-weight:800;vertical-align:middle}
+#canary{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
 </style>
 </head>
 <style>
@@ -379,52 +385,52 @@ body.tray-open .fab{display:none!important;}
 
 <!-- ═══════ LOGIN ═══════ -->
 <div id="screen-login" class="screen active">
-  <div class="login-card">
+  <div class="login-card" translate="no" data-tap="1">
     <div class="lion" role="img" aria-label="Galileo Academy lion"></div>
     <div class="brand">Language Launch</div>
     <div class="brand-sub">Vocabulary practice · Galileo Academy</div>
 
     <div class="fld">
-      <label for="inp-period" id="lb-period">Your period</label>
-      <select id="inp-period">
-        <option value="">Choose your period</option>
-        <option value="P1">Period 1</option><option value="P2">Period 2</option>
-        <option value="P3">Period 3</option><option value="P5">Period 5</option>
-        <option value="P6">Period 6</option>
+      <label for="gName" id="lb-name">Your first name</label>
+      <input id="gName" type="text" placeholder="Maria" autocomplete="given-name" autocorrect="off">
+    </div>
+    <div class="fld">
+      <label for="gEmail" id="lb-user">Your school email</label>
+      <input id="gEmail" type="email" placeholder="you@s.sfusd.edu" autocomplete="email"
+             inputmode="email" autocapitalize="off" autocorrect="off">
+    </div>
+    <div class="fld">
+      <label for="gPeriod" id="lb-period">Your period</label>
+      <select id="gPeriod">
+        <option value="">Class period</option>
+        <option>1</option><option>2</option><option>3</option><option>4</option>
+        <option>5</option><option>6</option><option>7</option>
       </select>
     </div>
     <div class="fld">
-      <label for="inp-name" id="lb-name">Your first name</label>
-      <input id="inp-name" type="text" placeholder="Maria" autocomplete="off" autocorrect="off">
-    </div>
-    <div class="fld">
-      <label for="inp-username" id="lb-user">Your school username</label>
-      <input id="inp-username" type="text" placeholder="mgarcia" autocomplete="off" autocapitalize="off" autocorrect="off">
-    </div>
-    <div class="fld">
-      <label for="inp-lang" id="lb-lang">Your home language</label>
-      <select id="inp-lang" onchange="previewLang()">
+      <label for="langSel" id="lb-lang">Your home language</label>
+      <select id="langSel" onchange="previewLang()">
         <option value="">Choose your language</option>
-        <option value="Spanish">Español — Spanish</option>
-        <option value="Cantonese">廣東話 — Cantonese</option>
-        <option value="Mandarin">普通话 — Mandarin</option>
-        <option value="Arabic">العربية — Arabic</option>
-        <option value="Darija">الدارجة — Darija</option>
-        <option value="Vietnamese">Tiếng Việt — Vietnamese</option>
-        <option value="Russian">Русский — Russian</option>
-        <option value="Urdu">اردو — Urdu</option>
-        <option value="Tagalog">Tagalog</option>
-        <option value="French">Français — French</option>
-        <option value="Korean">한국어 — Korean</option>
-        <option value="Hindi">हिन्दी — Hindi</option>
-        <option value="Somali">Soomaali — Somali</option>
-        <option value="Nepali">नेपाली — Nepali</option>
-        <option value="Thai">ไทย — Thai</option>
+        <option value="es">Español — Spanish</option>
+        <option value="zh">中文 — Chinese</option>
+        <option value="ar">العربية — Arabic</option>
+        <option value="vi">Tiếng Việt — Vietnamese</option>
+        <option value="ru">Русский — Russian</option>
+        <option value="ur">اردو — Urdu</option>
+        <option value="tl">Tagalog</option>
+        <option value="fr">Français — French</option>
+        <option value="ko">한국어 — Korean</option>
+        <option value="hi">हिन्दी — Hindi</option>
+        <option value="so">Soomaali — Somali</option>
+        <option value="ne">नेपाली — Nepali</option>
+        <option value="th">ไทย — Thai</option>
       </select>
     </div>
-    <button class="p3 sky btn-wide" id="btn-login" onclick="attemptLogin()">Start</button>
+    <button class="p3 sky btn-wide" id="gBtn" onclick="attemptLogin()">Start</button>
     <div class="login-err" id="login-err"></div>
-    <div class="login-foot">Teachers: type <b>teacher</b> as the username.</div>
+    <div id="gateErr" style="display:none"></div>
+    <div class="login-foot"><a href="ll_dashboard.html" style="color:var(--ink-2)">Teacher dashboard</a></div>
+
   </div>
 </div>
 
@@ -437,6 +443,8 @@ body.tray-open .fab{display:none!important;}
       <div class="tb-meta" id="tb-meta">—</div>
     </div>
     <button class="tb-btn" id="tb-l1" onclick="toggleL1()" title="Show my language">文</button>
+    <button class="tb-btn" id="btn-dir" title="Show the directions in your language">Dir</button>
+    <button class="tb-btn" id="btn-tap" title="Tap any word for its meaning">Tap</button>
     <button class="tb-btn" onclick="openSettings()" title="Settings">⚙</button>
     <div class="tb-pts">⭐ <span id="tb-pts">0</span></div>
   </div>
@@ -448,7 +456,7 @@ body.tray-open .fab{display:none!important;}
         <span class="bi-l1" id="home-sub-l1"></span>
       </p>
     </div>
-    <div class="sets" id="set-list"></div>
+    <div class="sets" id="set-list" translate="no" data-tap="1"></div>
   </div>
 </div>
 
@@ -542,18 +550,12 @@ let CFG = {
 };
 
 /* Language name → UI code + word-translation code + text direction */
-const LANGMAP = {
-  Spanish:{ui:'es',tr:'es'},      Cantonese:{ui:'yue',tr:'zh'},  Mandarin:{ui:'zh',tr:'zh'},
-  Arabic:{ui:'ar',tr:'ar',rtl:1}, Darija:{ui:'ary',tr:'ar',rtl:1}, Vietnamese:{ui:'vi',tr:'vi'},
-  Russian:{ui:'ru',tr:'ru'},      Urdu:{ui:'ur',tr:'ur',rtl:1},  Tagalog:{ui:'tl',tr:'tl'},
-  French:{ui:'fr',tr:'fr'},       Korean:{ui:'ko',tr:'ko'},      Hindi:{ui:'hi',tr:'hi'},
-  Somali:{ui:'so',tr:'so'},       Nepali:{ui:'ne',tr:'ne'},   Thai:{ui:'th',tr:'th'}
-};
+
 
 /* ════════ UI STRINGS ════════ */
 const UI = {
-en:{period:"Your period",name:"Your first name",user:"Your school username",lang:"Your home language",start:"Start",
-ePeriod:"Choose your period.",eName:"Type your first name.",eUser:"Type your username.",eLang:"Choose your language.",
+en:{period:"Your period",name:"Your first name",user:"Your school email",lang:"Your home language",start:"Start",
+ePeriod:"Choose your period.",eName:"Type your first name.",eUser:"Type your username.",eEmail:"Use your school email — it ends with @s.sfusd.edu",eLang:"Choose your language.",
 eNotFound:"We can't find that username. Check the spelling or ask your teacher.",
 pick:"Pick a set and start practicing.",notStarted:"Not started",inProgress:"Keep going",done:"Done",
 qOf:"Question {n} of {t}",chooseMeaning:"Choose the correct meaning.",trueFalse:"Is this true or false?",
@@ -564,8 +566,8 @@ none:"Not started",practiced:"words practiced",emptyPanel:"Finish a set to see y
 biTitle:"Keep your language on?",biBody:"You can read instructions in English and your language, or in English only.",
 biKeep:"Keep both languages",biEng:"English only",biNote:"You can change this anytime.",showL1:"Show my language"},
 
-es:{period:"Tu período",name:"Tu nombre",user:"Tu usuario de la escuela",lang:"Tu idioma",start:"Empezar",
-ePeriod:"Elige tu período.",eName:"Escribe tu nombre.",eUser:"Escribe tu usuario.",eLang:"Elige tu idioma.",
+es:{period:"Tu período",name:"Tu nombre",user:"Tu correo de la escuela",lang:"Tu idioma",start:"Empezar",
+ePeriod:"Elige tu período.",eName:"Escribe tu nombre.",eUser:"Escribe tu usuario.",eEmail:"Usa tu correo de la escuela — termina en @s.sfusd.edu",eLang:"Elige tu idioma.",
 eNotFound:"No encontramos ese usuario. Revisa cómo lo escribiste o pregúntale a tu maestro.",
 pick:"Elige un grupo y empieza a practicar.",notStarted:"Sin empezar",inProgress:"Sigue así",done:"Terminado",
 qOf:"Pregunta {n} de {t}",chooseMeaning:"Elige el significado correcto.",trueFalse:"¿Esto es verdadero o falso?",
@@ -576,8 +578,8 @@ none:"Sin empezar",practiced:"palabras practicadas",emptyPanel:"Termina un grupo
 biTitle:"¿Quieres seguir viendo tu idioma?",biBody:"Puedes leer las instrucciones en inglés y en tu idioma, o solo en inglés.",
 biKeep:"Los dos idiomas",biEng:"Solo inglés",biNote:"Puedes cambiarlo cuando quieras.",showL1:"Mostrar mi idioma"},
 
-zh:{period:"你的班次",name:"你的名字",user:"学校用户名",lang:"你的母语",start:"开始",
-ePeriod:"请选择你的班次。",eName:"请输入你的名字。",eUser:"请输入你的用户名。",eLang:"请选择你的语言。",
+zh:{period:"你的班次",name:"你的名字",user:"学校邮箱",lang:"你的母语",start:"开始",
+ePeriod:"请选择你的班次。",eName:"请输入你的名字。",eUser:"请输入你的用户名。",eEmail:"请使用学校邮箱 — 以 @s.sfusd.edu 结尾",eLang:"请选择你的语言。",
 eNotFound:"找不到这个用户名。请检查拼写，或问老师。",
 pick:"选择一组，开始练习。",notStarted:"未开始",inProgress:"继续加油",done:"已完成",
 qOf:"第 {n} 题，共 {t} 题",chooseMeaning:"选择正确的意思。",trueFalse:"这句话是对还是错？",
@@ -588,8 +590,8 @@ none:"未开始",practiced:"个词已练习",emptyPanel:"完成一组后，这�
 biTitle:"要继续显示你的语言吗？",biBody:"你可以用英语和你的语言看说明，也可以只用英语。",
 biKeep:"两种语言",biEng:"只用英语",biNote:"你随时可以改。",showL1:"显示我的语言"},
 
-yue:{period:"你嘅堂數",name:"你嘅名",user:"學校用戶名",lang:"你嘅母語",start:"開始",
-ePeriod:"請揀你嘅堂數。",eName:"請寫你嘅名。",eUser:"請寫你嘅用戶名。",eLang:"請揀你嘅語言。",
+yue:{period:"你嘅堂數",name:"你嘅名",user:"學校電郵",lang:"你嘅母語",start:"開始",
+ePeriod:"請揀你嘅堂數。",eName:"請寫你嘅名。",eUser:"請寫你嘅用戶名。",eEmail:"請用學校電郵 — 以 @s.sfusd.edu 結尾",eLang:"請揀你嘅語言。",
 eNotFound:"搵唔到呢個用戶名。請再睇清楚，或者問老師。",
 pick:"揀一組，開始練習。",notStarted:"未開始",inProgress:"繼續加油",done:"完成",
 qOf:"第 {n} 題，共 {t} 題",chooseMeaning:"揀出正確嘅意思。",trueFalse:"呢句係啱定錯？",
@@ -600,8 +602,8 @@ none:"未開始",practiced:"個詞語練習咗",emptyPanel:"完成一組之後�
 biTitle:"想繼續睇你嘅語言嗎？",biBody:"你可以用英文同你嘅語言睇指示，或者淨係用英文。",
 biKeep:"兩種語言",biEng:"淨係英文",biNote:"你隨時可以改返。",showL1:"顯示我嘅語言"},
 
-ar:{period:"الحصة",name:"اسمك الأول",user:"اسم المستخدم في المدرسة",lang:"لغتك",start:"ابدأ",
-ePeriod:"اختر الحصة.",eName:"اكتب اسمك.",eUser:"اكتب اسم المستخدم.",eLang:"اختر لغتك.",
+ar:{period:"الحصة",name:"اسمك الأول",user:"بريد المدرسة",lang:"لغتك",start:"ابدأ",
+ePeriod:"اختر الحصة.",eName:"اكتب اسمك.",eUser:"اكتب اسم المستخدم.",eEmail:"استخدم بريد المدرسة — ينتهي بـ @s.sfusd.edu",eLang:"اختر لغتك.",
 eNotFound:"لم نجد اسم المستخدم. تحقق من الكتابة أو اسأل معلمك.",
 pick:"اختر مجموعة وابدأ التدريب.",notStarted:"لم تبدأ",inProgress:"واصل",done:"تم",
 qOf:"سؤال {n} من {t}",chooseMeaning:"اختر المعنى الصحيح.",trueFalse:"هل هذا صحيح أم خطأ؟",
@@ -612,8 +614,8 @@ none:"لم تبدأ",practiced:"كلمة تدربت عليها",emptyPanel:"أك
 biTitle:"هل تريد إبقاء لغتك؟",biBody:"يمكنك قراءة التعليمات بالإنجليزية ولغتك، أو بالإنجليزية فقط.",
 biKeep:"اللغتان معًا",biEng:"الإنجليزية فقط",biNote:"يمكنك تغيير هذا في أي وقت.",showL1:"اعرض لغتي"},
 
-ary:{period:"الحصة ديالك",name:"سميتك",user:"اسم المستخدم ديال المدرسة",lang:"اللغة ديالك",start:"بدا",
-ePeriod:"ختار الحصة ديالك.",eName:"كتب سميتك.",eUser:"كتب اسم المستخدم ديالك.",eLang:"ختار اللغة ديالك.",
+ary:{period:"الحصة ديالك",name:"سميتك",user:"الإيميل ديال المدرسة",lang:"اللغة ديالك",start:"بدا",
+ePeriod:"ختار الحصة ديالك.",eName:"كتب سميتك.",eUser:"كتب اسم المستخدم ديالك.",eEmail:"استعمل الإيميل ديال المدرسة — كيسالي ب @s.sfusd.edu",eLang:"ختار اللغة ديالك.",
 eNotFound:"ما لقيناش هاد اسم المستخدم. شوف الكتابة ولا سول الأستاذ.",
 pick:"ختار مجموعة وبدا تتمرن.",notStarted:"مابداتيش",inProgress:"كمّل",done:"سالا",
 qOf:"سؤال {n} من {t}",chooseMeaning:"ختار المعنى الصحيح.",trueFalse:"واش هادشي صحيح ولا غالط؟",
@@ -624,8 +626,8 @@ none:"مابداتيش",practiced:"كلمة تمرنتي عليها",emptyPanel:
 biTitle:"بغيتي تبقى اللغة ديالك؟",biBody:"تقدر تقرا التعليمات بالإنجليزية واللغة ديالك، ولا غير بالإنجليزية.",
 biKeep:"جوج لغات",biEng:"غير الإنجليزية",biNote:"تقدر تبدلها فأي وقت.",showL1:"ورّي اللغة ديالي"},
 
-vi:{period:"Tiết học của bạn",name:"Tên của bạn",user:"Tên đăng nhập của trường",lang:"Tiếng mẹ đẻ",start:"Bắt đầu",
-ePeriod:"Hãy chọn tiết học.",eName:"Hãy nhập tên của bạn.",eUser:"Hãy nhập tên đăng nhập.",eLang:"Hãy chọn ngôn ngữ.",
+vi:{period:"Tiết học của bạn",name:"Tên của bạn",user:"Email của trường",lang:"Tiếng mẹ đẻ",start:"Bắt đầu",
+ePeriod:"Hãy chọn tiết học.",eName:"Hãy nhập tên của bạn.",eUser:"Hãy nhập tên đăng nhập.",eEmail:"Dùng email trường — kết thúc bằng @s.sfusd.edu",eLang:"Hãy chọn ngôn ngữ.",
 eNotFound:"Không tìm thấy tên đăng nhập. Hãy kiểm tra lại hoặc hỏi thầy cô.",
 pick:"Chọn một nhóm và bắt đầu luyện tập.",notStarted:"Chưa bắt đầu",inProgress:"Tiếp tục nhé",done:"Xong",
 qOf:"Câu {n} trên {t}",chooseMeaning:"Chọn nghĩa đúng.",trueFalse:"Câu này đúng hay sai?",
@@ -636,8 +638,8 @@ none:"Chưa bắt đầu",practiced:"từ đã luyện",emptyPanel:"Hoàn thành
 biTitle:"Giữ ngôn ngữ của bạn chứ?",biBody:"Bạn có thể đọc hướng dẫn bằng tiếng Anh và tiếng mẹ đẻ, hoặc chỉ tiếng Anh.",
 biKeep:"Cả hai thứ tiếng",biEng:"Chỉ tiếng Anh",biNote:"Bạn có thể đổi bất cứ lúc nào.",showL1:"Hiện tiếng của tôi"},
 
-ru:{period:"Твой урок",name:"Твоё имя",user:"Школьный логин",lang:"Твой язык",start:"Начать",
-ePeriod:"Выбери урок.",eName:"Напиши своё имя.",eUser:"Напиши свой логин.",eLang:"Выбери язык.",
+ru:{period:"Твой урок",name:"Твоё имя",user:"Школьная почта",lang:"Твой язык",start:"Начать",
+ePeriod:"Выбери урок.",eName:"Напиши своё имя.",eUser:"Напиши свой логин.",eEmail:"Используй школьную почту — она заканчивается на @s.sfusd.edu",eLang:"Выбери язык.",
 eNotFound:"Такой логин не найден. Проверь написание или спроси учителя.",
 pick:"Выбери набор и начни практику.",notStarted:"Не начато",inProgress:"Продолжай",done:"Готово",
 qOf:"Вопрос {n} из {t}",chooseMeaning:"Выбери правильное значение.",trueFalse:"Это правда или нет?",
@@ -648,8 +650,8 @@ none:"Не начато",practiced:"слов пройдено",emptyPanel:"Пр�
 biTitle:"Оставить твой язык?",biBody:"Можно читать задания на английском и твоём языке или только на английском.",
 biKeep:"Два языка",biEng:"Только английский",biNote:"Это можно изменить в любой момент.",showL1:"Показать мой язык"},
 
-ur:{period:"آپ کا پیریڈ",name:"آپ کا نام",user:"اسکول یوزرنیم",lang:"آپ کی زبان",start:"شروع کریں",
-ePeriod:"اپنا پیریڈ چنیں۔",eName:"اپنا نام لکھیں۔",eUser:"اپنا یوزرنیم لکھیں۔",eLang:"اپنی زبان چنیں۔",
+ur:{period:"آپ کا پیریڈ",name:"آپ کا نام",user:"اسکول ای میل",lang:"آپ کی زبان",start:"شروع کریں",
+ePeriod:"اپنا پیریڈ چنیں۔",eName:"اپنا نام لکھیں۔",eUser:"اپنا یوزرنیم لکھیں۔",eEmail:"اسکول کا ای میل استعمال کریں — یہ @s.sfusd.edu پر ختم ہوتا ہے",eLang:"اپنی زبان چنیں۔",
 eNotFound:"یہ یوزرنیم نہیں ملا۔ ہجے دیکھیں یا استاد سے پوچھیں۔",
 pick:"ایک سیٹ چنیں اور مشق شروع کریں۔",notStarted:"شروع نہیں کیا",inProgress:"جاری رکھیں",done:"مکمل",
 qOf:"سوال {n} از {t}",chooseMeaning:"درست مطلب چنیں۔",trueFalse:"کیا یہ درست ہے یا غلط؟",
@@ -660,8 +662,8 @@ none:"شروع نہیں کیا",practiced:"الفاظ کی مشق ہوئی",empt
 biTitle:"اپنی زبان رکھنی ہے؟",biBody:"آپ ہدایات انگریزی اور اپنی زبان میں پڑھ سکتے ہیں، یا صرف انگریزی میں۔",
 biKeep:"دونوں زبانیں",biEng:"صرف انگریزی",biNote:"آپ اسے کبھی بھی بدل سکتے ہیں۔",showL1:"میری زبان دکھائیں"},
 
-tl:{period:"Ang period mo",name:"Ang pangalan mo",user:"Username sa paaralan",lang:"Ang wika mo",start:"Simulan",
-ePeriod:"Pumili ng period.",eName:"Isulat ang pangalan mo.",eUser:"Isulat ang username mo.",eLang:"Pumili ng wika.",
+tl:{period:"Ang period mo",name:"Ang pangalan mo",user:"Email ng paaralan",lang:"Ang wika mo",start:"Simulan",
+ePeriod:"Pumili ng period.",eName:"Isulat ang pangalan mo.",eUser:"Isulat ang username mo.",eEmail:"Gamitin ang email ng paaralan — nagtatapos sa @s.sfusd.edu",eLang:"Pumili ng wika.",
 eNotFound:"Hindi mahanap ang username. Tingnan ang baybay o tanungin ang guro.",
 pick:"Pumili ng set at magsimulang magsanay.",notStarted:"Hindi pa nagsisimula",inProgress:"Tuloy lang",done:"Tapos na",
 qOf:"Tanong {n} sa {t}",chooseMeaning:"Piliin ang tamang kahulugan.",trueFalse:"Tama ba ito o mali?",
@@ -672,8 +674,8 @@ none:"Hindi pa nagsisimula",practiced:"salitang napag-aralan",emptyPanel:"Tapusi
 biTitle:"Itutuloy ang wika mo?",biBody:"Pwede mong basahin ang tagubilin sa Ingles at sa wika mo, o sa Ingles lang.",
 biKeep:"Dalawang wika",biEng:"Ingles lang",biNote:"Pwede mong baguhin anumang oras.",showL1:"Ipakita ang wika ko"},
 
-fr:{period:"Ton cours",name:"Ton prénom",user:"Ton identifiant scolaire",lang:"Ta langue",start:"Commencer",
-ePeriod:"Choisis ton cours.",eName:"Écris ton prénom.",eUser:"Écris ton identifiant.",eLang:"Choisis ta langue.",
+fr:{period:"Ton cours",name:"Ton prénom",user:"Ton e-mail scolaire",lang:"Ta langue",start:"Commencer",
+ePeriod:"Choisis ton cours.",eName:"Écris ton prénom.",eUser:"Écris ton identifiant.",eEmail:"Utilise ton e-mail scolaire — il finit par @s.sfusd.edu",eLang:"Choisis ta langue.",
 eNotFound:"Identifiant introuvable. Vérifie l'orthographe ou demande à ton professeur.",
 pick:"Choisis un ensemble et commence à t'entraîner.",notStarted:"Pas commencé",inProgress:"Continue",done:"Terminé",
 qOf:"Question {n} sur {t}",chooseMeaning:"Choisis le bon sens.",trueFalse:"Est-ce vrai ou faux ?",
@@ -684,8 +686,8 @@ none:"Pas commencé",practiced:"mots travaillés",emptyPanel:"Termine un ensembl
 biTitle:"Garder ta langue ?",biBody:"Tu peux lire les consignes en anglais et dans ta langue, ou en anglais seulement.",
 biKeep:"Les deux langues",biEng:"Anglais seulement",biNote:"Tu peux changer quand tu veux.",showL1:"Afficher ma langue"},
 
-ko:{period:"수업 시간",name:"이름",user:"학교 아이디",lang:"모국어",start:"시작",
-ePeriod:"수업 시간을 선택하세요.",eName:"이름을 입력하세요.",eUser:"아이디를 입력하세요.",eLang:"언어를 선택하세요.",
+ko:{period:"수업 시간",name:"이름",user:"학교 이메일",lang:"모국어",start:"시작",
+ePeriod:"수업 시간을 선택하세요.",eName:"이름을 입력하세요.",eUser:"아이디를 입력하세요.",eEmail:"학교 이메일을 사용하세요 — @s.sfusd.edu 로 끝납니다",eLang:"언어를 선택하세요.",
 eNotFound:"아이디를 찾을 수 없습니다. 철자를 확인하거나 선생님께 물어보세요.",
 pick:"세트를 골라 연습을 시작하세요.",notStarted:"시작 전",inProgress:"계속하세요",done:"완료",
 qOf:"{t}문제 중 {n}번",chooseMeaning:"알맞은 뜻을 고르세요.",trueFalse:"맞나요, 틀리나요?",
@@ -696,8 +698,8 @@ none:"시작 전",practiced:"개 단어 연습함",emptyPanel:"세트를 완료�
 biTitle:"모국어를 계속 볼까요?",biBody:"설명을 영어와 모국어로 읽거나, 영어로만 읽을 수 있어요.",
 biKeep:"두 언어 모두",biEng:"영어만",biNote:"언제든지 바꿀 수 있어요.",showL1:"내 언어 보기"},
 
-hi:{period:"आपका पीरियड",name:"आपका नाम",user:"स्कूल यूज़रनेम",lang:"आपकी भाषा",start:"शुरू करें",
-ePeriod:"अपना पीरियड चुनें।",eName:"अपना नाम लिखें।",eUser:"अपना यूज़रनेम लिखें।",eLang:"अपनी भाषा चुनें।",
+hi:{period:"आपका पीरियड",name:"आपका नाम",user:"स्कूल ईमेल",lang:"आपकी भाषा",start:"शुरू करें",
+ePeriod:"अपना पीरियड चुनें।",eName:"अपना नाम लिखें।",eUser:"अपना यूज़रनेम लिखें।",eEmail:"स्कूल ईमेल का उपयोग करें — यह @s.sfusd.edu पर समाप्त होता है",eLang:"अपनी भाषा चुनें।",
 eNotFound:"यह यूज़रनेम नहीं मिला। वर्तनी जाँचें या शिक्षक से पूछें।",
 pick:"एक सेट चुनें और अभ्यास शुरू करें।",notStarted:"शुरू नहीं किया",inProgress:"जारी रखें",done:"पूरा",
 qOf:"प्रश्न {n} / {t}",chooseMeaning:"सही अर्थ चुनें।",trueFalse:"यह सही है या गलत?",
@@ -708,8 +710,8 @@ none:"शुरू नहीं किया",practiced:"शब्दों क�
 biTitle:"अपनी भाषा रखें?",biBody:"आप निर्देश अंग्रेज़ी और अपनी भाषा में पढ़ सकते हैं, या केवल अंग्रेज़ी में।",
 biKeep:"दोनों भाषाएँ",biEng:"केवल अंग्रेज़ी",biNote:"आप इसे कभी भी बदल सकते हैं।",showL1:"मेरी भाषा दिखाएँ"},
 
-so:{period:"Fasalkaaga",name:"Magacaaga",user:"Username-ka dugsiga",lang:"Luqaddaada",start:"Bilow",
-ePeriod:"Dooro fasalkaaga.",eName:"Qor magacaaga.",eUser:"Qor username-kaaga.",eLang:"Dooro luqaddaada.",
+so:{period:"Fasalkaaga",name:"Magacaaga",user:"Emaylka dugsiga",lang:"Luqaddaada",start:"Bilow",
+ePeriod:"Dooro fasalkaaga.",eName:"Qor magacaaga.",eUser:"Qor username-kaaga.",eEmail:"Isticmaal emaylka dugsiga — wuxuu ku dhammaadaa @s.sfusd.edu",eLang:"Dooro luqaddaada.",
 eNotFound:"Username-kaas lama helin. Hubi qorista ama weydii macallinkaaga.",
 pick:"Dooro koox oo bilow tababarka.",notStarted:"Lama bilaabin",inProgress:"Sii wad",done:"Dhammaystiran",
 qOf:"Su'aal {n} ka mid ah {t}",chooseMeaning:"Dooro macnaha saxda ah.",trueFalse:"Ma sax baa mise khalad?",
@@ -720,8 +722,8 @@ none:"Lama bilaabin",practiced:"eray oo la tababaray",emptyPanel:"Dhammayso koox
 biTitle:"Ma sii haysaa luqaddaada?",biBody:"Waxaad tilmaamaha ku akhrisan kartaa Ingiriisi iyo luqaddaada, ama Ingiriisi kaliya.",
 biKeep:"Labada luqadood",biEng:"Ingiriisi kaliya",biNote:"Waad bedeli kartaa wakhti kasta.",showL1:"Tus luqaddayda"},
 
-ne:{period:"तपाईंको पिरियड",name:"तपाईंको नाम",user:"विद्यालयको युजरनेम",lang:"तपाईंको भाषा",start:"सुरु गर्नुहोस्",
-ePeriod:"आफ्नो पिरियड छान्नुहोस्।",eName:"आफ्नो नाम लेख्नुहोस्।",eUser:"आफ्नो युजरनेम लेख्नुहोस्।",eLang:"आफ्नो भाषा छान्नुहोस्।",
+ne:{period:"तपाईंको पिरियड",name:"तपाईंको नाम",user:"विद्यालयको इमेल",lang:"तपाईंको भाषा",start:"सुरु गर्नुहोस्",
+ePeriod:"आफ्नो पिरियड छान्नुहोस्।",eName:"आफ्नो नाम लेख्नुहोस्।",eUser:"आफ्नो युजरनेम लेख्नुहोस्।",eEmail:"विद्यालयको इमेल प्रयोग गर्नुहोस् — यो @s.sfusd.edu मा सकिन्छ",eLang:"आफ्नो भाषा छान्नुहोस्।",
 eNotFound:"यो युजरनेम भेटिएन। हिज्जे जाँच्नुहोस् वा शिक्षकलाई सोध्नुहोस्।",
 pick:"एउटा सेट छानेर अभ्यास सुरु गर्नुहोस्।",notStarted:"सुरु भएको छैन",inProgress:"जारी राख्नुहोस्",done:"सकियो",
 qOf:"प्रश्न {n} / {t}",chooseMeaning:"सही अर्थ छान्नुहोस्।",trueFalse:"यो सही हो कि गलत?",
@@ -732,8 +734,8 @@ none:"सुरु भएको छैन",practiced:"शब्द अभ्य�
 biTitle:"आफ्नो भाषा राख्ने?",biBody:"तपाईं निर्देशन अंग्रेजी र आफ्नो भाषामा पढ्न सक्नुहुन्छ, वा अंग्रेजीमा मात्र।",
 biKeep:"दुवै भाषा",biEng:"अंग्रेजी मात्र",biNote:"तपाईं जुनसुकै बेला परिवर्तन गर्न सक्नुहुन्छ।",showL1:"मेरो भाषा देखाउनुहोस्"},
 
-th:{period:"คาบเรียนของคุณ",name:"ชื่อของคุณ",user:"ชื่อผู้ใช้ของโรงเรียน",lang:"ภาษาของคุณ",start:"เริ่ม",
-ePeriod:"เลือกคาบเรียนของคุณ",eName:"พิมพ์ชื่อของคุณ",eUser:"พิมพ์ชื่อผู้ใช้ของคุณ",eLang:"เลือกภาษาของคุณ",
+th:{period:"คาบเรียนของคุณ",name:"ชื่อของคุณ",user:"อีเมลของโรงเรียน",lang:"ภาษาของคุณ",start:"เริ่ม",
+ePeriod:"เลือกคาบเรียนของคุณ",eName:"พิมพ์ชื่อของคุณ",eUser:"พิมพ์ชื่อผู้ใช้ของคุณ",eEmail:"ใช้อีเมลของโรงเรียน — ลงท้ายด้วย @s.sfusd.edu",eLang:"เลือกภาษาของคุณ",
 eNotFound:"ไม่พบชื่อผู้ใช้นี้ ตรวจสอบตัวสะกดหรือถามครู",
 pick:"เลือกชุดคำศัพท์แล้วเริ่มฝึก",notStarted:"ยังไม่เริ่ม",inProgress:"ทำต่อไป",done:"เสร็จแล้ว",
 qOf:"ข้อ {n} จาก {t}",chooseMeaning:"เลือกความหมายที่ถูกต้อง",trueFalse:"ข้อนี้ถูกหรือผิด",
@@ -749,12 +751,11 @@ biKeep:"สองภาษา",biEng:"ภาษาอังกฤษเท่า
 function t(k,vars){ let s = (UI.en[k]||k); return fill(s,vars); }
 function tl1(k,vars){
   if(!L1_ON) return '';
-  const m = LANGMAP[SESSION.lang]; if(!m) return '';
-  const pack = UI[m.ui]; if(!pack||!pack[k]) return '';
+  const pack = UI[SESSION.lang]; if(!pack||!pack[k]) return '';
   return fill(pack[k],vars);
 }
 function fill(s,vars){ if(!vars) return s; return s.replace(/\{(\w+)\}/g,(_,k)=> vars[k]!==undefined?vars[k]:''); }
-function isRTL(){ const m=LANGMAP[SESSION.lang]; return !!(m&&m.rtl); }
+function isRTL(){ return ['ar','ur'].indexOf(SESSION.lang) !== -1; }
 /* Renders an English line plus the student's language underneath it. */
 function bi(k,vars){
   const l1 = tl1(k,vars);
@@ -763,205 +764,7 @@ function bi(k,vars){
 }
 
 /* ════════ ROSTER ════════ */
-const ROSTER = {
-  'teacher': { name: 'Teacher', period: null, special: 'teacher' },
-  'other':   { name: 'Guest',   period: null, special: 'other'   },
-  // ── Period 1 ──
-  'shabantomejia': { name: 'Shaskia', last: 'Abanto Mejia', period: 'P1', email: 'shabantomejia@s.sfusd.edu' },
-  'shabantomejia@s.sfusd.edu': { name: 'Shaskia', last: 'Abanto Mejia', period: 'P1', email: 'shabantomejia@s.sfusd.edu', alias: true },
-  'lebamacajeronimo': { name: 'Lester', last: 'Bamaca Jeronimo', period: 'P1', email: 'lebamacajeronimo@s.sfusd.edu' },
-  'lebamacajeronimo@s.sfusd.edu': { name: 'Lester', last: 'Bamaca Jeronimo', period: 'P1', email: 'lebamacajeronimo@s.sfusd.edu', alias: true },
-  'khbenzahra': { name: 'Khawla', last: 'Benzahra', period: 'P1', email: 'khbenzahra@s.sfusd.edu' },
-  'khbenzahra@s.sfusd.edu': { name: 'Khawla', last: 'Benzahra', period: 'P1', email: 'khbenzahra@s.sfusd.edu', alias: true },
-  'mobojorquezmartin': { name: 'Monica', last: 'Bojorquez Martinez', period: 'P1', email: 'mobojorquezmartin@s.sfusd.edu' },
-  'mobojorquezmartin@s.sfusd.edu': { name: 'Monica', last: 'Bojorquez Martinez', period: 'P1', email: 'mobojorquezmartin@s.sfusd.edu', alias: true },
-  'wicerratomeza': { name: 'William', last: 'Cerrato Meza', period: 'P1', email: 'wicerratomeza@s.sfusd.edu' },
-  'wicerratomeza@s.sfusd.edu': { name: 'William', last: 'Cerrato Meza', period: 'P1', email: 'wicerratomeza@s.sfusd.edu', alias: true },
-  'jodonischirin': { name: 'Jorge', last: 'Donis Chirin', period: 'P1', email: 'jodonischirin@s.sfusd.edu' },
-  'jodonischirin@s.sfusd.edu': { name: 'Jorge', last: 'Donis Chirin', period: 'P1', email: 'jodonischirin@s.sfusd.edu', alias: true },
-  'chhuang26': { name: 'Chong Zu', last: 'Huang', period: 'P1', email: 'chhuang26@s.sfusd.edu' },
-  'chhuang26@s.sfusd.edu': { name: 'Chong Zu', last: 'Huang', period: 'P1', email: 'chhuang26@s.sfusd.edu', alias: true },
-  'zekauilkantun': { name: 'Zeidy', last: 'Kauil Kantun', period: 'P1', email: 'zekauilkantun@s.sfusd.edu' },
-  'zekauilkantun@s.sfusd.edu': { name: 'Zeidy', last: 'Kauil Kantun', period: 'P1', email: 'zekauilkantun@s.sfusd.edu', alias: true },
-  'bili2': { name: 'Binghui', last: 'Li', period: 'P1', email: 'bili2@s.sfusd.edu' },
-  'bili2@s.sfusd.edu': { name: 'Binghui', last: 'Li', period: 'P1', email: 'bili2@s.sfusd.edu', alias: true },
-  'zoli6': { name: 'Zongyuan', last: 'Li', period: 'P1', email: 'zoli6@s.sfusd.edu' },
-  'zoli6@s.sfusd.edu': { name: 'Zongyuan', last: 'Li', period: 'P1', email: 'zoli6@s.sfusd.edu', alias: true },
-  'xiliang12': { name: 'Xinrui', last: 'Liang', period: 'P1', email: 'xiliang12@s.sfusd.edu' },
-  'xiliang12@s.sfusd.edu': { name: 'Xinrui', last: 'Liang', period: 'P1', email: 'xiliang12@s.sfusd.edu', alias: true },
-  'phlieu': { name: 'Phuc', last: 'Lieu', period: 'P1', email: 'phlieu@s.sfusd.edu' },
-  'phlieu@s.sfusd.edu': { name: 'Phuc', last: 'Lieu', period: 'P1', email: 'phlieu@s.sfusd.edu', alias: true },
-  'joliu18': { name: 'Johnny', last: 'Liu', period: 'P1', email: 'joliu18@s.sfusd.edu' },
-  'joliu18@s.sfusd.edu': { name: 'Johnny', last: 'Liu', period: 'P1', email: 'joliu18@s.sfusd.edu', alias: true },
-  'emluo4': { name: 'Emily', last: 'Luo', period: 'P1', email: 'emluo4@s.sfusd.edu' },
-  'emluo4@s.sfusd.edu': { name: 'Emily', last: 'Luo', period: 'P1', email: 'emluo4@s.sfusd.edu', alias: true },
-  'jima11': { name: 'Jiahao', last: 'Ma', period: 'P1', email: 'jima11@s.sfusd.edu' },
-  'jima11@s.sfusd.edu': { name: 'Jiahao', last: 'Ma', period: 'P1', email: 'jima11@s.sfusd.edu', alias: true },
-  'mamayquintal': { name: 'Marcos', last: 'May Quintal', period: 'P1', email: 'mamayquintal@s.sfusd.edu' },
-  'mamayquintal@s.sfusd.edu': { name: 'Marcos', last: 'May Quintal', period: 'P1', email: 'mamayquintal@s.sfusd.edu', alias: true },
-  'vimoleirocorrales': { name: 'Victoria', last: 'Moleiro Corrales', period: 'P1', email: 'vimoleirocorrales@s.sfusd.edu' },
-  'vimoleirocorrales@s.sfusd.edu': { name: 'Victoria', last: 'Moleiro Corrales', period: 'P1', email: 'vimoleirocorrales@s.sfusd.edu', alias: true },
-  'trngo': { name: 'Truong', last: 'Ngo', period: 'P1', email: 'trngo@s.sfusd.edu' },
-  'trngo@s.sfusd.edu': { name: 'Truong', last: 'Ngo', period: 'P1', email: 'trngo@s.sfusd.edu', alias: true },
-  'tatruong2': { name: 'Tam', last: 'Nguyen', period: 'P1', email: 'tatruong2@s.sfusd.edu' },
-  'tatruong2@s.sfusd.edu': { name: 'Tam', last: 'Nguyen', period: 'P1', email: 'tatruong2@s.sfusd.edu', alias: true },
-  'mapozoceli': { name: 'Mariemilia', last: 'Pozo Celi', period: 'P1', email: 'mapozoceli@s.sfusd.edu' },
-  'mapozoceli@s.sfusd.edu': { name: 'Mariemilia', last: 'Pozo Celi', period: 'P1', email: 'mapozoceli@s.sfusd.edu', alias: true },
-  'morachedi': { name: 'Mohammed', last: 'Rachedi', period: 'P1', email: 'morachedi@s.sfusd.edu' },
-  'morachedi@s.sfusd.edu': { name: 'Mohammed', last: 'Rachedi', period: 'P1', email: 'morachedi@s.sfusd.edu', alias: true },
-  'alramosgarcia': { name: 'Allan', last: 'Ramos Garcia', period: 'P1', email: 'alramosgarcia@s.sfusd.edu' },
-  'alramosgarcia@s.sfusd.edu': { name: 'Allan', last: 'Ramos Garcia', period: 'P1', email: 'alramosgarcia@s.sfusd.edu', alias: true },
-  'josolerboquin': { name: 'Jonathan', last: 'Soler Boquin', period: 'P1', email: 'josolerboquin@s.sfusd.edu' },
-  'josolerboquin@s.sfusd.edu': { name: 'Jonathan', last: 'Soler Boquin', period: 'P1', email: 'josolerboquin@s.sfusd.edu', alias: true },
-  'rosuriasolito': { name: 'Rodrigo', last: 'Suria Solito', period: 'P1', email: 'rosuriasolito@s.sfusd.edu' },
-  'rosuriasolito@s.sfusd.edu': { name: 'Rodrigo', last: 'Suria Solito', period: 'P1', email: 'rosuriasolito@s.sfusd.edu', alias: true },
-  'xuwu3': { name: 'Xueyi', last: 'Wu', period: 'P1', email: 'xuwu3@s.sfusd.edu' },
-  'xuwu3@s.sfusd.edu': { name: 'Xueyi', last: 'Wu', period: 'P1', email: 'xuwu3@s.sfusd.edu', alias: true },
-  'kaxue': { name: 'Kaiwei', last: 'Xue', period: 'P1', email: 'kaxue@s.sfusd.edu' },
-  'kaxue@s.sfusd.edu': { name: 'Kaiwei', last: 'Xue', period: 'P1', email: 'kaxue@s.sfusd.edu', alias: true },
-  'lezhou4': { name: 'Leyi', last: 'Zhou', period: 'P1', email: 'lezhou4@s.sfusd.edu' },
-  'lezhou4@s.sfusd.edu': { name: 'Leyi', last: 'Zhou', period: 'P1', email: 'lezhou4@s.sfusd.edu', alias: true },
-  // ── Period 2 ──
-  'seajanelramos': { name: 'Selina', last: 'Ajanel Ramos', period: 'P2', email: 'seajanelramos@s.sfusd.edu' },
-  'seajanelramos@s.sfusd.edu': { name: 'Selina', last: 'Ajanel Ramos', period: 'P2', email: 'seajanelramos@s.sfusd.edu', alias: true },
-  'maajucum': { name: 'Maria', last: 'Ajucum Gonzalez', period: 'P2', email: 'maajucum@s.sfusd.edu' },
-  'maajucum@s.sfusd.edu': { name: 'Maria', last: 'Ajucum Gonzalez', period: 'P2', email: 'maajucum@s.sfusd.edu', alias: true },
-  'shalhetar1': { name: 'Shehab', last: 'Alhetar', period: 'P2', email: 'shalhetar1@s.sfusd.edu' },
-  'shalhetar1@s.sfusd.edu': { name: 'Shehab', last: 'Alhetar', period: 'P2', email: 'shalhetar1@s.sfusd.edu', alias: true },
-  'cacamaracanul': { name: 'Carlos', last: 'Camara Canul', period: 'P2', email: 'cacamaracanul@s.sfusd.edu' },
-  'cacamaracanul@s.sfusd.edu': { name: 'Carlos', last: 'Camara Canul', period: 'P2', email: 'cacamaracanul@s.sfusd.edu', alias: true },
-  'dacardona1': { name: 'Darvin', last: 'Cardona', period: 'P2', email: 'dacardona1@s.sfusd.edu' },
-  'dacardona1@s.sfusd.edu': { name: 'Darvin', last: 'Cardona', period: 'P2', email: 'dacardona1@s.sfusd.edu', alias: true },
-  'mecastilloolivare': { name: 'Melanie', last: 'Castillo Olivarez', period: 'P2', email: 'mecastilloolivare@s.sfusd.edu' },
-  'mecastilloolivare@s.sfusd.edu': { name: 'Melanie', last: 'Castillo Olivarez', period: 'P2', email: 'mecastilloolivare@s.sfusd.edu', alias: true },
-  'jichen56': { name: 'Jianyu', last: 'Chen', period: 'P2', email: 'jichen56@s.sfusd.edu' },
-  'jichen56@s.sfusd.edu': { name: 'Jianyu', last: 'Chen', period: 'P2', email: 'jichen56@s.sfusd.edu', alias: true },
-  'xichen48': { name: 'Xiaoqing', last: 'Chen', period: 'P2', email: 'xichen48@s.sfusd.edu' },
-  'xichen48@s.sfusd.edu': { name: 'Xiaoqing', last: 'Chen', period: 'P2', email: 'xichen48@s.sfusd.edu', alias: true },
-  'yuhan': { name: 'Yuxuan', last: 'Han', period: 'P2', email: 'yuhan@s.sfusd.edu' },
-  'yuhan@s.sfusd.edu': { name: 'Yuxuan', last: 'Han', period: 'P2', email: 'yuhan@s.sfusd.edu', alias: true },
-  'wahuang': { name: 'Wanyi', last: 'Huang', period: 'P2', email: 'wahuang@s.sfusd.edu' },
-  'wahuang@s.sfusd.edu': { name: 'Wanyi', last: 'Huang', period: 'P2', email: 'wahuang@s.sfusd.edu', alias: true },
-  'zhhuang12': { name: 'Zhilin', last: 'Huang', period: 'P2', email: 'zhhuang12@s.sfusd.edu' },
-  'zhhuang12@s.sfusd.edu': { name: 'Zhilin', last: 'Huang', period: 'P2', email: 'zhhuang12@s.sfusd.edu', alias: true },
-  'eskorotkevich': { name: 'Eseniia', last: 'Korotkevich', period: 'P2', email: 'eskorotkevich@s.sfusd.edu' },
-  'eskorotkevich@s.sfusd.edu': { name: 'Eseniia', last: 'Korotkevich', period: 'P2', email: 'eskorotkevich@s.sfusd.edu', alias: true },
-  'yolealcontreras': { name: 'Yoimar', last: 'Leal Contreras', period: 'P2', email: 'yolealcontreras@s.sfusd.edu' },
-  'yolealcontreras@s.sfusd.edu': { name: 'Yoimar', last: 'Leal Contreras', period: 'P2', email: 'yolealcontreras@s.sfusd.edu', alias: true },
-  'yaliang3': { name: 'Ya Rou', last: 'Liang', period: 'P2', email: 'yaliang3@s.sfusd.edu' },
-  'yaliang3@s.sfusd.edu': { name: 'Ya Rou', last: 'Liang', period: 'P2', email: 'yaliang3@s.sfusd.edu', alias: true },
-  'momashrah': { name: 'Mohamed', last: 'Mashrah', period: 'P2', email: 'momashrah@s.sfusd.edu' },
-  'momashrah@s.sfusd.edu': { name: 'Mohamed', last: 'Mashrah', period: 'P2', email: 'momashrah@s.sfusd.edu', alias: true },
-  'crmayenperez': { name: 'Cristin', last: 'Mayen Perez', period: 'P2', email: 'crmayenperez@s.sfusd.edu' },
-  'crmayenperez@s.sfusd.edu': { name: 'Cristin', last: 'Mayen Perez', period: 'P2', email: 'crmayenperez@s.sfusd.edu', alias: true },
-  'demontescorro': { name: 'Delinyer', last: 'Montes Corro', period: 'P2', email: 'demontescorro@s.sfusd.edu' },
-  'demontescorro@s.sfusd.edu': { name: 'Delinyer', last: 'Montes Corro', period: 'P2', email: 'demontescorro@s.sfusd.edu', alias: true },
-  'kemontes1': { name: 'Kendervin', last: 'Montes Gutierrez', period: 'P2', email: 'kemontes1@s.sfusd.edu' },
-  'kemontes1@s.sfusd.edu': { name: 'Kendervin', last: 'Montes Gutierrez', period: 'P2', email: 'kemontes1@s.sfusd.edu', alias: true },
-  'jamuharram1': { name: 'Jawas', last: 'Muharram', period: 'P2', email: 'jamuharram1@s.sfusd.edu' },
-  'jamuharram1@s.sfusd.edu': { name: 'Jawas', last: 'Muharram', period: 'P2', email: 'jamuharram1@s.sfusd.edu', alias: true },
-  'mamuharram': { name: 'Mansoor', last: 'Muharram', period: 'P2', email: 'mamuharram@s.sfusd.edu' },
-  'mamuharram@s.sfusd.edu': { name: 'Mansoor', last: 'Muharram', period: 'P2', email: 'mamuharram@s.sfusd.edu', alias: true },
-  'momuharram': { name: 'Mohamed', last: 'Muharram', period: 'P2', email: 'momuharram@s.sfusd.edu' },
-  'momuharram@s.sfusd.edu': { name: 'Mohamed', last: 'Muharram', period: 'P2', email: 'momuharram@s.sfusd.edu', alias: true },
-  'yorondonmendez': { name: 'Josieli', last: 'Rondon Mendez', period: 'P2', email: 'yorondonmendez@s.sfusd.edu' },
-  'yorondonmendez@s.sfusd.edu': { name: 'Josieli', last: 'Rondon Mendez', period: 'P2', email: 'yorondonmendez@s.sfusd.edu', alias: true },
-  'jerosalesportillo': { name: 'Jerenessy', last: 'Rosales Portillo', period: 'P2', email: 'jerosalesportillo@s.sfusd.edu' },
-  'jerosalesportillo@s.sfusd.edu': { name: 'Jerenessy', last: 'Rosales Portillo', period: 'P2', email: 'jerosalesportillo@s.sfusd.edu', alias: true },
-  'asruizpoot': { name: 'Ashli', last: 'Ruiz Poot', period: 'P2', email: 'asruizpoot@s.sfusd.edu' },
-  'asruizpoot@s.sfusd.edu': { name: 'Ashli', last: 'Ruiz Poot', period: 'P2', email: 'asruizpoot@s.sfusd.edu', alias: true },
-  'emtorresgodinez': { name: 'Emiliano', last: 'Torres Godinez', period: 'P2', email: 'emtorresgodinez@s.sfusd.edu' },
-  'emtorresgodinez@s.sfusd.edu': { name: 'Emiliano', last: 'Torres Godinez', period: 'P2', email: 'emtorresgodinez@s.sfusd.edu', alias: true },
-  'ziwang6': { name: 'Zini', last: 'Wang', period: 'P2', email: 'ziwang6@s.sfusd.edu' },
-  'ziwang6@s.sfusd.edu': { name: 'Zini', last: 'Wang', period: 'P2', email: 'ziwang6@s.sfusd.edu', alias: true },
-  'tixu6': { name: 'Tianli', last: 'Xu', period: 'P2', email: 'tixu6@s.sfusd.edu' },
-  'tixu6@s.sfusd.edu': { name: 'Tianli', last: 'Xu', period: 'P2', email: 'tixu6@s.sfusd.edu', alias: true },
-  'deyocvelasquez': { name: 'Derbyn', last: 'Yoc Velasquez', period: 'P2', email: 'deyocvelasquez@s.sfusd.edu' },
-  'deyocvelasquez@s.sfusd.edu': { name: 'Derbyn', last: 'Yoc Velasquez', period: 'P2', email: 'deyocvelasquez@s.sfusd.edu', alias: true },
-  // ── Period 3 ──
-  'hachen37': { name: 'Hailin', last: 'Chen', period: 'P3', email: 'hachen37@s.sfusd.edu' },
-  'hachen37@s.sfusd.edu': { name: 'Hailin', last: 'Chen', period: 'P3', email: 'hachen37@s.sfusd.edu', alias: true },
-  'hochen7': { name: 'Hongyu', last: 'Chen', period: 'P3', email: 'hochen7@s.sfusd.edu' },
-  'hochen7@s.sfusd.edu': { name: 'Hongyu', last: 'Chen', period: 'P3', email: 'hochen7@s.sfusd.edu', alias: true },
-  'usghani': { name: 'Usman', last: 'Ghani', period: 'P3', email: 'usghani@s.sfusd.edu' },
-  'usghani@s.sfusd.edu': { name: 'Usman', last: 'Ghani', period: 'P3', email: 'usghani@s.sfusd.edu', alias: true },
-  'wejiang5': { name: 'Wenfeng', last: 'Jiang', period: 'P3', email: 'wejiang5@s.sfusd.edu' },
-  'wejiang5@s.sfusd.edu': { name: 'Wenfeng', last: 'Jiang', period: 'P3', email: 'wejiang5@s.sfusd.edu', alias: true },
-  'yolei1': { name: 'Yongyin', last: 'Lei', period: 'P3', email: 'yolei1@s.sfusd.edu' },
-  'yolei1@s.sfusd.edu': { name: 'Yongyin', last: 'Lei', period: 'P3', email: 'yolei1@s.sfusd.edu', alias: true },
-  'keliang17': { name: 'Kezhen', last: 'Liang', period: 'P3', email: 'keliang17@s.sfusd.edu' },
-  'keliang17@s.sfusd.edu': { name: 'Kezhen', last: 'Liang', period: 'P3', email: 'keliang17@s.sfusd.edu', alias: true },
-  'yomana': { name: 'Yousef', last: 'Mana', period: 'P3', email: 'yomana@s.sfusd.edu' },
-  'yomana@s.sfusd.edu': { name: 'Yousef', last: 'Mana', period: 'P3', email: 'yomana@s.sfusd.edu', alias: true },
-  'somejiaflores': { name: 'Sofia', last: 'Mejia Flores', period: 'P3', email: 'somejiaflores@s.sfusd.edu' },
-  'somejiaflores@s.sfusd.edu': { name: 'Sofia', last: 'Mejia Flores', period: 'P3', email: 'somejiaflores@s.sfusd.edu', alias: true },
-  'damejiareyes': { name: 'Daniel', last: 'Mejia Reyes', period: 'P3', email: 'damejiareyes@s.sfusd.edu' },
-  'damejiareyes@s.sfusd.edu': { name: 'Daniel', last: 'Mejia Reyes', period: 'P3', email: 'damejiareyes@s.sfusd.edu', alias: true },
-  'jesulubdominguez': { name: 'Jesus', last: 'Sulub Dominguez', period: 'P3', email: 'jesulubdominguez@s.sfusd.edu' },
-  'jesulubdominguez@s.sfusd.edu': { name: 'Jesus', last: 'Sulub Dominguez', period: 'P3', email: 'jesulubdominguez@s.sfusd.edu', alias: true },
-  'ketehherrera': { name: 'Keyla', last: 'Teh Herrera', period: 'P3', email: 'ketehherrera@s.sfusd.edu' },
-  'ketehherrera@s.sfusd.edu': { name: 'Keyla', last: 'Teh Herrera', period: 'P3', email: 'ketehherrera@s.sfusd.edu', alias: true },
-  'wewang4': { name: 'Wenbin', last: 'Wang', period: 'P3', email: 'wewang4@s.sfusd.edu' },
-  'wewang4@s.sfusd.edu': { name: 'Wenbin', last: 'Wang', period: 'P3', email: 'wewang4@s.sfusd.edu', alias: true },
-  'jhyahcaamal': { name: 'Jhoana', last: 'Yah Caamal', period: 'P3', email: 'jhyahcaamal@s.sfusd.edu' },
-  'jhyahcaamal@s.sfusd.edu': { name: 'Jhoana', last: 'Yah Caamal', period: 'P3', email: 'jhyahcaamal@s.sfusd.edu', alias: true },
-  'ziyang4': { name: 'Zipeng', last: 'Yang', period: 'P3', email: 'ziyang4@s.sfusd.edu' },
-  'ziyang4@s.sfusd.edu': { name: 'Zipeng', last: 'Yang', period: 'P3', email: 'ziyang4@s.sfusd.edu', alias: true },
-  'yezhang4': { name: 'Yelang', last: 'Zhang', period: 'P3', email: 'yezhang4@s.sfusd.edu' },
-  'yezhang4@s.sfusd.edu': { name: 'Yelang', last: 'Zhang', period: 'P3', email: 'yezhang4@s.sfusd.edu', alias: true },
-  // ── Period 5 ──
-  'mabamacamejia1': { name: 'Maribella', last: 'Bamaca Mejia', period: 'P5', email: 'mabamacamejia1@s.sfusd.edu' },
-  'mabamacamejia1@s.sfusd.edu': { name: 'Maribella', last: 'Bamaca Mejia', period: 'P5', email: 'mabamacamejia1@s.sfusd.edu', alias: true },
-  'elcabdeleon1': { name: 'Elias', last: 'Cab Deleon', period: 'P5', email: 'elcabdeleon1@s.sfusd.edu' },
-  'elcabdeleon1@s.sfusd.edu': { name: 'Elias', last: 'Cab Deleon', period: 'P5', email: 'elcabdeleon1@s.sfusd.edu', alias: true },
-  'zicai4': { name: 'Zimin', last: 'Cai', period: 'P5', email: 'zicai4@s.sfusd.edu' },
-  'zicai4@s.sfusd.edu': { name: 'Zimin', last: 'Cai', period: 'P5', email: 'zicai4@s.sfusd.edu', alias: true },
-  'rocancharilindo': { name: 'Rous', last: 'Canchari Lindo', period: 'P5', email: 'rocancharilindo@s.sfusd.edu' },
-  'rocancharilindo@s.sfusd.edu': { name: 'Rous', last: 'Canchari Lindo', period: 'P5', email: 'rocancharilindo@s.sfusd.edu', alias: true },
-  'digil': { name: 'Diego', last: 'Gil', period: 'P5', email: 'digil@s.sfusd.edu' },
-  'digil@s.sfusd.edu': { name: 'Diego', last: 'Gil', period: 'P5', email: 'digil@s.sfusd.edu', alias: true },
-  'rujiang1': { name: 'Rujian', last: 'Jiang', period: 'P5', email: 'rujiang1@s.sfusd.edu' },
-  'rujiang1@s.sfusd.edu': { name: 'Rujian', last: 'Jiang', period: 'P5', email: 'rujiang1@s.sfusd.edu', alias: true },
-  'huli9': { name: 'Huanheng', last: 'Li', period: 'P5', email: 'huli9@s.sfusd.edu' },
-  'huli9@s.sfusd.edu': { name: 'Huanheng', last: 'Li', period: 'P5', email: 'huli9@s.sfusd.edu', alias: true },
-  'mopun': { name: 'Mohan', last: 'Pun', period: 'P5', email: 'mopun@s.sfusd.edu' },
-  'mopun@s.sfusd.edu': { name: 'Mohan', last: 'Pun', period: 'P5', email: 'mopun@s.sfusd.edu', alias: true },
-  'omsaid': { name: 'Omar', last: 'Said', period: 'P5', email: 'omsaid@s.sfusd.edu' },
-  'omsaid@s.sfusd.edu': { name: 'Omar', last: 'Said', period: 'P5', email: 'omsaid@s.sfusd.edu', alias: true },
-  'datzeksalazar': { name: 'Darien', last: 'Tzek Salazar', period: 'P5', email: 'datzeksalazar@s.sfusd.edu' },
-  'datzeksalazar@s.sfusd.edu': { name: 'Darien', last: 'Tzek Salazar', period: 'P5', email: 'datzeksalazar@s.sfusd.edu', alias: true },
-  // ── Period 6 ──
-  'abali5': { name: 'Abdulmalik', last: 'Ali', period: 'P6', email: 'abali5@s.sfusd.edu' },
-  'abali5@s.sfusd.edu': { name: 'Abdulmalik', last: 'Ali', period: 'P6', email: 'abali5@s.sfusd.edu', alias: true },
-  'huchen9': { name: 'Huilin', last: 'Chen', period: 'P6', email: 'huchen9@s.sfusd.edu' },
-  'huchen9@s.sfusd.edu': { name: 'Huilin', last: 'Chen', period: 'P6', email: 'huchen9@s.sfusd.edu', alias: true },
-  'judantoridelacruz': { name: 'Juan', last: 'Dantori De La Cruz', period: 'P6', email: 'judantoridelacruz@s.sfusd.edu' },
-  'judantoridelacruz@s.sfusd.edu': { name: 'Juan', last: 'Dantori De La Cruz', period: 'P6', email: 'judantoridelacruz@s.sfusd.edu', alias: true },
-  'bofeng1': { name: 'Bojian', last: 'Feng', period: 'P6', email: 'bofeng1@s.sfusd.edu' },
-  'bofeng1@s.sfusd.edu': { name: 'Bojian', last: 'Feng', period: 'P6', email: 'bofeng1@s.sfusd.edu', alias: true },
-  'aagonzagaromero': { name: 'Aaron', last: 'Gonzaga Romero', period: 'P6', email: 'aagonzagaromero@s.sfusd.edu' },
-  'aagonzagaromero@s.sfusd.edu': { name: 'Aaron', last: 'Gonzaga Romero', period: 'P6', email: 'aagonzagaromero@s.sfusd.edu', alias: true },
-  'edguzmancorado': { name: 'Eduardo', last: 'Guzman Corado', period: 'P6', email: 'edguzmancorado@s.sfusd.edu' },
-  'edguzmancorado@s.sfusd.edu': { name: 'Eduardo', last: 'Guzman Corado', period: 'P6', email: 'edguzmancorado@s.sfusd.edu', alias: true },
-  'jili83': { name: 'Jiaqi', last: 'Li', period: 'P6', email: 'jili83@s.sfusd.edu' },
-  'jili83@s.sfusd.edu': { name: 'Jiaqi', last: 'Li', period: 'P6', email: 'jili83@s.sfusd.edu', alias: true },
-  'jiliang20': { name: 'Jianfu', last: 'Liang', period: 'P6', email: 'jiliang20@s.sfusd.edu' },
-  'jiliang20@s.sfusd.edu': { name: 'Jianfu', last: 'Liang', period: 'P6', email: 'jiliang20@s.sfusd.edu', alias: true },
-  'xiliu11': { name: 'Xiaotong', last: 'Liu', period: 'P6', email: 'xiliu11@s.sfusd.edu' },
-  'xiliu11@s.sfusd.edu': { name: 'Xiaotong', last: 'Liu', period: 'P6', email: 'xiliu11@s.sfusd.edu', alias: true },
-  'yimai': { name: 'Yinglan', last: 'Mai', period: 'P6', email: 'yimai@s.sfusd.edu' },
-  'yimai@s.sfusd.edu': { name: 'Yinglan', last: 'Mai', period: 'P6', email: 'yimai@s.sfusd.edu', alias: true },
-  'krsolvalmendez': { name: 'Kristhel', last: 'Solval Mendez', period: 'P6', email: 'krsolvalmendez@s.sfusd.edu' },
-  'krsolvalmendez@s.sfusd.edu': { name: 'Kristhel', last: 'Solval Mendez', period: 'P6', email: 'krsolvalmendez@s.sfusd.edu', alias: true },
-  'jatang15': { name: 'Jasmine', last: 'Tang', period: 'P6', email: 'jatang15@s.sfusd.edu' },
-  'jatang15@s.sfusd.edu': { name: 'Jasmine', last: 'Tang', period: 'P6', email: 'jatang15@s.sfusd.edu', alias: true },
-  'asvicentemartinez': { name: 'Ashlin', last: 'Vicente Martinez', period: 'P6', email: 'asvicentemartinez@s.sfusd.edu' },
-  'asvicentemartinez@s.sfusd.edu': { name: 'Ashlin', last: 'Vicente Martinez', period: 'P6', email: 'asvicentemartinez@s.sfusd.edu', alias: true },
-  'yizhang15': { name: 'Yirui', last: 'Zhang', period: 'P6', email: 'yizhang15@s.sfusd.edu' },
-  'yizhang15@s.sfusd.edu': { name: 'Yirui', last: 'Zhang', period: 'P6', email: 'yizhang15@s.sfusd.edu', alias: true },
-  'bozhu': { name: 'Bowei', last: 'Zhu', period: 'P6', email: 'bozhu@s.sfusd.edu' },
-  'bozhu@s.sfusd.edu': { name: 'Bowei', last: 'Zhu', period: 'P6', email: 'bozhu@s.sfusd.edu', alias: true },
-};
+
 
 /* ════════ PRACTICE SETS ════════ */
 const DEFAULT_ASSIGNMENTS = [
@@ -1216,7 +1019,7 @@ async function loadMastery(){
 async function saveMastery(words){
   if(SESSION.isGuest || !words.length) return;
   const payload = words.map(w=>({
-    username:SESSION.username, student_name:SESSION.name, period:SESSION.period,
+    username:SESSION.username, email:SESSION.email, student_name:SESSION.name, period:SESSION.period,
     word:w, unit:(WORD_INDEX[w]||{}).unit||null, lesson:(WORD_INDEX[w]||{}).lesson||null,
     attempts:WORD_STATS[w].a, correct:WORD_STATS[w].c,
     updated_at:new Date().toISOString()
@@ -1238,10 +1041,7 @@ async function loadSettings(){
 
 
 /* ════════ BILINGUAL CONTROL ════════ */
-function langAvailable(){
-  const m = LANGMAP[SESSION.lang];
-  return !!(m && UI[m.ui]);
-}
+function langAvailable(){ return !!UI[SESSION.lang]; }
 function applyL1(){
   document.body.classList.toggle('l1-off', !L1_ON);
   const btn = document.getElementById('tb-l1');
@@ -1289,7 +1089,7 @@ function answerBiPrompt(keep){
 function paintStatic(){
   const set = (id,k)=>{ const e=document.getElementById(id); if(e) e.innerHTML = bi(k); };
   set('lb-period','period'); set('lb-name','name'); set('lb-user','user'); set('lb-lang','lang');
-  const lg = document.getElementById('btn-login'); if(lg) lg.textContent = t('start');
+  const lg = document.getElementById('gBtn'); if(lg) lg.textContent = t('start');
   const sub = document.getElementById('home-sub-en'); if(sub) sub.textContent = t('pick');
   const subl = document.getElementById('home-sub-l1');
   if(subl){ subl.textContent = tl1('pick'); subl.dir = isRTL()?'rtl':'ltr'; }
@@ -1307,49 +1107,47 @@ function paintStatic(){
 
 /* ════════ LOGIN ════════ */
 function previewLang(){
-  SESSION.lang = document.getElementById('inp-lang').value;
+  SESSION.lang = document.getElementById('langSel').value;
   L1_ON = (CFG.bilingual_mode !== 'off');
   paintStatic();
 }
 function showErr(msg){
-  const e = document.getElementById('login-err');
+  var e = document.getElementById('login-err');
   e.innerHTML = msg; e.classList.add('show');
-  const b = document.getElementById('btn-login');
+  var b = document.getElementById('gBtn');
   b.textContent = t('start'); b.disabled = false;
 }
 async function attemptLogin(){
-  const btn = document.getElementById('btn-login');
-  const period = document.getElementById('inp-period').value;
-  const name   = document.getElementById('inp-name').value.trim();
-  const user   = document.getElementById('inp-username').value.trim().toLowerCase();
-  const lang   = document.getElementById('inp-lang').value;
-
-  if(user === 'teacher'){ window.location.href = DASHBOARD_URL; return; }
+  var btn    = document.getElementById('gBtn');
+  var name   = document.getElementById('gName').value.trim();
+  var rawMail= document.getElementById('gEmail').value.trim().toLowerCase();
+  var period = document.getElementById('gPeriod').value;
+  var lang   = document.getElementById('langSel').value;
   SESSION.lang = lang;
 
-  if(!period) return showErr(bi('ePeriod'));
-  if(!name)   return showErr(bi('eName'));
-  if(!user)   return showErr(bi('eUser'));
-  if(!lang)   return showErr(bi('eLang'));
+  if(name.length < 2) return showErr(bi('eName'));
+  if(!validMail(rawMail)) return showErr(bi('eEmail'));
+  if(!period)            return showErr(bi('ePeriod'));
+  if(!lang)              return showErr(bi('eLang'));
 
-  const norm = user.replace(/@s\.sfusd\.edu$/,'').trim();
-  const rec = ROSTER[norm] || ROSTER[norm+'@s.sfusd.edu'];
-  if(!rec && norm !== 'other') return showErr(bi('eNotFound'));
+  var email = canonMail(rawMail);
+  recordAlias(rawMail, email);
+  seedStudent(name, email, period);
+  try{ localStorage.setItem('gal_student_email', email); }catch(e){}
 
-  btn.textContent = '…'; btn.disabled = true;
+  btn.textContent = '\u2026'; btn.disabled = true;
   document.getElementById('login-err').classList.remove('show');
 
-  SESSION.username = norm;
+  SESSION.email = email;
+  SESSION.username = localPart(email);   // keeps existing ll_practice_scores rows addressable
   SESSION.name = name;
   SESSION.period = period;
-  SESSION.isGuest = (norm === 'other');
+  SESSION.isGuest = false;
+  window.student = { name:name, email:email, period:period };
 
   await loadSettings();
   L1_ON = CFG.bilingual_mode === 'off' ? false : true;
-
-  if(!SESSION.isGuest){
-    await Promise.all([loadScores(), loadMastery()]);
-  }
+  await Promise.all([loadScores(), loadMastery()]);
   applyL1();
   showScreen('home');
   drawHome();
@@ -1380,7 +1178,7 @@ function paintPoints(){
 /* ════════ HOME ════════ */
 function drawHome(){
   document.getElementById('tb-name').textContent = SESSION.name;
-  document.getElementById('tb-meta').textContent = `${SESSION.period} · ${SESSION.lang}`;
+  document.getElementById('tb-meta').textContent = 'Period ' + SESSION.period;
   document.getElementById('home-hi').textContent = `Hi, ${SESSION.name}`;
   paintPoints(); drawSets(); drawPanel();
 }
@@ -1477,10 +1275,7 @@ function closePanel(){
 /* ════════ QUESTIONS ════════ */
 function shuffle(a){ for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; }
 function distractors(w, pool, n){ return shuffle(pool.filter(x=>x.word!==w.word)).slice(0,n); }
-function wordTr(w){
-  const m = LANGMAP[SESSION.lang];
-  return (m && w.tr && w.tr[m.tr]) ? w.tr[m.tr] : '';
-}
+function wordTr(w){ return (w.tr && w.tr[SESSION.lang]) ? w.tr[SESSION.lang] : ''; }
 function esc(s){ return String(s).replace(/'/g,"\\'").replace(/"/g,'&quot;'); }
 
 function startSet(id){
@@ -1510,13 +1305,13 @@ function viewMC(q){
   const w = q.word, tr = wordTr(w);
   const opts = shuffle([w, ...distractors(w,q.pool,3)]);
   return `
-  <div class="on-bg"><div class="q-prompt">${bi('chooseMeaning')}</div></div>
-  <div class="q-card">
+  <div class="on-bg"><div class="q-prompt" data-dir="mc" data-en="Choose the correct meaning.">${bi('chooseMeaning')}</div></div>
+  <div class="q-card" translate="no" data-tap="1">
     <div class="q-emoji">${w.emoji||'📘'}</div>
     <div class="q-word">${w.word}</div>
     ${tr?`<div class="q-tr" dir="${isRTL()?'rtl':'ltr'}">${tr}</div>`:''}
   </div>
-  <div class="opts">
+  <div class="opts" translate="no" data-tap="1">
     ${opts.map(o=>`<button class="opt" data-ok="${o.word===w.word}"
       onclick="answerMC(this,${o.word===w.word})">${o.def}</button>`).join('')}
   </div>`;
@@ -1528,15 +1323,15 @@ function viewTF(q){
   const shown = isTrue ? w.def : other.def;
   const tr = wordTr(w);
   return `
-  <div class="on-bg"><div class="q-prompt">${bi('trueFalse')}</div></div>
-  <div class="q-card">
+  <div class="on-bg"><div class="q-prompt" data-dir="tf" data-en="Is this true or false?">${bi('trueFalse')}</div></div>
+  <div class="q-card" translate="no" data-tap="1">
     <div class="q-emoji">${w.emoji||'📘'}</div>
     <div class="q-word">${w.word}</div>
     ${tr?`<div class="q-tr" dir="${isRTL()?'rtl':'ltr'}">${tr}</div>`:''}
     <div style="height:16px"></div>
     <div class="q-def">“${shown}”</div>
   </div>
-  <div class="opts tf">
+  <div class="opts tf" translate="no" data-tap="1">
     <button class="opt" onclick="answerTF(this,${isTrue},true)">👍 ${t('tTrue')}</button>
     <button class="opt" onclick="answerTF(this,${isTrue},false)">👎 ${t('tFalse')}</button>
   </div>`;
@@ -1549,11 +1344,11 @@ function viewFIB(q){
   if(!sent.includes('___')) sent = def + ' This is called ___.';
   const bank = shuffle([w.word, ...distractors(w,q.pool,3).map(d=>d.word)]);
   return `
-  <div class="on-bg"><div class="q-prompt">${bi('tapWord')}</div></div>
-  <div class="q-card">
+  <div class="on-bg"><div class="q-prompt" data-dir="fib" data-en="Tap the word that fits.">${bi('tapWord')}</div></div>
+  <div class="q-card" translate="no" data-tap="1">
     <div class="fib-line">${sent.replace('___','<span class="fib-slot" id="slot">?</span>')}</div>
   </div>
-  <div class="chips">
+  <div class="chips" translate="no" data-tap="1">
     ${bank.map(b=>`<button class="chip" onclick="answerFIB(this,'${esc(b)}','${esc(w.word)}')">${b}</button>`).join('')}
   </div>`;
 }
@@ -1630,7 +1425,7 @@ async function finishSet(){
     const prev = SET_SCORES[CURRENT.id];
     if(!prev || pct >= (prev.pct||0)){
       const row = {
-        username:SESSION.username, student_name:SESSION.name, period:SESSION.period,
+        username:SESSION.username, email:SESSION.email, student_name:SESSION.name, period:SESSION.period,
         assignment_id:CURRENT.id, assignment_title:CURRENT.title,
         score:correct, total, pct, completed:true, lang:SESSION.lang,
         updated_at:new Date().toISOString(),
@@ -1673,12 +1468,12 @@ function drawScore(correct,total,pct){
     <div class="gained">⭐ +${correct}</div>
   </div>
   ${missed.length?`
-  <div class="rev">
+  <div class="rev" translate="no" data-tap="1">
     <h3>${bi('reviewThese')}</h3>
     <div class="rev-grid">${missed.map(w=>`<span class="rev-w no">${w}</span>`).join('')}</div>
   </div>`:''}
   ${got.length?`
-  <div class="rev">
+  <div class="rev" translate="no" data-tap="1">
     <div class="rev-grid">${got.map(w=>`<span class="rev-w ok">${w}</span>`).join('')}</div>
   </div>`:''}
   <div class="stack">
@@ -1705,11 +1500,12 @@ function refreshSettingsModal(){
   const btn = document.getElementById('sm-l1btn');
   const note = document.getElementById('sm-l1note');
   const locked = (CFG.bilingual_mode === 'on' || CFG.bilingual_mode === 'off');
-  btn.textContent = L1_ON ? `${SESSION.lang} + English` : 'English only';
+  const LN = {es:'Espa\u00f1ol',zh:'\u4e2d\u6587',ar:'\u0627\u0644\u0639\u0631\u0628\u064a\u0629',vi:'Ti\u1ebfng Vi\u1ec7t',ru:'\u0420\u0443\u0441\u0441\u043a\u0438\u0439',ur:'\u0627\u0631\u062f\u0648',tl:'Tagalog',fr:'Fran\u00e7ais',ko:'\ud55c\uad6d\uc5b4',hi:'\u0939\u093f\u0928\u094d\u0926\u0940',so:'Soomaali',ne:'\u0928\u0947\u092a\u093e\u0932\u0940',th:'\u0e44\u0e17\u0e22'};
+  btn.textContent = L1_ON ? ((LN[SESSION.lang]||'') + ' + English') : 'English only';
   btn.className = 'p3 ' + (L1_ON ? 'sky' : 'ghost');
   btn.disabled = locked || !langAvailable();
   note.textContent = locked ? 'Your teacher set this.'
-    : !langAvailable() ? `${SESSION.lang} isn't translated yet — English only.`
+    : !langAvailable() ? "That language isn't translated yet — English only." 
     : 'Tap to switch.';
 }
 
@@ -1724,5 +1520,184 @@ paintStatic();
 loadSettings();
 
 </script>
+
+<script>
+/* ==== grafted verbatim from readings/arrival/index.html ==== */
+/* ============ Galileo standard: identity, directions, tap words, canary ============ */
+(function(){
+  /* some pages in this family define SLUG, some do not */
+  var PAGE_SLUG=(typeof SLUG!=='undefined'&&SLUG)?SLUG:'arrival-index';
+  var CANON_DOMAIN='@s.sfusd.edu', ROSTER=[];
+  var PROXY='https://script.google.com/macros/s/AKfycbwbFr3oopIITlxKDhI5wGhEZdomWc3tmB5ZSK6NpBVisPAz-CMA4uKiruXDkCEU3T0Q/exec';
+  function ME_(){ return (typeof student!=='undefined'&&student&&student.email)?student:null; }
+  window.cleanMail=function(x){ return String(x||'').trim().toLowerCase(); };
+  window.localPart=function(e){ return cleanMail(e).split('@')[0]; };
+  window.validMail=function(e){ return /^[^@\s]+@(s\.)?sfusd\.edu$/.test(cleanMail(e)); };
+  window.canonMail=function(raw){
+    var lp=localPart(raw), i;
+    for(i=0;i<ROSTER.length;i++){ if(localPart(ROSTER[i].email)===lp) return cleanMail(ROSTER[i].email); }
+    return lp+CANON_DOMAIN;
+  };
+  function head(pref){
+    var h={'apikey':SUPA_KEY,'Authorization':'Bearer '+SUPA_KEY,'Content-Type':'application/json'};
+    if(pref) h['Prefer']=pref; return h;
+  }
+  window.recordAlias=function(alias, canon){
+    if(!alias||alias===canon) return;
+    fetch(SUPA_URL+'/rest/v1/student_aliases?on_conflict=alias_email',{
+      method:'POST', headers:head('resolution=merge-duplicates,return=minimal'),
+      body:JSON.stringify([{alias_email:alias, email:canon}])}).catch(function(){});
+  };
+  window.seedStudent=function(name,email,period){
+    fetch(SUPA_URL+'/rest/v1/students?on_conflict=email',{
+      method:'POST', headers:head('resolution=ignore-duplicates,return=minimal'),
+      body:JSON.stringify([{email:email, name:name, period:period}])}).catch(function(){});
+  };
+  fetch(SUPA_URL+'/rest/v1/students?select=name,email,period&order=name',{headers:head()})
+    .then(function(r){ return r.ok?r.json():[]; })
+    .then(function(rows){ ROSTER=rows||[]; }).catch(function(){});
+
+  /* prefill from a sign-in anywhere else on the site */
+  try{
+    var saved=JSON.parse(localStorage.getItem('arrival_student')||'null');
+    if(saved&&saved.email){
+      if(document.getElementById('gName')) document.getElementById('gName').value=saved.name||'';
+      if(document.getElementById('gEmail')) document.getElementById('gEmail').value=saved.email;
+      if(saved.period&&document.getElementById('gPeriod')) document.getElementById('gPeriod').value=String(saved.period);
+    } else {
+      var g=localStorage.getItem('gal_student_email');
+      if(g&&document.getElementById('gEmail')) document.getElementById('gEmail').value=g;
+    }
+  }catch(e){}
+
+  /* ---------- translate through the proxy ---------- */
+  var tcache={};
+  var C2N={es:'Spanish',zh:'Chinese (Simplified)','zh-CN':'Chinese (Simplified)',ar:'Arabic',
+    vi:'Vietnamese',ru:'Russian',ur:'Urdu',tl:'Tagalog',fr:'French',ko:'Korean',hi:'Hindi',
+    so:'Somali',ne:'Nepali',th:'Thai'};
+  function tr(text, code){
+    var lang=(!code||code==='none')?'':(C2N[code]||code);
+    var key=text+'|'+lang;
+    if(tcache[key]) return Promise.resolve(tcache[key]);
+    var url=PROXY+'?action=translate&idiom='+encodeURIComponent(text)+'&meaning=&lang='+encodeURIComponent(lang);
+    return fetch(url).then(function(r){return r.json();}).then(function(d){
+      if(!d||!d.ok||!d.translation) return null;
+      tcache[key]=d.translation; return d.translation;
+    }).catch(function(){return null;});
+  }
+
+  /* ---------- directions in the student's language ---------- */
+  var DIR_ON=false, SENT={};
+  try{ DIR_ON=localStorage.getItem('song_dir')==='1'; }catch(e){}
+  function logReveal(k, lang){
+    if(!ME_()) return;
+    var sig=k+'|'+lang; if(SENT[sig]) return; SENT[sig]=true;
+    fetch(SUPA_URL+'/rest/v1/instruction_reveals',{
+      method:'POST', headers:head('return=minimal'),
+      body:JSON.stringify([{email:ME_().email, set_slug:PAGE_SLUG, activity:k, lang:lang}])}).catch(function(){});
+  }
+  function showDirections(){
+    var lang=document.getElementById('langSel').value;
+    var list=document.querySelectorAll('[data-dir]');
+    Array.prototype.forEach.call(list,function(p){
+      var out=p.querySelector('.dirtr');
+      if(!out){ out=document.createElement('span'); out.className='dirtr'; p.appendChild(out); }
+      if(!DIR_ON||!lang){ out.textContent=''; return; }
+      var k=p.getAttribute('data-dir'), en=p.getAttribute('data-en')||'';
+      out.textContent='…';
+      tr(en, lang).then(function(t){
+        out.textContent=t?(t.equiv||t.meaning||''):'';
+        if(out.textContent) logReveal(k, lang);
+      });
+    });
+  }
+  var dirBtn=document.getElementById('btn-dir');
+  if(dirBtn){
+    dirBtn.classList.toggle('on', DIR_ON);
+    dirBtn.addEventListener('click',function(){
+      DIR_ON=!DIR_ON;
+      try{ localStorage.setItem('song_dir', DIR_ON?'1':'0'); }catch(e){}
+      dirBtn.classList.toggle('on', DIR_ON);
+      showDirections();
+    });
+  }
+  var langSel=document.getElementById('langSel');
+  if(langSel) langSel.addEventListener('change', function(){ if(DIR_ON) showDirections(); });
+  if(DIR_ON) setTimeout(showDirections, 600);
+
+  /* ---------- tap any word ---------- */
+  var TAP_ON=false;
+  try{ TAP_ON=localStorage.getItem('song_tap')==='1'; }catch(e){}
+  function wrapWords(root){
+    if(root.getAttribute('data-wrapped')) return;
+    root.setAttribute('data-wrapped','1');
+    var walker=document.createTreeWalker(root, NodeFilter.SHOW_TEXT, null), nodes=[], n;
+    while((n=walker.nextNode())) if(n.nodeValue.trim()) nodes.push(n);
+    nodes.forEach(function(node){
+      if(node.parentNode.closest('textarea,input,button,select,.wt-tap')) return;
+      var frag=document.createDocumentFragment();
+      node.nodeValue.split(/(\s+)/).forEach(function(piece){
+        if(!piece.trim()){ frag.appendChild(document.createTextNode(piece)); return; }
+        var s=document.createElement('span');
+        s.className='wt-tap'; s.textContent=piece;
+        frag.appendChild(s);
+      });
+      node.parentNode.replaceChild(frag, node);
+    });
+  }
+  function tapTargets(){ return document.querySelectorAll('[data-tap]'); }
+  function setTap(on){
+    TAP_ON=on;
+    try{ localStorage.setItem('song_tap', on?'1':'0'); }catch(e){}
+    document.body.classList.toggle('tap-on', on);
+    var b=document.getElementById('btn-tap');
+    if(b) b.classList.toggle('on', on);
+    if(on) Array.prototype.forEach.call(tapTargets(), wrapWords);
+  }
+  var tapBtn=document.getElementById('btn-tap');
+  if(tapBtn) tapBtn.addEventListener('click', function(){ setTap(!TAP_ON); });
+  document.addEventListener('click', function(ev){
+    if(!TAP_ON) return;
+    var s=ev.target.closest('.wt-tap'); if(!s) return;
+    var lang=document.getElementById('langSel').value;
+    if(!lang){ document.getElementById('langSel').focus(); return; }
+    var word=(s.textContent||'').replace(/[^A-Za-zÀ-ÿ'’-]/g,'');
+    if(!word) return;
+    var old=s.getAttribute('data-shown');
+    if(old){ s.removeAttribute('data-shown'); var t=s.querySelector('.wt-bub'); if(t) t.remove(); return; }
+    var bub=document.createElement('span'); bub.className='wt-bub'; bub.textContent='…';
+    s.appendChild(bub); s.setAttribute('data-shown','1');
+    tr(word, lang).then(function(t){ bub.textContent=t?(t.equiv||t.meaning||'?'):'?'; });
+  });
+  if(TAP_ON) setTimeout(function(){ setTap(true); }, 400);
+
+  /* ---------- quiet browser-translation canary ---------- */
+  var CANARY='the quick brown fox jumps over the lazy dog', TR_SENT='';
+  function detectTranslation(){
+    var c=document.getElementById('canary');
+    var got=c?(c.textContent||'').trim().toLowerCase():'';
+    var cls=document.documentElement.className||'';
+    var drift=(c&&got!==CANARY)?got:'';
+    if(!drift&&!/translated|notranslate-off/.test(cls)) return null;
+    return {observed:drift, html_lang:document.documentElement.lang||'', html_class:cls};
+  }
+  function checkTranslation(){
+    var d=detectTranslation();
+    if(!d||!ME_()) return;
+    var sig=d.observed+'|'+d.html_lang;
+    if(sig===TR_SENT) return;
+    TR_SENT=sig;
+    fetch(SUPA_URL+'/rest/v1/page_translation?on_conflict=email,set_slug',{
+      method:'POST', headers:head('resolution=merge-duplicates,return=minimal'),
+      body:JSON.stringify([{email:ME_().email, set_slug:PAGE_SLUG, translated:true,
+        observed:d.observed, html_lang:d.html_lang, html_class:d.html_class,
+        updated_at:new Date().toISOString()}])}).catch(function(){});
+  }
+  window.checkTranslation=checkTranslation;
+  setInterval(checkTranslation, 20000);
+  setTimeout(checkTranslation, 4000);
+})();
+</script>
+<span id="canary">the quick brown fox jumps over the lazy dog</span>
 </body>
 </html>
