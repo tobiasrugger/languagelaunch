@@ -443,7 +443,6 @@ body.tray-open .fab{display:none!important;}
       <div class="tb-meta" id="tb-meta">—</div>
     </div>
     <button class="tb-btn" id="tb-l1" onclick="toggleL1()" title="Show my language">文</button>
-    <button class="tb-btn" id="btn-dir" title="Show the directions in your language">Dir</button>
     <button class="tb-btn" id="btn-tap" title="Tap any word for its meaning">Tap</button>
     <button class="tb-btn" onclick="openSettings()" title="Settings">⚙</button>
     <div class="tb-pts">⭐ <span id="tb-pts">0</span></div>
@@ -1059,6 +1058,8 @@ function toggleL1(){
   L1_ON = !L1_ON;
   applyL1();
   persistL1();
+  /* keeps instruction_reveals reporting even though the Dir button is gone */
+  if(L1_ON && window.galLogReveal) window.galLogReveal('instructions', SESSION.lang || '');
 }
 async function persistL1(){
   if(SESSION.isGuest || !SCORES_HAVE_L1_COL) return;
@@ -1522,7 +1523,8 @@ loadSettings();
 </script>
 
 <script>
-/* ==== grafted verbatim from readings/arrival/index.html ==== */
+/* ==== grafted from readings/arrival/index.html ==== */
+const SLUG='languagelaunch-practice';  /* without this the shared block logs as 'arrival-index' */
 /* ============ Galileo standard: identity, directions, tap words, canary ============ */
 (function(){
   /* some pages in this family define SLUG, some do not */
@@ -1598,6 +1600,7 @@ loadSettings();
       method:'POST', headers:head('return=minimal'),
       body:JSON.stringify([{email:ME_().email, set_slug:PAGE_SLUG, activity:k, lang:lang}])}).catch(function(){});
   }
+  window.galLogReveal=function(k,lang){ logReveal(k,lang); };
   function showDirections(){
     var lang=document.getElementById('langSel').value;
     var list=document.querySelectorAll('[data-dir]');
@@ -1625,7 +1628,8 @@ loadSettings();
   }
   var langSel=document.getElementById('langSel');
   if(langSel) langSel.addEventListener('change', function(){ if(DIR_ON) showDirections(); });
-  if(DIR_ON) setTimeout(showDirections, 600);
+  /* No separate Directions button here: the 文 toggle drives the
+     hand-written translations and reports through galLogReveal. */
 
   /* ---------- tap any word ---------- */
   var TAP_ON=false;

@@ -213,7 +213,10 @@ const ASSIGNMENTS = [
   {id:'asgn-final',title:'Final Review: All Units',     emoji:'⭐', units:['U1','U2','U3','U4','U5','U6'], questionCount:30},
 ];
 
-const PERIODS = ['All','P1','P2','P3','P5','P6'];
+const PERIODS = ['All','1','2','3','4','5','6','7'];
+/* Older rows store the period as "P3"; pages at the Galileo standard store "3".
+   Compare and display them in one normalised form so neither is filtered out. */
+function normPeriod(p){ return String(p==null?'':p).trim().replace(/^P/i,''); }
 
 /* ════════════════════════════════════════════
    STATE
@@ -311,7 +314,7 @@ function renderOverview() {
   });
 
   const students = Object.entries(studentMap)
-    .filter(([u, s]) => CURRENT_PERIOD === 'All' || s.period === CURRENT_PERIOD)
+    .filter(([u, s]) => CURRENT_PERIOD === 'All' || normPeriod(s.period) === normPeriod(CURRENT_PERIOD))
     .sort((a,b) => a[1].name.localeCompare(b[1].name));
 
   // Stats
@@ -330,7 +333,7 @@ function renderOverview() {
     </div>`;
 
   const periodBtns = PERIODS.map(p =>
-    `<button class="pf-btn ${CURRENT_PERIOD===p?'active':''}" onclick="filterPeriod('${p}')">${p}</button>`
+    `<button class="pf-btn ${CURRENT_PERIOD===p?'active':''}" onclick="filterPeriod('${p}')">${p==='All'?'All':'P'+p}</button>`
   ).join('');
 
   // Table headers
@@ -353,7 +356,7 @@ function renderOverview() {
         return `<tr>
           <td>
             <div class="student-name" style="cursor:pointer;color:var(--blue)" onclick="openStudentDetail('${username}')">${s.name}</div>
-            <div class="student-period">${username} · ${s.period || '—'}</div>
+            <div class="student-period">${username} · ${normPeriod(s.period) ? 'Period '+normPeriod(s.period) : '—'}</div>
           </td>
           ${cells}
         </tr>`;
@@ -450,7 +453,7 @@ function renderStudentDetail(username) {
     <div class="detail-header">
       <div>
         <div class="detail-name">${s.student_name}</div>
-        <div class="detail-meta">${username} · ${s.period || '—'} · Language: ${s.lang || '—'}</div>
+        <div class="detail-meta">${username} · ${normPeriod(s.period) ? 'Period '+normPeriod(s.period) : '—'} · Language: ${s.lang || '—'}</div>
       </div>
       <div>
         <div class="pct-pill ${overallPct>=80?'high':overallPct>=60?'mid':'low'}" style="font-size:.9rem;padding:5px 14px;">
