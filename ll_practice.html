@@ -1549,8 +1549,10 @@ loadSettings();
       body:JSON.stringify([{alias_email:alias, email:canon}])}).catch(function(){});
   };
   window.seedStudent=function(name,email,period){
+    /* merge, not ignore: a returning student's name and period get refreshed.
+       The students_signin_guard trigger blocks blanks from overwriting stored data. */
     fetch(SUPA_URL+'/rest/v1/students?on_conflict=email',{
-      method:'POST', headers:head('resolution=ignore-duplicates,return=minimal'),
+      method:'POST', headers:head('resolution=merge-duplicates,return=minimal'),
       body:JSON.stringify([{email:email, name:name, period:period}])}).catch(function(){});
   };
   fetch(SUPA_URL+'/rest/v1/students?select=name,email,period&order=name',{headers:head()})
